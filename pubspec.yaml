@@ -1,14 +1,32 @@
 name: flashcards
 description: A new Flutter project.
+version: 0.0.1
+
+#environment:
+#  sdk: '>=1.24.0 <2.0.0'
 
 dependencies:
+  angular: '^4.0.0'
   flutter:
     sdk: flutter
-  cupertino_icons: ^0.1.0
+#  cupertino_icons: '^0.1.0'
 
 dev_dependencies:
-  flutter_test:
-    sdk: flutter
+#  angular_test: '^1.0.0'
+  browser: '^0.10.0'
+  dart_to_js_script_rewriter: '^1.0.1'
+#  test: '^0.12.0'
+#  flutter_test:
+#    sdk: flutter
 
 flutter:
   uses-material-design: true
+
+transformers:
+- angular:
+    entry_points:
+      - web/main.dart
+#      - test/**_test.dart
+#- test/pub_serve:
+#    $include: test/**_test.dart
+- dart_to_js_script_rewriter
