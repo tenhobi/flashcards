@@ -1,26 +1,20 @@
-name: flashcards
-description: A new Flutter project.
+name: flashcards_angular
 version: 0.0.1
+description: AngularDart view of flashcards.
 
-#environment:
-#  sdk: '>=1.24.0 <2.0.0'
+environment:
+  sdk: '>=1.24.0 <2.0.0'
 
 dependencies:
   angular: '^4.0.0'
-  flutter:
-    sdk: flutter
-#  cupertino_icons: '^0.1.0'
+  flashcards_logic:
+    path: ../logic
 
 dev_dependencies:
-#  angular_test: '^1.0.0'
+  angular_test: '^1.0.0'
   browser: '^0.10.0'
   dart_to_js_script_rewriter: '^1.0.1'
-#  test: '^0.12.0'
-#  flutter_test:
-#    sdk: flutter
-
-flutter:
-  uses-material-design: true
+  test: '^0.12.0'
 
 transformers:
 - angular:

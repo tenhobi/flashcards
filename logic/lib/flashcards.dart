@@ -1,0 +1,1 @@
+String flashcardsMotto = 'Lorem ipsum dolor sit amet';

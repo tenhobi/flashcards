@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flashcards_logic/flashcards.dart';
 
 void main() => runApp(new MyApp());
 
@@ -57,7 +58,8 @@ class _MyHomePageState extends State<MyHomePage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 new Text(
-                  'Decrease the number by tapping on the green.',
+                  flashcardsMotto
+                  //'Decrease the number by tapping on the green.',
                 ),
                 new Text(
                   'Increase the number by pressing the button',
