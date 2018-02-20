@@ -5,7 +5,7 @@ description: Logic of flashcards.
 environment:
   sdk: '>=1.24.0 <2.0.0'
 
-dependencies:
+#dependencies:
 
 dev_dependencies:
   test: '^0.12.0'
