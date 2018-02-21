@@ -7,7 +7,7 @@ import 'package:angular_test/angular_test.dart';
 import 'package:pageloader/objects.dart';
 import 'package:test/test.dart';
 
-import 'package:flashcards/app_component.dart';
+import 'package:flashcards_angular/app_component.dart';
 
 NgTestFixture<AppComponent> fixture;
 AppPO appPO;
