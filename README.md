@@ -8,7 +8,7 @@ Spotted an error? Something doesn't make sense? You have an excellent idea? Open
 
 ## Getting Started
 
-The project have been written in Dart with AngularDart and Flutter frameworks. This makes project setup very simple, only thing you need is to install:
+The project has been written in Dart with AngularDart and Flutter frameworks. This makes project setup very simple, the only things you need are:
 
 * [Dart SDK & package manager](https://www.dartlang.org/guides/get-started), for language support
 * [Flutter SDK](https://flutter.io/setup), for running the mobile app
