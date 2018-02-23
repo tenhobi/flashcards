@@ -6,5 +6,7 @@ dart:
 
 script:
   - cd logic && dartanalyzer lib/ --fatal-lints --fatal-warnings
+  - cd ..
   - cd angular && dartanalyzer lib/ test/ --fatal-lints --fatal-warnings
+  - cd ..
   - cd flutter && dartanalyzer lib/ test/ --fatal-lints --fatal-warnings
