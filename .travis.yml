@@ -18,10 +18,10 @@ before_script:
   - git clone https://github.com/flutter/flutter.git flutter-repository
 
 script:
-  #- cd logic && pub get && dartanalyzer lib/ --fatal-lints --fatal-warnings
-  #- cd ..
-  #- cd angular && pub get && dartanalyzer lib/ test/ --fatal-lints --fatal-warnings
-  #- cd ..
+  - cd logic && pub get && dartanalyzer lib/ --fatal-lints --fatal-warnings
+  - cd ..
+  - cd angular && pub get && dartanalyzer lib/ test/ --fatal-lints --fatal-warnings
+  - cd ..
   - cd flutter
   - ../flutter-repository/bin/flutter packages get
   - ../flutter-repository/bin/flutter analyze
