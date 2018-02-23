@@ -1,0 +1,10 @@
+language: dart
+
+dart:
+  - stable
+  - dev
+
+script:
+  - cd logic && dartanalyzer lib/ --fatal-lints --fatal-warnings
+  - cd angular && dartanalyzer lib/ test/ --fatal-lints --fatal-warnings
+  - cd flutter && dartanalyzer lib/ test/ --fatal-lints --fatal-warnings

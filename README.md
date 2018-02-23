@@ -1,5 +1,7 @@
 # FlashCards
 
+[![Build Status](https://travis-ci.org/tenhobi/flashcards.svg?branch=master)](https://travis-ci.org/tenhobi/flashcards)
+
 Software team project with a goal to develop a multiplatform (i.e. web & android & iOS) flashcards learning app.
 
 ## Contributing
