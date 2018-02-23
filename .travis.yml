@@ -19,5 +19,5 @@ script:
   - cd ..
   - cd angular && pub get && dartanalyzer lib/ test/ --fatal-lints --fatal-warnings
   - cd ..
-  - git clone git@github.com:flutter/flutter.git
-  - cd flutter && ../flutter/bin/flutter pacages get && ../flutter/bin/flutter analyze
+  - mkdir flutter-repository && git clone git@github.com:flutter/flutter.git flutter-repository
+  - cd flutter && ../flutter-repository/bin/flutter pacages get && ../flutter-repository/bin/flutter analyze
