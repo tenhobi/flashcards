@@ -15,4 +15,4 @@ script:
   # flutter static analysis
   - cd ../flutter && ../flutter-repository/bin/flutter packages get && ../flutter-repository/bin/flutter analyze
   # dart style conventions of the whole project
-  - cd .. && dartfmt --dry-run --set-exit-if-changed -- .
+  - cd .. && dartfmt --dry-run --set-exit-if-changed -- logic/ angular/ flutter/
