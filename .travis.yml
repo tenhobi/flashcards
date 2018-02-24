@@ -8,6 +8,11 @@ before_script:
   - git clone https://github.com/flutter/flutter.git flutter-repository
 
 script:
+  # logic static analysis
   - cd logic && pub get && dartanalyzer lib/ --fatal-lints --fatal-warnings
+  # angular static analysis
   - cd ../angular && pub get && dartanalyzer lib/ test/ --fatal-lints --fatal-warnings
+  # flutter static analysis
   - cd ../flutter && ../flutter-repository/bin/flutter packages get && ../flutter-repository/bin/flutter analyze
+  # dart style conventions of the whole project
+  - cd .. && dartfmt --dry-run --set-exit-if-changed -- .

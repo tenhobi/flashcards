@@ -57,10 +57,9 @@ class _MyHomePageState extends State<MyHomePage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                new Text(
-                  flashcardsMotto
-                  //'Decrease the number by tapping on the green.',
-                ),
+                new Text(flashcardsMotto
+                    //'Decrease the number by tapping on the green.',
+                    ),
                 new Text(
                   'Increase the number by pressing the button',
                 ),

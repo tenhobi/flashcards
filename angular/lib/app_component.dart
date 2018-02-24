@@ -13,5 +13,5 @@ import 'package:flashcards_logic/flashcards.dart';
 )
 class AppComponent {
   String myText = flashcardsMotto;
-  // Nothing here yet. All logic is in TodoListComponent.
+// Nothing here yet. All logic is in TodoListComponent.
 }
