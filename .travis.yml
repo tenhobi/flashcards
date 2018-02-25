@@ -6,20 +6,18 @@ dart:
 
 jobs:
   include:
-    - &test-logic
+    - &test
       before_script:
         - cd logic
         - pub get
       script:
         - dartanalyzer lib test --fatal-warnings
         - dartfmt --dry-run --set-exit-if-changed -- .
-    - test-angular
-      <<: *test-logic
+    - <<: *test
       before_script:
         - cd angular
         - pub get
-    - test-flutter
-      before_script:
+    - before_script:
         - cd flutter
         - git clone https://github.com/flutter/flutter.git flutter-source
         - flutter-source/bin/flutter packages get
