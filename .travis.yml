@@ -11,15 +11,15 @@ jobs:
         - cd logic
         - pub get
       script:
-        - dartanalyzer lib test --fatal-warnings
+        - dartanalyzer lib --fatal-warnings
         - dartfmt --dry-run --set-exit-if-changed -- .
     - <<: *test
       before_script:
         - cd angular
         - pub get
     - before_script:
-        - cd flutter
         - git clone https://github.com/flutter/flutter.git flutter-source
-        - flutter-source/bin/flutter packages get
-        - flutter-source/bin/flutter analyze
+        - cd flutter
+        - ../flutter-source/bin/flutter packages get
+        - ../flutter-source/bin/flutter analyze
         - dartfmt --dry-run --set-exit-if-changed -- .
