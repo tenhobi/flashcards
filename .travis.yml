@@ -16,9 +16,6 @@ jobs:
         - dartanalyzer lib --fatal-warnings
         - dartfmt --dry-run --set-exit-if-changed -- .
     - <<: *test
-      dart:
-        - stable
-        - dev
       before_script:
         - cd angular
         - pub get
