@@ -4,15 +4,24 @@ dart:
   - stable
   - dev
 
-before_script:
-  - git clone https://github.com/flutter/flutter.git flutter-repository
-
-script:
-  # logic static analysis
-  - cd logic && pub get && dartanalyzer lib/ --fatal-lints --fatal-warnings
-  # angular static analysis
-  - cd ../angular && pub get && dartanalyzer lib/ test/ --fatal-lints --fatal-warnings
-  # flutter static analysis
-  - cd ../flutter && ../flutter-repository/bin/flutter packages get && ../flutter-repository/bin/flutter analyze
-  # dart style conventions of the whole project
-  - cd .. && dartfmt --dry-run --set-exit-if-changed -- logic/ angular/ flutter/
+jobs:
+  include:
+    - &test-logic
+      before_script:
+        - cd logic
+        - pub get
+      script:
+        - dartanalyzer lib test --fatal-warnings
+        - dartfmt --dry-run --set-exit-if-changed -- .
+    - test-angular
+      <<: *test-logic
+      before_script:
+        - cd angular
+        - pub get
+    - test-flutter
+      before_script:
+        - cd flutter
+        - git clone https://github.com/flutter/flutter.git flutter-source
+        - flutter-source/bin/flutter packages get
+        - flutter-source/bin/flutter analyze
+        - dartfmt --dry-run --set-exit-if-changed -- .
