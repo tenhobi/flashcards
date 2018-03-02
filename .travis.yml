@@ -4,8 +4,6 @@ dart:
   - stable
   - dev
 
-script: skip
-
 jobs:
   include:
     - &test
@@ -25,3 +23,7 @@ jobs:
         - ../flutter-source/bin/flutter packages get
         - ../flutter-source/bin/flutter analyze
         - dartfmt --dry-run --set-exit-if-changed -- .
+
+cache:
+  directories:
+    - $HOME/.pub-cache
