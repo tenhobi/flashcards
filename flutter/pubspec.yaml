@@ -19,3 +19,8 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  fonts:
+    - family: 'Lobster'
+      fonts:
+        - asset: assets/fonts/lobster-v20-latin-regular.ttf
+          weight: 400
