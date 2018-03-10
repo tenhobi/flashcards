@@ -20,7 +20,7 @@ jobs:
         - cd angular
         - pub get
     - before_script:
-        - git clone https://github.com/flutter/flutter.git flutter-source
+        - git clone -b beta https://github.com/flutter/flutter.git flutter-source
         - cd flutter
         - ../flutter-source/bin/flutter packages get
         - ../flutter-source/bin/flutter analyze
