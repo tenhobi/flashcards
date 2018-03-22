@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flashcards_logic/flashcards.dart';
 
+// These two imports are used just in main, to set things up
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'i18n/FlashcardsDelegate.dart';
+
+// This will be imported everywhere you need localized string
+import 'i18n/FlashcardsStrings.dart';
+
 void main() => runApp(new MyApp());
 
 class MyApp extends StatelessWidget {
@@ -12,6 +19,12 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: new MyHomePage(title: 'flashcards'),
+      localizationsDelegates: [
+        new FlashcardsLocalizationDelegate(),
+        GlobalWidgetsLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+      ],
+      supportedLocales: supportedLocales,
     );
   }
 }
@@ -42,7 +55,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
-        title: new Text(widget.title),
+        title: new Text(FlashcardsStrings.of(context).title()),
       ),
       body: new GestureDetector(
         onTap: _decrementCounter,

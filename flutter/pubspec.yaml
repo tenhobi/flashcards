@@ -9,6 +9,12 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+# Localization
+  flutter_localizations:
+      sdk: flutter
+  intl: "^0.15.4"
+  intl_translation: "^0.16.4"
+
   cupertino_icons: '^0.1.0'
   flashcards_logic:
     path: ../logic
