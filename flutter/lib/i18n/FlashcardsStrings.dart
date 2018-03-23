@@ -4,7 +4,6 @@
 // |         except for adding new templates         |
 // +-------------------------------------------------+
 
-
 import 'dart:async';
 
 import 'package:intl/intl.dart';
@@ -20,8 +19,7 @@ class FlashcardsStrings {
   String getLocale() => _localeName;
 
   static Future<FlashcardsStrings> load(Locale locale) {
-    return initializeMessages(locale.toString())
-        .then((Object _) {
+    return initializeMessages(locale.toString()).then((Object _) {
       return new FlashcardsStrings(locale);
     });
   }
