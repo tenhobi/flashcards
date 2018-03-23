@@ -10,7 +10,7 @@ jobs:
   include:
     - &test
       before_script:
-        - cd logic
+        - cd common
         - pub get
       script:
         - dartanalyzer lib --fatal-warnings
