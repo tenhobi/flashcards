@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flashcards_logic/flashcards.dart';
+import 'package:flashcards_common/flashcards.dart';
 
 // These two imports are used just in main, to set things up
 import 'package:flutter_localizations/flutter_localizations.dart';
