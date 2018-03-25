@@ -1,15 +1,18 @@
 import 'dart:async';
-
+import 'package:meta/meta.dart';
 import 'package:flutter/material.dart';
-import 'package:flashcards_flutter/src/main_screen.dart';
 
 class LandingScreen extends StatefulWidget {
+  final Widget nextScreen;
+
   @override
   State<StatefulWidget> createState() => new _LandingScreenState();
+
+  LandingScreen({@required this.nextScreen});
 }
 
 class _LandingScreenState extends State<LandingScreen>
-    with SingleTickerProviderStateMixin {
+    with SingleTickerProviderStateMixin { // ignore: mixin_inherits_from_not_object
   final Duration duration = new Duration(seconds: 10);
   final int animationDuration = 4;
   final double fontSize = 45.0;
@@ -52,7 +55,7 @@ class _LandingScreenState extends State<LandingScreen>
   @override
   Widget build(BuildContext context) {
     if (mainScreenFlag) {
-      return new MainScreen();
+      return widget.nextScreen;
     }
 
     return new Scaffold(

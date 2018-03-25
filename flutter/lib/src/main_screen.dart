@@ -2,9 +2,6 @@ import 'package:flashcards_flutter/src/custom_drawer.dart';
 import 'package:flutter/material.dart';
 
 class MainScreen extends StatelessWidget {
-  final GlobalKey<ScaffoldState> _mainScreenKey =
-      new GlobalKey<ScaffoldState>();
-
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
