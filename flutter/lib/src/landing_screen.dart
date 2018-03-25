@@ -11,8 +11,8 @@ class LandingScreen extends StatefulWidget {
   LandingScreen({@required this.nextScreen});
 }
 
-class _LandingScreenState extends State<LandingScreen>
-    with SingleTickerProviderStateMixin { // ignore: mixin_inherits_from_not_object
+// ignore: mixin_inherits_from_not_object
+class _LandingScreenState extends State<LandingScreen> with SingleTickerProviderStateMixin {
   final Duration duration = new Duration(seconds: 10);
   final int animationDuration = 4;
   final double fontSize = 45.0;
