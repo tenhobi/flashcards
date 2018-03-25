@@ -20,15 +20,19 @@ class _CoursesListState extends State<CoursesList> with SingleTickerProviderStat
 
   @override
   Widget build(BuildContext context) {
-    // TODO: set up builder to Firebase?
+    // TODO: set up builder to Firebase? For example https://gitter.im/flutter/flutter?at=5ab82792bb1018b37a248570
     return new GridView.count(
       crossAxisCount: 2,
       children: new List.generate(
-          names.length,
-          (int index) => new CourseListItem(
+        names.length,
+        (int index) => new Container(
+              margin: new EdgeInsets.all(8.0),
+              child: new CourseListItem(
                 name: names[index][0],
                 percentage: names[index][1],
-              )),
+              ),
+            ),
+      ),
       padding: new EdgeInsets.all(8.0),
     );
   }

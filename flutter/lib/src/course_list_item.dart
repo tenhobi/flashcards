@@ -9,12 +9,10 @@ class CourseListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new Container(
-        decoration: new BoxDecoration(
-          borderRadius: new BorderRadius.all(new Radius.circular(8.0)),
-          color: Theme.of(context).primaryColor,
-        ),
-        margin: new EdgeInsets.all(8.0),
+    return new ClipRRect(
+      borderRadius: new BorderRadius.circular(8.0),
+      child: new Container(
+        color: Theme.of(context).primaryColor,
         child: new Column(
           children: <Widget>[
             new Expanded(
@@ -30,21 +28,18 @@ class CourseListItem extends StatelessWidget {
               ),
             ),
             new Container(
-              decoration: new BoxDecoration(
-                borderRadius: new BorderRadius.vertical(bottom: new Radius.circular(8.0)),
-              ),
               height: 10.0,
               alignment: Alignment.centerLeft,
               child: new FractionallySizedBox(
                 widthFactor: percentage,
                 child: new Container(
-                  decoration: new BoxDecoration(
-                    color: const Color(0x40000000),
-                  ),
+                  color: const Color(0x40000000),
                 ),
               ),
             ),
           ],
-        ));
+        ),
+      ),
+    );
   }
 }
