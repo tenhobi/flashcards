@@ -22,9 +22,9 @@ class MainScreen extends StatelessWidget {
         ),
         body: new TabBarView(
           children: [
-            new CoursesList(),
-            new CoursesList(),
-            new CoursesList(),
+            new CoursesList(CoursesQueryType.active),
+            new CoursesList(CoursesQueryType.created),
+            new CoursesList(CoursesQueryType.popular),
           ],
         ),
       ),

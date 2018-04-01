@@ -10,7 +10,7 @@ class CourseListBloc {
 
   CourseListBloc(this._api);
 
-  Stream<List<CourseListData>> query(CoursesQueryType type) {
+  Stream<List<CourseData>> query(CoursesQueryType type) {
     return _api.queryCourses(type: type);
   }
 }

@@ -1,31 +1,41 @@
 import 'dart:math';
 
+import 'package:flashcards_flutter/src/firebase_flutter_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flashcards_flutter/src/course_list_item.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flashcards_logic/src/course_list_bloc.dart';
+import 'package:flashcards_logic/src/course_list_data.dart';
+
+export 'package:flashcards_logic/src/course_list_bloc.dart' show CoursesQueryType;
 
 class CoursesList extends StatefulWidget {
+  final CoursesQueryType type;
+
+  CoursesList(this.type);
+
   @override
   State<StatefulWidget> createState() => new _CoursesListState();
 }
 
 // ignore: mixin_inherits_from_not_object
 class _CoursesListState extends State<CoursesList> with SingleTickerProviderStateMixin {
+  final CourseListBloc _bloc = new CourseListBloc(new FirebaseFlutterApi());
+
   @override
   Widget build(BuildContext context) {
-    // TODO: outsource to API
-    return new StreamBuilder<QuerySnapshot>(
-      stream: Firestore.instance.collection('courses').snapshots,
-      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+    return new StreamBuilder<List<CourseData>>(
+      stream: _bloc.query(widget.type),
+      builder: (BuildContext context, AsyncSnapshot<List<CourseData>> snapshot) {
         if (!snapshot.hasData) return const Text('Loading...');
         return new GridView.count(
           crossAxisCount: 2,
-          children: snapshot.data.documents.map((DocumentSnapshot document) {
+          children: snapshot.data.map((CourseData document) {
             return new Container(
               margin: new EdgeInsets.all(8.0),
               child: new CourseListItem(
-                name: document['name'],
-                percentage: document['progress'] ?? new Random().nextDouble(),
+                name: document.name,
+                // TODO: remove random
+                percentage: document.progress ?? new Random().nextDouble(),
               ),
             );
           }).toList(),
