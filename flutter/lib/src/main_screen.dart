@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import 'package:flashcards_flutter/src/courses_list.dart';
 import 'package:flashcards_flutter/src/custom_drawer.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 class MainScreen extends StatelessWidget {
   @override
@@ -23,20 +22,7 @@ class MainScreen extends StatelessWidget {
         ),
         body: new TabBarView(
           children: [
-            new StreamBuilder<QuerySnapshot>(
-              stream: Firestore.instance.collection('courses').snapshots,
-              builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                if (!snapshot.hasData) return const Text('Loading...');
-                return new ListView(
-                  children: snapshot.data.documents.map((DocumentSnapshot document) {
-                    return new ListTile(
-                      title: new Text(document['name'] ?? '<No message retrieved>'),
-                    );
-                  }).toList(),
-                );
-              },
-            ),
-//            new CoursesList(),
+            new CoursesList(),
             new CoursesList(),
             new CoursesList(),
           ],

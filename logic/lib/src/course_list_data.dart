@@ -1,6 +1,6 @@
 class CourseListData {
   final String name;
-  final int progress;
+  final double progress;
 
   CourseListData(this.name, this.progress);
 }
