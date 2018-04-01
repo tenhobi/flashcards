@@ -13,6 +13,7 @@ dependencies:
   flashcards_logic:
     path: ../logic
   meta: '^1.1.2'
+  cloud_firestore: '^0.3.2'
 
 dev_dependencies:
   flutter_test:

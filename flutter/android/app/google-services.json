@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "571547645697",
+    "firebase_url": "https://flashcards-a9d83.firebaseio.com",
+    "project_id": "flashcards-a9d83",
+    "storage_bucket": "flashcards-a9d83.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:571547645697:android:fdd17a7c4b84b81c",
+        "android_client_info": {
+          "package_name": "cz.honzabittner.flashcards"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "571547645697-c6dvpkc6avtfeear2fk188jii8o2t274.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAahGJdoDlyLLXIjuhSorYUvLen_SX3eOU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
