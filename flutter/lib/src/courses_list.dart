@@ -3,10 +3,7 @@ import 'dart:math';
 import 'package:flashcards_flutter/src/firebase_flutter_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flashcards_flutter/src/course_list_item.dart';
-import 'package:flashcards_logic/src/course_list_bloc.dart';
-import 'package:flashcards_logic/src/course_list_data.dart';
-
-export 'package:flashcards_logic/src/course_list_bloc.dart' show CoursesQueryType;
+import 'package:flashcards_common/common.dart';
 
 class CoursesList extends StatefulWidget {
   final CoursesQueryType type;

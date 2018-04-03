@@ -4,8 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flashcards_flutter/src/courses_list.dart';
 import 'package:flashcards_flutter/src/custom_drawer.dart';
 
-import 'package:flashcards_logic/src/course_list_bloc.dart';
-import 'package:flashcards_logic/src/course_list_data.dart';
+import 'package:flashcards_common/common.dart';
 
 class MainScreen extends StatelessWidget {
   @override

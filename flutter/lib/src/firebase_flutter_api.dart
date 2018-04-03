@@ -1,8 +1,7 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flashcards_logic/src/api/firebase.dart';
-import 'package:flashcards_logic/src/course_list_data.dart';
+import 'package:flashcards_common/common.dart';
 
 class FirebaseFlutterApi extends FirebaseApi {
   static final FirebaseFlutterApi _instance = new FirebaseFlutterApi._();
@@ -18,8 +17,7 @@ class FirebaseFlutterApi extends FirebaseApi {
 
     Firestore.instance.collection('courses').orderBy('name').snapshots.listen((QuerySnapshot snapshot) {
       controller.add(snapshot.documents.map<CourseData>((DocumentSnapshot document) {
-        // TODO: compute progress
-        return new CourseData(document.data['name'], 0.6);
+        return new CourseData.fromMap(document.data);
       }).toList());
     });
 

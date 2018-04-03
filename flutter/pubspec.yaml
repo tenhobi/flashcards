@@ -10,8 +10,8 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: '^0.1.0'
-  flashcards_logic:
-    path: ../logic
+  flashcards_common:
+    path: ../common
   meta: '^1.1.2'
   cloud_firestore: '^0.3.2'
 

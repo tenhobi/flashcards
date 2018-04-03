@@ -1,9 +1,9 @@
 import 'dart:async';
 
-import 'package:flashcards_logic/src/course_list_data.dart';
-import 'package:flashcards_logic/src/api/firebase.dart';
+import 'package:flashcards_common/src/data/course.dart';
+import 'package:flashcards_common/src/api/firebase.dart';
 
-export 'package:flashcards_logic/src/api/firebase.dart' show CoursesQueryType;
+export 'package:flashcards_common/src/api/firebase.dart' show CoursesQueryType;
 
 class CourseListBloc {
   final FirebaseApi _api;

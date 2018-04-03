@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:flashcards_logic/src/course_list_data.dart';
+import 'package:flashcards_common/src/data/course.dart';
 
 enum CoursesQueryType { active, created, popular }
 
