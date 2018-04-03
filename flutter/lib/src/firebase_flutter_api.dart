@@ -5,7 +5,9 @@ import 'package:flashcards_logic/src/api/firebase.dart';
 import 'package:flashcards_logic/src/course_list_data.dart';
 
 class FirebaseFlutterApi extends FirebaseApi {
-  static FirebaseFlutterApi _instance = new FirebaseFlutterApi();
+  static final FirebaseFlutterApi _instance = new FirebaseFlutterApi._();
+
+  FirebaseFlutterApi._();
 
   factory FirebaseFlutterApi() => _instance;
 
