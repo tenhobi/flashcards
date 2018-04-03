@@ -6,4 +6,6 @@ enum CoursesQueryType { active, created, popular }
 
 abstract class FirebaseApi {
   Stream<List<CourseData>> queryCourses({CoursesQueryType type, String name});
+
+  void addCourse(CourseData course);
 }
