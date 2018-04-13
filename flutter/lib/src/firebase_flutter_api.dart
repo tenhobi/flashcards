@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flashcards_common/common.dart';
 
 class FirebaseFlutterApi extends FirebaseApi {
-  static final FirebaseFlutterApi _instance = new FirebaseFlutterApi._();
+  static final FirebaseFlutterApi _instance = FirebaseFlutterApi._();
 
   FirebaseFlutterApi._();
 
@@ -13,11 +13,11 @@ class FirebaseFlutterApi extends FirebaseApi {
   // TODO: consider [type] in results
   @override
   Stream<List<CourseData>> queryCourses({CoursesQueryType type, String name}) {
-    StreamController<List<CourseData>> controller = new StreamController<List<CourseData>>.broadcast();
+    StreamController<List<CourseData>> controller = StreamController<List<CourseData>>.broadcast();
 
     Firestore.instance.collection('courses').orderBy('name').snapshots.listen((QuerySnapshot snapshot) {
       controller.add(snapshot.documents.map<CourseData>((DocumentSnapshot document) {
-        return new CourseData.fromMap(document.data);
+        return CourseData.fromMap(document.data);
       }).toList());
     });
 

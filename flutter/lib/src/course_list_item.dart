@@ -9,30 +9,30 @@ class CourseListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new ClipRRect(
-      borderRadius: new BorderRadius.circular(8.0),
-      child: new Container(
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(8.0),
+      child: Container(
         color: Theme.of(context).primaryColor,
-        child: new Column(
+        child: Column(
           children: <Widget>[
-            new Expanded(
-              child: new Center(
-                child: new Text(
+            Expanded(
+              child: Center(
+                child: Text(
                   name,
                   textAlign: TextAlign.center,
-                  style: new TextStyle(
+                  style: TextStyle(
                     color: Colors.white,
                     fontSize: 32.0,
                   ),
                 ),
               ),
             ),
-            new Container(
+            Container(
               height: 10.0,
               alignment: Alignment.centerLeft,
-              child: new FractionallySizedBox(
+              child: FractionallySizedBox(
                 widthFactor: percentage,
-                child: new Container(
+                child: Container(
                   color: const Color(0x40000000),
                 ),
               ),

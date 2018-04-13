@@ -11,32 +11,32 @@ class CoursesList extends StatefulWidget {
   CoursesList(this.type);
 
   @override
-  State<StatefulWidget> createState() => new _CoursesListState();
+  State<StatefulWidget> createState() => _CoursesListState();
 }
 
 // ignore: mixin_inherits_from_not_object
 class _CoursesListState extends State<CoursesList> with SingleTickerProviderStateMixin {
-  final CourseListBloc _bloc = new CourseListBloc(new FirebaseFlutterApi());
+  final CourseListBloc _bloc = CourseListBloc(FirebaseFlutterApi());
 
   @override
   Widget build(BuildContext context) {
-    return new StreamBuilder<List<CourseData>>(
+    return StreamBuilder<List<CourseData>>(
       stream: _bloc.query(widget.type),
       builder: (BuildContext context, AsyncSnapshot<List<CourseData>> snapshot) {
         if (!snapshot.hasData) return const Text('Loading...');
-        return new GridView.count(
+        return GridView.count(
           crossAxisCount: 2,
           children: snapshot.data.map((CourseData document) {
-            return new Container(
-              margin: new EdgeInsets.all(8.0),
-              child: new CourseListItem(
+            return Container(
+              margin: EdgeInsets.all(8.0),
+              child: CourseListItem(
                 name: document.name,
                 // TODO: remove random
-                percentage: document.progress ?? new Random().nextDouble(),
+                percentage: document.progress ?? Random().nextDouble(),
               ),
             );
           }).toList(),
-          padding: new EdgeInsets.all(8.0),
+          padding: EdgeInsets.all(8.0),
         );
       },
     );

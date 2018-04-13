@@ -1,4 +1,4 @@
-import 'package:flashcards_common/src/data.dart';
+import 'package:flashcards_common/src/data/data.dart';
 
 class CourseData extends Data {
   final String name;
@@ -11,10 +11,10 @@ class CourseData extends Data {
         progress = data['progress'];
 
   @override
-  Map<String, String> toMap() {
+  Map<String, dynamic> toMap() {
     return {
       'name': '$name',
-      'progress': '$progress',
+      'progress': progress,
     };
   }
 }
