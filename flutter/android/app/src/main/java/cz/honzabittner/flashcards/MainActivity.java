@@ -1,4 +1,4 @@
-package com.yourcompany.flashcards;
+package cz.honzabittner.flashcards;
 
 import android.os.Bundle;
 

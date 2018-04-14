@@ -1,6 +1,6 @@
 name: flashcards_common
 version: 0.0.1
-description: Logic of flashcards.
+description: Common things of flashcards.
 
 environment:
   sdk: '>=1.24.0 <2.0.0'

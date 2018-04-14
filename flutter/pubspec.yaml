@@ -17,6 +17,9 @@ dependencies:
   flashcards_common:
     path: ../common
   meta: '^1.1.2'
+  cloud_firestore: '^0.3.2'
+  firebase_auth: '^0.5.3'
+  google_sign_in: '^3.0.0'
 
 dev_dependencies:
   flutter_test:
