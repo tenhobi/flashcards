@@ -8,6 +8,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'i18n/FlashcardsDelegate.dart';
 
 // This will be imported everywhere you need localized string
+// ignore: unused_import
 import 'i18n/FlashcardsStrings.dart';
 
 import 'package:flashcards_flutter/src/landing_screen.dart';
