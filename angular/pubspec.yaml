@@ -7,8 +7,6 @@ environment:
 
 dependencies:
   angular: '^4.0.0'
-  flashcards_logic:
-    path: ../logic
   meta: '^1.1.2'
   flashcards_common:
     path: ../common
