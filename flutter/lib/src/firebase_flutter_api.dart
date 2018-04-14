@@ -13,7 +13,7 @@ class FirebaseFlutterApi extends FirebaseApi {
   // TODO: consider [type] in results
   @override
   Stream<List<CourseData>> queryCourses({CoursesQueryType type, String name}) {
-    StreamController<List<CourseData>> controller = StreamController<List<CourseData>>.broadcast();
+    StreamController<List<CourseData>> controller = StreamController.broadcast();
 
     Firestore.instance.collection('courses').orderBy('name').snapshots.listen((QuerySnapshot snapshot) {
       controller.add(snapshot.documents.map<CourseData>((DocumentSnapshot document) {
