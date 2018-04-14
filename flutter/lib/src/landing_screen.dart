@@ -4,6 +4,8 @@ import 'package:flashcards_flutter/src/app_data.dart';
 import 'package:meta/meta.dart';
 import 'package:flutter/material.dart';
 
+import 'package:flashcards_common/flashcards_strings.dart';
+
 class LandingScreen extends StatefulWidget {
   final Widget nextScreen;
   final Widget nextNewUserScreen;
@@ -101,7 +103,7 @@ class _LandingScreenState extends State<LandingScreen> with SingleTickerProvider
       return RawGestureDetector(
         child: RaisedButton(
           onPressed: signIn,
-          child: Text('login'),
+          child: Text(FlashcardsStrings.of(context).loginButton()),
         ),
       );
     }

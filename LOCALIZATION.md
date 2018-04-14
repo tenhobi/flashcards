@@ -17,18 +17,22 @@ Add this to `FlashcardsString.dart` file:
 Now just look at *Method two*, run these commands and everything should work.
 
 ## Method one: I've just translated something 
+
+### Use tool/localization.sh
 Oh, you are a such a great guy, here, have some :cookie: 
 Now let's get to the business. So you have just edited some of the flashcards_<lang>.arb files. 
 Run in console this line (while your operating folder is root of flutter app, otherwise you will get `missing pubspec.yaml` error) and execute this command: 
  
-`flutter pub pub run intl_translation:generate_from_arb --output-dir=lib/i18n/generated --generated-file-prefix=flashcards_ lib/*/*.dart ../common/lib/i18n/flashcards_*.arb` 
+`pub run intl_translation:generate_from_arb --output-dir=lib/src/i18n/generated --generated-file-prefix=flashcards_ lib/src/i18n/*.dart lib/src/i18n/translations/flashcards_*.arb` 
  
 PS: if you've changed just one file, change `common/lib/i18n/generated/flashcards_*.arb` to `common/lib/i18n/generated/flashcards_<lang>.arb`, lang according to the file you've changed. 
  
 ## Method two: I've added some templates 
+
+### Use tool/localization.sh
 Then just simply run 
  
-`flutter pub pub run intl_translation:extract_to_arb --output-dir=../common/lib/i18n lib/*/*.dart` 
+`pub run intl_translation:extract_to_arb --output-dir=lib/src/i18n lib/src/i18n/flashcards_strings.dart` 
  
 And It'll generate new `intl_messages.arb` file. Now just copy changes to `flashcards_<lang>.arb`, translate it and continue on *Method one*. 
 

@@ -7,7 +7,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 
-import 'FlashcardsStrings.dart';
+import 'flashcards_strings.dart';
 
 List<Locale> supportedLocales = [
   new Locale("cs", "CZ"),
@@ -22,12 +22,6 @@ class FlashcardsLocalizationDelegate
 
   @override
   isSupported(Locale locale) => supportedLocales.contains(locale);
-
-//  bool isSupported(Locale locale) {
-//    print(locale.languageCode);
-//    print(supportedLanguages.contains(locale.languageCode));
-//    return supportedLanguages.contains(locale.languageCode);
-//  }
 
   @override
   bool shouldReload(FlashcardsLocalizationDelegate old) => false;

@@ -5,11 +5,8 @@ import 'package:flutter/material.dart';
 
 // These two imports are used just in main, to set things up
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'i18n/FlashcardsDelegate.dart';
+import 'package:flashcards_common/flashcards_delegate.dart';
 
-// This will be imported everywhere you need localized string
-// ignore: unused_import
-import 'i18n/FlashcardsStrings.dart';
 
 import 'package:flashcards_flutter/src/landing_screen.dart';
 import 'package:flashcards_flutter/src/main_screen.dart';

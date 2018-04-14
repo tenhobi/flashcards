@@ -29,11 +29,11 @@ class FlashcardsStrings {
   }
 
 //  Edit here, do NOT touch anything above
-  String title() {
+  String loginButton() {
     return Intl.message(
-      '_Flashcards',
-      name: 'title',
-      desc: 'App title',
+      '_login',
+      name: 'loginButton',
+      desc: 'Login button on landing screen',
       locale: _localeName,
     );
   }

@@ -1,28 +1,27 @@
 #!/bin/bash
 
 function one() {
-    cd ../flutter/
-    flutter pub pub run intl_translation:generate_from_arb --output-dir=lib/i18n/generated --generated-file-prefix=flashcards_ lib/*/*.dart ../common/lib/i18n/flashcards_*.arb
+    cd ../common/
+    pub run intl_translation:generate_from_arb --output-dir=lib/src/i18n/generated --generated-file-prefix=flashcards_ lib/src/i18n/*.dart lib/src/i18n/translations/flashcards_*.arb
     echo "Done generating dart files."
     echo "Bye!"
     exit 0
 }
 
 function two() {
-    cd ../flutter/
-    cp "../common/lib/i18n/intl_messages.arb" "../common/lib/i18n/intl_messages_copy.arb" 
-    flutter pub pub run intl_translation:extract_to_arb --output-dir=../common/lib/i18n lib/*/*.dart
+    cd ../common/
+    ORIG="../common/lib/src/i18n/intl_messages.arb"
+    COPY="../common/lib/src/i18n/intl_messages_copy.arb"
+    cp $ORIG $COPY 2>/dev/null
+    pub run intl_translation:extract_to_arb --output-dir=lib/src/i18n lib/src/i18n/flashcards_strings.dart
     echo "Done generating arb file."
     echo "Diff:"
-
-    d=``
-    
     if ! type "colordiff" > /dev/null; then
-        diff "../common/lib/i18n/intl_messages.arb" "../common/lib/i18n/intl_messages_copy.arb"
+        diff $ORIG $COPY 2>/dev/null
     else
-        diff "../common/lib/i18n/intl_messages.arb" "../common/lib/i18n/intl_messages_copy.arb" | colordiff 
+        diff $ORIG $COPY | colordiff 2>/dev/null 
     fi
-    rm "../common/lib/i18n/intl_messages_copy.arb"
+    rm $COPY 2>/dev/null
     echo "Bye!"
     exit 0
     
