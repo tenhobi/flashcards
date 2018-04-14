@@ -6,7 +6,7 @@ import 'package:meta/meta.dart';
 class AppData extends InheritedWidget {
   final AuthenticationBloc<FirebaseUser> bloc;
 
-  AppData({@required this.bloc, Key key, @required Widget child}) : super(key: key, child: child);
+  const AppData({@required this.bloc, Key key, @required Widget child}) : super(key: key, child: child);
 
   @override
   bool updateShouldNotify(AppData old) => bloc != old.bloc;

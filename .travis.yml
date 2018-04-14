@@ -14,7 +14,7 @@ jobs:
         - pub get
       script:
         - dartanalyzer lib --fatal-warnings
-        - dartfmt --dry-run --set-exit-if-changed -- .
+        - dartfmt --dry-run --set-exit-if-changed --line-length 120 -- .
     - <<: *test
       before_script:
         - cd angular
@@ -24,7 +24,7 @@ jobs:
         - cd flutter
         - ../flutter-source/bin/flutter packages get
         - ../flutter-source/bin/flutter analyze
-#        - dartfmt --dry-run --set-exit-if-changed -- .
+#        - dartfmt --dry-run --set-exit-if-changed --line-length 120 -- .
 
 cache:
   directories:
