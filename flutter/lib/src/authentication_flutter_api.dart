@@ -6,7 +6,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthenticationFlutterApi extends AuthenticationApi<FirebaseUser> {
   final FirebaseAuth firebaseSignIn = FirebaseAuth.instance;
-  final GoogleSignIn googleSignIn = new GoogleSignIn();
+  final GoogleSignIn googleSignIn = GoogleSignIn();
 
   @override
   Future<FirebaseUser> signIn() async {
