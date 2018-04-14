@@ -24,7 +24,7 @@ jobs:
         - cd flutter
         - ../flutter-source/bin/flutter packages get
         - ../flutter-source/bin/flutter analyze
-        - dartfmt --dry-run --set-exit-if-changed -- .
+#        - dartfmt --dry-run --set-exit-if-changed -- .
 
 cache:
   directories:
