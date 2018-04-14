@@ -1,3 +1,4 @@
+import 'package:flashcards_flutter/src/app_data.dart';
 import 'package:flutter/material.dart';
 
 class CustomDrawer extends StatelessWidget {
@@ -7,8 +8,15 @@ class CustomDrawer extends StatelessWidget {
       child: Column(
         children: <Widget>[
           UserAccountsDrawerHeader(
-            accountName: const Text('Honza Bittner'),
-            accountEmail: Text('the@honzabittner.cz'),
+            accountName: Text(AppData.of(context).bloc?.user?.displayName ?? ''),
+            accountEmail: Text(AppData.of(context).bloc?.user?.email ?? ''),
+            currentAccountPicture: CircleAvatar(
+              child: ClipRRect(
+                // TODO: any auto value for circle image?
+                borderRadius: BorderRadius.circular(100.0),
+                child: Image.network(AppData.of(context).bloc?.user?.photoUrl ?? ''),
+              ),
+            ),
             margin: EdgeInsets.zero,
           ),
           Expanded(
@@ -43,6 +51,14 @@ class CustomDrawer extends StatelessWidget {
                   leading: const Icon(Icons.bug_report),
                   title: const Text('Report bug'),
                   onTap: null,
+                ),
+                ListTile(
+                  leading: const Icon(Icons.close),
+                  title: const Text('Sign out'),
+                  onTap: () {
+                    AppData.of(context).bloc.signOut();
+                    Navigator.of(context).popUntil(ModalRoute.withName('/'));
+                  },
                 ),
               ],
             ),

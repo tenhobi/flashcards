@@ -1,13 +1,8 @@
 import 'dart:async';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flashcards_common/common.dart';
+
 import 'package:flashcards_flutter/src/app_data.dart';
-import 'package:flashcards_flutter/src/authentication_flutter_api.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:meta/meta.dart';
 import 'package:flutter/material.dart';
-
-enum _LandingScreenUserState { loading, loadingNewUser, loggedNewUser, loggedKnownUser }
 
 class LandingScreen extends StatefulWidget {
   final Widget nextScreen;
@@ -24,17 +19,14 @@ class _LandingScreenState extends State<LandingScreen> with SingleTickerProvider
   final double fontSize = 45.0;
   AnimationController animation;
 
-  _LandingScreenUserState userState = _LandingScreenUserState.loading;
+  bool loginButtonVisible = false;
 
   Duration animationDuration = Duration(seconds: 4);
 
-  FirebaseUser _user;
-
   @override
   void initState() {
-    AuthenticationBloc<FirebaseUser>(AuthenticationFlutterApi()).signInSilently().then((FirebaseUser u) {
-      AppData.of(context).user = u;
-    });
+    super.initState();
+
     animation = AnimationController(
       vsync: this,
       duration: animationDuration,
@@ -45,6 +37,14 @@ class _LandingScreenState extends State<LandingScreen> with SingleTickerProvider
         this.setState(() {});
       })
       ..forward();
+
+    signIn(silently: true);
+    showLoginButton();
+  }
+
+  void showLoginButton() async {
+    await Future.delayed(animationDuration);
+    loginButtonVisible = true;
   }
 
   @override
@@ -53,22 +53,21 @@ class _LandingScreenState extends State<LandingScreen> with SingleTickerProvider
     super.dispose();
   }
 
-  @override
-  Widget build(BuildContext context) {
-    switch (userState) {
-      case _LandingScreenUserState.loggedKnownUser:
-        return widget.nextScreen;
-        break;
-      case _LandingScreenUserState.loggedNewUser:
-        return widget.nextNewUserScreen;
-        break;
-      case _LandingScreenUserState.loading:
-      default:
-        return _buildLoading(context);
-    }
+  // TODO: detect new user and go to nextNewUserScreen
+  Future<Null> signIn({bool silently = false}) async {
+    var u = silently ? await AppData.of(context).bloc.signInSilently() : await AppData.of(context).bloc.signIn();
+
+    if (u == null) return;
+
+    Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (BuildContext bc) => widget.nextScreen,
+          ),
+        );
   }
 
-  Widget _buildLoading(BuildContext context) {
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColor,
       body: Container(
@@ -98,15 +97,15 @@ class _LandingScreenState extends State<LandingScreen> with SingleTickerProvider
   }
 
   Widget _buildButtons(BuildContext context) {
-    if (userState == _LandingScreenUserState.loadingNewUser) {
+    if (loginButtonVisible) {
       return RawGestureDetector(
         child: RaisedButton(
-          onPressed: () => _signIn().then((FirebaseUser u) => print),
+          onPressed: signIn,
           child: Text('login'),
         ),
       );
-    } else {
-      return Container();
     }
+
+    return Container();
   }
 }
