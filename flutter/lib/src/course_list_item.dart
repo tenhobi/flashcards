@@ -33,7 +33,7 @@ class CourseListItem extends StatelessWidget {
               child: FractionallySizedBox(
                 widthFactor: percentage,
                 child: Container(
-                  color: const Color(0x40000000),
+                  color: Color(0x40000000),
                 ),
               ),
             ),
