@@ -1,8 +1,8 @@
 import 'dart:async';
+import 'package:meta/meta.dart';
 
+@immutable
 abstract class AuthenticationApi<FirebaseUser> {
-  FirebaseUser get user;
-
   Future<FirebaseUser> signIn();
 
   Future<FirebaseUser> signInSilently();

@@ -5,13 +5,18 @@ import 'package:flashcards_common/common.dart';
 class AuthenticationBloc<FirebaseUser> {
   final AuthenticationApi _api;
 
-  Future<FirebaseUser> signIn() async => _api.signIn();
+  FirebaseUser _user;
 
-  Future<FirebaseUser> signInSilently() async => _api.signInSilently();
+  FirebaseUser get user => _user;
 
-  void signOut() => _api.signOut();
+  Future<FirebaseUser> signIn() async => _user = await _api.signIn();
 
-  FirebaseUser get user => _api.user;
+  Future<FirebaseUser> signInSilently() async => _user = await _api.signInSilently();
+
+  void signOut() {
+    _api.signOut();
+    _user = null;
+  }
 
   AuthenticationBloc(this._api);
 }
