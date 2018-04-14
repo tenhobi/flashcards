@@ -31,7 +31,7 @@ class FlashcardsStrings {
 //  Edit here, do NOT touch anything above
   String title() {
     return Intl.message(
-      'Flashcards',
+      '_Flashcards',
       name: 'title',
       desc: 'App title',
       locale: _localeName,

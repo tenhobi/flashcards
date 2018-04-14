@@ -18,6 +18,7 @@ class MessageLookup extends MessageLookupByLibrary {
   get localeName => 'cs_CZ';
 
   final messages = _notInlinedMessages(_notInlinedMessages);
-
-  static _notInlinedMessages(_) => <String, Function>{};
+  static _notInlinedMessages(_) => <String, Function> {
+    "title" : MessageLookupByLibrary.simpleMessage("Blikkarty")
+  };
 }

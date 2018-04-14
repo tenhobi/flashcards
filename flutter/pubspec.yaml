@@ -12,7 +12,7 @@ dependencies:
   # Localization
   flutter_localizations:
     sdk: flutter
-  intl: '0.15.2'
+  intl: '^0.15.2'
   cupertino_icons: '^0.1.0'
   flashcards_common:
     path: ../common
