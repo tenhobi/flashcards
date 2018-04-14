@@ -9,14 +9,19 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  # Localization
+  flutter_localizations:
+    sdk: flutter
+  intl: '^0.15.2'
   cupertino_icons: '^0.1.0'
-  flashcards_logic:
-    path: ../logic
+  flashcards_common:
+    path: ../common
   meta: '^1.1.2'
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  intl_translation: '0.16.3'
 
 flutter:
   uses-material-design: true
