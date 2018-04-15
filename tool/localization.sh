@@ -2,7 +2,7 @@
 
 function one() {
     cd ../common/
-    pub run intl_translation:generate_from_arb --output-dir=lib/src/i18n/generated --generated-file-prefix=flashcards_ lib/src/i18n/*.dart lib/src/i18n/translations/*_*.arb
+    pub run intl_translation:generate_from_arb --output-dir=lib/src/i18n/generated --generated-file-prefix="" lib/src/i18n/*.dart lib/src/i18n/translations/*_*.arb
     echo "Done generating dart files."
     echo "Bye!"
     exit 0
