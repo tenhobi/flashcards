@@ -12,7 +12,7 @@ class CustomDrawer extends StatelessWidget {
             accountEmail: Text(AppData.of(context).bloc?.user?.email ?? ''),
             currentAccountPicture: CircleAvatar(
               child: ClipRRect(
-                // TODO: any auto value for circle image?
+                // TODO: any auto value for rounded image?
                 borderRadius: BorderRadius.circular(100.0),
                 child: Image.network(AppData.of(context).bloc?.user?.photoUrl ?? ''),
               ),
@@ -20,41 +20,38 @@ class CustomDrawer extends StatelessWidget {
             margin: EdgeInsets.zero,
           ),
           Expanded(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
+            child: ListView(
               children: <Widget>[
                 ListTile(
-                  leading: const Icon(Icons.home),
-                  title: const Text('Home'),
+                  leading: Icon(Icons.home),
+                  title: Text('Home'),
                   onTap: () {
                     Navigator.of(context).pop();
                   },
                 ),
                 ListTile(
-                  leading: const Icon(Icons.search),
-                  title: const Text('Search'),
-                  onTap: null,
-                ),
-                Expanded(child: Container()),
-                ListTile(
-                  leading: const Icon(Icons.info),
-                  title: const Text('About'),
+                  leading: Icon(Icons.search),
+                  title: Text('Search'),
                   onTap: null,
                 ),
                 ListTile(
-                  leading: const Icon(Icons.settings),
-                  title: const Text('Settings'),
+                  leading: Icon(Icons.info),
+                  title: Text('About'),
                   onTap: null,
                 ),
                 ListTile(
-                  leading: const Icon(Icons.bug_report),
-                  title: const Text('Report bug'),
+                  leading: Icon(Icons.settings),
+                  title: Text('Settings'),
                   onTap: null,
                 ),
                 ListTile(
-                  leading: const Icon(Icons.close),
-                  title: const Text('Sign out'),
+                  leading: Icon(Icons.bug_report),
+                  title: Text('Report bug'),
+                  onTap: null,
+                ),
+                ListTile(
+                  leading: Icon(Icons.close),
+                  title: Text('Sign out'),
                   onTap: () {
                     AppData.of(context).bloc.signOut();
                     Navigator.of(context).popUntil(ModalRoute.withName('/'));

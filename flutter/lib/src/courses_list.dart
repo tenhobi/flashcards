@@ -23,21 +23,23 @@ class _CoursesListState extends State<CoursesList> with SingleTickerProviderStat
     return StreamBuilder<List<CourseData>>(
       stream: _bloc.query(widget.type),
       builder: (BuildContext context, AsyncSnapshot<List<CourseData>> snapshot) {
-        if (!snapshot.hasData) return const Text('Loading...');
-        return GridView.count(
-          crossAxisCount: 2,
-          children: snapshot.data.map((CourseData document) {
-            return Container(
-              margin: EdgeInsets.all(8.0),
-              child: CourseListItem(
-                name: document.name,
-                // TODO: remove random
-                percentage: document.progress ?? Random().nextDouble(),
-              ),
-            );
-          }).toList(),
-          padding: EdgeInsets.all(8.0),
-        );
+        if (!snapshot.hasData) return Text('Loading...');
+        return OrientationBuilder(builder: (BuildContext context, Orientation orientation) {
+          return GridView.count(
+            crossAxisCount: orientation == Orientation.portrait ? 2 : 4,
+            children: snapshot.data.map((CourseData document) {
+              return Container(
+                margin: EdgeInsets.all(8.0),
+                child: CourseListItem(
+                  name: document.name,
+                  // TODO: remove random
+                  percentage: document.progress ?? Random().nextDouble(),
+                ),
+              );
+            }).toList(),
+            padding: EdgeInsets.all(8.0),
+          );
+        });
       },
     );
   }

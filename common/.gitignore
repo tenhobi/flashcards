@@ -1,2 +1,1 @@
-lib/src/i18n/generated/*
-!lib/src/i18n/generated/.gitkeep
+lib/src/i18n/generated/*.dart

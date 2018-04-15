@@ -9,6 +9,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'package:flashcards_flutter/src/landing_screen.dart';
 import 'package:flashcards_flutter/src/main_screen.dart';
+// ignore: unused_import
 import 'package:intl/intl.dart';
 
 void main() {
