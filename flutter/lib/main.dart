@@ -7,15 +7,23 @@ import 'package:flutter/material.dart';
 // These two imports are used just in main, to set things up
 import 'package:flutter_localizations/flutter_localizations.dart';
 
+import 'package:flashcards_common/i18n.dart';
+
 import 'package:flashcards_flutter/src/landing_screen.dart';
 import 'package:flashcards_flutter/src/main_screen.dart';
 // ignore: unused_import
 import 'package:intl/intl.dart';
 
-void main() {
-  // TODO: doesn't work to switch to Czech, switching to English works
-  // Intl.defaultLocale = 'cs_CZ';
+void loadLocales() {
+  List<String> locales = List<String>();
+  supportedLocales.forEach((l) => locales.add(l.toString()));
+  initLocales(locales);
+}
 
+void main() {
+  loadLocales();
+//  Example of setting default locale
+//  Intl.defaultLocale = 'cs_CZ';
   runApp(new MyApp());
 }
 

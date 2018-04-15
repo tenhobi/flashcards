@@ -20,12 +20,6 @@ class FlashcardsLocalizationDelegate extends LocalizationsDelegate<FlutterFlashc
   @override
   isSupported(Locale locale) => supportedLocales.contains(locale);
 
-//  bool isSupported(Locale locale) {
-//    print(locale.languageCode);
-//    print(supportedLanguages.contains(locale.languageCode));
-//    return supportedLanguages.contains(locale.languageCode);
-//  }
-
   @override
   bool shouldReload(FlashcardsLocalizationDelegate old) => false;
 }
