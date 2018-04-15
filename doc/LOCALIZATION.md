@@ -1,3 +1,15 @@
+From `common/` run 
+
+```
+pub run intl_translation:generate_from_arb --output-dir=lib/src/i18n/generated lib/src/i18n/string.dart lib/src/i18n/translations/cs_CZ.arb lib/src/i18n/translations/en_US.arb
+```
+
+or
+
+```
+pub run intl_translation:extract_to_arb --output-dir=lib/src/i18n/translations lib/src/i18n/flashcards_strings.dart
+```
+
 # How to
 So, you have just added some string to program, let's say it's `TextBox("Hello world.")`.
 First of all, don't use simple string (`"Hello world."`), instead use `FlashcardsStrings.of(context).<name>()`.

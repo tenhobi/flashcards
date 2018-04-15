@@ -1,9 +1,0 @@
-{
-  "@@last_modified": "2018-04-15T01:05:38.656503",
-  "loginButton": "_login",
-  "@loginButton": {
-    "description": "Login button on landing screen",
-    "type": "text",
-    "placeholders": {}
-  }
-}
