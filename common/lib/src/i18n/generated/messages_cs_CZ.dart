@@ -17,8 +17,16 @@ typedef MessageIfAbsent(String message_str, List args);
 class MessageLookup extends MessageLookupByLibrary {
   get localeName => 'cs_CZ';
 
+  static m0(count) => "${Intl.plural(count, zero: 'beta 0 ${count}', one: 'gama 1', two: 'delta 2', other: 'zeta 3')}";
+
+  static m1(howMany, userName) =>
+      "${Intl.plural(howMany, zero: 'There are no emails left for ${userName}.', one: 'There is ${howMany} email left for ${userName}.', other: 'There are ${howMany} emails left for ${userName}.')}";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
-  static _notInlinedMessages(_) => <String, Function> {
-    "title" : MessageLookupByLibrary.simpleMessage("Blikkarty")
-  };
+  static _notInlinedMessages(_) => <String, Function>{
+        "hovno": m0,
+        "loginButton": MessageLookupByLibrary.simpleMessage("přihlásit se"),
+        "remainingEmailsMessage": m1,
+        "signInButton": MessageLookupByLibrary.simpleMessage("zaregistrovat se")
+      };
 }

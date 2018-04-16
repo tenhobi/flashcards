@@ -1,0 +1,39 @@
+{
+  "@@locale": "cs_CZ",
+  "@@last_modified": "2018-04-15T11:53:42.038870",
+  "loginButton": "přihlásit se",
+  "@loginButton": {
+    "description": "Login button on landing screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "signInButton": "zaregistrovat se",
+  "@signInButton": {
+    "description": "Button sign in description",
+    "type": "text",
+    "placeholders": {}
+  },
+  "remainingEmailsMessage": "{howMany,plural, =0{There are no emails left for {userName}.}=1{There is {howMany} email left for {userName}.}other{There are {howMany} emails left for {userName}.}}",
+  "@remainingEmailsMessage": {
+    "description": "How many emails remain after archiving.",
+    "type": "text",
+    "placeholders": {
+      "howMany": {
+        "example": 42
+      },
+      "userName": {
+        "example": "Fred"
+      }
+    }
+  },
+  "hovno": "{count,plural, =0{beta 0 {count}}=1{gama 1}=2{delta 2}other{zeta 3}}",
+  "@hovno": {
+    "description": "alfa info",
+    "type": "text",
+    "placeholders": {
+      "count": {
+        "example": 42
+      }
+    }
+  }
+}
