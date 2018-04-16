@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flashcards_flutter/src/app_data.dart';
+import 'package:flashcards_flutter/src/components/button_google.dart';
 import 'package:meta/meta.dart';
 import 'package:flutter/material.dart';
 
@@ -101,10 +102,7 @@ class _LandingScreenState extends State<LandingScreen> with SingleTickerProvider
   Widget _buildButtons(BuildContext context) {
     if (loginButtonVisible) {
       return RawGestureDetector(
-        child: RaisedButton(
-          onPressed: signIn,
-          child: Text(FlashcardsStrings.loginButton()),
-        ),
+        child: googleButton(() {}, FlashcardsStrings.loginButton()),
       );
     }
 

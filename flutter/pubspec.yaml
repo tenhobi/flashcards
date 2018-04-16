@@ -27,6 +27,8 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  assets:
+    - packages/flashcards_common/assets/icons/google_logo.png
   fonts:
     - family: 'Lobster'
       fonts:
