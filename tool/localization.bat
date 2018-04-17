@@ -25,8 +25,17 @@ SET ARBFILES=!ARBFILES! %ARBPATH%%%I
 )
 
 CALL pub run intl_translation:generate_from_arb --output-dir=lib\src\i18n\generated --generated-file-prefix="" !DARTFILES! !ARBFILES!
-
 ECHO Done generating dart files.
+
+ECHO Formatting
+
+SET GENERATEDPATH=lib\src\i18n\generated\
+FOR /F "delims=" %%I IN ('DIR /B %GENERATEDPATH%*.dart') DO (
+SET GENERATEDFILES=!GENERATEDFILES! %GENERATEDPATH%%%I
+)
+
+CALL dartfmt --line-length 120 -w !GENERATEDFILES!
+
 ECHO Bye!
 EXIT /B 0
 
