@@ -11,10 +11,13 @@ class LandingScreen extends StatefulWidget {
   final Widget nextScreen;
   final Widget nextNewUserScreen;
 
+  /// Show all content without animations.
+  final bool withoutAnimations;
+
   @override
   State<StatefulWidget> createState() => _LandingScreenState();
 
-  LandingScreen({@required this.nextScreen, @required this.nextNewUserScreen});
+  LandingScreen({@required this.nextScreen, @required this.nextNewUserScreen, this.withoutAnimations = false});
 }
 
 // ignore: mixin_inherits_from_not_object
@@ -45,28 +48,10 @@ class _LandingScreenState extends State<LandingScreen> with SingleTickerProvider
     showLoginButton();
   }
 
-  void showLoginButton() async {
-    await Future.delayed(animationDuration);
-    loginButtonVisible = true;
-  }
-
   @override
   void dispose() {
     animation.dispose();
     super.dispose();
-  }
-
-  // TODO: detect new user and go to nextNewUserScreen
-  Future<Null> signIn({bool silently = false}) async {
-    var u = silently ? await AppData.of(context).bloc.signInSilently() : await AppData.of(context).bloc.signIn();
-
-    if (u == null) return;
-
-    Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (BuildContext bc) => widget.nextScreen,
-          ),
-        );
   }
 
   @override
@@ -86,7 +71,8 @@ class _LandingScreenState extends State<LandingScreen> with SingleTickerProvider
                 style: TextStyle(
                   fontFamily: 'Lobster',
                   fontWeight: FontWeight.normal,
-                  fontSize: Curves.elasticOut.transform(animation.value) * fontSize,
+                  fontSize:
+                      widget.withoutAnimations ? fontSize : Curves.elasticOut.transform(animation.value) * fontSize,
                   color: Colors.white,
                 ),
               ),
@@ -102,7 +88,7 @@ class _LandingScreenState extends State<LandingScreen> with SingleTickerProvider
   }
 
   Widget _buildButtons(BuildContext context) {
-    if (loginButtonVisible) {
+    if (widget.withoutAnimations || loginButtonVisible) {
       return RawGestureDetector(
         child: GoogleButton(
           signIn: signIn,
@@ -112,5 +98,23 @@ class _LandingScreenState extends State<LandingScreen> with SingleTickerProvider
     }
 
     return Container();
+  }
+
+  // TODO: detect new user and go to nextNewUserScreen
+  Future<Null> signIn({bool silently = false}) async {
+    var u = silently ? await AppData.of(context).bloc.signInSilently() : await AppData.of(context).bloc.signIn();
+
+    if (u == null) return;
+
+    Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (BuildContext bc) => widget.nextScreen,
+          ),
+        );
+  }
+
+  void showLoginButton() async {
+    await Future.delayed(animationDuration);
+    loginButtonVisible = true;
   }
 }
