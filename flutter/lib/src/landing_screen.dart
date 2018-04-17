@@ -19,7 +19,7 @@ class LandingScreen extends StatefulWidget {
 
 // ignore: mixin_inherits_from_not_object
 class _LandingScreenState extends State<LandingScreen> with SingleTickerProviderStateMixin {
-  final double fontSize = 45.0;
+  final double fontSize = 55.0;
   AnimationController animation;
 
   bool loginButtonVisible = false;
@@ -76,23 +76,25 @@ class _LandingScreenState extends State<LandingScreen> with SingleTickerProvider
       body: Container(
         color: Colors.transparent,
         alignment: Alignment.center,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: Stack(
+          alignment: Alignment.center,
           children: <Widget>[
-            Container(
-              height: fontSize,
-              margin: EdgeInsets.only(bottom: 150.0),
+            Padding(
+              padding: EdgeInsets.only(bottom: 150.0),
               child: Text(
                 'flashcards',
                 style: TextStyle(
                   fontFamily: 'Lobster',
                   fontWeight: FontWeight.normal,
                   fontSize: Curves.elasticOut.transform(animation.value) * fontSize,
-                  color: Theme.of(context).buttonColor,
+                  color: Colors.white,
                 ),
               ),
             ),
-            _buildButtons(context),
+            Padding(
+              padding: EdgeInsets.only(top: 300.0),
+              child: _buildButtons(context),
+            ),
           ],
         ),
       ),
@@ -102,7 +104,10 @@ class _LandingScreenState extends State<LandingScreen> with SingleTickerProvider
   Widget _buildButtons(BuildContext context) {
     if (loginButtonVisible) {
       return RawGestureDetector(
-        child: googleButton(() {}, FlashcardsStrings.loginButton()),
+        child: GoogleButton(
+          signIn: signIn,
+          text: FlashcardsStrings.loginButton(),
+        ),
       );
     }
 

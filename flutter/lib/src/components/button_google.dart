@@ -1,16 +1,25 @@
 import 'package:flashcards_flutter/src/icons/icons.dart';
 import 'package:flutter/material.dart';
 
-Widget googleButton(Function signIn, String text) {
-  return RaisedButton.icon(
-    onPressed: signIn,
-    icon: FlashcardsIcons.Google(),
-    label: Text(
-      text,
-      style: TextStyle(
-        color: Color.fromARGB(255, 68, 68, 68),
+class GoogleButton extends StatelessWidget {
+  final Function signIn;
+
+  final String text;
+
+  const GoogleButton({Key key, this.signIn, this.text}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return RaisedButton.icon(
+      onPressed: signIn,
+      icon: FlashcardsIcons.Google(),
+      label: Text(
+        text,
+        style: TextStyle(
+          color: Color.fromARGB(255, 68, 68, 68),
+        ),
       ),
-    ),
-    color: Colors.white,
-  );
+      color: Colors.white,
+    );
+  }
 }
