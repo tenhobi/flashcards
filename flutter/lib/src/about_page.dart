@@ -3,8 +3,13 @@ import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:package_info/package_info.dart';
 
-class AboutPage extends StatelessWidget {
-  String _verNumber = 'TODO VERISON NUMBER';
+class AboutPage extends StatefulWidget {
+  @override
+  AboutPageState createState() => new AboutPageState();
+}
+
+class AboutPageState extends State<AboutPage> {
+  String _verNumber = 'NoVersionFound';
 
   final TextStyle _text = TextStyle(
     color: Colors.white70,
@@ -22,6 +27,17 @@ class AboutPage extends StatelessWidget {
       strong: _highlight,
       blockSpacing: 30.0,
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    PackageInfo.fromPlatform().then((PackageInfo p) {
+      setState(() {
+        _verNumber = (p.version == null) ? _verNumber : p.version;
+      });
+    });
   }
 
   @override
