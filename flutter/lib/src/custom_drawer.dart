@@ -1,6 +1,8 @@
 import 'package:flashcards_flutter/src/app_data.dart';
 import 'package:flutter/material.dart';
 
+import 'package:flashcards_flutter/src/about_page.dart';
+
 class CustomDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -37,7 +39,13 @@ class CustomDrawer extends StatelessWidget {
                 ListTile(
                   leading: Icon(Icons.info),
                   title: Text('About'),
-                  onTap: null,
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (BuildContext bc) => AboutPage(),
+                      ),
+                    );
+                  },
                 ),
                 ListTile(
                   leading: Icon(Icons.settings),

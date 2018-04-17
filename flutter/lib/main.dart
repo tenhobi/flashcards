@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Flashcards',
         theme: ThemeData(
-          primarySwatch: Colors.blue,
+          primaryColor: Colors.blue[800]
         ),
         home: LandingScreen(
           nextScreen: MainScreen(),
