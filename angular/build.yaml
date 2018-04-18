@@ -1,0 +1,33 @@
+targets:
+  flashcards_angular:
+    sources:
+      include: ["lib/**", "web/**", "test/**"]
+      exclude: ["lib/builder.dart"]
+    builders:
+      sass_builder|sass_builder:
+        enabled: False
+      flashcards_angular|scss_builder:
+        enabled: True
+      build_web_compilers|entrypoint:
+        options:
+          dart2js_args:
+          - --dump-info
+          - --fast-startup
+          - --minify
+          - --trust-type-annotations
+          - --trust-primitives
+  scss_builder:
+    sources: ["lib/builder.dart"]
+    dependencies:
+      - build
+      - sass_builder
+
+builders:
+  scss_builder:
+    target: "scss_builder"
+    import: "package:flashcards_angular/builder.dart"
+    builder_factories: ["scssBuilder"]
+    build_to: cache
+    build_extensions:
+      .scss: [".scss.css"]
+      .sass: [".scss.css"]
