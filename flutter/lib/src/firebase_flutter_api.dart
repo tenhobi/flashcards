@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flashcards_common/common.dart';
+import 'package:meta/meta.dart';
 
 class FirebaseFlutterApi extends FirebaseApi {
   static final FirebaseFlutterApi _instance = FirebaseFlutterApi._();
@@ -17,7 +18,24 @@ class FirebaseFlutterApi extends FirebaseApi {
 
     Firestore.instance.collection('courses').orderBy('name').snapshots.listen((QuerySnapshot snapshot) {
       controller.add(snapshot.documents.map<CourseData>((DocumentSnapshot document) {
-        return CourseData.fromMap(document.data);
+        var data = document.data;
+        data['id'] = document.documentID;
+        return CourseData.fromMap(data);
+      }).toList());
+    });
+
+    return controller.stream;
+  }
+
+  @override
+  Stream<List<SectionData>> querySections({@required CourseData course}) {
+    StreamController<List<SectionData>> controller = StreamController.broadcast();
+
+    Firestore.instance.collection('courses').document(course.id).getCollection("sections").snapshots.listen((QuerySnapshot snapshot) {
+      controller.add(snapshot.documents.map<SectionData>((DocumentSnapshot document) {
+        var data = document.data;
+        data['id'] = document.documentID;
+        return SectionData.fromMap(data);
       }).toList());
     });
 

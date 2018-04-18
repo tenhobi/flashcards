@@ -1,5 +1,5 @@
 {
-  "@@last_modified": "2018-04-15T17:17:36.895055",
+  "@@last_modified": "2018-04-18T12:47:13.815484",
   "loginButton": "_loginButton",
   "@loginButton": {
     "description": "Login button on landing screen",
@@ -24,6 +24,18 @@
         "example": "Fred"
       }
     }
+  },
+  "sectionsTab": "_sections",
+  "@sectionsTab": {
+    "description": "Sections tab in course screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "descriptionTab": "_description",
+  "@descriptionTab": {
+    "description": "Description tab in course screen",
+    "type": "text",
+    "placeholders": {}
   },
   "hovno": "{count,plural, =0{beta 0 {count}}=1{gama 1}=2{delta 2}other{zeta 3}}",
   "@hovno": {
