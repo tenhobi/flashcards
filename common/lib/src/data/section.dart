@@ -1,20 +1,36 @@
+import 'package:flashcards_common/src/data/course.dart';
 import 'package:flashcards_common/src/data/data.dart';
+import 'package:flashcards_common/src/data/subsection.dart';
+import 'package:meta/meta.dart';
 
-class SectionData extends Data {
+class SectionData extends Data implements Comparable<SectionData> {
+	final String id;
+	final CourseData parent;
 	final String name;
-//	fixme: add exercises class
-//	final List<String> materials;
-//	final List<String> Excercises;
+	final int order;
+	// todo: make it final
+	List<SubsectionData> materialsAndExercises;
 
-	SectionData(this.name);
+	// fixme: id, parent and order
+	SectionData(this.name) : id = "", parent = null, order = 0;
 
-	SectionData.fromMap(Map<String, dynamic> data)
-			: name = data['name'];
+	@override
+	int compareTo(SectionData d) => order.compareTo(d.order);
+
+	void addSubsection(SubsectionData d) => materialsAndExercises.add(d);
+
+	SectionData.fromMap(Map<String, dynamic> data, {@required CourseData parent})
+			: id = data['id'],
+				parent = parent,
+				name = data['name'],
+				order = data['order'];
 
 	@override
 	Map<String, dynamic> toMap() {
 		return {
+			'id': '$id',
 			'name': '$name',
+			'order': '$order'
 		};
 	}
 }

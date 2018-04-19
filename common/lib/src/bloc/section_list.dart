@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flashcards_common/src/data/course.dart';
 import 'package:flashcards_common/src/api/firebase.dart';
 import 'package:flashcards_common/src/data/section.dart';
+import 'package:flashcards_common/src/data/subsection.dart';
 import 'package:meta/meta.dart';
 
 
@@ -13,6 +14,10 @@ class SectionListBloc {
 
 	Stream<List<SectionData>> query({@required CourseData course}) {
 		return _api.querySections(course: course);
+	}
+
+	Stream<List<SubsectionData>> queryMaterialsAndExercises({@required SectionData section}) {
+		return _api.queryMaterialsAndExercises(section: section);
 	}
 
 //	todo: implement this

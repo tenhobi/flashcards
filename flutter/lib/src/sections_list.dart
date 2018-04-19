@@ -10,6 +10,16 @@ class _SectionRow extends StatelessWidget {
 	final Function onTap;
 	final bool isLast;
 
+	static Widget Generate(SubsectionData d, {@required Function onTap, bool isLast = false}) {
+		IconData icon = d is MaterialData ? Icons.description : Icons.create;
+		return _SectionRow(
+			icon: icon,
+			text: d.name,
+			onTap: onTap,
+			isLast: isLast,
+		);
+	}
+
 	@override
 	Widget build(BuildContext context) {
 		BorderRadius br;
@@ -60,7 +70,9 @@ class SectionWidget extends StatefulWidget {
 }
 
 class _SectionsWidgetState extends State<SectionWidget> {
+	final SectionListBloc _bloc = SectionListBloc(FirebaseFlutterApi());
 
+	List<SubsectionData> data = null;
 
 	@override
 	Widget build(BuildContext context) {
@@ -73,7 +85,6 @@ class _SectionsWidgetState extends State<SectionWidget> {
 			padding: EdgeInsets.all(8.0),
 			child: Container(
 				decoration: BoxDecoration(
-					// fixme: use theme
 					color: Theme.of(context).primaryColor,
 					borderRadius: BorderRadius.circular(8.0),
 					border: Border(
@@ -91,16 +102,43 @@ class _SectionsWidgetState extends State<SectionWidget> {
 						),
 					),
 					children: <Widget>[
-						_SectionRow(
-							icon: Icons.description,
-							text: "Materials",
-							onTap: (){}
-						),
-						_SectionRow(
-							icon: Icons.create,
-							text: "Excercise",
-							onTap: (){},
-							isLast: true,
+						StreamBuilder<List<SubsectionData>>(
+							stream: _bloc.queryMaterialsAndExercises(section: widget.section),
+							builder: (BuildContext context, AsyncSnapshot<List<SubsectionData>> snapshot) {
+								print(data);
+								if(!snapshot.hasData && (data == null || data.length == 0)) {
+									return Container(
+										padding: EdgeInsets.only(
+											left: 10.0,
+											bottom: 10.0,
+											right: 10.0,
+											top: 10.0
+										),
+										alignment: Alignment.center,
+										decoration: BoxDecoration(
+											borderRadius: BorderRadius.only(
+												bottomLeft: Radius.circular(6.0),
+												bottomRight: Radius.circular(6.0)
+											),
+											color: Colors.white,
+										),
+										child: Text("Empty")
+									);
+								}
+								if(snapshot.data != null) {
+									snapshot.data.sort();
+									data = snapshot.data;
+								}
+								return Column(
+									children: data.map((SubsectionData d) {
+										bool last = false;
+										if(data.last.compareTo(d) == 0) {
+											last = true;
+										}
+										return _SectionRow.Generate(d, onTap: () {}, isLast: last);
+									}).toList(),
+								);
+							},
 						)
 					],
 				)
@@ -108,7 +146,6 @@ class _SectionsWidgetState extends State<SectionWidget> {
 		);
 	}
 }
-
 
 class SectionsList extends StatefulWidget {
 	final CourseData course;
@@ -135,6 +172,7 @@ class _SectionsListState extends State<SectionsList> {
 						],
 					);
 				}
+				snapshot.data.sort();
 				return ListView(
 					children: snapshot.data.map((SectionData section) {
 						return SectionWidget(section: section);
