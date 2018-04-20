@@ -62,7 +62,7 @@ class _BuildStreamState extends State<_BuildStream> {
             child: Loading(),
           );
         }
-        if ((data == null || data.length == 0) && snapshot.data.length == 0) {
+        if ((data == null || data.length == 0) && (snapshot.data == null || snapshot.data.length == 0)) {
           return _NullOrEmpty(isLast: widget.isLast);
         }
         if (snapshot.hasData) {

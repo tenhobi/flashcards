@@ -47,7 +47,7 @@ class FirebaseFlutterApi extends FirebaseApi {
     Firestore.instance
         .collection('courses')
         .document(course.id)
-        .getCollection("sections")
+        .collection("sections")
         .snapshots
         .listen((QuerySnapshot snapshot) {
       controller.add(snapshot.documents.map<SectionData>((DocumentSnapshot document) {
@@ -69,9 +69,9 @@ class FirebaseFlutterApi extends FirebaseApi {
     Firestore.instance
         .collection('courses')
         .document(section.parent.id)
-        .getCollection('sections')
+        .collection('sections')
         .document(section.id)
-        .getCollection("materials")
+        .collection("materials")
         .snapshots
         .listen((QuerySnapshot snapshot) {
       controller.add(snapshot.documents.map<SubsectionData>((DocumentSnapshot document) {
@@ -92,9 +92,9 @@ class FirebaseFlutterApi extends FirebaseApi {
     Firestore.instance
         .collection('courses')
         .document(section.parent.id)
-        .getCollection('sections')
+        .collection('sections')
         .document(section.id)
-        .getCollection("exercises")
+        .collection("exercises")
         .snapshots
         .listen((QuerySnapshot snapshot) {
       controller.add(snapshot.documents.map<SubsectionData>((DocumentSnapshot document) {

@@ -3,21 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 
 class CourseListItem extends StatelessWidget {
-  CourseListItem({@required this.data});
-
   final CourseData data;
 
-  void starCourse() {
-    //todo: implement this
-  }
+  CourseListItem({@required this.data});
 
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-        borderRadius: BorderRadius.circular(8.0),
-        child: Stack(
+      borderRadius: BorderRadius.circular(8.0),
+      child: Container(
+        color: Theme.of(context).primaryColor,
+        child: Column(
           children: <Widget>[
-
             Expanded(
               child: Center(
                 child: Text(
@@ -27,10 +24,9 @@ class CourseListItem extends StatelessWidget {
                     color: Colors.white,
                     fontSize: 32.0,
                   ),
-                ],
+                ),
               ),
             ),
-
             Container(
               alignment: Alignment.bottomRight,
               child: Row(
@@ -53,6 +49,8 @@ class CourseListItem extends StatelessWidget {
               ),
             ),
           ],
-        ));
+        ),
+      ),
+    );
   }
 }

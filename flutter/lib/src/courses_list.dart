@@ -36,10 +36,13 @@ class _CoursesListState extends State<CoursesList> with SingleTickerProviderStat
         return GridView.extent(
           maxCrossAxisExtent: 200.0,
           children: snapshot.data.map((CourseData document) {
-            return Padding(
-              padding: EdgeInsets.all(8.0),
-              child: CourseListItem(
-                data: document,
+            return GestureDetector(
+              onTap: () => openCourse(document),
+              child: Padding(
+                padding: EdgeInsets.all(8.0),
+                child: CourseListItem(
+                  data: document,
+                ),
               ),
             );
           }).toList(),
