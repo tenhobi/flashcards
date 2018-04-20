@@ -22,4 +22,8 @@ abstract class FirebaseApi {
   Stream<List<UserData>> queryUsers();
 
   void addUser(UserData user);
+
+  void updateUser(UserData user);
+
+  createIfAbsent(UserData user);
 }
