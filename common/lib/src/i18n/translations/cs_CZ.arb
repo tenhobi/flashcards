@@ -51,6 +51,18 @@
       "version": {}
     }
   },
+  "sectionsTab": "Sekce",
+  "@sectionsTab": {
+    "description": "Sections tab in course screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "descriptionTab": "Popis",
+  "@descriptionTab": {
+    "description": "Description tab in course screen",
+    "type": "text",
+    "placeholders": {}
+  },
   "aboutLicensesText": "Aplikace je vyvíjena jako open source software: [licence]()",
   "@aboutLicensesText": {
     "description": "Text about licences with an empty link as a button in markdown.",

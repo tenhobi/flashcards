@@ -20,7 +20,6 @@ class FlashcardsIcons {
   }
 
   static Widget Google({size: 18.0}) {
-    return FlashcardsIcons._Icon(commonIconPath + "google_logo.png",
-        size: size);
+    return FlashcardsIcons._Icon(commonIconPath + "google_logo.png", size: size);
   }
 }

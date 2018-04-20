@@ -24,6 +24,9 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function>{
+        "descriptionTab": MessageLookupByLibrary.simpleMessage("Popis"),
+        "loginButton": MessageLookupByLibrary.simpleMessage("Přihlásit se pomocí Google"),
+        "sectionsTab": MessageLookupByLibrary.simpleMessage("Sekce"),
         "aboutLicensesText":
             MessageLookupByLibrary.simpleMessage("Aplikace je vyvíjena jako open source software: [licence]()"),
         "aboutNavigationButton": MessageLookupByLibrary.simpleMessage("O aplikaci"),

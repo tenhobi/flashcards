@@ -1,5 +1,6 @@
 import 'package:flashcards_flutter/src/app_data.dart';
 import 'package:flutter/material.dart';
+import 'package:flashcards_flutter/src/course_screen.dart';
 import 'package:flashcards_flutter/src/course_list_item.dart';
 import 'package:flashcards_common/common.dart';
 
@@ -16,6 +17,15 @@ class CoursesList extends StatefulWidget {
 class _CoursesListState extends State<CoursesList> with SingleTickerProviderStateMixin {
 //  final CourseListBloc _bloc = CourseListBloc(FirebaseFlutterApi());
 
+  void openCourse(CourseData course) {
+    Widget courseScreen = CourseScreen(course: course);
+    Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (BuildContext bc) => courseScreen,
+          ),
+        );
+  }
+
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<List<CourseData>>(
@@ -25,10 +35,13 @@ class _CoursesListState extends State<CoursesList> with SingleTickerProviderStat
         return GridView.extent(
           maxCrossAxisExtent: 200.0,
           children: snapshot.data.map((CourseData document) {
-            return Padding(
-              padding: EdgeInsets.all(8.0),
-              child: CourseListItem(
-                data: document,
+            return GestureDetector(
+              onTap: () => openCourse(document),
+              child: Padding(
+                padding: EdgeInsets.all(8.0),
+                child: CourseListItem(
+                  data: document,
+                ),
               ),
             );
           }).toList(),

@@ -19,6 +19,18 @@
     "type": "text",
     "placeholders": {}
   },
+  "sectionsTab": "Sections",
+  "@sectionsTab": {
+    "description": "Sections tab in course screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "descriptionTab": "Description",
+  "@descriptionTab": {
+    "description": "Description tab in course screen",
+    "type": "text",
+    "placeholders": {}
+  },
   "aboutNavigationButton": "About",
   "@aboutNavigationButton": {
     "description": "About button in navigation.",
