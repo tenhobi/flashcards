@@ -22,7 +22,7 @@ class _CoursesListState extends State<CoursesList> with SingleTickerProviderStat
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<List<CourseData>>(
-      stream: AppData.of(context).courseBloc.query(widget.type),
+      stream: AppData.of(context).courseBloc.queryAll(widget.type, authorUid: AppData.of(context).authBloc.user.uid),
       builder: (BuildContext context, AsyncSnapshot<List<CourseData>> snapshot) {
         if (!snapshot.hasData) return Text('Loading...');
         return GridView.extent(
@@ -31,9 +31,7 @@ class _CoursesListState extends State<CoursesList> with SingleTickerProviderStat
             return Padding(
               padding: EdgeInsets.all(8.0),
               child: CourseListItem(
-                name: document.name,
-                // TODO: remove random
-                percentage: document.progress ?? Random().nextDouble(),
+                data: document,
               ),
             );
           }).toList(),

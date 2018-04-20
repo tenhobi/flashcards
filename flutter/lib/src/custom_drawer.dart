@@ -1,3 +1,4 @@
+import 'package:flashcards_common/common.dart';
 import 'package:flashcards_flutter/src/app_data.dart';
 import 'package:flashcards_flutter/src/landing_screen.dart';
 import 'package:flashcards_flutter/src/main_screen.dart';
@@ -20,6 +21,17 @@ class CustomDrawer extends StatelessWidget {
               ),
             ),
             margin: EdgeInsets.zero,
+          ),
+          Container(
+            padding: EdgeInsets.all(16.0),
+            alignment: Alignment.centerLeft,
+            decoration: BoxDecoration(color: Theme.of(context).primaryColor),
+            child: StreamBuilder<UserData>(
+                stream: AppData.of(context).userBloc.query(AppData.of(context).authBloc.user.uid),
+                builder: (BuildContext context, AsyncSnapshot<UserData> snapshot) {
+                  return Text('score: ${snapshot.data?.score ?? 0}', style: TextStyle(color: Colors.white) ,);
+                }
+            ),
           ),
           Expanded(
             child: ListView(

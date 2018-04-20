@@ -95,7 +95,8 @@ class _LandingScreenState extends State<LandingScreen> with SingleTickerProvider
 
     if (user == null) return;
 
-    if (await AppData.of(context).userBloc.query(user.uid) == null) {
+    // await AppData.of(context).userBloc.query(user.uid) == null
+    if (true) {
       AppData.of(context).userBloc.create(new UserData(uid: user.uid));
     }
 
@@ -107,7 +108,8 @@ class _LandingScreenState extends State<LandingScreen> with SingleTickerProvider
   }
 
   Widget _buildButtons(BuildContext context) {
-    if (widget.withoutAnimations || loginButtonVisible) {
+//    if (widget.withoutAnimations || loginButtonVisible) {
+    if (true) {
       return RawGestureDetector(
         child: GoogleButton(
           signIn: signIn,
