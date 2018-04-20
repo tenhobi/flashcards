@@ -2,6 +2,8 @@ import 'package:flashcards_common/common.dart';
 import 'package:flashcards_flutter/src/app_data.dart';
 import 'package:flashcards_flutter/src/landing_screen.dart';
 import 'package:flashcards_flutter/src/main_screen.dart';
+import 'package:flashcards_flutter/src/search_screen.dart';
+import 'package:flashcards_flutter/src/settings_screen.dart';
 import 'package:flutter/material.dart';
 
 class CustomDrawer extends StatelessWidget {
@@ -29,9 +31,11 @@ class CustomDrawer extends StatelessWidget {
             child: StreamBuilder<UserData>(
                 stream: AppData.of(context).userBloc.query(AppData.of(context).authBloc.user.uid),
                 builder: (BuildContext context, AsyncSnapshot<UserData> snapshot) {
-                  return Text('score: ${snapshot.data?.score ?? 0}', style: TextStyle(color: Colors.white) ,);
-                }
-            ),
+                  return Text(
+                    'score: ${snapshot.data?.score ?? 0}',
+                    style: TextStyle(color: Colors.white),
+                  );
+                }),
           ),
           Expanded(
             child: ListView(
@@ -46,7 +50,13 @@ class CustomDrawer extends StatelessWidget {
                 ListTile(
                   leading: Icon(Icons.search),
                   title: Text('Search'),
-                  onTap: null,
+                  onTap: () {
+                    Navigator.of(context).push(
+                          new MaterialPageRoute(
+                            builder: (BuildContext context) => SearchScreen(),
+                          ),
+                        );
+                  },
                 ),
                 ListTile(
                   leading: Icon(Icons.info),
@@ -56,7 +66,13 @@ class CustomDrawer extends StatelessWidget {
                 ListTile(
                   leading: Icon(Icons.settings),
                   title: Text('Settings'),
-                  onTap: null,
+                  onTap: () {
+                    Navigator.of(context).push(
+                          new MaterialPageRoute(
+                            builder: (BuildContext context) => SettingsScreen(),
+                          ),
+                        );
+                  },
                 ),
                 ListTile(
                   leading: Icon(Icons.bug_report),
