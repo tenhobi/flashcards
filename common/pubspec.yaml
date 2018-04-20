@@ -7,6 +7,8 @@ environment:
 
 dependencies:
   meta: '^1.1.2'
+  intl: '^0.15.2'
 
 dev_dependencies:
   test: '^0.12.0'
+  intl_translation: '0.16.3'

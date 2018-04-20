@@ -1,22 +1,30 @@
 import 'dart:async';
 
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flashcards_common/common.dart';
 import 'package:flashcards_flutter/src/app_data.dart';
+import 'package:flashcards_flutter/src/components/button_google.dart';
 import 'package:meta/meta.dart';
 import 'package:flutter/material.dart';
+
+import 'package:flashcards_common/i18n.dart';
 
 class LandingScreen extends StatefulWidget {
   final Widget nextScreen;
   final Widget nextNewUserScreen;
 
+  /// Show all content without animations.
+  final bool withoutAnimations;
+
   @override
   State<StatefulWidget> createState() => _LandingScreenState();
 
-  LandingScreen({@required this.nextScreen, @required this.nextNewUserScreen});
+  LandingScreen({@required this.nextScreen, @required this.nextNewUserScreen, this.withoutAnimations = false});
 }
 
 // ignore: mixin_inherits_from_not_object
 class _LandingScreenState extends State<LandingScreen> with SingleTickerProviderStateMixin {
-  final double fontSize = 45.0;
+  final double fontSize = 55.0;
   AnimationController animation;
 
   bool loginButtonVisible = false;
@@ -42,28 +50,10 @@ class _LandingScreenState extends State<LandingScreen> with SingleTickerProvider
     showLoginButton();
   }
 
-  void showLoginButton() async {
-    await Future.delayed(animationDuration);
-    loginButtonVisible = true;
-  }
-
   @override
   void dispose() {
     animation.dispose();
     super.dispose();
-  }
-
-  // TODO: detect new user and go to nextNewUserScreen
-  Future<Null> signIn({bool silently = false}) async {
-    var u = silently ? await AppData.of(context).bloc.signInSilently() : await AppData.of(context).bloc.signIn();
-
-    if (u == null) return;
-
-    Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (BuildContext bc) => widget.nextScreen,
-          ),
-        );
   }
 
   @override
@@ -73,39 +63,66 @@ class _LandingScreenState extends State<LandingScreen> with SingleTickerProvider
       body: Container(
         color: Colors.transparent,
         alignment: Alignment.center,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: Stack(
+          alignment: Alignment.center,
           children: <Widget>[
-            Container(
-              height: fontSize,
-              margin: EdgeInsets.only(bottom: 150.0),
+            Padding(
+              padding: EdgeInsets.only(bottom: 150.0),
               child: Text(
                 'flashcards',
                 style: TextStyle(
                   fontFamily: 'Lobster',
                   fontWeight: FontWeight.normal,
-                  fontSize: Curves.elasticOut.transform(animation.value) * fontSize,
-                  color: Theme.of(context).buttonColor,
+                  fontSize:
+                      widget.withoutAnimations ? fontSize : Curves.elasticOut.transform(animation.value) * fontSize,
+                  color: Colors.white,
                 ),
               ),
             ),
-            _buildButtons(context),
+            Padding(
+              padding: EdgeInsets.only(top: 300.0),
+              child: _buildButtons(context),
+            ),
           ],
         ),
       ),
     );
   }
 
+  // TODO: detect new user and go to nextNewUserScreen
+  Future<Null> signIn({bool silently = false}) async {
+    FirebaseUser user = silently ? await AppData.of(context).authBloc.signInSilently() : await AppData.of(context).authBloc.signIn();
+
+    if (user == null) return;
+
+    // await AppData.of(context).userBloc.query(user.uid) == null
+    if (true) {
+      AppData.of(context).userBloc.create(new UserData(uid: user.uid));
+    }
+
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (BuildContext bc) => widget.nextScreen,
+      ),
+    );
+  }
+
   Widget _buildButtons(BuildContext context) {
-    if (loginButtonVisible) {
+//    if (widget.withoutAnimations || loginButtonVisible) {
+    if (true) {
       return RawGestureDetector(
-        child: RaisedButton(
-          onPressed: signIn,
-          child: Text('login'),
+        child: GoogleButton(
+          signIn: signIn,
+          text: FlashcardsStrings.loginButton(),
         ),
       );
     }
 
-    return Container();
+//    return Container();
+  }
+
+  void showLoginButton() async {
+    await Future.delayed(animationDuration);
+    loginButtonVisible = true;
   }
 }
