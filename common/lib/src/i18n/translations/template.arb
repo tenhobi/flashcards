@@ -1,8 +1,20 @@
 {
-  "@@last_modified": "2018-04-20T15:33:50.780158",
+  "@@last_modified": "2018-04-20T17:00:16.501254",
   "signInButton": "_signInButton",
   "@signInButton": {
     "description": "Sign in button.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "sectionsTab": "_sections",
+  "@sectionsTab": {
+    "description": "Sections tab in course screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "descriptionTab": "_description",
+  "@descriptionTab": {
+    "description": "Description tab in course screen",
     "type": "text",
     "placeholders": {}
   },
