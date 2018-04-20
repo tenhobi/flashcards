@@ -1,6 +1,5 @@
 import 'package:flashcards_common/src/data/course.dart';
 import 'package:flashcards_common/src/data/data.dart';
-import 'package:flashcards_common/src/data/subsection.dart';
 import 'package:meta/meta.dart';
 
 class SectionData extends Data implements Comparable<SectionData> {
@@ -8,16 +7,12 @@ class SectionData extends Data implements Comparable<SectionData> {
 	final CourseData parent;
 	final String name;
 	final int order;
-	// todo: make it final
-	List<SubsectionData> materialsAndExercises;
 
 	// fixme: id, parent and order
 	SectionData(this.name) : id = "", parent = null, order = 0;
 
 	@override
 	int compareTo(SectionData d) => order.compareTo(d.order);
-
-	void addSubsection(SubsectionData d) => materialsAndExercises.add(d);
 
 	SectionData.fromMap(Map<String, dynamic> data, {@required CourseData parent})
 			: id = data['id'],

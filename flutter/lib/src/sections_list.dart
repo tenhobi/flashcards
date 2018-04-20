@@ -1,7 +1,87 @@
 import 'package:flashcards_flutter/src/firebase_flutter_api.dart';
+import 'package:flashcards_flutter/src/components/indicator_loading.dart';
 import 'package:flashcards_common/common.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
+
+class _NullOrEmpty extends StatelessWidget {
+	_NullOrEmpty({this.isLast = false});
+	final bool isLast;
+	@override
+	Widget build(BuildContext context) {
+		if(isLast) {
+			return Container(
+				padding: EdgeInsets.only(
+						left: 16.0,
+						bottom: 10.0,
+						right: 10.0,
+						top: 10.0
+				),
+				alignment: Alignment.center,
+				decoration: BoxDecoration(
+					borderRadius:
+						BorderRadius.only(
+							bottomLeft: Radius.circular(6.0),
+							bottomRight: Radius.circular(6.0),
+						),
+					color: Colors.white,
+				),
+				child: Text("Empty"),
+			);
+		}
+		return Container(
+			width: 0.0,
+			height: 0.0,
+		);
+  }
+}
+
+class _BuildStream extends StatelessWidget {
+	_BuildStream(this.function, this.section, {this.isLast = false});
+	final Function function;
+	final SectionData section;
+	final isLast;
+	List<SubsectionData> data = null;
+
+	@override
+	Widget build(BuildContext context) {
+		return StreamBuilder<List<SubsectionData>>(
+			stream: function(section: section),
+			builder: (BuildContext context, AsyncSnapshot<List<SubsectionData>> snapshot) {
+				if(!snapshot.hasData || true && isLast) {
+					// fixme: this should be stretched
+					return Row(
+						mainAxisAlignment: MainAxisAlignment.center,
+						mainAxisSize: MainAxisSize.max,
+						children: <Widget>[
+							Container(
+								padding: EdgeInsets.all(8.0),
+								color: Colors.white,
+								child: Loading(),
+							)
+						],
+					);
+				}
+				if(snapshot.data.length == 0 && (data == null || data.length == 0)) {
+					return _NullOrEmpty(isLast: isLast);
+				}
+				if(snapshot.hasData) {
+					data = snapshot.data;
+					data.sort();
+				}
+				return Column(
+					children: data.map((SubsectionData d) {
+						bool last = false;
+						if(data.last.compareTo(d) == 0 && isLast) {
+							last = true;
+						}
+						return _SectionRow.Generate(d, onTap: () {}, isLast: last);
+					}).toList(),
+				);
+			},
+		);
+  }
+}
 
 class _SectionRow extends StatelessWidget {
 	_SectionRow({@required this.icon, @required this.text, @required this.onTap, this.isLast = false});
@@ -60,19 +140,20 @@ class _SectionRow extends StatelessWidget {
   }
 }
 
-class SectionWidget extends StatefulWidget {
-	SectionWidget({@required SectionData this.section});
+class _SectionWidget extends StatefulWidget {
+	_SectionWidget({@required SectionData this.section});
 
 	final SectionData section;
 
 	@override
-	State<SectionWidget> createState() => _SectionsWidgetState();
+	State<_SectionWidget> createState() => _SectionsWidgetState();
 }
 
-class _SectionsWidgetState extends State<SectionWidget> {
+class _SectionsWidgetState extends State<_SectionWidget> {
 	final SectionListBloc _bloc = SectionListBloc(FirebaseFlutterApi());
 
-	List<SubsectionData> data = null;
+
+
 
 	@override
 	Widget build(BuildContext context) {
@@ -101,44 +182,13 @@ class _SectionsWidgetState extends State<SectionWidget> {
 								style: TextStyle(color: Colors.white)
 						),
 					),
-					children: <Widget>[
-						StreamBuilder<List<SubsectionData>>(
-							stream: _bloc.queryMaterialsAndExercises(section: widget.section),
-							builder: (BuildContext context, AsyncSnapshot<List<SubsectionData>> snapshot) {
-								print(data);
-								if(!snapshot.hasData && (data == null || data.length == 0)) {
-									return Container(
-										padding: EdgeInsets.only(
-											left: 10.0,
-											bottom: 10.0,
-											right: 10.0,
-											top: 10.0
-										),
-										alignment: Alignment.center,
-										decoration: BoxDecoration(
-											borderRadius: BorderRadius.only(
-												bottomLeft: Radius.circular(6.0),
-												bottomRight: Radius.circular(6.0)
-											),
-											color: Colors.white,
-										),
-										child: Text("Empty")
-									);
-								}
-								if(snapshot.data != null) {
-									snapshot.data.sort();
-									data = snapshot.data;
-								}
-								return Column(
-									children: data.map((SubsectionData d) {
-										bool last = false;
-										if(data.last.compareTo(d) == 0) {
-											last = true;
-										}
-										return _SectionRow.Generate(d, onTap: () {}, isLast: last);
-									}).toList(),
-								);
-							},
+					children: [
+						Column(
+							children: <Widget>[
+								_BuildStream(_bloc.queryExercises, widget.section),
+								Divider(color: Colors.transparent,height: 1.0,),
+								_BuildStream(_bloc.queryMaterials, widget.section, isLast: true)
+							],
 						)
 					],
 				)
@@ -165,17 +215,12 @@ class _SectionsListState extends State<SectionsList> {
 			stream: _bloc.query(course: widget.course),
 			builder: (BuildContext context, AsyncSnapshot<List<SectionData>> snapshot) {
 				if(!snapshot.hasData) {
-					return Row(
-						mainAxisAlignment: MainAxisAlignment.center,
-						children: <Widget>[
-							CircularProgressIndicator()
-						],
-					);
+					return Loading();
 				}
 				snapshot.data.sort();
 				return ListView(
 					children: snapshot.data.map((SectionData section) {
-						return SectionWidget(section: section);
+						return _SectionWidget(section: section);
 					}).toList()
 				);
 			},

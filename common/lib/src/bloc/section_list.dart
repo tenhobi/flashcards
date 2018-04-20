@@ -16,8 +16,12 @@ class SectionListBloc {
 		return _api.querySections(course: course);
 	}
 
-	Stream<List<SubsectionData>> queryMaterialsAndExercises({@required SectionData section}) {
-		return _api.queryMaterialsAndExercises(section: section);
+	Stream<List<SubsectionData>> queryMaterials({@required SectionData section}) {
+		return _api.queryMaterials(section: section);
+	}
+
+	Stream<List<SubsectionData>> queryExercises({@required SectionData section}) {
+		return _api.queryExercises(section: section);
 	}
 
 //	todo: implement this

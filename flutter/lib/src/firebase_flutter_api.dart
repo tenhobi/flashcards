@@ -46,7 +46,7 @@ class FirebaseFlutterApi extends FirebaseApi {
   }
 
   @override
-  Stream<List<SubsectionData>> queryMaterialsAndExercises({@required SectionData section}) {
+  Stream<List<SubsectionData>> queryMaterials({@required SectionData section}) {
     StreamController<List<SubsectionData>> controller = StreamController.broadcast();
 
     Firestore.instance.collection('courses').document(section.parent.id).getCollection('sections').document(section.id).getCollection("materials").snapshots.listen((QuerySnapshot snapshot) {
@@ -58,18 +58,25 @@ class FirebaseFlutterApi extends FirebaseApi {
       }).toList());
     });
 
-//    Firestore.instance.collection('courses').document(section.parent.id).getCollection('sections').document(section.id).getCollection("exercises").snapshots.listen((QuerySnapshot snapshot) {
-//      controller.add(snapshot.documents.map<SubsectionData>((DocumentSnapshot document) {
-//        var data = document.data;
-//        data['id'] = document.documentID;
-//        ExerciseData res = ExerciseData.fromMap(data, parent: section);
-//        return res;
-//      }).toList());
-//    });
-
-//    Stream<List<SubsectionData>> res = StreamGroup.merge([c1.stream, c2.stream]);
     return controller.stream;
   }
+
+  @override
+  Stream<List<SubsectionData>> queryExercises({@required SectionData section}) {
+    StreamController<List<SubsectionData>> controller = StreamController.broadcast();
+
+    Firestore.instance.collection('courses').document(section.parent.id).getCollection('sections').document(section.id).getCollection("exercises").snapshots.listen((QuerySnapshot snapshot) {
+      controller.add(snapshot.documents.map<SubsectionData>((DocumentSnapshot document) {
+        var data = document.data;
+        data['id'] = document.documentID;
+        ExerciseData res = ExerciseData.fromMap(data, parent: section);
+        return res;
+      }).toList());
+    });
+
+    return controller.stream;
+  }
+
 
   @override
   void addCourse(CourseData course) {
