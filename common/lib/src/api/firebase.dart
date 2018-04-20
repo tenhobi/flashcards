@@ -4,11 +4,11 @@ import 'package:flashcards_common/src/data/course.dart';
 import 'package:flashcards_common/src/data/user.dart';
 import 'package:meta/meta.dart';
 
-enum CoursesQueryType { active, created, popular }
+enum CoursesQueryType { all, created, popular }
 
 @immutable
 abstract class FirebaseApi {
-  Stream<List<CourseData>> queryCourses({CoursesQueryType type, String name});
+  Stream<List<CourseData>> queryCourses({CoursesQueryType type, String name, String authorUid});
 
   void addCourse(CourseData course);
 

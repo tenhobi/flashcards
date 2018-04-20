@@ -118,7 +118,7 @@ class _LandingScreenState extends State<LandingScreen> with SingleTickerProvider
       );
     }
 
-    return Container();
+//    return Container();
   }
 
   void showLoginButton() async {

@@ -9,7 +9,7 @@ class UserData extends Data {
 
   UserData.fromMap(Map<String, dynamic> data)
       : uid = data['uid'],
-        score = data['progress'] ?? 0;
+        score = data['score'] ?? 0 {}
 
   @override
   Map<String, dynamic> toMap() {
