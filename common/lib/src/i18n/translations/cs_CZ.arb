@@ -1,39 +1,46 @@
 {
   "@@locale": "cs_CZ",
-  "@@last_modified": "2018-04-15T11:53:42.038870",
-  "loginButton": "Přihlásit se pomocí Google",
-  "@loginButton": {
-    "description": "Login button on landing screen",
-    "type": "text",
-    "placeholders": {}
-  },
-  "signInButton": "zaregistrovat se",
+  "@@last_modified": "2018-04-20T14:03:31.803490",
+  "signInButton": "Přihlásit se",
   "@signInButton": {
-    "description": "Button sign in description",
+    "description": "Sign in button.",
     "type": "text",
     "placeholders": {}
   },
-  "remainingEmailsMessage": "{howMany,plural, =0{There are no emails left for {userName}.}=1{There is {howMany} email left for {userName}.}other{There are {howMany} emails left for {userName}.}}",
-  "@remainingEmailsMessage": {
-    "description": "How many emails remain after archiving.",
+  "homeNavigationButton": "Domů",
+  "@homeNavigationButton": {
+    "description": "Home button in navigation.",
     "type": "text",
-    "placeholders": {
-      "howMany": {
-        "example": 42
-      },
-      "userName": {
-        "example": "Fred"
-      }
-    }
+    "placeholders": {}
   },
-  "hovno": "{count,plural, =0{beta 0 {count}}=1{gama 1}=2{delta 2}other{zeta 3}}",
-  "@hovno": {
-    "description": "alfa info",
+  "searchNavigationButton": "Hledat",
+  "@searchNavigationButton": {
+    "description": "Search button in navigation.",
     "type": "text",
-    "placeholders": {
-      "count": {
-        "example": 42
-      }
-    }
+    "placeholders": {}
+  },
+  "aboutNavigationButton": "O aplikaci",
+  "@aboutNavigationButton": {
+    "description": "About button in navigation.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsNavigationButton": "Nastavení",
+  "@settingsNavigationButton": {
+    "description": "Settings button in navigation.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "reportBugNavigationButton": "Nahlásit chybu",
+  "@reportBugNavigationButton": {
+    "description": "Report button in navigation.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "signOutNavigationButton": "Odhlásit se",
+  "@signOutNavigationButton": {
+    "description": "Sign out button in navigation.",
+    "type": "text",
+    "placeholders": {}
   }
 }

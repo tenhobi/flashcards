@@ -1,4 +1,5 @@
 import 'package:flashcards_common/common.dart';
+import 'package:flashcards_common/i18n.dart';
 import 'package:flashcards_flutter/src/app_data.dart';
 import 'package:flashcards_flutter/src/landing_screen.dart';
 import 'package:flashcards_flutter/src/main_screen.dart';
@@ -42,15 +43,21 @@ class CustomDrawer extends StatelessWidget {
               children: <Widget>[
                 ListTile(
                   leading: Icon(Icons.home),
-                  title: Text('Home'),
+                  title: Text(FlashcardsStrings.homeNavigationButton()),
                   onTap: () {
-                    Navigator.of(context).pop();
+                    Navigator.of(context).pop(); // closes the drawer
+                    Navigator.of(context).push(
+                      new MaterialPageRoute(
+                        builder: (BuildContext context) => MainScreen(),
+                      ),
+                    );
                   },
                 ),
                 ListTile(
                   leading: Icon(Icons.search),
-                  title: Text('Search'),
+                  title: Text(FlashcardsStrings.searchNavigationButton()),
                   onTap: () {
+                    Navigator.of(context).pop(); // closes the drawer
                     Navigator.of(context).push(
                           new MaterialPageRoute(
                             builder: (BuildContext context) => SearchScreen(),
@@ -60,13 +67,14 @@ class CustomDrawer extends StatelessWidget {
                 ),
                 ListTile(
                   leading: Icon(Icons.info),
-                  title: Text('About'),
+                  title: Text(FlashcardsStrings.aboutNavigationButton()),
                   onTap: null,
                 ),
                 ListTile(
                   leading: Icon(Icons.settings),
-                  title: Text('Settings'),
+                  title: Text(FlashcardsStrings.settingsNavigationButton()),
                   onTap: () {
+                    Navigator.of(context).pop(); // closes the drawer
                     Navigator.of(context).push(
                           new MaterialPageRoute(
                             builder: (BuildContext context) => SettingsScreen(),
@@ -76,12 +84,13 @@ class CustomDrawer extends StatelessWidget {
                 ),
                 ListTile(
                   leading: Icon(Icons.bug_report),
-                  title: Text('Report bug'),
+                  title: Text(FlashcardsStrings.reportBugNavigationButton()),
+                  // TODO: open report bug web page
                   onTap: null,
                 ),
                 ListTile(
                   leading: Icon(Icons.close),
-                  title: Text('Sign out'),
+                  title: Text(FlashcardsStrings.signOutNavigationButton()),
                   onTap: () {
                     AppData.of(context).authBloc.signOut();
                     Navigator.of(context).pushAndRemoveUntil(

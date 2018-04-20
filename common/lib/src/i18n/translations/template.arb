@@ -1,38 +1,45 @@
 {
-  "@@last_modified": "2018-04-15T17:17:36.895055",
-  "loginButton": "_loginButton",
-  "@loginButton": {
-    "description": "Login button on landing screen",
-    "type": "text",
-    "placeholders": {}
-  },
+  "@@last_modified": "2018-04-20T14:38:14.338274",
   "signInButton": "_signInButton",
   "@signInButton": {
-    "description": "Button sign in description",
+    "description": "Sign in button.",
     "type": "text",
     "placeholders": {}
   },
-  "remainingEmailsMessage": "{howMany,plural, =0{There are no emails left for {userName}.}=1{There is {howMany} email left for {userName}.}other{There are {howMany} emails left for {userName}.}}",
-  "@remainingEmailsMessage": {
-    "description": "How many emails remain after archiving.",
+  "homeNavigationButton": "_homeNavigationButton",
+  "@homeNavigationButton": {
+    "description": "Home button in navigation.",
     "type": "text",
-    "placeholders": {
-      "howMany": {
-        "example": 42
-      },
-      "userName": {
-        "example": "Fred"
-      }
-    }
+    "placeholders": {}
   },
-  "hovno": "{count,plural, =0{beta 0 {count}}=1{gama 1}=2{delta 2}other{zeta 3}}",
-  "@hovno": {
-    "description": "alfa info",
+  "searchNavigationButton": "_searchNavigationButton",
+  "@searchNavigationButton": {
+    "description": "Search button in navigation.",
     "type": "text",
-    "placeholders": {
-      "count": {
-        "example": 42
-      }
-    }
+    "placeholders": {}
+  },
+  "aboutNavigationButton": "_aboutNavigationButton",
+  "@aboutNavigationButton": {
+    "description": "About button in navigation.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsNavigationButton": "_settingsNavigationButton",
+  "@settingsNavigationButton": {
+    "description": "Settings button in navigation.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "reportBugNavigationButton": "_reportBugNavigationButton",
+  "@reportBugNavigationButton": {
+    "description": "Report button in navigation.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "signOutNavigationButton": "_signOutNavigationButton",
+  "@signOutNavigationButton": {
+    "description": "Sign out button in navigation.",
+    "type": "text",
+    "placeholders": {}
   }
 }
