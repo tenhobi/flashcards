@@ -1,20 +1,20 @@
 import 'package:flashcards_common/src/data/data.dart';
+import 'package:meta/meta.dart';
 
 class CourseData extends Data {
   final String id;
   final String name;
+  final String authorUid;
   final String description;
   final double progress;
   final int stars;
 
-//  todo implement creating new course with id
-  CourseData(this.name, this.progress, this.description)
-      : id = "",
-        stars = 0;
+  CourseData({@required this.name, @required this.authorUid, this.description, this.stars = 0, this.id = "", this.progress = 0.0});
 
   CourseData.fromMap(Map<String, dynamic> data)
       : id = data['id'],
         name = data['name'],
+        authorUid = data['authorUid'],
         description = data['description'],
         progress = data['progress'],
         stars = data['stars'];
@@ -25,6 +25,7 @@ class CourseData extends Data {
       'id': '$id',
       'name': '$name',
       'description': '$description',
+      'authorUid': '$authorUid',
       'progress': progress,
       'stars': stars,
     };

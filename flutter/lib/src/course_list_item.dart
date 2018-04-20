@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 
 class CourseListItem extends StatelessWidget {
-  final CourseData course;
+  CourseListItem({@required this.data});
 
-  CourseListItem({@required this.course});
+  final CourseData data;
 
   void starCourse() {
     //todo: implement this
@@ -17,50 +17,41 @@ class CourseListItem extends StatelessWidget {
         borderRadius: BorderRadius.circular(8.0),
         child: Stack(
           children: <Widget>[
-            Container(
-              color: Theme.of(context).primaryColor,
-              child: Column(
-                children: <Widget>[
-                  Expanded(
-                    child: Center(
-                      child: Text(
-                        course.name ?? "",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 32.0,
-                        ),
-                      ),
-                    ),
+
+            Expanded(
+              child: Center(
+                child: Text(
+                  data.name,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 32.0,
                   ),
-                  Container(
-                    height: 10.0,
-                    alignment: Alignment.centerLeft,
-                    child: FractionallySizedBox(
-                      widthFactor: course.progress,
-                      child: Container(
-                        color: Color(0x40000000),
-                      ),
+                ],
+              ),
+            ),
+
+            Container(
+              alignment: Alignment.bottomRight,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Icon(
+                    Icons.star,
+                    color: Colors.white,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left: 5.0),
+                  ),
+                  Text(
+                    '${data.stars}',
+                    style: TextStyle(
+                      color: Colors.white,
                     ),
                   ),
                 ],
               ),
             ),
-            Positioned(
-                right: 0.0,
-                top: 0.0,
-                child: Container(
-                    padding: EdgeInsets.only(top: 2.0, right: 2.0),
-                    child: GestureDetector(
-                      onTap: starCourse,
-                      child: Row(
-                        children: <Widget>[
-                          Text(course.stars != null ? course.stars.toString() : "0",
-                              style: TextStyle(color: Colors.white)),
-                          Icon(Icons.star_border, size: 18.0, color: Colors.white)
-                        ],
-                      ),
-                    ))),
           ],
         ));
   }

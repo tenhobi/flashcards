@@ -24,6 +24,7 @@ android {
     defaultConfig {
         minSdkVersion 16
         applicationId 'cz.honzabittner.flashcards'
+        versionName '0.0.1'
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 

@@ -9,18 +9,19 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  # Localization
   flutter_localizations:
     sdk: flutter
-  intl: '^0.15.2'
+  intl: '^0.15.5'
   cupertino_icons: '^0.1.0'
   flashcards_common:
     path: ../common
   meta: '^1.1.2'
-  cloud_firestore: '^0.3.2'
-  firebase_auth: '^0.5.3'
-  google_sign_in: '^3.0.0'
   flutter_markdown: '^0.1.5'
+  url_launcher: '^3.0.0'
+  package_info: '^0.3.0'
+  cloud_firestore: '^0.6.3'
+  firebase_auth: '^0.5.5'
+  google_sign_in: '^3.0.2'
 
 dev_dependencies:
   flutter_test:

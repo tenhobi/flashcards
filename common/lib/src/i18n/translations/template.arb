@@ -1,28 +1,53 @@
 {
-  "@@last_modified": "2018-04-18T12:47:13.815484",
-  "loginButton": "_loginButton",
-  "@loginButton": {
-    "description": "Login button on landing screen",
-    "type": "text",
-    "placeholders": {}
-  },
+  "@@last_modified": "2018-04-20T15:33:50.780158",
   "signInButton": "_signInButton",
   "@signInButton": {
-    "description": "Button sign in description",
+    "description": "Sign in button.",
     "type": "text",
     "placeholders": {}
   },
-  "remainingEmailsMessage": "{howMany,plural, =0{There are no emails left for {userName}.}=1{There is {howMany} email left for {userName}.}other{There are {howMany} emails left for {userName}.}}",
-  "@remainingEmailsMessage": {
-    "description": "How many emails remain after archiving.",
+  "homeNavigationButton": "_homeNavigationButton",
+  "@homeNavigationButton": {
+    "description": "Home button in navigation.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "searchNavigationButton": "_searchNavigationButton",
+  "@searchNavigationButton": {
+    "description": "Search button in navigation.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "aboutNavigationButton": "_aboutNavigationButton",
+  "@aboutNavigationButton": {
+    "description": "About button in navigation.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsNavigationButton": "_settingsNavigationButton",
+  "@settingsNavigationButton": {
+    "description": "Settings button in navigation.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "reportBugNavigationButton": "_reportBugNavigationButton",
+  "@reportBugNavigationButton": {
+    "description": "Report button in navigation.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "signOutNavigationButton": "_signOutNavigationButton",
+  "@signOutNavigationButton": {
+    "description": "Sign out button in navigation.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "aboutText": "Version\n__{version}__\n\nOpen source project with a goal to develop a multiplatform (i.e. web, android, iOS) flashcards learning app. You can check our code on [GitHub](https://github.com/tenhobi/flashcards).\n\nThe project started as a part of a software team project at the [Faculty of Information Technology, CTU in Prague](https://fit.cvut.cz/en).",
+  "@aboutText": {
+    "description": "Text about this application in markdown.",
     "type": "text",
     "placeholders": {
-      "howMany": {
-        "example": 42
-      },
-      "userName": {
-        "example": "Fred"
-      }
+      "version": {}
     }
   },
   "sectionsTab": "_sections",
@@ -37,14 +62,18 @@
     "type": "text",
     "placeholders": {}
   },
-  "hovno": "{count,plural, =0{beta 0 {count}}=1{gama 1}=2{delta 2}other{zeta 3}}",
-  "@hovno": {
-    "description": "alfa info",
+  "aboutLicensesText": "Application is being developed using open source software: [licences]()",
+  "@aboutLicensesText": {
+    "description": "Text about licences with an empty link as a button in markdown.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "score": "score: {score}",
+  "@score": {
+    "description": "Score caption.",
     "type": "text",
     "placeholders": {
-      "count": {
-        "example": 42
-      }
+      "score": {}
     }
   }
 }
