@@ -40,9 +40,6 @@ class MyApp extends StatelessWidget {
       userBloc: UserBloc(firebaseApi),
       child: MaterialApp(
         title: 'Flashcards',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
         home: LandingScreen(
           nextScreen: MainScreen(),
           nextNewUserScreen: MainScreen(),

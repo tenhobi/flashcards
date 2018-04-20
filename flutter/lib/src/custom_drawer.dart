@@ -7,6 +7,9 @@ import 'package:flashcards_flutter/src/search_screen.dart';
 import 'package:flashcards_flutter/src/settings_screen.dart';
 import 'package:flutter/material.dart';
 
+import 'package:flashcards_flutter/src/about_screen.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 class CustomDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -33,7 +36,7 @@ class CustomDrawer extends StatelessWidget {
                 stream: AppData.of(context).userBloc.query(AppData.of(context).authBloc.user.uid),
                 builder: (BuildContext context, AsyncSnapshot<UserData> snapshot) {
                   return Text(
-                    'score: ${snapshot.data?.score ?? 0}',
+                    FlashcardsStrings.score(snapshot.data?.score ?? 0),
                     style: TextStyle(color: Colors.white),
                   );
                 }),
@@ -47,10 +50,10 @@ class CustomDrawer extends StatelessWidget {
                   onTap: () {
                     Navigator.of(context).pop(); // closes the drawer
                     Navigator.of(context).push(
-                      new MaterialPageRoute(
-                        builder: (BuildContext context) => MainScreen(),
-                      ),
-                    );
+                          new MaterialPageRoute(
+                            builder: (BuildContext context) => MainScreen(),
+                          ),
+                        );
                   },
                 ),
                 ListTile(
@@ -68,7 +71,14 @@ class CustomDrawer extends StatelessWidget {
                 ListTile(
                   leading: Icon(Icons.info),
                   title: Text(FlashcardsStrings.aboutNavigationButton()),
-                  onTap: null,
+                  onTap: () {
+                    Navigator.of(context).pop(); // closes the drawer
+                    Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (BuildContext bc) => AboutScreen(),
+                          ),
+                        );
+                  },
                 ),
                 ListTile(
                   leading: Icon(Icons.settings),
@@ -85,8 +95,9 @@ class CustomDrawer extends StatelessWidget {
                 ListTile(
                   leading: Icon(Icons.bug_report),
                   title: Text(FlashcardsStrings.reportBugNavigationButton()),
-                  // TODO: open report bug web page
-                  onTap: null,
+                  onTap: () {
+                    launch('https://github.com/tenhobi/flashcards/issues/new');
+                  },
                 ),
                 ListTile(
                   leading: Icon(Icons.close),

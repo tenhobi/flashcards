@@ -42,5 +42,27 @@
     "description": "Sign out button in navigation.",
     "type": "text",
     "placeholders": {}
+  },
+  "aboutText": "Verze\n__{version}__\n\nOpen source projekt s cílem vytvořit multiplatformní (tj. web, android, iOS) aplikaci s výukovými kartičkami. Na náš kód se můžete podívat na [GitHubu](https://github.com/tenhobi/flashcards).\n\nProjekt začal jako součást předmětu softwarový týmový projekt na [Fakultě informačních technologií ČVUT v Praze](https://fit.cvut.cz).",
+  "@aboutText": {
+    "description": "Text about this application in markdown.",
+    "type": "text",
+    "placeholders": {
+      "version": {}
+    }
+  },
+  "aboutLicensesText": "Aplikace je vyvíjena jako open source software: [licence]()",
+  "@aboutLicensesText": {
+    "description": "Text about licences with an empty link as a button in markdown.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "score": "skóre: {score}",
+  "@score": {
+    "description": "Score caption.",
+    "type": "text",
+    "placeholders": {
+      "score": {}
+    }
   }
 }

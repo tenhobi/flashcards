@@ -1,5 +1,5 @@
 {
-  "@@last_modified": "2018-04-20T14:38:14.338274",
+  "@@last_modified": "2018-04-20T15:33:50.780158",
   "signInButton": "_signInButton",
   "@signInButton": {
     "description": "Sign in button.",
@@ -41,5 +41,27 @@
     "description": "Sign out button in navigation.",
     "type": "text",
     "placeholders": {}
+  },
+  "aboutText": "Version\n__{version}__\n\nOpen source project with a goal to develop a multiplatform (i.e. web, android, iOS) flashcards learning app. You can check our code on [GitHub](https://github.com/tenhobi/flashcards).\n\nThe project started as a part of a software team project at the [Faculty of Information Technology, CTU in Prague](https://fit.cvut.cz/en).",
+  "@aboutText": {
+    "description": "Text about this application in markdown.",
+    "type": "text",
+    "placeholders": {
+      "version": {}
+    }
+  },
+  "aboutLicensesText": "Application is being developed using open source software: [licences]()",
+  "@aboutLicensesText": {
+    "description": "Text about licences with an empty link as a button in markdown.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "score": "score: {score}",
+  "@score": {
+    "description": "Score caption.",
+    "type": "text",
+    "placeholders": {
+      "score": {}
+    }
   }
 }
