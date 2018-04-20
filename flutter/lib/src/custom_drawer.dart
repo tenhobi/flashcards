@@ -1,6 +1,8 @@
 import 'package:flashcards_flutter/src/app_data.dart';
 import 'package:flashcards_flutter/src/landing_screen.dart';
 import 'package:flashcards_flutter/src/main_screen.dart';
+import 'package:flashcards_flutter/src/search_screen.dart';
+import 'package:flashcards_flutter/src/settings_screen.dart';
 import 'package:flutter/material.dart';
 
 class CustomDrawer extends StatelessWidget {
@@ -10,13 +12,15 @@ class CustomDrawer extends StatelessWidget {
       child: Column(
         children: <Widget>[
           UserAccountsDrawerHeader(
-            accountName: Text(AppData.of(context).bloc?.user?.displayName ?? ''),
+            accountName:
+                Text(AppData.of(context).bloc?.user?.displayName ?? ''),
             accountEmail: Text(AppData.of(context).bloc?.user?.email ?? ''),
             currentAccountPicture: CircleAvatar(
               child: ClipRRect(
                 // TODO: any auto value for rounded image?
                 borderRadius: BorderRadius.circular(100.0),
-                child: Image.network(AppData.of(context).bloc?.user?.photoUrl ?? ''),
+                child: Image
+                    .network(AppData.of(context).bloc?.user?.photoUrl ?? ''),
               ),
             ),
             margin: EdgeInsets.zero,
@@ -34,7 +38,13 @@ class CustomDrawer extends StatelessWidget {
                 ListTile(
                   leading: Icon(Icons.search),
                   title: Text('Search'),
-                  onTap: null,
+                  onTap: () {
+                    Navigator.of(context).push(
+                          new MaterialPageRoute(
+                            builder: (BuildContext context) => SearchScreen(),
+                          ),
+                        );
+                  },
                 ),
                 ListTile(
                   leading: Icon(Icons.info),
@@ -44,7 +54,13 @@ class CustomDrawer extends StatelessWidget {
                 ListTile(
                   leading: Icon(Icons.settings),
                   title: Text('Settings'),
-                  onTap: null,
+                  onTap: () {
+                    Navigator.of(context).push(
+                      new MaterialPageRoute(
+                        builder: (BuildContext context) => SettingsScreen(),
+                      ),
+                    );
+                  },
                 ),
                 ListTile(
                   leading: Icon(Icons.bug_report),
