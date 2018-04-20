@@ -17,17 +17,14 @@ typedef MessageIfAbsent(String message_str, List args);
 class MessageLookup extends MessageLookupByLibrary {
   get localeName => 'en_US';
 
-  static m0(count) =>
-      "${Intl.plural(count, zero: 'žádný hovno', one: 'jedno hovno', two: 'dvě hovna', other: '${count} hovna')}";
-
-  static m1(howMany, userName) =>
-      "${Intl.plural(howMany, zero: 'There are no emails left for ${userName}.', one: 'There is ${howMany} email left for ${userName}.', other: 'There are ${howMany} emails left for ${userName}.')}";
-
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function>{
-        "hovno": m0,
-        "loginButton": MessageLookupByLibrary.simpleMessage("Sign in with Google"),
-        "remainingEmailsMessage": m1,
-        "signInButton": MessageLookupByLibrary.simpleMessage("my sign in button")
+        "aboutNavigationButton": MessageLookupByLibrary.simpleMessage("About"),
+        "homeNavigationButton": MessageLookupByLibrary.simpleMessage("Home"),
+        "reportBugNavigationButton": MessageLookupByLibrary.simpleMessage("Report bug"),
+        "searchNavigationButton": MessageLookupByLibrary.simpleMessage("Search"),
+        "settingsNavigationButton": MessageLookupByLibrary.simpleMessage("Settings"),
+        "signInButton": MessageLookupByLibrary.simpleMessage("Sign in"),
+        "signOutNavigationButton": MessageLookupByLibrary.simpleMessage("Sign out")
       };
 }

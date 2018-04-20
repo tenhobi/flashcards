@@ -91,7 +91,8 @@ class _LandingScreenState extends State<LandingScreen> with SingleTickerProvider
 
   // TODO: detect new user and go to nextNewUserScreen
   Future<Null> signIn({bool silently = false}) async {
-    FirebaseUser user = silently ? await AppData.of(context).authBloc.signInSilently() : await AppData.of(context).authBloc.signIn();
+    FirebaseUser user =
+        silently ? await AppData.of(context).authBloc.signInSilently() : await AppData.of(context).authBloc.signIn();
 
     if (user == null) return;
 
@@ -100,11 +101,12 @@ class _LandingScreenState extends State<LandingScreen> with SingleTickerProvider
       AppData.of(context).userBloc.create(new UserData(uid: user.uid));
     }
 
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (BuildContext bc) => widget.nextScreen,
-      ),
-    );
+    Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(
+            builder: (BuildContext bc) => widget.nextScreen,
+          ),
+          (_) => false,
+        );
   }
 
   Widget _buildButtons(BuildContext context) {
@@ -113,7 +115,7 @@ class _LandingScreenState extends State<LandingScreen> with SingleTickerProvider
       return RawGestureDetector(
         child: GoogleButton(
           signIn: signIn,
-          text: FlashcardsStrings.loginButton(),
+          text: FlashcardsStrings.signInButton(),
         ),
       );
     }
