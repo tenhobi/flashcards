@@ -24,19 +24,6 @@ class MainScreen extends StatelessWidget {
           },
         ),
         appBar: AppBar(
-          actions: <Widget>[
-            GestureDetector(
-              child: Icon(Icons.add),
-              onTap: () {
-//                AppData.of(context).courseBloc.create(CourseData(name: 'from app', authorUid: AppData.of(context).authBloc.user.uid));
-                Navigator.of(context).push(
-                      new MaterialPageRoute(
-                        builder: (BuildContext context) => NewCourseScreen(),
-                      ),
-                    );
-              },
-            ),
-          ],
           title: Text('flashcards'),
           bottom: TabBar(
             tabs: [
@@ -48,9 +35,9 @@ class MainScreen extends StatelessWidget {
         ),
         body: TabBarView(
           children: [
-            CoursesList(CoursesQueryType.all),
-            CoursesList(CoursesQueryType.created),
-            CoursesList(CoursesQueryType.popular),
+            CoursesList(type: CoursesQueryType.all),
+            CoursesList(type: CoursesQueryType.created),
+            CoursesList(type: CoursesQueryType.popular),
           ],
         ),
       ),

@@ -17,12 +17,15 @@ class CourseListItem extends StatelessWidget {
           children: <Widget>[
             Expanded(
               child: Center(
-                child: Text(
-                  data.name,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 32.0,
+                child: Padding(
+                  padding: EdgeInsets.all(5.0),
+                  child: Text(
+                    data.name,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 32.0,
+                    ),
                   ),
                 ),
               ),

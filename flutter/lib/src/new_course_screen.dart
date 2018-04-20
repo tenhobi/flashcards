@@ -23,7 +23,6 @@ class _NewCourseScreenState extends State<NewCourseScreen> {
 
           if (form.validate()) {
             form.save();
-            // Form is saved, perform the login now.
 
             AppData.of(context).courseBloc.create(
                   CourseData(
@@ -51,7 +50,7 @@ class _NewCourseScreenState extends State<NewCourseScreen> {
               TextFormField(
                 autofocus: true,
                 decoration: InputDecoration(
-                  labelText: 'Username',
+                  labelText: 'Name',
                 ),
                 validator: (val) => val.isEmpty ? "Name can't be empty." : null,
                 onSaved: (val) => _name = val,
