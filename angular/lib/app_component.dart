@@ -1,13 +1,19 @@
 import 'package:angular/angular.dart';
+import 'package:angular_router/angular_router.dart';
+import 'package:flashcards_angular/src/courses_component.dart';
+import 'package:flashcards_angular/src/routes.dart';
 
 @Component(
   selector: 'flashcards-app',
   styleUrls: const ['app_component.scss.css'],
   templateUrl: 'app_component.html',
-  directives: const [],
-  providers: const [],
+  directives: [routerDirectives, CoursesComponent],
+  providers: const [
+    const ClassProvider(Routes),
+  ],
 )
 class AppComponent {
-  String myText = 'hahaha';
-// Nothing here yet. All logic is in TodoListComponent.
+  final Routes routes;
+
+  AppComponent(this.routes);
 }
