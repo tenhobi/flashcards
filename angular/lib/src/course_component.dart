@@ -88,7 +88,7 @@ class CourseComponent implements OnActivate {
     fb.firestore().collection('courses').doc(id).onSnapshot.listen((querySnapshot) {
       Map<String, dynamic> courseData = querySnapshot.data();
       courseData.addAll({'id': querySnapshot.id});
-      course = CourseData.fromMap(courseData);
+      course = new CourseData.fromMap(courseData);
     });
   }
 }
