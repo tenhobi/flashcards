@@ -16,6 +16,5 @@ export 'package:flashcards_common/src/data/material.dart';
 export 'package:flashcards_common/src/data/exercise.dart';
 export 'package:flashcards_common/src/data/user.dart';
 
-
 @deprecated
 String flashcardsMotto = 'Sdílený text z logiky appky.';

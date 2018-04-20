@@ -10,7 +10,6 @@ enum CoursesQueryType { all, created, popular }
 
 @immutable
 abstract class FirebaseApi {
-
   Stream<List<CourseData>> queryCourses({CoursesQueryType type, String name, String authorUid});
   Stream<List<SectionData>> querySections({@required CourseData course});
   Stream<List<SubsectionData>> queryMaterials({@required SectionData section});

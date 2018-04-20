@@ -16,7 +16,7 @@ class FlashcardsStrings {
   static String descriptionTab() {
     return Intl.message('_description', name: 'descriptionTab', desc: 'Description tab in course screen');
   }
-  
+
   static String homeNavigationButton() {
     return Intl.message(
       '_homeNavigationButton',
@@ -24,7 +24,6 @@ class FlashcardsStrings {
       desc: 'Home button in navigation.',
     );
   }
-
 
   static String searchNavigationButton() {
     return Intl.message(

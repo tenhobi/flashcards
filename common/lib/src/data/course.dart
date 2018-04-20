@@ -9,7 +9,13 @@ class CourseData extends Data {
   final double progress;
   final int stars;
 
-  CourseData({@required this.name, @required this.authorUid, this.description, this.stars = 0, this.id = "", this.progress = 0.0});
+  CourseData(
+      {@required this.name,
+      @required this.authorUid,
+      this.description,
+      this.stars = 0,
+      this.id = "",
+      this.progress = 0.0});
 
   CourseData.fromMap(Map<String, dynamic> data)
       : id = data['id'],
