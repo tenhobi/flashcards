@@ -169,4 +169,19 @@ class FirebaseFlutterApi extends FirebaseApi {
 
     return controller.stream;
   }
+
+  @override
+  Future<Null> updateUser(UserData user) async {
+    QuerySnapshot a = await Firestore.instance.collection('users').where('uid', isEqualTo: user.uid).limit(1).getDocuments();
+    a.documents.first.reference.updateData(user.toMap());
+  }
+
+  @override
+  Future<Null> createIfAbsent(UserData user) async {
+    QuerySnapshot a = await Firestore.instance.collection('users').where('uid', isEqualTo: user.uid).limit(1).getDocuments();
+
+    if (a.documents.length == 0) {
+      Firestore.instance.collection('users').add(user.toMap());
+    }
+  }
 }

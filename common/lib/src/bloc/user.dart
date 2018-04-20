@@ -17,4 +17,8 @@ class UserBloc {
   }
 
   void create(UserData user) => _api.addUser(user);
+
+  void updateUser(UserData user) => _api.updateUser(user);
+
+  void createIfAbsent(UserData user) => _api.createIfAbsent(user);
 }
