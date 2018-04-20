@@ -8,13 +8,13 @@ class CustomDrawer extends StatelessWidget {
       child: Column(
         children: <Widget>[
           UserAccountsDrawerHeader(
-            accountName: Text(AppData.of(context).bloc?.user?.displayName ?? ''),
-            accountEmail: Text(AppData.of(context).bloc?.user?.email ?? ''),
+            accountName: Text(AppData.of(context).authBloc?.user?.displayName ?? ''),
+            accountEmail: Text(AppData.of(context).authBloc?.user?.email ?? ''),
             currentAccountPicture: CircleAvatar(
               child: ClipRRect(
                 // TODO: any auto value for rounded image?
                 borderRadius: BorderRadius.circular(100.0),
-                child: Image.network(AppData.of(context).bloc?.user?.photoUrl ?? ''),
+                child: Image.network(AppData.of(context).authBloc?.user?.photoUrl ?? ''),
               ),
             ),
             margin: EdgeInsets.zero,
@@ -53,7 +53,7 @@ class CustomDrawer extends StatelessWidget {
                   leading: Icon(Icons.close),
                   title: Text('Sign out'),
                   onTap: () {
-                    AppData.of(context).bloc.signOut();
+                    AppData.of(context).authBloc.signOut();
                     Navigator.of(context).popUntil(ModalRoute.withName('/'));
                   },
                 ),

@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flashcards_common/common.dart';
+import 'package:flashcards_common/src/data/user.dart';
 
 class FirebaseFlutterApi extends FirebaseApi {
   static final FirebaseFlutterApi _instance = FirebaseFlutterApi._();
@@ -27,5 +28,36 @@ class FirebaseFlutterApi extends FirebaseApi {
   @override
   void addCourse(CourseData course) {
     Firestore.instance.collection('courses').add(course.toMap());
+  }
+
+  @override
+  void addUser(UserData user) {
+    Firestore.instance.collection('users').add(user.toMap());
+  }
+
+  @override
+  Stream<UserData> queryUser(String uid) {
+    StreamController<UserData> controller = StreamController.broadcast();
+
+    Firestore.instance.collection('users').where('uid', isEqualTo: uid).limit(1).snapshots.listen((QuerySnapshot snapshot) {
+      controller.add(snapshot.documents.map<UserData>((DocumentSnapshot document) {
+        return UserData.fromMap(document.data);
+      }).toList().first);
+    });
+
+    return controller.stream;
+  }
+
+  @override
+  Stream<List<UserData>> queryUsers() {
+    StreamController<List<UserData>> controller = StreamController.broadcast();
+
+    Firestore.instance.collection('users').snapshots.listen((QuerySnapshot snapshot) {
+      controller.add(snapshot.documents.map<UserData>((DocumentSnapshot document) {
+        return UserData.fromMap(document.data);
+      }).toList());
+    });
+
+    return controller.stream;
   }
 }
