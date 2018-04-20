@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flashcards_common/common.dart';
 import 'package:flashcards_flutter/src/app_data.dart';
 import 'package:flashcards_flutter/src/components/button_google.dart';
 import 'package:meta/meta.dart';
@@ -87,8 +89,27 @@ class _LandingScreenState extends State<LandingScreen> with SingleTickerProvider
     );
   }
 
+  // TODO: detect new user and go to nextNewUserScreen
+  Future<Null> signIn({bool silently = false}) async {
+    FirebaseUser user = silently ? await AppData.of(context).authBloc.signInSilently() : await AppData.of(context).authBloc.signIn();
+
+    if (user == null) return;
+
+    // await AppData.of(context).userBloc.query(user.uid) == null
+    if (true) {
+      AppData.of(context).userBloc.create(new UserData(uid: user.uid));
+    }
+
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (BuildContext bc) => widget.nextScreen,
+      ),
+    );
+  }
+
   Widget _buildButtons(BuildContext context) {
-    if (widget.withoutAnimations || loginButtonVisible) {
+//    if (widget.withoutAnimations || loginButtonVisible) {
+    if (true) {
       return RawGestureDetector(
         child: GoogleButton(
           signIn: signIn,
@@ -97,20 +118,7 @@ class _LandingScreenState extends State<LandingScreen> with SingleTickerProvider
       );
     }
 
-    return Container();
-  }
-
-  // TODO: detect new user and go to nextNewUserScreen
-  Future<Null> signIn({bool silently = false}) async {
-    var u = silently ? await AppData.of(context).bloc.signInSilently() : await AppData.of(context).bloc.signIn();
-
-    if (u == null) return;
-
-    Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (BuildContext bc) => widget.nextScreen,
-          ),
-        );
+//    return Container();
   }
 
   void showLoginButton() async {
