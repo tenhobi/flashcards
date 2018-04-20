@@ -1,7 +1,7 @@
 {
   "@@locale": "cs_CZ",
   "@@last_modified": "2018-04-15T11:53:42.038870",
-  "loginButton": "přihlásit se",
+  "loginButton": "Přihlásit se pomocí Google",
   "@loginButton": {
     "description": "Login button on landing screen",
     "type": "text",

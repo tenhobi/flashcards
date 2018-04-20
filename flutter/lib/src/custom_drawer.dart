@@ -1,4 +1,6 @@
 import 'package:flashcards_flutter/src/app_data.dart';
+import 'package:flashcards_flutter/src/landing_screen.dart';
+import 'package:flashcards_flutter/src/main_screen.dart';
 import 'package:flutter/material.dart';
 
 class CustomDrawer extends StatelessWidget {
@@ -54,7 +56,16 @@ class CustomDrawer extends StatelessWidget {
                   title: Text('Sign out'),
                   onTap: () {
                     AppData.of(context).authBloc.signOut();
-                    Navigator.of(context).popUntil(ModalRoute.withName('/'));
+                    Navigator.of(context).pushAndRemoveUntil(
+                          new MaterialPageRoute(
+                            builder: (BuildContext context) => LandingScreen(
+                                  nextScreen: MainScreen(),
+                                  nextNewUserScreen: MainScreen(),
+                                  withoutAnimations: true,
+                                ),
+                          ),
+                          (_) => false,
+                        );
                   },
                 ),
               ],

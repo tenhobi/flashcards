@@ -1,7 +1,7 @@
 {
   "@@locale": "en_US",
   "@@last_modified": "2018-04-15T11:53:42.038870",
-  "loginButton": "my login button",
+  "loginButton": "Sign in with Google",
   "@loginButton": {
     "description": "Login button on landing screen",
     "type": "text",
