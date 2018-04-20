@@ -1,20 +1,36 @@
 import 'package:flashcards_common/src/data/data.dart';
+import 'package:meta/meta.dart';
 
 class CourseData extends Data {
+  final String id;
   final String name;
-  final double progress;
+  final String authorUid;
+  final String description;
+  final int stars;
 
-  CourseData(this.name, this.progress);
+  CourseData({
+    @required this.name,
+    @required this.authorUid,
+    this.description,
+    this.stars = 0,
+    this.id = "",
+  });
 
   CourseData.fromMap(Map<String, dynamic> data)
-      : name = data['name'],
-        progress = data['progress'];
+      : id = data['id'],
+        name = data['name'],
+        authorUid = data['authorUid'],
+        description = data['description'],
+        stars = data['stars'];
 
   @override
   Map<String, dynamic> toMap() {
     return {
+      'id': '$id',
       'name': '$name',
-      'progress': progress,
+      'description': '$description',
+      'authorUid': '$authorUid',
+      'stars': stars,
     };
   }
 }

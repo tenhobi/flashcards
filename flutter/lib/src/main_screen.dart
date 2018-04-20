@@ -1,8 +1,8 @@
-import 'package:flashcards_flutter/src/firebase_flutter_api.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flashcards_flutter/src/courses_list.dart';
 import 'package:flashcards_flutter/src/custom_drawer.dart';
+import 'package:flashcards_flutter/src/new_course_screen.dart';
 
 import 'package:flashcards_common/common.dart';
 
@@ -13,19 +13,21 @@ class MainScreen extends StatelessWidget {
       length: 3,
       child: Scaffold(
         drawer: CustomDrawer(),
+        floatingActionButton: FloatingActionButton(
+          child: Icon(Icons.add),
+          onPressed: () {
+            Navigator.of(context).push(
+              new MaterialPageRoute(
+                builder: (BuildContext context) => NewCourseScreen(),
+              ),
+            );
+          },
+        ),
         appBar: AppBar(
-          actions: <Widget>[
-            GestureDetector(
-              child: Icon(Icons.add),
-              onTap: () {
-                CourseListBloc(FirebaseFlutterApi()).create(CourseData('from app', 0.5));
-              },
-            ),
-          ],
           title: Text('flashcards'),
           bottom: TabBar(
             tabs: [
-              Tab(text: 'active'),
+              Tab(text: 'all'),
               Tab(text: 'created'),
               Tab(text: 'popular'),
             ],
@@ -33,9 +35,9 @@ class MainScreen extends StatelessWidget {
         ),
         body: TabBarView(
           children: [
-            CoursesList(CoursesQueryType.active),
-            CoursesList(CoursesQueryType.created),
-            CoursesList(CoursesQueryType.popular),
+            CoursesList(type: CoursesQueryType.all),
+            CoursesList(type: CoursesQueryType.created),
+            CoursesList(type: CoursesQueryType.popular),
           ],
         ),
       ),

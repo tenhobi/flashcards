@@ -10,8 +10,8 @@ class CourseListBloc {
 
   CourseListBloc(this._api);
 
-  Stream<List<CourseData>> query(CoursesQueryType type) {
-    return _api.queryCourses(type: type);
+  Stream<List<CourseData>> queryAll(CoursesQueryType type, {String authorUid, String name}) {
+    return _api.queryCourses(type: type, authorUid: authorUid, name: name);
   }
 
   void create(CourseData course) => _api.addCourse(course);

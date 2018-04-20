@@ -1,11 +1,11 @@
+import 'package:flashcards_common/common.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 
 class CourseListItem extends StatelessWidget {
-  final String name;
-  final double percentage;
+  final CourseData data;
 
-  CourseListItem({@required this.name, this.percentage = 0.0});
+  CourseListItem({@required this.data});
 
   @override
   Widget build(BuildContext context) {
@@ -17,24 +17,38 @@ class CourseListItem extends StatelessWidget {
           children: <Widget>[
             Expanded(
               child: Center(
-                child: Text(
-                  name,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 32.0,
+                child: Padding(
+                  padding: EdgeInsets.all(5.0),
+                  child: Text(
+                    data.name,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 32.0,
+                    ),
                   ),
                 ),
               ),
             ),
             Container(
-              height: 10.0,
-              alignment: Alignment.centerLeft,
-              child: FractionallySizedBox(
-                widthFactor: percentage,
-                child: Container(
-                  color: Color(0x40000000),
-                ),
+              alignment: Alignment.bottomRight,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Icon(
+                    Icons.star,
+                    color: Colors.white,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left: 5.0),
+                  ),
+                  Text(
+                    '${data.stars}',
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                ],
               ),
             ),
           ],
