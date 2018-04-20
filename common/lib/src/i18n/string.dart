@@ -1,44 +1,59 @@
 import 'package:intl/intl.dart';
 
 class FlashcardsStrings {
-  static String loginButton() {
-    return Intl.message(
-      '_loginButton',
-      name: 'loginButton',
-      desc: 'Login button on landing screen',
-    );
-  }
-
   static String signInButton() {
     return Intl.message(
       '_signInButton',
       name: 'signInButton',
-      desc: 'Button sign in description',
+      desc: 'Sign in button.',
     );
   }
 
-  static String remainingEmailsMessage(int howMany, String userName) => Intl.plural(
-        howMany,
-        zero: 'There are no emails left for $userName.',
-        one: 'There is $howMany email left for $userName.',
-        other: 'There are $howMany emails left for $userName.',
-        name: "remainingEmailsMessage",
-        args: [howMany, userName],
-        desc: "How many emails remain after archiving.",
-        examples: const {'howMany': 42, 'userName': 'Fred'},
-      );
+  static String homeNavigationButton() {
+    return Intl.message(
+      '_homeNavigationButton',
+      name: 'homeNavigationButton',
+      desc: 'Home button in navigation.',
+    );
+  }
 
-  static String hovno(int count) => Intl.plural(
-        count,
-        args: [count],
-        name: 'hovno',
-        desc: 'alfa info',
-        zero: 'beta 0 $count',
-        one: 'gama 1',
-        two: 'delta 2',
-        other: 'zeta 3',
-        examples: const {
-          'count': 42,
-        },
-      );
+  static String searchNavigationButton() {
+    return Intl.message(
+      '_searchNavigationButton',
+      name: 'searchNavigationButton',
+      desc: 'Search button in navigation.',
+    );
+  }
+
+  static String aboutNavigationButton() {
+    return Intl.message(
+      '_aboutNavigationButton',
+      name: 'aboutNavigationButton',
+      desc: 'About button in navigation.',
+    );
+  }
+
+  static String settingsNavigationButton() {
+    return Intl.message(
+      '_settingsNavigationButton',
+      name: 'settingsNavigationButton',
+      desc: 'Settings button in navigation.',
+    );
+  }
+
+  static String reportBugNavigationButton() {
+    return Intl.message(
+      '_reportBugNavigationButton',
+      name: 'reportBugNavigationButton',
+      desc: 'Report button in navigation.',
+    );
+  }
+
+  static String signOutNavigationButton() {
+    return Intl.message(
+      '_signOutNavigationButton',
+      name: 'signOutNavigationButton',
+      desc: 'Sign out button in navigation.',
+    );
+  }
 }
