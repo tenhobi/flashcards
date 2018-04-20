@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flashcards_flutter/src/firebase_flutter_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flashcards_flutter/src/course_screen.dart';
