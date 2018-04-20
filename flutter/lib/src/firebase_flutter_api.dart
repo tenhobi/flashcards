@@ -13,7 +13,11 @@ class FirebaseFlutterApi extends FirebaseApi {
   factory FirebaseFlutterApi() => _instance;
 
   @override
-  Stream<List<CourseData>> queryCourses({String authorUid, CoursesQueryType type = CoursesQueryType.all, String name}) {
+  Stream<List<CourseData>> queryCourses({
+    String authorUid,
+    CoursesQueryType type = CoursesQueryType.all,
+    String name,
+  }) {
     StreamController<List<CourseData>> controller = StreamController.broadcast();
 
     Query courses = Firestore.instance.collection('courses');
@@ -30,11 +34,25 @@ class FirebaseFlutterApi extends FirebaseApi {
     }
 
     courses.snapshots.listen((QuerySnapshot snapshot) {
-      controller.add(snapshot.documents.map<CourseData>((DocumentSnapshot document) {
-        var data = document.data;
-        data['id'] = document.documentID;
-        return CourseData.fromMap(data);
-      }).toList());
+      List<CourseData> dataList = snapshot.documents.map<CourseData>((DocumentSnapshot document) {
+        Map<String, dynamic> documentData = document.data;
+        documentData.addAll({'id': document.documentID});
+        CourseData data = CourseData.fromMap(documentData);
+
+        if (name == null) {
+          return data;
+        }
+
+        if (data.name.toLowerCase().contains(name.toLowerCase())) {
+          return data;
+        }
+
+        return null;
+      }).toList();
+
+      dataList.removeWhere((CourseData data) => data == null);
+
+      controller.add(dataList);
     });
 
     return controller.stream;

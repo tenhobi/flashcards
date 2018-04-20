@@ -6,23 +6,21 @@ class CourseData extends Data {
   final String name;
   final String authorUid;
   final String description;
-  final double progress;
   final int stars;
 
-  CourseData(
-      {@required this.name,
-      @required this.authorUid,
-      this.description,
-      this.stars = 0,
-      this.id = "",
-      this.progress = 0.0});
+  CourseData({
+    @required this.name,
+    @required this.authorUid,
+    this.description,
+    this.stars = 0,
+    this.id = "",
+  });
 
   CourseData.fromMap(Map<String, dynamic> data)
       : id = data['id'],
         name = data['name'],
         authorUid = data['authorUid'],
         description = data['description'],
-        progress = data['progress'],
         stars = data['stars'];
 
   @override
@@ -32,7 +30,6 @@ class CourseData extends Data {
       'name': '$name',
       'description': '$description',
       'authorUid': '$authorUid',
-      'progress': progress,
       'stars': stars,
     };
   }
