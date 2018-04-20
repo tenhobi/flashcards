@@ -4,6 +4,8 @@ function one() {
     cd ../common/
     pub run intl_translation:generate_from_arb --output-dir=lib/src/i18n/generated --generated-file-prefix="" lib/src/i18n/*.dart lib/src/i18n/translations/*_*.arb
     echo "Done generating dart files."
+    echo "Formatting"
+    dartfmt --line-length 120 -w lib/src/i18n/generated/*.dart
     echo "Bye!"
     exit 0
 }
