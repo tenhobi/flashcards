@@ -29,19 +29,11 @@ class FlashcardsStrings {
       );
 
   static String sectionsTab() {
-    return Intl.message(
-      '_sections',
-      name: 'sectionsTab',
-      desc: 'Sections tab in course screen'
-    );
+    return Intl.message('_sections', name: 'sectionsTab', desc: 'Sections tab in course screen');
   }
 
   static String descriptionTab() {
-    return Intl.message(
-        '_description',
-        name: 'descriptionTab',
-        desc: 'Description tab in course screen'
-    );
+    return Intl.message('_description', name: 'descriptionTab', desc: 'Description tab in course screen');
   }
 
   static String hovno(int count) => Intl.plural(

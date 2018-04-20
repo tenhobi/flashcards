@@ -32,7 +32,12 @@ class FirebaseFlutterApi extends FirebaseApi {
   Stream<List<SectionData>> querySections({@required CourseData course}) {
     StreamController<List<SectionData>> controller = StreamController.broadcast();
 
-    Firestore.instance.collection('courses').document(course.id).getCollection("sections").snapshots.listen((QuerySnapshot snapshot) {
+    Firestore.instance
+        .collection('courses')
+        .document(course.id)
+        .getCollection("sections")
+        .snapshots
+        .listen((QuerySnapshot snapshot) {
       controller.add(snapshot.documents.map<SectionData>((DocumentSnapshot document) {
         var data = document.data;
         data['id'] = document.documentID;
@@ -49,8 +54,15 @@ class FirebaseFlutterApi extends FirebaseApi {
   Stream<List<SubsectionData>> queryMaterials({@required SectionData section}) {
     StreamController<List<SubsectionData>> controller = StreamController.broadcast();
 
-    Firestore.instance.collection('courses').document(section.parent.id).getCollection('sections').document(section.id).getCollection("materials").snapshots.listen((QuerySnapshot snapshot) {
-	    controller.add(snapshot.documents.map<SubsectionData>((DocumentSnapshot document) {
+    Firestore.instance
+        .collection('courses')
+        .document(section.parent.id)
+        .getCollection('sections')
+        .document(section.id)
+        .getCollection("materials")
+        .snapshots
+        .listen((QuerySnapshot snapshot) {
+      controller.add(snapshot.documents.map<SubsectionData>((DocumentSnapshot document) {
         var data = document.data;
         data['id'] = document.documentID;
         MaterialData res = MaterialData.fromMap(data, parent: section);
@@ -65,7 +77,14 @@ class FirebaseFlutterApi extends FirebaseApi {
   Stream<List<SubsectionData>> queryExercises({@required SectionData section}) {
     StreamController<List<SubsectionData>> controller = StreamController.broadcast();
 
-    Firestore.instance.collection('courses').document(section.parent.id).getCollection('sections').document(section.id).getCollection("exercises").snapshots.listen((QuerySnapshot snapshot) {
+    Firestore.instance
+        .collection('courses')
+        .document(section.parent.id)
+        .getCollection('sections')
+        .document(section.id)
+        .getCollection("exercises")
+        .snapshots
+        .listen((QuerySnapshot snapshot) {
       controller.add(snapshot.documents.map<SubsectionData>((DocumentSnapshot document) {
         var data = document.data;
         data['id'] = document.documentID;
@@ -76,7 +95,6 @@ class FirebaseFlutterApi extends FirebaseApi {
 
     return controller.stream;
   }
-
 
   @override
   void addCourse(CourseData course) {

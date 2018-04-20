@@ -18,7 +18,7 @@ class MainScreen extends StatelessWidget {
             GestureDetector(
               child: Icon(Icons.add),
               onTap: () {
-                CourseListBloc(FirebaseFlutterApi()).create(CourseData('from app', 0.5));
+                CourseListBloc(FirebaseFlutterApi()).create(CourseData('from app', 0.5, ""));
               },
             ),
           ],

@@ -22,10 +22,10 @@ class _CoursesListState extends State<CoursesList> with SingleTickerProviderStat
   void openCourse(CourseData course) {
     Widget courseScreen = CourseScreen(course: course);
     Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (BuildContext bc) => courseScreen,
-      ),
-    );
+          MaterialPageRoute(
+            builder: (BuildContext bc) => courseScreen,
+          ),
+        );
   }
 
   @override
@@ -43,9 +43,7 @@ class _CoursesListState extends State<CoursesList> with SingleTickerProviderStat
                 child: Container(
                   margin: EdgeInsets.all(8.0),
                   child: CourseListItem(
-                    name: document.name,
-                    // TODO: remove random
-                    percentage: document.progress ?? Random().nextDouble(),
+                    course: document,
                   ),
                 ),
               );
