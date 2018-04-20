@@ -3,12 +3,12 @@ import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:package_info/package_info.dart';
 
-class AboutPage extends StatefulWidget {
+class AboutScreen extends StatefulWidget {
   @override
-  AboutPageState createState() => new AboutPageState();
+  _AboutScreenState createState() => new _AboutScreenState();
 }
 
-class AboutPageState extends State<AboutPage> {
+class _AboutScreenState extends State<AboutScreen> {
   String _verNumber = 'NoVersionFound';
 
   final TextStyle _text = TextStyle(
@@ -43,7 +43,7 @@ class AboutPageState extends State<AboutPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).primaryColor,
+      backgroundColor: Colors.blue[800],
       appBar: AppBar(
         title: Text('About flashcards'),
         elevation: 0.0,

@@ -66,7 +66,7 @@ class CustomDrawer extends StatelessWidget {
                   onTap: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (BuildContext bc) => AboutPage(),
+                        builder: (BuildContext bc) => AboutScreen(),
                       ),
                     );
                   },
