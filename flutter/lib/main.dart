@@ -1,4 +1,5 @@
-import 'package:flashcards_common/common.dart';
+import 'package:flashcards_common/api.dart';
+import 'package:flashcards_common/bloc.dart';
 import 'package:flashcards_flutter/src/app_data.dart';
 import 'package:flashcards_flutter/src/authentication_flutter_api.dart';
 import 'package:flashcards_flutter/src/firebase_flutter_api.dart';

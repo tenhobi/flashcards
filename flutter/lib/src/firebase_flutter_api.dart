@@ -1,7 +1,8 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flashcards_common/common.dart';
+import 'package:flashcards_common/data.dart';
+import 'package:flashcards_common/api.dart';
 import 'package:meta/meta.dart';
 import 'package:flashcards_common/src/data/user.dart';
 

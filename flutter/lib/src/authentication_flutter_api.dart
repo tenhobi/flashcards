@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flashcards_common/common.dart';
+import 'package:flashcards_common/api.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthenticationFlutterApi extends AuthenticationApi<FirebaseUser> {

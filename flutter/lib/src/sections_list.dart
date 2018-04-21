@@ -1,6 +1,7 @@
 import 'package:flashcards_flutter/src/firebase_flutter_api.dart';
 import 'package:flashcards_flutter/src/components/indicator_loading.dart';
-import 'package:flashcards_common/common.dart';
+import 'package:flashcards_common/data.dart';
+import 'package:flashcards_common/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 
@@ -197,6 +198,7 @@ class SectionsList extends StatefulWidget {
 }
 
 class _SectionsListState extends State<SectionsList> {
+  // TODO: move to AppData
   final SectionListBloc _bloc = SectionListBloc(FirebaseFlutterApi());
 
   @override

@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flashcards_common/common.dart';
+import 'package:flashcards_common/data.dart';
 import 'package:flashcards_flutter/src/app_data.dart';
 import 'package:flashcards_flutter/src/components/button_google.dart';
 import 'package:meta/meta.dart';

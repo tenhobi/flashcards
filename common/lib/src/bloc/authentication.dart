@@ -1,13 +1,13 @@
 import 'dart:async';
 
-import 'package:flashcards_common/common.dart';
+import 'package:flashcards_common/src/api/authentication.dart';
 
 class AuthenticationBloc<FirebaseUser> {
   final AuthenticationApi _api;
 
   FirebaseUser _user;
 
-  FirebaseUser get user => _user;
+  Future<FirebaseUser> get user async => _user ?? await _api.signInSilently();
 
   Future<FirebaseUser> signIn() async => _user = await _api.signIn();
 
