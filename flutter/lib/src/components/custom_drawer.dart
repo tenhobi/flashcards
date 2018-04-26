@@ -1,13 +1,13 @@
 import 'package:flashcards_common/common.dart';
 import 'package:flashcards_common/i18n.dart';
-import 'package:flashcards_flutter/src/app_data.dart';
-import 'package:flashcards_flutter/src/landing_screen.dart';
-import 'package:flashcards_flutter/src/main_screen.dart';
-import 'package:flashcards_flutter/src/search_screen.dart';
-import 'package:flashcards_flutter/src/settings_screen.dart';
+import 'package:flashcards_flutter/src/inherited/app_data.dart';
+import 'package:flashcards_flutter/src/screen/landing.dart';
+import 'package:flashcards_flutter/src/screen/main.dart';
+import 'package:flashcards_flutter/src/screen/search.dart';
+import 'package:flashcards_flutter/src/screen/settings.dart';
 import 'package:flutter/material.dart';
 
-import 'package:flashcards_flutter/src/about_screen.dart';
+import 'package:flashcards_flutter/src/screen/about.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class CustomDrawer extends StatelessWidget {

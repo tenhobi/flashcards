@@ -1,7 +1,7 @@
-import 'package:flashcards_flutter/src/app_data.dart';
+import 'package:flashcards_flutter/src/inherited/app_data.dart';
 import 'package:flutter/material.dart';
-import 'package:flashcards_flutter/src/course_screen.dart';
-import 'package:flashcards_flutter/src/course_list_item.dart';
+import 'package:flashcards_flutter/src/screen/course.dart';
+import 'package:flashcards_flutter/src/components/course_list_item.dart';
 import 'package:flashcards_common/common.dart';
 import 'package:meta/meta.dart';
 
@@ -9,7 +9,7 @@ class CoursesList extends StatefulWidget {
   final CoursesQueryType type;
   final String name;
 
-  CoursesList({@required this.type, this.name});
+  const CoursesList({@required this.type, this.name});
 
   @override
   State<StatefulWidget> createState() => _CoursesListState();
@@ -18,8 +18,8 @@ class CoursesList extends StatefulWidget {
 // ignore: mixin_inherits_from_not_object
 class _CoursesListState extends State<CoursesList> with SingleTickerProviderStateMixin {
   void openCourse(CourseData course) {
-    Widget courseScreen = CourseScreen(course: course);
-    Navigator.of(context).push(
+    final Widget courseScreen = CourseScreen(course: course);
+    Navigator.of(context).push<MaterialPageRoute>(
           MaterialPageRoute(
             builder: (BuildContext bc) => courseScreen,
           ),

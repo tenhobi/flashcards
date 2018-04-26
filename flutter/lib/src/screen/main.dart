@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'package:flashcards_flutter/src/courses_list.dart';
-import 'package:flashcards_flutter/src/custom_drawer.dart';
-import 'package:flashcards_flutter/src/new_course_screen.dart';
+import 'package:flashcards_flutter/src/components/courses_list.dart';
+import 'package:flashcards_flutter/src/components/custom_drawer.dart';
+import 'package:flashcards_flutter/src/screen/new_course.dart';
 
 import 'package:flashcards_common/common.dart';
 

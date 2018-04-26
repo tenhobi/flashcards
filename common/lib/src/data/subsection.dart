@@ -11,5 +11,6 @@ abstract class SubsectionData extends Data implements Comparable<SubsectionData>
   @override
   int compareTo(SubsectionData other) => order.compareTo(other.order);
 
+  @override
   Map<String, dynamic> toMap();
 }

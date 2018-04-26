@@ -24,7 +24,7 @@ void main() {
 }*/
 
 import 'package:firebase/firebase.dart' as fb;
-import 'package:firebase/firestore.dart';
+//import 'package:firebase/firestore.dart';
 
 import 'package:angular/angular.dart';
 import 'package:angular_router/angular_router.dart';

@@ -1,7 +1,7 @@
 import 'package:flashcards_common/common.dart';
 import 'package:flashcards_common/i18n.dart';
-import 'package:flashcards_flutter/src/app_data.dart';
-import 'package:flashcards_flutter/src/custom_drawer.dart';
+import 'package:flashcards_flutter/src/inherited/app_data.dart';
+import 'package:flashcards_flutter/src/components/custom_drawer.dart';
 import 'package:flashcards_flutter/src/i18n/delegate.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -14,7 +14,7 @@ class SettingsScreen extends StatefulWidget {
 class _SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
-    final formKey = new GlobalKey<FormState>();
+    final GlobalKey formKey = new GlobalKey<FormState>();
 
     return Scaffold(
       drawer: CustomDrawer(),
@@ -33,7 +33,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     return DropdownButton(
                       value: snapshot.data?.language,
                       onChanged: (String a) {
-                        Map<String, dynamic> userMap = snapshot.data.toMap();
+                        final Map<String, dynamic> userMap = snapshot.data.toMap();
                         userMap['language'] = a;
                         AppData.of(context).userBloc.updateUser(UserData.fromMap(userMap));
                         setState(() {

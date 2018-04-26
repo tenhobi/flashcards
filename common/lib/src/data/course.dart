@@ -13,7 +13,7 @@ class CourseData extends Data {
     @required this.authorUid,
     this.description,
     this.stars = 0,
-    this.id = "",
+    this.id = '',
   });
 
   CourseData.fromMap(Map<String, dynamic> data)
