@@ -1,7 +1,7 @@
 {
   "@@locale": "en_US",
   "@@last_modified": "2018-04-20T14:03:31.803490",
-  "signInButton": "Sign in",
+  "signInButton": "Sign in with Google",
   "@signInButton": {
     "description": "Sign in button.",
     "type": "text",

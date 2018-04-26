@@ -24,19 +24,18 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function>{
-        "descriptionTab": MessageLookupByLibrary.simpleMessage("Popis"),
-        "loginButton": MessageLookupByLibrary.simpleMessage("Přihlásit se pomocí Google"),
-        "sectionsTab": MessageLookupByLibrary.simpleMessage("Sekce"),
         "aboutLicensesText":
             MessageLookupByLibrary.simpleMessage("Aplikace je vyvíjena jako open source software: [licence]()"),
         "aboutNavigationButton": MessageLookupByLibrary.simpleMessage("O aplikaci"),
         "aboutText": m0,
+        "descriptionTab": MessageLookupByLibrary.simpleMessage("Popis"),
         "homeNavigationButton": MessageLookupByLibrary.simpleMessage("Domů"),
         "reportBugNavigationButton": MessageLookupByLibrary.simpleMessage("Nahlásit chybu"),
         "score": m1,
         "searchNavigationButton": MessageLookupByLibrary.simpleMessage("Hledat"),
+        "sectionsTab": MessageLookupByLibrary.simpleMessage("Sekce"),
         "settingsNavigationButton": MessageLookupByLibrary.simpleMessage("Nastavení"),
-        "signInButton": MessageLookupByLibrary.simpleMessage("Přihlásit se"),
+        "signInButton": MessageLookupByLibrary.simpleMessage("Přihlásit se pomocí Google"),
         "signOutNavigationButton": MessageLookupByLibrary.simpleMessage("Odhlásit se")
       };
 }
