@@ -1,4 +1,4 @@
-import 'package:flashcards_flutter/src/app_data.dart';
+import 'package:flashcards_flutter/src/inherited/app_data.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flashcards_common/common.dart';

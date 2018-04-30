@@ -12,7 +12,7 @@ class GoogleButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return RaisedButton.icon(
       onPressed: signIn,
-      icon: FlashcardsIcons.Google(),
+      icon: FlashcardsIcons.google(),
       label: Text(
         text,
         style: TextStyle(

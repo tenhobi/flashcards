@@ -1,6 +1,6 @@
 import 'package:flashcards_common/common.dart';
 import 'package:flashcards_common/i18n.dart';
-import 'package:flashcards_flutter/src/sections_list.dart';
+import 'package:flashcards_flutter/src/components/sections_list.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
@@ -8,7 +8,7 @@ import 'package:flutter_markdown/flutter_markdown.dart';
 class CourseScreen extends StatefulWidget {
   final CourseData course;
 
-  CourseScreen({@required this.course});
+  const CourseScreen({@required this.course});
 
   @override
   State<CourseScreen> createState() => _CourseScreenState();

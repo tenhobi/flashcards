@@ -1,15 +1,68 @@
 analyzer:
+  language:
+    enableSuperMixins: true
   strong-mode: true
-#   exclude:
-#     - path/to/excluded/files/**
+  errors:
+    # treat missing required parameters as a warning (not a hint)
+    missing_required_param: warning
+    # treat missing returns as a warning (not a hint)
+    missing_return: warning
+    # allow having TODOs in the code
+    todo: ignore
 
 # Lint rules and documentation, see http://dart-lang.github.io/linter/lints
 linter:
   rules:
+#  ERROR
+    - avoid_empty_else
+    - avoid_relative_lib_imports
+    - avoid_types_as_parameter_names
     - cancel_subscriptions
+#    - close_sinks
+#    - comment_references
+    - empty_statements
     - hash_and_equals
+    - invariant_booleans
     - iterable_contains_unrelated_type
     - list_remove_unrelated_type
+    - literal_only_boolean_expressions
+    - no_adjacent_strings_in_list
+    - no_duplicate_case_values
     - test_types_in_equals
     - unrelated_type_equality_checks
     - valid_regexps
+# STYLE
+    - always_declare_return_types
+    - always_put_required_named_parameters_first
+#    - always_specify_types
+    - annotate_overrides
+    - avoid_positional_boolean_parameters
+    - avoid_returning_this
+    - avoid_unused_constructor_parameters
+    - await_only_futures
+    - camel_case_types
+    - cascade_invocations
+    - constant_identifier_names
+    - implementation_imports
+    - library_names
+    - library_prefixes
+    - non_constant_identifier_names
+#    - omit_local_variable_types
+    - prefer_collection_literals
+    - prefer_conditional_assignment
+#    - prefer_const_constructors
+    - prefer_const_constructors_in_immutables
+    - prefer_final_fields
+    - prefer_final_locals
+    - prefer_is_empty
+    - prefer_is_not_empty
+    - prefer_single_quotes
+    - slash_for_doc_comments
+    - sort_constructors_first
+    - sort_unnamed_constructors_first
+    - unnecessary_null_aware_assignments
+    - unnecessary_null_in_if_null_operators
+    - unnecessary_parenthesis
+    - unnecessary_this
+    - use_to_and_as_if_applicable
+#    - void_checks

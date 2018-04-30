@@ -1,12 +1,14 @@
-import 'package:flashcards_flutter/src/firebase_flutter_api.dart';
+import 'package:flashcards_flutter/src/api/firebase_flutter_api.dart';
 import 'package:flashcards_flutter/src/components/indicator_loading.dart';
 import 'package:flashcards_common/common.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 
 class _NullOrEmpty extends StatelessWidget {
-  _NullOrEmpty({this.isLast = false});
+  const _NullOrEmpty({this.isLast = false});
+
   final bool isLast;
+
   @override
   Widget build(BuildContext context) {
     if (isLast) {
@@ -20,7 +22,7 @@ class _NullOrEmpty extends StatelessWidget {
           ),
           color: Colors.white,
         ),
-        child: Text("Empty"),
+        child: Text('Empty'),
       );
     }
     return Container(
@@ -31,10 +33,11 @@ class _NullOrEmpty extends StatelessWidget {
 }
 
 class _BuildStream extends StatefulWidget {
-  _BuildStream(this.function, this.section, {this.isLast = false});
+  const _BuildStream(this.function, this.section, {this.isLast = false});
+
   final Function function;
   final SectionData section;
-  final isLast;
+  final bool isLast;
 
   @override
   State<_BuildStream> createState() => _BuildStreamState();
@@ -62,12 +65,11 @@ class _BuildStreamState extends State<_BuildStream> {
             child: Loading(),
           );
         }
-        if ((data == null || data.length == 0) && (snapshot.data == null || snapshot.data.length == 0)) {
+        if ((data == null || data.isEmpty) && (snapshot.data == null || snapshot.data.isEmpty)) {
           return _NullOrEmpty(isLast: widget.isLast);
         }
         if (snapshot.hasData) {
-          data = snapshot.data;
-          data.sort();
+          data = snapshot.data..sort();
         }
         return Column(
           children: data.map((SubsectionData d) {
@@ -75,7 +77,7 @@ class _BuildStreamState extends State<_BuildStream> {
             if (data.last.compareTo(d) == 0 && widget.isLast) {
               last = true;
             }
-            return _SectionRow.Generate(d, onTap: () {}, isLast: last);
+            return _SectionRow.generate(d, onTap: () {}, isLast: last);
           }).toList(),
         );
       },
@@ -84,14 +86,15 @@ class _BuildStreamState extends State<_BuildStream> {
 }
 
 class _SectionRow extends StatelessWidget {
-  _SectionRow({@required this.icon, @required this.text, @required this.onTap, this.isLast = false});
+  const _SectionRow({@required this.icon, @required this.text, @required this.onTap, this.isLast = false});
+
   final IconData icon;
   final String text;
   final Function onTap;
   final bool isLast;
 
-  static Widget Generate(SubsectionData d, {@required Function onTap, bool isLast = false}) {
-    IconData icon = d is MaterialData ? Icons.description : Icons.create;
+  static Widget generate(SubsectionData d, {@required Function onTap, bool isLast = false}) {
+    final IconData icon = d is MaterialData ? Icons.description : Icons.create;
     return _SectionRow(
       icon: icon,
       text: d.name,
@@ -129,7 +132,7 @@ class _SectionRow extends StatelessWidget {
                 size: 22.0,
               ),
               Text(
-                ".",
+                '.',
                 style: TextStyle(color: Colors.transparent),
               ),
               Expanded(child: Text(text, style: TextStyle(color: Colors.black87, fontSize: 18.0)))
@@ -140,7 +143,7 @@ class _SectionRow extends StatelessWidget {
 }
 
 class _SectionWidget extends StatefulWidget {
-  _SectionWidget({@required SectionData this.section});
+  const _SectionWidget({@required SectionData this.section});
 
   final SectionData section;
 
@@ -153,44 +156,46 @@ class _SectionsWidgetState extends State<_SectionWidget> {
 
   @override
   Widget build(BuildContext context) {
-    BorderSide border = BorderSide(color: Theme.of(context).primaryColor, width: 2.0);
+    final BorderSide border = BorderSide(color: Theme.of(context).primaryColor, width: 2.0);
 
     return Container(
-        padding: EdgeInsets.all(8.0),
-        child: Container(
-            decoration: BoxDecoration(
-                color: Theme.of(context).primaryColor,
-                borderRadius: BorderRadius.circular(8.0),
-                border: Border(
-                  bottom: border,
-                  top: border,
-                  left: border,
-                  right: border,
-                )),
-            child: ExpansionTile(
-              title: Container(
-                child: Text(widget.section.name, style: TextStyle(color: Colors.white)),
-              ),
-              children: [
-                Column(
-                  children: <Widget>[
-                    _BuildStream(_bloc.queryExercises, widget.section),
-                    Divider(
-                      color: Colors.transparent,
-                      height: 1.0,
-                    ),
-                    _BuildStream(_bloc.queryMaterials, widget.section, isLast: true)
-                  ],
-                )
+      padding: EdgeInsets.all(8.0),
+      child: Container(
+        decoration: BoxDecoration(
+            color: Theme.of(context).primaryColor,
+            borderRadius: BorderRadius.circular(8.0),
+            border: Border(
+              bottom: border,
+              top: border,
+              left: border,
+              right: border,
+            )),
+        child: ExpansionTile(
+          title: Container(
+            child: Text(widget.section.name, style: TextStyle(color: Colors.white)),
+          ),
+          children: [
+            Column(
+              children: <Widget>[
+                _BuildStream(_bloc.queryExercises, widget.section),
+                Divider(
+                  color: Colors.transparent,
+                  height: 1.0,
+                ),
+                _BuildStream(_bloc.queryMaterials, widget.section, isLast: true)
               ],
-            )));
+            )
+          ],
+        ),
+      ),
+    );
   }
 }
 
 class SectionsList extends StatefulWidget {
   final CourseData course;
 
-  SectionsList({@required CourseData this.course});
+  const SectionsList({@required CourseData this.course});
 
   @override
   State<SectionsList> createState() => _SectionsListState();

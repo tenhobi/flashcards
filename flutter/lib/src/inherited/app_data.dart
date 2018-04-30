@@ -12,9 +12,9 @@ class AppData extends InheritedWidget {
     @required this.authBloc,
     @required this.courseBloc,
     @required this.userBloc,
-    Key key,
     @required Widget child,
-  }) : super(key: key, child: child);
+    Key key,
+  }) : super(key: key, child: child,);
 
   @override
   bool updateShouldNotify(AppData old) => authBloc != old.authBloc || courseBloc != old.courseBloc;

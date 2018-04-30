@@ -8,7 +8,7 @@ import 'dart:async';
 
 import 'package:flutter/widgets.dart';
 
-import 'package:flashcards_common/src/i18n/generated/messages_all.dart';
+import 'package:flashcards_common/i18n.dart';
 
 class FlutterFlashcardsStrings {
   FlutterFlashcardsStrings(Locale locale) : _localeName = locale.toString();

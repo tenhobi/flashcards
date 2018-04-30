@@ -7,6 +7,8 @@ class AuthenticationBloc<FirebaseUser> {
 
   FirebaseUser _user;
 
+  AuthenticationBloc(this._api);
+
   FirebaseUser get user => _user;
 
   Future<FirebaseUser> signIn() async => _user = await _api.signIn();
@@ -17,6 +19,4 @@ class AuthenticationBloc<FirebaseUser> {
     _api.signOut();
     _user = null;
   }
-
-  AuthenticationBloc(this._api);
 }

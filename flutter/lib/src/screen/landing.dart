@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flashcards_common/common.dart';
-import 'package:flashcards_flutter/src/app_data.dart';
+import 'package:flashcards_flutter/src/inherited/app_data.dart';
 import 'package:flashcards_flutter/src/components/button_google.dart';
 import 'package:meta/meta.dart';
 import 'package:flutter/material.dart';
@@ -16,10 +16,14 @@ class LandingScreen extends StatefulWidget {
   /// Show all content without animations.
   final bool withoutAnimations;
 
+  const LandingScreen({
+    @required this.nextScreen,
+    @required this.nextNewUserScreen,
+    this.withoutAnimations = false,
+  });
+
   @override
   State<StatefulWidget> createState() => _LandingScreenState();
-
-  LandingScreen({@required this.nextScreen, @required this.nextNewUserScreen, this.withoutAnimations = false});
 }
 
 // ignore: mixin_inherits_from_not_object
@@ -42,7 +46,7 @@ class _LandingScreenState extends State<LandingScreen> with SingleTickerProvider
       upperBound: 1.0,
     )
       ..addListener(() {
-        this.setState(() {});
+        setState(() {});
       })
       ..forward();
 
@@ -91,7 +95,7 @@ class _LandingScreenState extends State<LandingScreen> with SingleTickerProvider
 
   // TODO: detect new user and go to nextNewUserScreen
   Future<Null> signIn({bool silently = false}) async {
-    FirebaseUser user =
+    final FirebaseUser user =
         silently ? await AppData.of(context).authBloc.signInSilently() : await AppData.of(context).authBloc.signIn();
 
     if (user == null) return;
@@ -108,6 +112,7 @@ class _LandingScreenState extends State<LandingScreen> with SingleTickerProvider
 
   Widget _buildButtons(BuildContext context) {
 //    if (widget.withoutAnimations || loginButtonVisible) {
+    // ignore: literal_only_boolean_expressions
     if (true) {
       return RawGestureDetector(
         child: GoogleButton(

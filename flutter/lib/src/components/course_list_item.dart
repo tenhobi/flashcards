@@ -5,7 +5,7 @@ import 'package:meta/meta.dart';
 class CourseListItem extends StatelessWidget {
   final CourseData data;
 
-  CourseListItem({@required this.data});
+  const CourseListItem({@required this.data});
 
   @override
   Widget build(BuildContext context) {
