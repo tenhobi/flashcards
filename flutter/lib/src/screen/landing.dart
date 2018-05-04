@@ -1,9 +1,9 @@
 import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flashcards_common/common.dart';
-import 'package:flashcards_flutter/src/inherited/app_data.dart';
+import 'package:flashcards_common/data.dart';
 import 'package:flashcards_flutter/src/components/button_google.dart';
+import 'package:flashcards_flutter/src/state/container.dart';
 import 'package:meta/meta.dart';
 import 'package:flutter/material.dart';
 
@@ -96,11 +96,11 @@ class _LandingScreenState extends State<LandingScreen> with SingleTickerProvider
   // TODO: detect new user and go to nextNewUserScreen
   Future<Null> signIn({bool silently = false}) async {
     final FirebaseUser user =
-        silently ? await AppData.of(context).authBloc.signInSilently() : await AppData.of(context).authBloc.signIn();
+        silently ? await StateContainer.of(context).authenticationBloc.signInSilently() : await StateContainer.of(context).authenticationBloc.signIn();
 
     if (user == null) return;
 
-    AppData.of(context).userBloc.createIfAbsent(new UserData(uid: user.uid));
+    StateContainer.of(context).userBloc.createIfAbsent(new UserData(uid: user.uid));
 
     Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(

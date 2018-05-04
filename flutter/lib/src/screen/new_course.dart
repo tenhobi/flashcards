@@ -1,7 +1,7 @@
-import 'package:flashcards_flutter/src/inherited/app_data.dart';
+import 'package:flashcards_flutter/src/state/app_data.dart';
 import 'package:flutter/material.dart';
 
-import 'package:flashcards_common/common.dart';
+import 'package:flashcards_common/data.dart';
 
 class NewCourseScreen extends StatefulWidget {
   @override

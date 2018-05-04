@@ -2,7 +2,7 @@ import 'package:angular/angular.dart';
 import 'package:angular_router/angular_router.dart';
 
 import 'package:firebase/firebase.dart' as fb;
-import 'package:flashcards_common/common.dart';
+import 'package:flashcards_common/data.dart';
 
 import 'package:markdown/markdown.dart';
 

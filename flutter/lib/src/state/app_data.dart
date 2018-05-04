@@ -1,8 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flashcards_common/common.dart';
+import 'package:flashcards_common/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 
+@deprecated
 class AppData extends InheritedWidget {
   final AuthenticationBloc<FirebaseUser> authBloc;
   final CourseListBloc courseBloc;

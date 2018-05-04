@@ -1,8 +1,9 @@
-import 'package:flashcards_flutter/src/inherited/app_data.dart';
+import 'package:flashcards_flutter/src/state/container.dart';
 import 'package:flutter/material.dart';
 import 'package:flashcards_flutter/src/screen/course.dart';
 import 'package:flashcards_flutter/src/components/course_list_item.dart';
-import 'package:flashcards_common/common.dart';
+import 'package:flashcards_common/bloc.dart';
+import 'package:flashcards_common/data.dart';
 import 'package:meta/meta.dart';
 
 class CoursesList extends StatefulWidget {
@@ -29,9 +30,9 @@ class _CoursesListState extends State<CoursesList> with SingleTickerProviderStat
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<List<CourseData>>(
-      stream: AppData.of(context).courseBloc.queryAll(
+      stream: StateContainer.of(context).courseListBloc.queryAll(
             widget.type,
-            authorUid: AppData.of(context).authBloc.user.uid,
+            authorUid: StateContainer.of(context).authenticationBloc.user.uid,
             name: widget.name,
           ),
       builder: (BuildContext context, AsyncSnapshot<List<CourseData>> snapshot) {

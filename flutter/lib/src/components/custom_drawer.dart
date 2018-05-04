@@ -1,10 +1,10 @@
-import 'package:flashcards_common/common.dart';
+import 'package:flashcards_common/data.dart';
 import 'package:flashcards_common/i18n.dart';
-import 'package:flashcards_flutter/src/inherited/app_data.dart';
 import 'package:flashcards_flutter/src/screen/landing.dart';
 import 'package:flashcards_flutter/src/screen/main.dart';
 import 'package:flashcards_flutter/src/screen/search.dart';
 import 'package:flashcards_flutter/src/screen/settings.dart';
+import 'package:flashcards_flutter/src/state/container.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flashcards_flutter/src/screen/about.dart';
@@ -17,13 +17,13 @@ class CustomDrawer extends StatelessWidget {
       child: Column(
         children: <Widget>[
           UserAccountsDrawerHeader(
-            accountName: Text(AppData.of(context).authBloc?.user?.displayName ?? ''),
-            accountEmail: Text(AppData.of(context).authBloc?.user?.email ?? ''),
+            accountName: Text(StateContainer.of(context).authenticationBloc?.user?.displayName ?? ''),
+            accountEmail: Text(StateContainer.of(context).authenticationBloc?.user?.email ?? ''),
             currentAccountPicture: CircleAvatar(
               child: ClipRRect(
                 // TODO: any auto value for rounded image?
                 borderRadius: BorderRadius.circular(100.0),
-                child: Image.network(AppData.of(context).authBloc?.user?.photoUrl ?? ''),
+                child: Image.network(StateContainer.of(context).authenticationBloc?.user?.photoUrl ?? ''),
               ),
             ),
             margin: EdgeInsets.zero,
@@ -33,7 +33,7 @@ class CustomDrawer extends StatelessWidget {
             alignment: Alignment.centerLeft,
             decoration: BoxDecoration(color: Theme.of(context).primaryColor),
             child: StreamBuilder<UserData>(
-                stream: AppData.of(context).userBloc.query(AppData.of(context).authBloc.user.uid),
+                stream: StateContainer.of(context).userBloc.query(StateContainer.of(context).authenticationBloc.user.uid),
                 builder: (BuildContext context, AsyncSnapshot<UserData> snapshot) {
                   return Text(
                     FlashcardsStrings.score(snapshot.data?.score ?? 0),
@@ -103,7 +103,7 @@ class CustomDrawer extends StatelessWidget {
                   leading: Icon(Icons.close),
                   title: Text(FlashcardsStrings.signOutNavigationButton()),
                   onTap: () {
-                    AppData.of(context).authBloc.signOut();
+                    StateContainer.of(context).authenticationBloc.signOut();
                     Navigator.of(context).pushAndRemoveUntil(
                           new MaterialPageRoute(
                             builder: (BuildContext context) => LandingScreen(

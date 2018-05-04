@@ -1,6 +1,6 @@
-import 'package:flashcards_common/common.dart';
+import 'package:flashcards_common/data.dart';
 import 'package:flashcards_common/i18n.dart';
-import 'package:flashcards_flutter/src/inherited/app_data.dart';
+import 'package:flashcards_flutter/src/state/app_data.dart';
 import 'package:flashcards_flutter/src/components/custom_drawer.dart';
 import 'package:flashcards_flutter/src/i18n/delegate.dart';
 import 'package:flutter/material.dart';

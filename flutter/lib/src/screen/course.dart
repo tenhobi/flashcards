@@ -1,4 +1,4 @@
-import 'package:flashcards_common/common.dart';
+import 'package:flashcards_common/data.dart';
 import 'package:flashcards_common/i18n.dart';
 import 'package:flashcards_flutter/src/components/sections_list.dart';
 import 'package:flutter/material.dart';
