@@ -1,6 +1,6 @@
 {
   "@@locale": "cs_CZ",
-  "@@last_modified": "2018-04-20T14:03:31.803490",
+  "@@last_modified": "2018-05-05T11:08:50.179258",
   "signInButton": "Přihlásit se pomocí Google",
   "@signInButton": {
     "description": "Sign in button.",
@@ -76,5 +76,71 @@
     "placeholders": {
       "score": {}
     }
+  },
+  "appName": "Flashcards",
+  "@appName": {
+    "description": "Name of the application.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "noVersion": "Verze nebyla nalezena",
+  "@noVersion": {
+    "description": "Version of the application has not been found.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "allCourses": "vše",
+  "@allCourses": {
+    "description": "Tab description of all courses.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "createdCourses": "vytvořeno",
+  "@createdCourses": {
+    "description": "Tab description of created courses.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "popularCourses": "oblíbené",
+  "@popularCourses": {
+    "description": "Tab description of popular courses.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "newCourseName": "Název",
+  "@newCourseName": {
+    "description": "Label of input for name.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "newCourseNameEmpty": "Název nemůže být prázdný.",
+  "@newCourseNameEmpty": {
+    "description": "Error label of input for name about empty name.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "newCourseDescription": "Popis",
+  "@newCourseDescription": {
+    "description": "Label of input for description.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "newCourseDescriptionEmpty": "Popis nemůže být prázdný.",
+  "@newCourseDescriptionEmpty": {
+    "description": "Error label of input for description about empty content.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "reportUrl": "https://github.com/tenhobi/flashcards/issues/new",
+  "@reportUrl": {
+    "description": "Url of report bug page.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "newCourse": "Nový kurz",
+  "@newCourse": {
+    "description": "Name of new course screen.",
+    "type": "text",
+    "placeholders": {}
   }
 }

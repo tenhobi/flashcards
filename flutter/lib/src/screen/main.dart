@@ -1,3 +1,5 @@
+import 'package:flashcards_common/i18n.dart';
+import 'package:flashcards_flutter/src/components/indicator_loading.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flashcards_flutter/src/components/courses_list.dart';
@@ -24,12 +26,12 @@ class MainScreen extends StatelessWidget {
           },
         ),
         appBar: AppBar(
-          title: Text('flashcards'),
+          title: Text(FlashcardsStrings.appName()),
           bottom: TabBar(
             tabs: [
-              Tab(text: 'all'),
-              Tab(text: 'created'),
-              Tab(text: 'popular'),
+              Tab(text: FlashcardsStrings.allCourses()),
+              Tab(text: FlashcardsStrings.createdCourses()),
+              Tab(text: FlashcardsStrings.popularCourses()),
             ],
           ),
         ),

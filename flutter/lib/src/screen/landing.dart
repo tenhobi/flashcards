@@ -73,7 +73,7 @@ class _LandingScreenState extends State<LandingScreen> with SingleTickerProvider
             Padding(
               padding: EdgeInsets.only(bottom: 150.0),
               child: Text(
-                'flashcards',
+                FlashcardsStrings.appName().toLowerCase(),
                 style: TextStyle(
                   fontFamily: 'Lobster',
                   fontWeight: FontWeight.normal,

@@ -95,4 +95,92 @@ The project started as a part of a software team project at the [Faculty of Info
       desc: 'Score caption.',
     );
   }
+
+  static String appName() {
+    return Intl.message(
+      'Flashcards',
+      name: 'appName',
+      desc: 'Name of the application.',
+    );
+  }
+
+  static String noVersion() {
+    return Intl.message(
+      'No version found',
+      name: 'noVersion',
+      desc: 'Version of the application has not been found.',
+    );
+  }
+
+  static String allCourses() {
+    return Intl.message(
+      'all',
+      name: 'allCourses',
+      desc: 'Tab description of all courses.',
+    );
+  }
+
+  static String createdCourses() {
+    return Intl.message(
+      'created',
+      name: 'createdCourses',
+      desc: 'Tab description of created courses.',
+    );
+  }
+
+  static String popularCourses() {
+    return Intl.message(
+      'popular',
+      name: 'popularCourses',
+      desc: 'Tab description of popular courses.',
+    );
+  }
+
+  static String newCourseName() {
+    return Intl.message(
+      'Name',
+      name: 'newCourseName',
+      desc: 'Label of input for name.',
+    );
+  }
+
+  static String newCourseNameEmpty() {
+    return Intl.message(
+      'Name cannot be empty.',
+      name: 'newCourseNameEmpty',
+      desc: 'Error label of input for name about empty name.',
+    );
+  }
+
+  static String newCourseDescription() {
+    return Intl.message(
+      'Description',
+      name: 'newCourseDescription',
+      desc: 'Label of input for description.',
+    );
+  }
+
+  static String newCourseDescriptionEmpty() {
+    return Intl.message(
+      'Description cannot be empty.',
+      name: 'newCourseDescriptionEmpty',
+      desc: 'Error label of input for description about empty content.',
+    );
+  }
+
+  static String reportUrl() {
+    return Intl.message(
+      'https://github.com/tenhobi/flashcards/issues/new',
+      name: 'reportUrl',
+      desc: 'Url of report bug page.',
+    );
+  }
+
+  static String newCourse() {
+    return Intl.message(
+      'New course',
+      name: 'newCourse',
+      desc: 'Name of new course screen.',
+    );
+  }
 }

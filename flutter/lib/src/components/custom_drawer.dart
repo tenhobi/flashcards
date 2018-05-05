@@ -101,7 +101,7 @@ class CustomDrawer extends StatelessWidget {
                   leading: Icon(Icons.bug_report),
                   title: Text(FlashcardsStrings.reportBugNavigationButton()),
                   onTap: () {
-                    launch('https://github.com/tenhobi/flashcards/issues/new');
+                    launch(FlashcardsStrings.reportUrl());
                   },
                 ),
                 ListTile(
