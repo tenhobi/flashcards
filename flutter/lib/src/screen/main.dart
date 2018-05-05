@@ -1,5 +1,4 @@
 import 'package:flashcards_common/i18n.dart';
-import 'package:flashcards_flutter/src/components/indicator_loading.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flashcards_flutter/src/components/courses_list.dart';
