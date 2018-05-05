@@ -1,7 +1,9 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flashcards_common/common.dart';
+import 'package:flashcards_common/bloc.dart';
+import 'package:flashcards_common/api.dart';
+import 'package:flashcards_common/data.dart';
 import 'package:meta/meta.dart';
 
 class FirebaseFlutterApi extends FirebaseApi {

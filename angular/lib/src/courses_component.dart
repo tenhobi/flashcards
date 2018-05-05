@@ -3,7 +3,7 @@ import 'package:angular_router/angular_router.dart';
 
 import 'package:firebase/firebase.dart' as fb;
 import 'package:firebase/firestore.dart';
-import 'package:flashcards_common/common.dart';
+import 'package:flashcards_common/data.dart';
 
 import 'route_paths.dart' as paths;
 

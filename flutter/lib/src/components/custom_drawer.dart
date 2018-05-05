@@ -1,10 +1,11 @@
-import 'package:flashcards_common/common.dart';
+import 'package:flashcards_common/data.dart';
 import 'package:flashcards_common/i18n.dart';
-import 'package:flashcards_flutter/src/inherited/app_data.dart';
+import 'package:flashcards_flutter/src/components/indicator_loading.dart';
 import 'package:flashcards_flutter/src/screen/landing.dart';
 import 'package:flashcards_flutter/src/screen/main.dart';
 import 'package:flashcards_flutter/src/screen/search.dart';
 import 'package:flashcards_flutter/src/screen/settings.dart';
+import 'package:flashcards_flutter/src/state/container.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flashcards_flutter/src/screen/about.dart';
@@ -13,17 +14,19 @@ import 'package:url_launcher/url_launcher.dart';
 class CustomDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final container = StateContainer.of(context);
+
     return Drawer(
       child: Column(
         children: <Widget>[
           UserAccountsDrawerHeader(
-            accountName: Text(AppData.of(context).authBloc?.user?.displayName ?? ''),
-            accountEmail: Text(AppData.of(context).authBloc?.user?.email ?? ''),
+            accountName: Text(container.authenticationBloc.user.displayName),
+            accountEmail: Text(container.authenticationBloc.user.email),
             currentAccountPicture: CircleAvatar(
               child: ClipRRect(
                 // TODO: any auto value for rounded image?
                 borderRadius: BorderRadius.circular(100.0),
-                child: Image.network(AppData.of(context).authBloc?.user?.photoUrl ?? ''),
+                child: Image.network(container.authenticationBloc.user.photoUrl),
               ),
             ),
             margin: EdgeInsets.zero,
@@ -33,10 +36,12 @@ class CustomDrawer extends StatelessWidget {
             alignment: Alignment.centerLeft,
             decoration: BoxDecoration(color: Theme.of(context).primaryColor),
             child: StreamBuilder<UserData>(
-                stream: AppData.of(context).userBloc.query(AppData.of(context).authBloc.user.uid),
+                stream: container.userBloc.query(container.authenticationBloc.user.uid),
                 builder: (BuildContext context, AsyncSnapshot<UserData> snapshot) {
+                  if (!snapshot.hasData) return Loading();
+
                   return Text(
-                    FlashcardsStrings.score(snapshot.data?.score ?? 0),
+                    FlashcardsStrings.score(snapshot.data.score),
                     style: TextStyle(color: Colors.white),
                   );
                 }),
@@ -103,7 +108,7 @@ class CustomDrawer extends StatelessWidget {
                   leading: Icon(Icons.close),
                   title: Text(FlashcardsStrings.signOutNavigationButton()),
                   onTap: () {
-                    AppData.of(context).authBloc.signOut();
+                    container.authenticationBloc.signOut();
                     Navigator.of(context).pushAndRemoveUntil(
                           new MaterialPageRoute(
                             builder: (BuildContext context) => LandingScreen(

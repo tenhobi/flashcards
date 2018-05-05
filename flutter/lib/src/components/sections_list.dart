@@ -1,6 +1,7 @@
 import 'package:flashcards_flutter/src/api/firebase_flutter_api.dart';
 import 'package:flashcards_flutter/src/components/indicator_loading.dart';
-import 'package:flashcards_common/common.dart';
+import 'package:flashcards_common/bloc.dart';
+import 'package:flashcards_common/data.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 
@@ -209,9 +210,8 @@ class _SectionsListState extends State<SectionsList> {
     return StreamBuilder<List<SectionData>>(
       stream: _bloc.query(course: widget.course),
       builder: (BuildContext context, AsyncSnapshot<List<SectionData>> snapshot) {
-        if (!snapshot.hasData) {
-          return Loading();
-        }
+        if (!snapshot.hasData) return Loading();
+
         snapshot.data.sort();
         return ListView(
             children: snapshot.data.map((SectionData section) {
