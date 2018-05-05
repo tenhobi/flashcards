@@ -10,7 +10,7 @@ class AboutScreen extends StatefulWidget {
 }
 
 class _AboutScreenState extends State<AboutScreen> {
-  String _verNumber = 'NoVersionFound';
+  String _verNumber = FlashcardsStrings.noVersion();
 
   final TextStyle _text = TextStyle(
     color: Colors.white70,
@@ -46,7 +46,7 @@ class _AboutScreenState extends State<AboutScreen> {
     return Scaffold(
       backgroundColor: Colors.blue[800],
       appBar: AppBar(
-        title: Text('About flashcards'),
+        title: Text(FlashcardsStrings.aboutNavigationButton()),
         elevation: 0.0,
         backgroundColor: Colors.blue[800],
       ),

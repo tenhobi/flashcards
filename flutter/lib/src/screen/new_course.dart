@@ -1,3 +1,4 @@
+import 'package:flashcards_common/i18n.dart';
 import 'package:flashcards_flutter/src/state/container.dart';
 import 'package:flutter/material.dart';
 
@@ -41,7 +42,7 @@ class _NewCourseScreenState extends State<NewCourseScreen> {
         child: Icon(Icons.add),
       ),
       appBar: AppBar(
-        title: Text('New course'),
+        title: Text(FlashcardsStrings.newCourse()),
       ),
       body: Container(
         padding: EdgeInsets.all(20.0),
@@ -52,17 +53,17 @@ class _NewCourseScreenState extends State<NewCourseScreen> {
               TextFormField(
                 autofocus: true,
                 decoration: InputDecoration(
-                  labelText: 'Name',
+                  labelText: FlashcardsStrings.newCourseName(),
                 ),
-                validator: (val) => val.isEmpty ? "Name can't be empty." : null,
+                validator: (val) => val.isEmpty ? FlashcardsStrings.newCourseNameEmpty() : null,
                 onSaved: (val) => _name = val,
               ),
               TextFormField(
                 maxLines: 5,
                 decoration: InputDecoration(
-                  labelText: 'Description',
+                  labelText: FlashcardsStrings.newCourseDescription(),
                 ),
-                validator: (val) => val.isEmpty ? "Description can't be empty." : null,
+                validator: (val) => val.isEmpty ? FlashcardsStrings.newCourseDescriptionEmpty() : null,
                 onSaved: (val) => _description = val,
               ),
             ],

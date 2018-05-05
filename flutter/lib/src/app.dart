@@ -1,3 +1,4 @@
+import 'package:flashcards_common/i18n.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flashcards_flutter/src/i18n/delegate.dart';
@@ -11,7 +12,7 @@ class FlashcardsApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flashcards',
+      title: FlashcardsStrings.appName(),
       home: LandingScreen(
         nextScreen: MainScreen(),
         nextNewUserScreen: MainScreen(),
