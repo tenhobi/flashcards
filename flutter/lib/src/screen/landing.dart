@@ -95,12 +95,14 @@ class _LandingScreenState extends State<LandingScreen> with SingleTickerProvider
 
   // TODO: detect new user and go to nextNewUserScreen
   Future<Null> signIn({bool silently = false}) async {
+    final container = StateContainer.of(context);
+
     final FirebaseUser user =
-        silently ? await StateContainer.of(context).authenticationBloc.signInSilently() : await StateContainer.of(context).authenticationBloc.signIn();
+        silently ? await container.authenticationBloc.signInSilently() : await container.authenticationBloc.signIn();
 
     if (user == null) return;
 
-    StateContainer.of(context).userBloc.createIfAbsent(new UserData(uid: user.uid));
+    container.userBloc.createIfAbsent(new UserData(uid: user.uid));
 
     Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(

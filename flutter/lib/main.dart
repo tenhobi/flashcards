@@ -23,9 +23,6 @@ void loadLocales() {
 
 void main() {
   loadLocales();
-//  Example of setting default locale
-//  Intl.defaultLocale = 'cs_CZ';
-//  runApp(new MyApp());
 
   final FirebaseApi firebaseApi = FirebaseFlutterApi();
 

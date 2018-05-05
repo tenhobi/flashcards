@@ -1,3 +1,4 @@
+import 'package:flashcards_flutter/src/components/indicator_loading.dart';
 import 'package:flashcards_flutter/src/state/container.dart';
 import 'package:flutter/material.dart';
 import 'package:flashcards_flutter/src/screen/course.dart';
@@ -29,14 +30,17 @@ class _CoursesListState extends State<CoursesList> with SingleTickerProviderStat
 
   @override
   Widget build(BuildContext context) {
+    final container = StateContainer.of(context);
+
     return StreamBuilder<List<CourseData>>(
-      stream: StateContainer.of(context).courseListBloc.queryAll(
+      stream: container.courseListBloc.queryAll(
             widget.type,
-            authorUid: StateContainer.of(context).authenticationBloc.user.uid,
+            authorUid: container.authenticationBloc.user.uid,
             name: widget.name,
           ),
       builder: (BuildContext context, AsyncSnapshot<List<CourseData>> snapshot) {
-        if (!snapshot.hasData) return Text('Loading...');
+        if (!snapshot.hasData) return Loading();
+
         return GridView.extent(
           shrinkWrap: true,
           maxCrossAxisExtent: 200.0,

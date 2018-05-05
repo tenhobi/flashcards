@@ -210,9 +210,8 @@ class _SectionsListState extends State<SectionsList> {
     return StreamBuilder<List<SectionData>>(
       stream: _bloc.query(course: widget.course),
       builder: (BuildContext context, AsyncSnapshot<List<SectionData>> snapshot) {
-        if (!snapshot.hasData) {
-          return Loading();
-        }
+        if (!snapshot.hasData) return Loading();
+
         snapshot.data.sort();
         return ListView(
             children: snapshot.data.map((SectionData section) {

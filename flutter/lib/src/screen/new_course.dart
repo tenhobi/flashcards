@@ -1,4 +1,4 @@
-import 'package:flashcards_flutter/src/state/app_data.dart';
+import 'package:flashcards_flutter/src/state/container.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flashcards_common/data.dart';
@@ -16,6 +16,8 @@ class _NewCourseScreenState extends State<NewCourseScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final container = StateContainer.of(context);
+
     return Scaffold(
       floatingActionButton: new FloatingActionButton(
         onPressed: () {
@@ -24,14 +26,14 @@ class _NewCourseScreenState extends State<NewCourseScreen> {
           if (form.validate()) {
             form.save();
 
-            AppData.of(context).courseBloc.create(
-                  CourseData(
-                    authorUid: AppData.of(context).authBloc.user.uid,
-                    name: _name,
-                    description: _description,
-                    stars: 0,
-                  ),
-                );
+            container.courseListBloc.create(
+              CourseData(
+                authorUid: container.authenticationBloc.user.uid,
+                name: _name,
+                description: _description,
+                stars: 0,
+              ),
+            );
 
             Navigator.of(context).pop();
           }
