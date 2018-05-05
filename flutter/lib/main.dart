@@ -28,8 +28,9 @@ void main() {
 
   runApp(StateContainer(
     authenticationBloc: AuthenticationBloc<FirebaseUser>(AuthenticationFlutterApi()),
+    child: FlashcardsApp(),
     courseListBloc: CourseListBloc(firebaseApi),
     userBloc: UserBloc(firebaseApi),
-    child: FlashcardsApp(),
+    sectionListBloc: SectionListBloc(firebaseApi),
   ));
 }

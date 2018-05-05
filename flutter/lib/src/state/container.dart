@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flashcards_common/bloc.dart';
-import 'package:flashcards_common/data.dart';
 
 //import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +8,6 @@ import 'package:meta/meta.dart';
 class StateContainer extends StatefulWidget {
   final Widget child;
 
-  final AppState state;
   final AuthenticationBloc<FirebaseUser> authenticationBloc;
   final CourseListBloc courseListBloc;
   final SectionListBloc sectionListBloc;
@@ -17,11 +15,10 @@ class StateContainer extends StatefulWidget {
 
   const StateContainer({
     @required this.child,
-    this.authenticationBloc,
-    this.courseListBloc,
-    this.sectionListBloc,
-    this.userBloc,
-    this.state,
+    @required this.authenticationBloc,
+    @required this.courseListBloc,
+    @required this.sectionListBloc,
+    @required this.userBloc,
   });
 
   static StateContainerState of(BuildContext context) {
@@ -33,8 +30,6 @@ class StateContainer extends StatefulWidget {
 }
 
 class StateContainerState extends State<StateContainer> {
-  AppState state;
-
   AuthenticationBloc<FirebaseUser> authenticationBloc;
   CourseListBloc courseListBloc;
   SectionListBloc sectionListBloc;
@@ -42,12 +37,6 @@ class StateContainerState extends State<StateContainer> {
 
   @override
   void initState() {
-    if (widget.state != null) {
-      state = widget.state;
-    } else {
-      state = AppState.loading();
-    }
-
     authenticationBloc = widget.authenticationBloc;
     courseListBloc = widget.courseListBloc;
     sectionListBloc = widget.sectionListBloc;

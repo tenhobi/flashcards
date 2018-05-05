@@ -8,17 +8,15 @@ class SectionData extends Data implements Comparable<SectionData> {
   final String name;
   final int order;
 
-  // fixme: id, parent and order
-  SectionData(this.name)
-      : id = '',
-        parent = null,
-        order = 0;
+  // TODO: enhance constructors
+  SectionData(this.name, {this.parent, this.id = '', this.order = 0});
 
-  SectionData.fromMap(Map<String, dynamic> data, {@required CourseData parent})
-      : id = data['id'],
-        parent = parent,
-        name = data['name'],
-        order = data['order'];
+  factory SectionData.fromMap(Map<String, dynamic> data, {@required CourseData parent}) => SectionData(
+        data['name'],
+        id: data['id'],
+        parent: parent,
+        order: data['order'],
+      );
 
   @override
   int compareTo(SectionData d) => order.compareTo(d.order);

@@ -1,4 +1,3 @@
-export 'package:flashcards_common/src/data/app_state.dart';
 export 'package:flashcards_common/src/data/course.dart';
 export 'package:flashcards_common/src/data/section.dart';
 export 'package:flashcards_common/src/data/subsection.dart';

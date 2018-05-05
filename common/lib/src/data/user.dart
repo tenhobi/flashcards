@@ -8,10 +8,11 @@ class UserData extends Data {
 
   UserData({@required this.uid, this.language = 'en_US', this.score = 0});
 
-  UserData.fromMap(Map<String, dynamic> data)
-      : uid = data['uid'],
-        score = data['score'] ?? 0,
-        language = data['language'] ?? 'en_US';
+  factory UserData.fromMap(Map<String, dynamic> data) => UserData(
+        uid: data['uid'],
+        score: data['score'],
+        language: data['language'],
+      );
 
   @override
   Map<String, dynamic> toMap() {

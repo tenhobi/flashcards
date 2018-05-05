@@ -11,17 +11,18 @@ class CourseData extends Data {
   CourseData({
     @required this.name,
     @required this.authorUid,
-    this.description,
+    this.description = '',
     this.stars = 0,
     this.id = '',
   });
 
-  CourseData.fromMap(Map<String, dynamic> data)
-      : id = data['id'],
-        name = data['name'],
-        authorUid = data['authorUid'],
-        description = data['description'],
-        stars = data['stars'];
+  factory CourseData.fromMap(Map<String, dynamic> data) => CourseData(
+        name: data['name'],
+        authorUid: data['authorUid'],
+        description: data['description'],
+        stars: data['stars'],
+        id: data['id'],
+      );
 
   @override
   Map<String, dynamic> toMap() {
