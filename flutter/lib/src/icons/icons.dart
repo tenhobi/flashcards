@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-const String commonIconPath = 'packages/flashcards_common/assets/icons/';
-
 // todo: switch image quality based on mobile needs
 // https://i.stack.imgur.com/I8ioG.png
 
@@ -10,16 +8,21 @@ const String commonIconPath = 'packages/flashcards_common/assets/icons/';
 // for future exports and png for usage
 
 class FlashcardsIcons {
-  static Widget _icon(String path, {double size}) {
-    return Image(
-      image: AssetImage(path),
+  static const String commonIconPath = 'packages/flashcards_common/assets/icons';
+
+  static Widget _icon({String path, double size = 18.0}) {
+    return Image.asset(
+      '$commonIconPath/$path',
       width: size,
       height: size,
       color: null,
     );
   }
 
-  static Widget google({double size: 18.0}) {
-    return FlashcardsIcons._icon('$commonIconPath/google_logo.png', size: size);
+  static Widget google({double size = 18.0}) {
+    return _icon(
+      path: 'google_logo.png',
+      size: size,
+    );
   }
 }
