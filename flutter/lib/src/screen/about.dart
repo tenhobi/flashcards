@@ -5,6 +5,8 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:package_info/package_info.dart';
 
 class AboutScreen extends StatefulWidget {
+  static const route = '/about';
+
   @override
   _AboutScreenState createState() => new _AboutScreenState();
 }

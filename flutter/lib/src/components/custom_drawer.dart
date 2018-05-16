@@ -1,8 +1,11 @@
 import 'package:flashcards_common/data.dart';
 import 'package:flashcards_common/i18n.dart';
 import 'package:flashcards_flutter/src/components/indicator_loading.dart';
+import 'package:flashcards_flutter/src/screen/about.dart';
 import 'package:flashcards_flutter/src/screen/landing.dart';
 import 'package:flashcards_flutter/src/screen/main.dart';
+import 'package:flashcards_flutter/src/screen/search.dart';
+import 'package:flashcards_flutter/src/screen/settings.dart';
 import 'package:flashcards_flutter/src/state/container.dart';
 import 'package:flutter/material.dart';
 
@@ -52,7 +55,7 @@ class CustomDrawer extends StatelessWidget {
                   title: Text(FlashcardsStrings.homeNavigationButton()),
                   onTap: () {
                     Navigator.of(context).pop(); // close drawer
-                    Navigator.of(context).pushNamed('/home');
+                    Navigator.of(context).pushNamed(MainScreen.route);
                   },
                 ),
                 ListTile(
@@ -60,7 +63,7 @@ class CustomDrawer extends StatelessWidget {
                   title: Text(FlashcardsStrings.searchNavigationButton()),
                   onTap: () {
                     Navigator.of(context).pop(); // close drawer
-                    Navigator.of(context).pushNamed('/search');
+                    Navigator.of(context).pushNamed(SearchScreen.route);
                   },
                 ),
                 ListTile(
@@ -68,7 +71,7 @@ class CustomDrawer extends StatelessWidget {
                   title: Text(FlashcardsStrings.aboutNavigationButton()),
                   onTap: () {
                     Navigator.of(context).pop(); // close drawer
-                    Navigator.of(context).pushNamed('/about');
+                    Navigator.of(context).pushNamed(AboutScreen.route);
                   },
                 ),
                 ListTile(
@@ -76,7 +79,7 @@ class CustomDrawer extends StatelessWidget {
                   title: Text(FlashcardsStrings.settingsNavigationButton()),
                   onTap: () {
                     Navigator.of(context).pop(); // close drawer
-                    Navigator.of(context).pushNamed('/settings');
+                    Navigator.of(context).pushNamed(SettingsScreen.route);
                   },
                 ),
                 ListTile(

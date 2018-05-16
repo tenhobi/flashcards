@@ -27,10 +27,10 @@ class FlashcardsApp extends StatelessWidget {
       ],
       supportedLocales: supportedLocales,
       routes: <String, WidgetBuilder>{
-        '/about': (BuildContext context) => AboutScreen(),
-        '/home': (BuildContext context) => MainScreen(),
-        '/search': (BuildContext context) => SearchScreen(),
-        '/settings': (BuildContext context) => SettingsScreen(),
+        AboutScreen.route: (BuildContext context) => AboutScreen(),
+        MainScreen.route: (BuildContext context) => MainScreen(),
+        SearchScreen.route: (BuildContext context) => SearchScreen(),
+        SettingsScreen.route: (BuildContext context) => SettingsScreen(),
       },
     );
   }

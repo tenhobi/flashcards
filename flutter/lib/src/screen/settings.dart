@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class SettingsScreen extends StatefulWidget {
+  static const route = '/settings';
+
   @override
   _SettingsScreenState createState() => new _SettingsScreenState();
 }
