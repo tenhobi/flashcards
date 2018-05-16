@@ -20,10 +20,9 @@ class CoursesList extends StatefulWidget {
 // ignore: mixin_inherits_from_not_object
 class _CoursesListState extends State<CoursesList> with SingleTickerProviderStateMixin {
   void openCourse(CourseData course) {
-    final Widget courseScreen = CourseScreen(course: course);
     Navigator.of(context).push<MaterialPageRoute>(
           MaterialPageRoute(
-            builder: (BuildContext bc) => courseScreen,
+            builder: (BuildContext bc) => CourseScreen(course: course),
           ),
         );
   }
@@ -34,10 +33,10 @@ class _CoursesListState extends State<CoursesList> with SingleTickerProviderStat
 
     return StreamBuilder<List<CourseData>>(
       stream: container.courseListBloc.queryAll(
-            widget.type,
-            authorUid: container.authenticationBloc.user.uid,
-            name: widget.name,
-          ),
+        widget.type,
+        authorUid: container.authenticationBloc.user.uid,
+        name: widget.name,
+      ),
       builder: (BuildContext context, AsyncSnapshot<List<CourseData>> snapshot) {
         if (!snapshot.hasData) return Loading();
 

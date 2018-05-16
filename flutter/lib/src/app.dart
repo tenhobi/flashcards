@@ -1,4 +1,7 @@
 import 'package:flashcards_common/i18n.dart';
+import 'package:flashcards_flutter/src/screen/about.dart';
+import 'package:flashcards_flutter/src/screen/search.dart';
+import 'package:flashcards_flutter/src/screen/settings.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flashcards_flutter/src/i18n/delegate.dart';
@@ -23,6 +26,12 @@ class FlashcardsApp extends StatelessWidget {
         GlobalMaterialLocalizations.delegate,
       ],
       supportedLocales: supportedLocales,
+      routes: <String, WidgetBuilder>{
+        '/about': (BuildContext context) => AboutScreen(),
+        '/home': (BuildContext context) => MainScreen(),
+        '/search': (BuildContext context) => SearchScreen(),
+        '/settings': (BuildContext context) => SettingsScreen(),
+      },
     );
   }
 }

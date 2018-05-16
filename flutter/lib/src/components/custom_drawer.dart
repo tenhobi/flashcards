@@ -3,12 +3,9 @@ import 'package:flashcards_common/i18n.dart';
 import 'package:flashcards_flutter/src/components/indicator_loading.dart';
 import 'package:flashcards_flutter/src/screen/landing.dart';
 import 'package:flashcards_flutter/src/screen/main.dart';
-import 'package:flashcards_flutter/src/screen/search.dart';
-import 'package:flashcards_flutter/src/screen/settings.dart';
 import 'package:flashcards_flutter/src/state/container.dart';
 import 'package:flutter/material.dart';
 
-import 'package:flashcards_flutter/src/screen/about.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class CustomDrawer extends StatelessWidget {
@@ -36,15 +33,16 @@ class CustomDrawer extends StatelessWidget {
             alignment: Alignment.centerLeft,
             decoration: BoxDecoration(color: Theme.of(context).primaryColor),
             child: StreamBuilder<UserData>(
-                stream: container.userBloc.query(container.authenticationBloc.user.uid),
-                builder: (BuildContext context, AsyncSnapshot<UserData> snapshot) {
-                  if (!snapshot.hasData) return Loading();
+              stream: container.userBloc.query(container.authenticationBloc.user.uid),
+              builder: (BuildContext context, AsyncSnapshot<UserData> snapshot) {
+                if (!snapshot.hasData) return Loading();
 
-                  return Text(
-                    FlashcardsStrings.score(snapshot.data.score),
-                    style: TextStyle(color: Colors.white),
-                  );
-                }),
+                return Text(
+                  FlashcardsStrings.score(snapshot.data.score),
+                  style: TextStyle(color: Colors.white),
+                );
+              },
+            ),
           ),
           Expanded(
             child: ListView(
@@ -53,56 +51,38 @@ class CustomDrawer extends StatelessWidget {
                   leading: Icon(Icons.home),
                   title: Text(FlashcardsStrings.homeNavigationButton()),
                   onTap: () {
-                    Navigator.of(context).pop(); // closes the drawer
-                    Navigator.of(context).push(
-                          new MaterialPageRoute(
-                            builder: (BuildContext context) => MainScreen(),
-                          ),
-                        );
+                    Navigator.of(context).pop(); // close drawer
+                    Navigator.of(context).pushNamed('/home');
                   },
                 ),
                 ListTile(
                   leading: Icon(Icons.search),
                   title: Text(FlashcardsStrings.searchNavigationButton()),
                   onTap: () {
-                    Navigator.of(context).pop(); // closes the drawer
-                    Navigator.of(context).push(
-                          new MaterialPageRoute(
-                            builder: (BuildContext context) => SearchScreen(),
-                          ),
-                        );
+                    Navigator.of(context).pop(); // close drawer
+                    Navigator.of(context).pushNamed('/search');
                   },
                 ),
                 ListTile(
                   leading: Icon(Icons.info),
                   title: Text(FlashcardsStrings.aboutNavigationButton()),
                   onTap: () {
-                    Navigator.of(context).pop(); // closes the drawer
-                    Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (BuildContext bc) => AboutScreen(),
-                          ),
-                        );
+                    Navigator.of(context).pop(); // close drawer
+                    Navigator.of(context).pushNamed('/about');
                   },
                 ),
                 ListTile(
                   leading: Icon(Icons.settings),
                   title: Text(FlashcardsStrings.settingsNavigationButton()),
                   onTap: () {
-                    Navigator.of(context).pop(); // closes the drawer
-                    Navigator.of(context).push(
-                          new MaterialPageRoute(
-                            builder: (BuildContext context) => SettingsScreen(),
-                          ),
-                        );
+                    Navigator.of(context).pop(); // close drawer
+                    Navigator.of(context).pushNamed('/settings');
                   },
                 ),
                 ListTile(
                   leading: Icon(Icons.bug_report),
                   title: Text(FlashcardsStrings.reportBugNavigationButton()),
-                  onTap: () {
-                    launch(FlashcardsStrings.reportUrl());
-                  },
+                  onTap: () => launch(FlashcardsStrings.reportUrl()),
                 ),
                 ListTile(
                   leading: Icon(Icons.close),
