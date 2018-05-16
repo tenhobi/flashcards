@@ -1,8 +1,9 @@
 import 'dart:async';
 
 import 'package:flashcards_common/src/api/authentication.dart';
+import 'package:flashcards_common/src/bloc/bloc.dart';
 
-class AuthenticationBloc<FirebaseUser> {
+class AuthenticationBloc<FirebaseUser> extends Bloc {
   final AuthenticationApi _api;
 
   FirebaseUser _user;
@@ -19,4 +20,7 @@ class AuthenticationBloc<FirebaseUser> {
     _api.signOut();
     _user = null;
   }
+
+  @override
+  void dispose() {}
 }

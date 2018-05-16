@@ -26,4 +26,6 @@ abstract class FirebaseApi {
   void updateUser(UserData user);
 
   void createIfAbsent(UserData user);
+
+  void addSection(SubsectionData section);
 }

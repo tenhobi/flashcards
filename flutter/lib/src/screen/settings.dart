@@ -39,7 +39,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       onChanged: (String a) {
                         final Map<String, dynamic> userMap = snapshot.data.toMap();
                         userMap['language'] = a;
-                        container.userBloc.updateUser(UserData.fromMap(userMap));
+                        container.userBloc.update.add(UserData.fromMap(userMap));
                         setState(() {
                           Intl.defaultLocale = a;
                         });

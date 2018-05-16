@@ -27,7 +27,7 @@ class _NewCourseScreenState extends State<NewCourseScreen> {
           if (form.validate()) {
             form.save();
 
-            container.courseListBloc.create(
+            container.courseListBloc.create.add(
               CourseData(
                 authorUid: container.authenticationBloc.user.uid,
                 name: _name,

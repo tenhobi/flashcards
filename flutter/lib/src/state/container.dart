@@ -41,40 +41,8 @@ class StateContainerState extends State<StateContainer> {
     courseListBloc = widget.courseListBloc;
     sectionListBloc = widget.sectionListBloc;
     userBloc = widget.userBloc;
-
-//    widget.repository.loadTodos().then((loadedTodos) {
-//      setState(() {
-//        state = AppState(
-//          todos: loadedTodos.map(Todo.fromEntity).toList(),
-//        );
-//      });
-//    }).catchError((err) {
-//      setState(() {
-//        state.isLoading = false;
-//      });
-//    });
-
     super.initState();
   }
-
-//  void toggleAll() {
-//    setState(() {
-//      state.toggleAll();
-//    });
-//  }
-//
-//  void clearCompleted() {
-//    setState(() {
-//      state.clearCompleted();
-//    });
-//  }
-
-//  @override
-//  void setState(VoidCallback fn) {
-//    super.setState(fn);
-//
-//    widget.repository.saveTodos(state.todos.map((todo) => todo.toEntity()).toList());
-//  }
 
   @override
   Widget build(BuildContext context) {
@@ -82,6 +50,15 @@ class StateContainerState extends State<StateContainer> {
       data: this,
       child: widget.child,
     );
+  }
+
+  @override
+  void dispose() {
+    authenticationBloc.dispose();
+    courseListBloc.dispose();
+    sectionListBloc.dispose();
+    userBloc.dispose();
+    super.dispose();
   }
 }
 
