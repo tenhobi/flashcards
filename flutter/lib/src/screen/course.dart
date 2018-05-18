@@ -27,7 +27,14 @@ class _CourseScreenState extends State<CourseScreen> {
         appBar: AppBar(
           title: Text(widget.course.name),
           actions: <Widget>[
+            _buildStarCourse(),
+            Padding(
+              padding: EdgeInsets.only(right: 5.0),
+            ),
             _buildRemoveCourse(),
+            Padding(
+              padding: EdgeInsets.only(right: 5.0),
+            ),
           ],
           bottom: TabBar(
             tabs: <Widget>[
@@ -48,6 +55,34 @@ class _CourseScreenState extends State<CourseScreen> {
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildStarCourse() {
+    final state = StateContainer.of(context);
+
+    return StreamBuilder<List<String>>(
+      initialData: [],
+      stream: state.courseListBloc.queryStars(course: widget.course),
+      builder: (BuildContext context, AsyncSnapshot<List<String>> snapshot) {
+        if(snapshot.data.contains(state.authenticationBloc.user.uid)) {
+          return GestureDetector(
+              onTap: () => state.courseListBloc.unstar(widget.course, state.authenticationBloc.user.uid),
+              child: Icon(
+                Icons.star,
+                color: Colors.white,
+              )
+          );
+        } else {
+          return GestureDetector(
+              onTap: () => state.courseListBloc.star(widget.course, state.authenticationBloc.user.uid),
+              child: Icon(
+                Icons.star_border,
+                color: Colors.white,
+              )
+          );
+        }
+      },
     );
   }
 
