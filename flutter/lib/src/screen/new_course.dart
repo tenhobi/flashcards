@@ -17,7 +17,7 @@ class _NewCourseScreenState extends State<NewCourseScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final container = StateContainer.of(context);
+    final state = StateContainer.of(context);
 
     return Scaffold(
       floatingActionButton: new FloatingActionButton(
@@ -27,9 +27,9 @@ class _NewCourseScreenState extends State<NewCourseScreen> {
           if (form.validate()) {
             form.save();
 
-            container.courseListBloc.create.add(
+            state.courseListBloc.create.add(
               CourseData(
-                authorUid: container.authenticationBloc.user.uid,
+                authorUid: state.authenticationBloc.user.uid,
                 name: _name,
                 description: _description,
                 stars: 0,

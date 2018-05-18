@@ -10,11 +10,19 @@ class FlashcardsStrings {
   }
 
   static String sectionsTab() {
-    return Intl.message('_sections', name: 'sectionsTab', desc: 'Sections tab in course screen');
+    return Intl.message(
+      '_sections',
+      name: 'sectionsTab',
+      desc: 'Sections tab in course screen',
+    );
   }
 
   static String descriptionTab() {
-    return Intl.message('_description', name: 'descriptionTab', desc: 'Description tab in course screen');
+    return Intl.message(
+      '_description',
+      name: 'descriptionTab',
+      desc: 'Description tab in course screen',
+    );
   }
 
   static String homeNavigationButton() {
@@ -181,6 +189,38 @@ The project started as a part of a software team project at the [Faculty of Info
       'New course',
       name: 'newCourse',
       desc: 'Name of new course screen.',
+    );
+  }
+
+  static String commentsTab() {
+    return Intl.message(
+      '_comments',
+      name: 'commentsTab',
+      desc: 'Comments tab in course screen.',
+    );
+  }
+
+  static String removeCourseDialog() {
+    return Intl.message(
+      '_removeCourseDialog',
+      name: 'removeCourseDialog',
+      desc: 'Description of dialog for removing a course.',
+    );
+  }
+
+  static String no() {
+    return Intl.message(
+      '_no',
+      name: 'no',
+      desc: 'No answer.',
+    );
+  }
+
+  static String yes() {
+    return Intl.message(
+      '_yes',
+      name: 'yes',
+      desc: 'Yes answer.',
     );
   }
 }

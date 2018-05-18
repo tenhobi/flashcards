@@ -14,19 +14,19 @@ import 'package:url_launcher/url_launcher.dart';
 class CustomDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final container = StateContainer.of(context);
+    final state = StateContainer.of(context);
 
     return Drawer(
       child: Column(
         children: <Widget>[
           UserAccountsDrawerHeader(
-            accountName: Text(container.authenticationBloc.user.displayName),
-            accountEmail: Text(container.authenticationBloc.user.email),
+            accountName: Text(state.authenticationBloc.user.displayName),
+            accountEmail: Text(state.authenticationBloc.user.email),
             currentAccountPicture: CircleAvatar(
               child: ClipRRect(
                 // TODO: any auto value for rounded image?
                 borderRadius: BorderRadius.circular(100.0),
-                child: Image.network(container.authenticationBloc.user.photoUrl),
+                child: Image.network(state.authenticationBloc.user.photoUrl),
               ),
             ),
             margin: EdgeInsets.zero,
@@ -36,7 +36,7 @@ class CustomDrawer extends StatelessWidget {
             alignment: Alignment.centerLeft,
             decoration: BoxDecoration(color: Theme.of(context).primaryColor),
             child: StreamBuilder<UserData>(
-              stream: container.userBloc.query(container.authenticationBloc.user.uid),
+              stream: state.userBloc.query(state.authenticationBloc.user.uid),
               builder: (BuildContext context, AsyncSnapshot<UserData> snapshot) {
                 if (!snapshot.hasData) return Loading();
 
@@ -91,7 +91,7 @@ class CustomDrawer extends StatelessWidget {
                   leading: Icon(Icons.close),
                   title: Text(FlashcardsStrings.signOutNavigationButton()),
                   onTap: () {
-                    container.authenticationBloc.signOut();
+                    state.authenticationBloc.signOut();
                     Navigator.of(context).pushAndRemoveUntil(
                           new MaterialPageRoute(
                             builder: (BuildContext context) => LandingScreen(

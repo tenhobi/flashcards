@@ -2,6 +2,7 @@ import 'package:flashcards_common/src/data/data.dart';
 import 'package:meta/meta.dart';
 
 class CourseData extends Data {
+  /// Firebase document ID
   final String id;
   final String name;
   final String authorUid;
@@ -27,7 +28,6 @@ class CourseData extends Data {
   @override
   Map<String, dynamic> toMap() {
     return {
-      'id': '$id',
       'name': '$name',
       'description': '$description',
       'authorUid': '$authorUid',

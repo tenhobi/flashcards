@@ -29,12 +29,12 @@ class _CoursesListState extends State<CoursesList> with SingleTickerProviderStat
 
   @override
   Widget build(BuildContext context) {
-    final container = StateContainer.of(context);
+    final state = StateContainer.of(context);
 
     return StreamBuilder<List<CourseData>>(
-      stream: container.courseListBloc.queryAll(
+      stream: state.courseListBloc.queryAll(
         widget.type,
-        authorUid: container.authenticationBloc.user.uid,
+        authorUid: state.authenticationBloc.user.uid,
         name: widget.name,
       ),
       builder: (BuildContext context, AsyncSnapshot<List<CourseData>> snapshot) {

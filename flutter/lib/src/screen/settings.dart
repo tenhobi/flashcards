@@ -17,7 +17,7 @@ class SettingsScreen extends StatefulWidget {
 class _SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
-    final container = StateContainer.of(context);
+    final state = StateContainer.of(context);
     final GlobalKey formKey = new GlobalKey<FormState>();
 
     return Scaffold(
@@ -32,7 +32,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           child: Column(
             children: <Widget>[
               StreamBuilder<UserData>(
-                  stream: container.userBloc.query(container.authenticationBloc.user.uid),
+                  stream: state.userBloc.query(state.authenticationBloc.user.uid),
                   builder: (BuildContext context, AsyncSnapshot<UserData> snapshot) {
                     if (!snapshot.hasData) return Loading();
 
@@ -41,7 +41,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       onChanged: (String a) {
                         final Map<String, dynamic> userMap = snapshot.data.toMap();
                         userMap['language'] = a;
-                        container.userBloc.update.add(UserData.fromMap(userMap));
+                        state.userBloc.update.add(UserData.fromMap(userMap));
                         setState(() {
                           Intl.defaultLocale = a;
                         });

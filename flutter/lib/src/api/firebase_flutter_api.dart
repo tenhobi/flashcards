@@ -190,4 +190,9 @@ class FirebaseFlutterApi extends FirebaseApi {
   void addSection(SubsectionData section) {
     // TODO: implement addSection
   }
+
+  @override
+  Future removeCourse(CourseData course) async {
+    await Firestore.instance.collection('courses').document(course.id).delete();
+  }
 }
