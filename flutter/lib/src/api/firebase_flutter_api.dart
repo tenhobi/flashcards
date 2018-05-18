@@ -65,6 +65,7 @@ class FirebaseFlutterApi extends FirebaseApi {
         .collection('courses')
         .document(course.id)
         .collection('sections')
+        .orderBy('order')
         .snapshots
         .listen((QuerySnapshot snapshot) {
       controller.add(snapshot.documents.map<SectionData>((DocumentSnapshot document) {
@@ -89,6 +90,7 @@ class FirebaseFlutterApi extends FirebaseApi {
         .collection('sections')
         .document(section.id)
         .collection('materials')
+        .orderBy('order')
         .snapshots
         .listen((QuerySnapshot snapshot) {
       controller.add(snapshot.documents.map<SubsectionData>((DocumentSnapshot document) {
@@ -112,6 +114,7 @@ class FirebaseFlutterApi extends FirebaseApi {
         .collection('sections')
         .document(section.id)
         .collection('exercises')
+        .orderBy('order')
         .snapshots
         .listen((QuerySnapshot snapshot) {
       controller.add(snapshot.documents.map<SubsectionData>((DocumentSnapshot document) {

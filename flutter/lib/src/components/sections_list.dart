@@ -2,6 +2,7 @@ import 'package:flashcards_flutter/src/api/firebase_flutter_api.dart';
 import 'package:flashcards_flutter/src/components/indicator_loading.dart';
 import 'package:flashcards_common/bloc.dart';
 import 'package:flashcards_common/data.dart';
+import 'package:flashcards_flutter/src/state/container.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 
@@ -203,20 +204,21 @@ class SectionsList extends StatefulWidget {
 }
 
 class _SectionsListState extends State<SectionsList> {
-  final SectionListBloc _bloc = SectionListBloc(FirebaseFlutterApi());
-
   @override
   Widget build(BuildContext context) {
+    final state = StateContainer.of(context);
     return StreamBuilder<List<SectionData>>(
-      stream: _bloc.query(course: widget.course),
+      stream: state.sectionListBloc.query(course: widget.course),
       builder: (BuildContext context, AsyncSnapshot<List<SectionData>> snapshot) {
         if (!snapshot.hasData) return Loading();
 
-        snapshot.data.sort();
         return ListView(
-            children: snapshot.data.map((SectionData section) {
-          return _SectionWidget(section: section);
-        }).toList());
+          children: snapshot.data.map(
+            (SectionData section) {
+              return _SectionWidget(section: section);
+            },
+          ).toList(),
+        );
       },
     );
   }
