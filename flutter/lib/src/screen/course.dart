@@ -16,42 +16,18 @@ class CourseScreen extends StatefulWidget {
 }
 
 class _CourseScreenState extends State<CourseScreen> {
+
+
+
   @override
   Widget build(BuildContext context) {
-    final state = StateContainer.of(context);
-
     return DefaultTabController(
       length: 3,
       child: Scaffold(
         appBar: AppBar(
           title: Text(widget.course.name),
           actions: <Widget>[
-            new GestureDetector(
-              child: new Icon(Icons.close),
-              onTap: () async {
-                final bool permission = await showDialog(
-                  context: context,
-                  builder: (BuildContext context) => new AlertDialog(
-                        content: new Text(FlashcardsStrings.removeCourseDialog()),
-                        actions: <Widget>[
-                          new FlatButton(
-                            onPressed: () => Navigator.of(context).pop(false),
-                            child: Text(FlashcardsStrings.no()),
-                          ),
-                          new FlatButton(
-                            onPressed: () => Navigator.of(context).pop(true),
-                            child: Text(FlashcardsStrings.yes()),
-                          ),
-                        ],
-                      ),
-                );
-
-                if (permission) {
-                  state.courseListBloc.remove.add(widget.course);
-                  Navigator.of(context).pop();
-                }
-              },
-            ),
+            _buildRemoveCourse(),
           ],
           bottom: TabBar(
             tabs: <Widget>[
@@ -72,6 +48,42 @@ class _CourseScreenState extends State<CourseScreen> {
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildRemoveCourse() {
+    final state = StateContainer.of(context);
+
+    // Check if the user is the author.
+    if (widget.course.authorUid != state.authenticationBloc.user.uid) {
+      return Container();
+    }
+
+    return GestureDetector(
+      child: Icon(Icons.close),
+      onTap: () async {
+        final bool permission = await showDialog(
+          context: context,
+          builder: (BuildContext context) => AlertDialog(
+            content: Text(FlashcardsStrings.removeCourseDialog()),
+            actions: <Widget>[
+              FlatButton(
+                onPressed: () => Navigator.of(context).pop(false),
+                child: Text(FlashcardsStrings.no()),
+              ),
+              FlatButton(
+                onPressed: () => Navigator.of(context).pop(true),
+                child: Text(FlashcardsStrings.yes()),
+              ),
+            ],
+          ),
+        );
+
+        if (permission) {
+          state.courseListBloc.remove.add(widget.course);
+          Navigator.of(context).pop();
+        }
+      },
     );
   }
 }
