@@ -12,6 +12,12 @@ enum CoursesQueryType { all, created, popular }
 abstract class FirebaseApi {
   Stream<List<CourseData>> queryCourses({CoursesQueryType type, String name, String authorUid});
 
+  Stream<List<String>> queryStars({@required CourseData course});
+
+  void like({@required CourseData course, @required String userUid});
+
+  void unlike({@required CourseData course, @required String userUid});
+
   Stream<List<SectionData>> querySections({@required CourseData course});
 
   Stream<List<SubsectionData>> queryMaterials({@required SectionData section});

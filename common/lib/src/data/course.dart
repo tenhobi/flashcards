@@ -4,16 +4,17 @@ import 'package:meta/meta.dart';
 class CourseData extends Data {
   /// Firebase document ID
   final String id;
+
   final String name;
+
   final String authorUid;
+
   final String description;
-  final int stars;
 
   CourseData({
     @required this.name,
     @required this.authorUid,
     this.description = '',
-    this.stars = 0,
     this.id = '',
   });
 
@@ -21,7 +22,6 @@ class CourseData extends Data {
         name: data['name'],
         authorUid: data['authorUid'],
         description: data['description'],
-        stars: data['stars'],
         id: data['id'],
       );
 
@@ -31,7 +31,6 @@ class CourseData extends Data {
       'name': '$name',
       'description': '$description',
       'authorUid': '$authorUid',
-      'stars': stars,
     };
   }
 }

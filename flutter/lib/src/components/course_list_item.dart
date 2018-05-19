@@ -1,6 +1,10 @@
 import 'package:flashcards_common/data.dart';
+import 'package:flashcards_common/i18n.dart';
+import 'package:flashcards_flutter/src/components/indicator_loading.dart';
+import 'package:flashcards_flutter/src/state/container.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
+import 'package:tuple/tuple.dart';
 
 class CourseListItem extends StatelessWidget {
   final CourseData data;
@@ -9,6 +13,7 @@ class CourseListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final state = StateContainer.of(context);
     return ClipRRect(
       borderRadius: BorderRadius.circular(8.0),
       child: Container(
@@ -31,24 +36,36 @@ class CourseListItem extends StatelessWidget {
               ),
             ),
             Container(
-              alignment: Alignment.bottomRight,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Icon(
-                    Icons.star,
-                    color: Colors.white,
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(left: 5.0),
-                  ),
-                  Text(
-                    '${data.stars}',
-                    style: TextStyle(
-                      color: Colors.white,
-                    ),
-                  ),
-                ],
+              alignment: Alignment.center,
+              child: StreamBuilder<List<String>>(
+                stream: state.courseListBloc.queryStars(course: data),
+                builder: (BuildContext context, AsyncSnapshot<List<String>> snapshot) {
+                  if (!snapshot.hasData) return Loading();
+
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      IconButton(
+                        onPressed: () {
+                          snapshot.data.contains(state.authenticationBloc.user.uid)
+                              ? state.courseListBloc.unlike.add(Tuple2(data, state.authenticationBloc.user.uid))
+                              : state.courseListBloc.like.add(Tuple2(data, state.authenticationBloc.user.uid));
+                        },
+                        icon: Icon(
+                          snapshot.data.contains(state.authenticationBloc.user.uid) ? Icons.star : Icons.star_border,
+                          color: Colors.white,
+                        ),
+                        tooltip: snapshot.data.contains(state.authenticationBloc.user.uid)
+                            ? FlashcardsStrings.unlike()
+                            : FlashcardsStrings.like(),
+                      ),
+                      Text(
+                        '${snapshot.data.length}',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ],
+                  );
+                },
               ),
             ),
           ],

@@ -28,6 +28,7 @@ class FirebaseFlutterApi extends FirebaseApi {
         courses = courses.where('authorUid', isEqualTo: authorUid).orderBy('name');
         break;
       case CoursesQueryType.popular:
+        //fixme: stars are now collection
         courses = courses.orderBy('stars', descending: true);
         break;
       case CoursesQueryType.all:
@@ -55,6 +56,34 @@ class FirebaseFlutterApi extends FirebaseApi {
     });
 
     return controller.stream;
+  }
+
+  @override
+  Stream<List<String>> queryStars({@required CourseData course}) {
+    final StreamController<List<String>> controller = StreamController.broadcast();
+
+    Firestore.instance
+        .collection('courses')
+        .document(course.id)
+        .collection('stars')
+        .snapshots
+        .listen((QuerySnapshot snapshot) {
+					controller.add(snapshot.documents.map<String>((DocumentSnapshot document) {
+						return document.documentID;
+					}).toList());
+    });
+
+    return controller.stream;
+  }
+
+  @override
+  void like({@required CourseData course, @required String userUid}) {
+    Firestore.instance.collection('courses').document(course.id).collection('stars').document(userUid).setData({});
+  }
+
+  @override
+  void unlike({@required CourseData course, @required String userUid}) {
+    Firestore.instance.collection('courses').document(course.id).collection('stars').document(userUid).delete();
   }
 
   @override
