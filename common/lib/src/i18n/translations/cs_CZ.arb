@@ -1,6 +1,6 @@
 {
   "@@locale": "cs_CZ",
-  "@@last_modified": "2018-05-05T11:08:50.179258",
+  "@@last_modified": "2018-05-19T17:22:06.030556",
   "signInButton": "Přihlásit se pomocí Google",
   "@signInButton": {
     "description": "Sign in button.",
@@ -140,6 +140,60 @@
   "newCourse": "Nový kurz",
   "@newCourse": {
     "description": "Name of new course screen.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "commentsTab": "Komentáře",
+  "@commentsTab": {
+    "description": "Comments tab in course screen.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "removeCourseDialog": "Chcete vymazat kurz?",
+  "@removeCourseDialog": {
+    "description": "Description of dialog for removing a course.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "no": "Ne",
+  "@no": {
+    "description": "No answer.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "yes": "Ano",
+  "@yes": {
+    "description": "Yes answer.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "remove": "Odstranit",
+  "@remove": {
+    "description": "Remove description.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "like": "Líbí se mi",
+  "@like": {
+    "description": "Like description.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "unlike": "Nelíbí se mi",
+  "@unlike": {
+    "description": "Unlike description.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "addComment": "Přidat komentář",
+  "@addComment": {
+    "description": "Add comment description.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "cannotBeEmpty": "Nemůže být prázdné",
+  "@cannotBeEmpty": {
+    "description": "Cannot be empty warning.",
     "type": "text",
     "placeholders": {}
   }

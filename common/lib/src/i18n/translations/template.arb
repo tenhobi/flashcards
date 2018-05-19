@@ -1,5 +1,5 @@
 {
-  "@@last_modified": "2018-05-05T11:12:27.994250",
+  "@@last_modified": "2018-05-19T17:22:06.030556",
   "signInButton": "_signInButton",
   "@signInButton": {
     "description": "Sign in button.",
@@ -139,6 +139,60 @@
   "newCourse": "New course",
   "@newCourse": {
     "description": "Name of new course screen.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "commentsTab": "_comments",
+  "@commentsTab": {
+    "description": "Comments tab in course screen.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "removeCourseDialog": "_removeCourseDialog",
+  "@removeCourseDialog": {
+    "description": "Description of dialog for removing a course.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "no": "_no",
+  "@no": {
+    "description": "No answer.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "yes": "_yes",
+  "@yes": {
+    "description": "Yes answer.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "remove": "_remove",
+  "@remove": {
+    "description": "Remove description.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "like": "_like",
+  "@like": {
+    "description": "Like description.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "unlike": "_unlike",
+  "@unlike": {
+    "description": "Unlike description.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "addComment": "_add comment",
+  "@addComment": {
+    "description": "Add comment description.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "cannotBeEmpty": "_cannot be empty",
+  "@cannotBeEmpty": {
+    "description": "Cannot be empty warning.",
     "type": "text",
     "placeholders": {}
   }

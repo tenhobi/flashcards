@@ -1,6 +1,6 @@
 {
   "@@locale": "en_US",
-  "@@last_modified": "2018-05-05T11:08:50.179258",
+  "@@last_modified": "2018-05-19T17:22:06.030556",
   "signInButton": "Sign in with Google",
   "@signInButton": {
     "description": "Sign in button.",
@@ -140,6 +140,60 @@
   "newCourse": "New course",
   "@newCourse": {
     "description": "Name of new course screen.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "commentsTab": "Comments",
+  "@commentsTab": {
+    "description": "Comments tab in course screen.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "removeCourseDialog": "Do you want to remove this course?",
+  "@removeCourseDialog": {
+    "description": "Description of dialog for removing a course.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "no": "No",
+  "@no": {
+    "description": "No answer.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "yes": "Yes",
+  "@yes": {
+    "description": "Yes answer.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "remove": "Remove",
+  "@remove": {
+    "description": "Remove description.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "like": "Like",
+  "@like": {
+    "description": "Like description.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "unlike": "Unlike",
+  "@unlike": {
+    "description": "Unlike description.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "addComment": "Add comment",
+  "@addComment": {
+    "description": "Add comment description.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "cannotBeEmpty": "Cannot be empty",
+  "@cannotBeEmpty": {
+    "description": "Cannot be empty warning.",
     "type": "text",
     "placeholders": {}
   }
