@@ -223,4 +223,28 @@ The project started as a part of a software team project at the [Faculty of Info
       desc: 'Yes answer.',
     );
   }
+
+  static String remove() {
+    return Intl.message(
+      '_remove',
+      name: 'remove',
+      desc: 'Remove description.',
+    );
+  }
+
+  static String like() {
+    return Intl.message(
+      '_like',
+      name: 'like',
+      desc: 'Like description.',
+    );
+  }
+
+  static String unlike() {
+    return Intl.message(
+      '_unlike',
+      name: 'unlike',
+      desc: 'Unlike description.',
+    );
+  }
 }

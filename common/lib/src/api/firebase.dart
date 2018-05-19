@@ -14,9 +14,9 @@ abstract class FirebaseApi {
 
   Stream<List<String>> queryStars({@required CourseData course});
 
-  void star({@required CourseData course, @required String userUid});
+  void like({@required CourseData course, @required String userUid});
 
-  void unstar({@required CourseData course, @required String userUid});
+  void unlike({@required CourseData course, @required String userUid});
 
   Stream<List<SectionData>> querySections({@required CourseData course});
 

@@ -8,6 +8,7 @@ environment:
 dependencies:
   meta: '^1.1.2'
   intl: '^0.15.2'
+  tuple: '^1.0.1'
 
 dev_dependencies:
   test: '^0.12.0'

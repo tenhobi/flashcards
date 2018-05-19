@@ -77,12 +77,12 @@ class FirebaseFlutterApi extends FirebaseApi {
   }
 
   @override
-  void star({@required CourseData course, @required String userUid}) {
+  void like({@required CourseData course, @required String userUid}) {
     Firestore.instance.collection('courses').document(course.id).collection('stars').document(userUid).setData({});
   }
 
   @override
-  void unstar({@required CourseData course, @required String userUid}) {
+  void unlike({@required CourseData course, @required String userUid}) {
     Firestore.instance.collection('courses').document(course.id).collection('stars').document(userUid).delete();
   }
 

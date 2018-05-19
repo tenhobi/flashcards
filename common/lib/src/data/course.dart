@@ -4,12 +4,12 @@ import 'package:meta/meta.dart';
 class CourseData extends Data {
   /// Firebase document ID
   final String id;
+
   final String name;
+
   final String authorUid;
+
   final String description;
-  List<String> get stars {
-    return ["123"];
-  }
 
   CourseData({
     @required this.name,
