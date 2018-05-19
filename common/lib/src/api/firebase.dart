@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flashcards_common/src/data/course.dart';
+import 'package:flashcards_common/src/data/comment.dart';
 import 'package:flashcards_common/src/data/section.dart';
 import 'package:flashcards_common/src/data/subsection.dart';
 import 'package:flashcards_common/src/data/user.dart';
@@ -39,4 +40,14 @@ abstract class FirebaseApi {
   void addSection(SubsectionData section);
 
   void removeCourse(CourseData course);
+
+  Stream<List<CommentData>> queryComments(CourseData course);
+
+  void addComment({@required CourseData course, @required CommentData comment});
+
+  void likeComment({@required CourseData course, @required CommentData comment, @required String authorUid});
+
+  void unlikeComment({@required CourseData course, @required CommentData comment, @required String authorUid});
+
+  Stream<List<String>> queryCommentsStars({CourseData course, CommentData comment});
 }

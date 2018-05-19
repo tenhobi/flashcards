@@ -247,4 +247,20 @@ The project started as a part of a software team project at the [Faculty of Info
       desc: 'Unlike description.',
     );
   }
+
+  static String addComment() {
+    return Intl.message(
+      '_add comment',
+      name: 'addComment',
+      desc: 'Add comment description.',
+    );
+  }
+
+  static cannotBeEmpty() {
+    return Intl.message(
+      '_cannot be empty',
+      name: 'cannotBeEmpty',
+      desc: 'Cannot be empty warning.',
+    );
+  }
 }

@@ -1,5 +1,6 @@
 import 'package:flashcards_common/data.dart';
 import 'package:flashcards_common/i18n.dart';
+import 'package:flashcards_flutter/src/components/comments.dart';
 import 'package:flashcards_flutter/src/components/sections_list.dart';
 import 'package:flashcards_flutter/src/state/container.dart';
 import 'package:flutter/material.dart';
@@ -43,7 +44,11 @@ class _CourseScreenState extends State<CourseScreen> {
               padding: EdgeInsets.all(8.0),
               child: MarkdownBody(data: widget.course.description),
             ),
-            Container(), // TODO: comments
+            Container(
+              child: Comments(
+                course: widget.course,
+              ),
+            ),
           ],
         ),
       ),

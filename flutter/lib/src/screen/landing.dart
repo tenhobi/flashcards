@@ -102,7 +102,7 @@ class _LandingScreenState extends State<LandingScreen> with SingleTickerProvider
 
     if (user == null) return;
 
-    state.userBloc.createIfAbsent.add(new UserData(uid: user.uid));
+    state.userBloc.createIfAbsent.add(new UserData(uid: user.uid, name: user.displayName));
 
     Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(

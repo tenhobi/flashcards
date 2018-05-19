@@ -224,4 +224,73 @@ class FirebaseFlutterApi extends FirebaseApi {
   Future removeCourse(CourseData course) async {
     await Firestore.instance.collection('courses').document(course.id).delete();
   }
+
+  @override
+  void addComment({@required CourseData course, @required CommentData comment}) {
+    Firestore.instance.collection('courses').document(course.id).collection('comments').add(comment.toMap());
+  }
+
+  @override
+  Stream<List<CommentData>> queryComments(CourseData course) {
+    final StreamController<List<CommentData>> controller = StreamController.broadcast();
+
+    Firestore.instance
+        .collection('courses')
+        .document(course.id)
+        .collection('comments')
+        .snapshots
+        .listen((QuerySnapshot snapshot) {
+      controller.add(snapshot.documents.map<CommentData>((DocumentSnapshot document) {
+        final Map<String, dynamic> data = document.data;
+        data['id'] = document.documentID;
+        return CommentData.fromMap(data);
+      }).toList());
+    });
+
+    return controller.stream;
+  }
+
+  @override
+  void likeComment({CourseData course, CommentData comment, String authorUid}) {
+    Firestore.instance
+        .collection('courses')
+        .document(course.id)
+        .collection('comments')
+        .document(comment.id)
+        .collection('stars')
+        .document(authorUid)
+        .setData({});
+  }
+
+  @override
+  Stream<List<String>> queryCommentsStars({CourseData course, CommentData comment}) {
+    final StreamController<List<String>> controller = StreamController.broadcast();
+
+    Firestore.instance
+        .collection('courses')
+        .document(course.id)
+        .collection('comments')
+        .document(comment.id)
+        .collection('stars')
+        .snapshots
+        .listen((QuerySnapshot snapshot) {
+      controller.add(snapshot.documents.map<String>((DocumentSnapshot document) {
+        return document.documentID;
+      }).toList());
+    });
+
+    return controller.stream;
+  }
+
+  @override
+  void unlikeComment({CourseData course, CommentData comment, String authorUid}) {
+    Firestore.instance
+        .collection('courses')
+        .document(course.id)
+        .collection('comments')
+        .document(comment.id)
+        .collection('stars')
+        .document(authorUid)
+        .delete();
+  }
 }
