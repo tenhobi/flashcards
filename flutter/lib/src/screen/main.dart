@@ -13,7 +13,7 @@ class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 3,
+      length: 2,
       child: Scaffold(
         drawer: CustomDrawer(),
         floatingActionButton: FloatingActionButton(
@@ -32,7 +32,7 @@ class MainScreen extends StatelessWidget {
             tabs: [
               Tab(text: FlashcardsStrings.allCourses()),
               Tab(text: FlashcardsStrings.createdCourses()),
-              Tab(text: FlashcardsStrings.popularCourses()),
+//              Tab(text: FlashcardsStrings.popularCourses()),
             ],
           ),
         ),
@@ -40,7 +40,7 @@ class MainScreen extends StatelessWidget {
           children: [
             CoursesList(type: CoursesQueryType.all),
             CoursesList(type: CoursesQueryType.created),
-            CoursesList(type: CoursesQueryType.popular),
+//            CoursesList(type: CoursesQueryType.popular),
           ],
         ),
       ),

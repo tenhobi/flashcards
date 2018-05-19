@@ -28,9 +28,6 @@ class FirebaseFlutterApi extends FirebaseApi {
         courses = courses.where('authorUid', isEqualTo: authorUid).orderBy('name');
         break;
       case CoursesQueryType.popular:
-        //fixme: stars are now collection
-        courses = courses.orderBy('stars', descending: true);
-        break;
       case CoursesQueryType.all:
       default:
     }
@@ -68,9 +65,9 @@ class FirebaseFlutterApi extends FirebaseApi {
         .collection('stars')
         .snapshots
         .listen((QuerySnapshot snapshot) {
-					controller.add(snapshot.documents.map<String>((DocumentSnapshot document) {
-						return document.documentID;
-					}).toList());
+      controller.add(snapshot.documents.map<String>((DocumentSnapshot document) {
+        return document.documentID;
+      }).toList());
     });
 
     return controller.stream;
