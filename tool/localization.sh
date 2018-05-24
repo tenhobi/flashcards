@@ -1,6 +1,6 @@
 #!/bin/bash
 
-function generatearb() {
+function generatedart() {
     pub run intl_translation:generate_from_arb --output-dir=lib/src/i18n/generated --generated-file-prefix="" lib/src/i18n/*.dart lib/src/i18n/translations/*_*.arb
     echo "Done generating dart files."
     echo "Formatting"
@@ -9,7 +9,7 @@ function generatearb() {
     exit 0
 }
 
-function generatedart() {
+function generatearb() {
     ORIG="lib/src/i18n/translations/intl_messages.arb"
     COPY="lib/src/i18n/translations/template_copy.arb"
     TEMPLATE="lib/src/i18n/translations/template.arb"
@@ -20,9 +20,9 @@ function generatedart() {
     echo "Done generating arb file."
     echo "Diff:"
     if ! type "colordiff" > /dev/null; then
-        diff $TEMPLATE $COPY 2>/dev/null
+        diff $COPY $TEMPLATE 2>/dev/null
     else
-        diff $TEMPLATE $COPY | colordiff 2>/dev/null
+        diff $COPY $TEMPLATE | colordiff 2>/dev/null
     fi
     rm $COPY 2>/dev/null
     echo "Bye!"
