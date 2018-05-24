@@ -226,6 +226,11 @@ class FirebaseFlutterApi extends FirebaseApi {
   }
 
   @override
+  void editSection(SectionData section) {
+	  Firestore.instance.collection('courses').document(section.parent.id).collection('sections').document(section.id).setData(section.toMap());
+  }
+
+  @override
   Future removeCourse(CourseData course) async {
     await Firestore.instance.collection('courses').document(course.id).delete();
   }

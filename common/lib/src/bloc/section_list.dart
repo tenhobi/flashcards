@@ -14,14 +14,17 @@ class SectionListBloc extends Bloc {
 
   final StreamController<SectionData> _createController = StreamController<SectionData>();
   final StreamController<SectionData> _removeController = StreamController<SectionData>();
+  final StreamController<SectionData> _editController = StreamController<SectionData>();
 
   SectionListBloc(this._api) {
     _createController.stream.listen(_handleCreate);
     _removeController.stream.listen(_handleRemove);
+    _editController.stream.listen(_handleEdit);
   }
 
   Sink<SectionData> get create => _createController.sink;
   Sink<SectionData> get remove => _removeController.sink;
+  Sink<SectionData> get edit => _editController.sink;
 
   Stream<List<SectionData>> query({@required CourseData course}) {
     return _api.querySections(course: course);
@@ -37,6 +40,7 @@ class SectionListBloc extends Bloc {
 
   void _handleCreate(SectionData section) => _api.addSection(section);
   void _handleRemove(SectionData section) => _api.removeSection(section);
+  void _handleEdit(SectionData section) => _api.editSection(section);
 
   @override
   void dispose() {

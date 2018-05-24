@@ -57,17 +57,9 @@ class _NewSectionScreenState extends State<NewSectionScreen> {
 							  decoration: InputDecoration(
 								  labelText: FlashcardsStrings.newSectionName(),
 							  ),
-							  validator: (val) => val.isEmpty ? FlashcardsStrings.newCourseNameEmpty() : null,
+							  validator: (val) => val.isEmpty ? FlashcardsStrings.newSectionNameEmpty() : null,
 							  onSaved: (val) => _name = val,
 						  ),
-//						  TextFormField(
-//							  maxLines: 5,
-//							  decoration: InputDecoration(
-//								  labelText: FlashcardsStrings.newCourseDescription(),
-//							  ),
-//							  validator: (val) => val.isEmpty ? FlashcardsStrings.newCourseDescriptionEmpty() : null,
-//							  onSaved: (val) => _description = val,
-//						  ),
 					  ],
 				  ),
 			  ),

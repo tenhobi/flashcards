@@ -1,5 +1,5 @@
 {
-  "@@last_modified": "2018-05-24T18:36:41.245924",
+  "@@last_modified": "2018-05-25T01:13:07.422849",
   "signInButton": "_signInButton",
   "@signInButton": {
     "description": "Sign in button.",
@@ -207,5 +207,31 @@
     "description": "Label of input for name.",
     "type": "text",
     "placeholders": {}
+  },
+  "newSectionNameEmpty": "_name cannot be empty.",
+  "@newSectionNameEmpty": {
+    "description": "Error label of input for name about empty name.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "newSectionOrder": "_order",
+  "@newSectionOrder": {
+    "description": "Label of input for order.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "newSectionOrderEmpty": "_order cannot be empty.",
+  "@newSectionOrderEmpty": {
+    "description": "Error label of input for order about empty order.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "editSectionLabel": "_editting {sectionName}",
+  "@editSectionLabel": {
+    "description": "Screen name for section editting.",
+    "type": "text",
+    "placeholders": {
+      "sectionName": {}
+    }
   }
 }

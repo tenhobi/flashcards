@@ -279,4 +279,37 @@ The project started as a part of a software team project at the [Faculty of Info
       desc: 'Label of input for name.',
     );
   }
+
+  static String newSectionNameEmpty() {
+    return Intl.message(
+      '_name cannot be empty.',
+      name: 'newSectionNameEmpty',
+      desc: 'Error label of input for name about empty name.',
+    );
+  }
+
+  static String newSectionOrder() {
+	  return Intl.message(
+		  '_order',
+		  name: 'newSectionOrder',
+		  desc: 'Label of input for order.',
+	  );
+  }
+
+  static String newSectionOrderEmpty() {
+    return Intl.message(
+      '_order cannot be empty.',
+      name: 'newSectionOrderEmpty',
+      desc: 'Error label of input for order about empty order.',
+    );
+  }
+
+  static String editSectionLabel(String sectionName) {
+	  return Intl.message(
+		  '_editting $sectionName',
+		  args: [sectionName],
+		  name: 'editSectionLabel',
+		  desc: 'Screen name for section editting.',
+	  );
+  }
 }

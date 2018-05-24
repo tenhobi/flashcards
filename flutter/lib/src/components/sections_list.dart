@@ -3,6 +3,7 @@ import 'package:flashcards_flutter/src/api/firebase_flutter_api.dart';
 import 'package:flashcards_flutter/src/components/indicator_loading.dart';
 import 'package:flashcards_common/bloc.dart';
 import 'package:flashcards_common/data.dart';
+import 'package:flashcards_flutter/src/screen/edit_section.dart';
 import 'package:flashcards_flutter/src/state/container.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
@@ -188,8 +189,12 @@ class _SectionsWidgetState extends State<_SectionWidget> with SingleTickerProvid
     }
   }
 
-  void _edit() {
-    print('edit');
+  void _edit(BuildContext context) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (BuildContext context) => EditSectionScreen(original: widget.section)
+      )
+    );
   }
 
   Widget _generateExpansionTileControls(BuildContext context) {
@@ -199,7 +204,7 @@ class _SectionsWidgetState extends State<_SectionWidget> with SingleTickerProvid
     if (widget.section.parent.authorUid == state.authenticationBloc.user.uid) {
       controls = [
         IconButton(
-          onPressed: () {},
+          onPressed: () => _edit(context),
           icon: Icon(Icons.create),
         ),
         IconButton(
