@@ -39,6 +39,8 @@ abstract class FirebaseApi {
 
   void addSection(SectionData section);
 
+  void removeSection(SectionData section);
+
   void removeCourse(CourseData course);
 
   Stream<List<CommentData>> queryComments(CourseData course);

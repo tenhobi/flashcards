@@ -13,12 +13,15 @@ class SectionListBloc extends Bloc {
   final FirebaseApi _api;
 
   final StreamController<SectionData> _createController = StreamController<SectionData>();
+  final StreamController<SectionData> _removeController = StreamController<SectionData>();
 
   SectionListBloc(this._api) {
     _createController.stream.listen(_handleCreate);
+    _removeController.stream.listen(_handleRemove);
   }
 
   Sink<SectionData> get create => _createController.sink;
+  Sink<SectionData> get remove => _removeController.sink;
 
   Stream<List<SectionData>> query({@required CourseData course}) {
     return _api.querySections(course: course);
@@ -33,6 +36,7 @@ class SectionListBloc extends Bloc {
   }
 
   void _handleCreate(SectionData section) => _api.addSection(section);
+  void _handleRemove(SectionData section) => _api.removeSection(section);
 
   @override
   void dispose() {

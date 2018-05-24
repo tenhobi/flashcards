@@ -1,3 +1,4 @@
+import 'package:flashcards_common/i18n.dart';
 import 'package:flashcards_flutter/src/api/firebase_flutter_api.dart';
 import 'package:flashcards_flutter/src/components/indicator_loading.dart';
 import 'package:flashcards_common/bloc.dart';
@@ -154,15 +155,37 @@ class _SectionWidget extends StatefulWidget {
 }
 
 class _SectionsWidgetState extends State<_SectionWidget> with SingleTickerProviderStateMixin {
-  final SectionListBloc _bloc = SectionListBloc(FirebaseFlutterApi());
+//  final SectionListBloc _bloc = SectionListBloc(FirebaseFlutterApi());
 
   AnimationController _controller;
   CurvedAnimation _easeInAnimation;
   Animation<double> _iconTurns;
   bool _isExpanded = false;
 
-  void _delete() {
-    print('delete');
+  void _delete() async {
+    final state = StateContainer.of(context);
+    final bool permission = await showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: Text(FlashcardsStrings.removeCourseDialog()),
+          actions: <Widget>[
+            FlatButton(
+              onPressed: () => Navigator.of(context).pop(false),
+              child: Text(FlashcardsStrings.no()),
+            ),
+            FlatButton(
+              onPressed: () => Navigator.of(context).pop(true),
+              child: Text(FlashcardsStrings.yes()),
+            ),
+          ],
+        );
+      },
+    );
+
+    if (permission) {
+      state.sectionListBloc.remove.add(widget.section);
+    }
   }
 
   void _edit() {
@@ -175,19 +198,13 @@ class _SectionsWidgetState extends State<_SectionWidget> with SingleTickerProvid
 
     if (widget.section.parent.authorUid == state.authenticationBloc.user.uid) {
       controls = [
-        GestureDetector(
-          onTap: _edit,
-          child: Icon(Icons.create),
+        IconButton(
+          onPressed: () {},
+          icon: Icon(Icons.create),
         ),
-        Padding(
-          padding: EdgeInsets.only(left: 10.0),
-        ),
-        GestureDetector(
-          onTap: _delete,
-          child: Icon(Icons.delete_forever),
-        ),
-        Padding(
-          padding: EdgeInsets.only(left: 10.0),
+        IconButton(
+          onPressed: _delete,
+          icon: Icon(Icons.delete_forever),
         ),
       ];
     }
@@ -233,6 +250,7 @@ class _SectionsWidgetState extends State<_SectionWidget> with SingleTickerProvid
 
   @override
   Widget build(BuildContext context) {
+    final state = StateContainer.of(context);
     final BorderSide border = BorderSide(color: Theme.of(context).primaryColor, width: 2.0);
 
     return Container(
@@ -256,12 +274,12 @@ class _SectionsWidgetState extends State<_SectionWidget> with SingleTickerProvid
           children: [
             Column(
               children: <Widget>[
-                _BuildStream(_bloc.queryExercises, widget.section),
+                _BuildStream(state.sectionListBloc.queryExercises, widget.section),
                 Divider(
                   color: Colors.transparent,
                   height: 1.0,
                 ),
-                _BuildStream(_bloc.queryMaterials, widget.section, isLast: true)
+                _BuildStream(state.sectionListBloc.queryMaterials, widget.section, isLast: true)
               ],
             )
           ],
