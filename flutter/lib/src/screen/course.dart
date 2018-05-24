@@ -54,14 +54,11 @@ class _CourseScreenState extends State<CourseScreen> with SingleTickerProviderSt
     );
   }
 
-
   void _getFab() {
   	setState(() {
   	  fabIndex = tabController.index;
   	});
   }
-
-
 
   @override
   void initState() {

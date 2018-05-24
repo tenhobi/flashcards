@@ -153,8 +153,83 @@ class _SectionWidget extends StatefulWidget {
   State<_SectionWidget> createState() => _SectionsWidgetState();
 }
 
-class _SectionsWidgetState extends State<_SectionWidget> {
+class _SectionsWidgetState extends State<_SectionWidget> with SingleTickerProviderStateMixin {
   final SectionListBloc _bloc = SectionListBloc(FirebaseFlutterApi());
+
+  AnimationController _controller;
+  CurvedAnimation _easeInAnimation;
+  Animation<double> _iconTurns;
+  bool _isExpanded = false;
+
+  void _delete() {
+    print('delete');
+  }
+
+  void _edit() {
+    print('edit');
+  }
+
+  Widget _generateExpansionTileControls(BuildContext context) {
+    final state = StateContainer.of(context);
+    List<Widget> controls = [];
+
+    if (widget.section.parent.authorUid == state.authenticationBloc.user.uid) {
+      controls = [
+        GestureDetector(
+          onTap: _edit,
+          child: Icon(Icons.create),
+        ),
+        Padding(
+          padding: EdgeInsets.only(left: 10.0),
+        ),
+        GestureDetector(
+          onTap: _delete,
+          child: Icon(Icons.delete_forever),
+        ),
+        Padding(
+          padding: EdgeInsets.only(left: 10.0),
+        ),
+      ];
+    }
+    controls.add(
+      RotationTransition(
+        turns: _iconTurns,
+        child: Icon(Icons.expand_more),
+      ),
+    );
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: controls,
+    );
+  }
+
+  void _handleTap(bool expanded) {
+    setState(() {
+      _isExpanded = expanded;
+      if (_isExpanded)
+        _controller.forward();
+      else
+        _controller.reverse().then<void>((Null value) {
+          setState(() {
+            // Rebuild without widget.children.
+          });
+        });
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = new AnimationController(duration: Duration(milliseconds: 200), vsync: this);
+    _easeInAnimation = new CurvedAnimation(parent: _controller, curve: Curves.easeIn);
+    _iconTurns = new Tween<double>(begin: 0.0, end: 0.5).animate(_easeInAnimation);
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -173,6 +248,8 @@ class _SectionsWidgetState extends State<_SectionWidget> {
               right: border,
             )),
         child: ExpansionTile(
+          trailing: _generateExpansionTileControls(context),
+          onExpansionChanged: _handleTap,
           title: Container(
             child: Text(widget.section.name, style: TextStyle(color: Colors.white)),
           ),
