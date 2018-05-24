@@ -196,5 +196,17 @@
     "description": "Cannot be empty warning.",
     "type": "text",
     "placeholders": {}
+  },
+  "newSection": "New section",
+  "@newSection": {
+    "description": "New section",
+    "type": "text",
+    "placeholders": {}
+  },
+  "newSectionName": "Name",
+  "@newSectionName": {
+    "description": "Label of input for name.",
+    "type": "text",
+    "placeholders": {}
   }
 }

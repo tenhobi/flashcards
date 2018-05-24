@@ -196,5 +196,17 @@
     "description": "Cannot be empty warning.",
     "type": "text",
     "placeholders": {}
+  },
+  "newSection": "Nová sekce",
+  "@newSection": {
+    "description": "New section",
+    "type": "text",
+    "placeholders": {}
+  },
+  "newSectionName": "Název",
+  "@newSectionName": {
+    "description": "Label of input for name.",
+    "type": "text",
+    "placeholders": {}
   }
 }

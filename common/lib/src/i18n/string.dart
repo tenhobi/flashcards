@@ -263,4 +263,20 @@ The project started as a part of a software team project at the [Faculty of Info
       desc: 'Cannot be empty warning.',
     );
   }
+
+  static newSection() {
+    return Intl.message(
+      '_new section',
+      name: 'newSection',
+      desc: 'New section',
+    );
+  }
+
+  static newSectionName() {
+    return Intl.message(
+      '_name',
+      name: 'newSectionName',
+      desc: 'Label of input for name.',
+    );
+  }
 }

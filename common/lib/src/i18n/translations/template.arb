@@ -1,5 +1,5 @@
 {
-  "@@last_modified": "2018-05-19T17:22:06.030556",
+  "@@last_modified": "2018-05-24T18:36:41.245924",
   "signInButton": "_signInButton",
   "@signInButton": {
     "description": "Sign in button.",
@@ -193,6 +193,18 @@
   "cannotBeEmpty": "_cannot be empty",
   "@cannotBeEmpty": {
     "description": "Cannot be empty warning.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "newSection": "_new section",
+  "@newSection": {
+    "description": "New section",
+    "type": "text",
+    "placeholders": {}
+  },
+  "newSectionName": "_name",
+  "@newSectionName": {
+    "description": "Label of input for name.",
     "type": "text",
     "placeholders": {}
   }

@@ -37,7 +37,7 @@ abstract class FirebaseApi {
 
   void createIfAbsent(UserData user);
 
-  void addSection(SubsectionData section);
+  void addSection(SectionData section);
 
   void removeCourse(CourseData course);
 

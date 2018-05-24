@@ -42,6 +42,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "newCourseDescriptionEmpty": MessageLookupByLibrary.simpleMessage("Popis nemůže být prázdný."),
         "newCourseName": MessageLookupByLibrary.simpleMessage("Název"),
         "newCourseNameEmpty": MessageLookupByLibrary.simpleMessage("Název nemůže být prázdný."),
+        "newSection": MessageLookupByLibrary.simpleMessage("Nová sekce"),
+        "newSectionName": MessageLookupByLibrary.simpleMessage("Název"),
         "no": MessageLookupByLibrary.simpleMessage("Ne"),
         "noVersion": MessageLookupByLibrary.simpleMessage("Verze nebyla nalezena"),
         "popularCourses": MessageLookupByLibrary.simpleMessage("oblíbené"),

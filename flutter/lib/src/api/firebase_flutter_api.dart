@@ -216,8 +216,8 @@ class FirebaseFlutterApi extends FirebaseApi {
   }
 
   @override
-  void addSection(SubsectionData section) {
-    // TODO: implement addSection
+  void addSection(SectionData section) {
+    Firestore.instance.collection('courses').document(section.parent.id).collection('sections').add(section.toMap());
   }
 
   @override

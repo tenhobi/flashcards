@@ -9,10 +9,10 @@ class SectionData extends Data implements Comparable<SectionData> {
   final int order;
 
   // TODO: enhance constructors
-  SectionData(this.name, {this.parent, this.id = '', this.order = 0});
+  SectionData({@required this.name, this.parent, this.id = '', this.order = 0});
 
   factory SectionData.fromMap(Map<String, dynamic> data, {@required CourseData parent}) => SectionData(
-        data['name'],
+        name: data['name'],
         id: data['id'],
         parent: parent,
         order: data['order'],
@@ -23,6 +23,6 @@ class SectionData extends Data implements Comparable<SectionData> {
 
   @override
   Map<String, dynamic> toMap() {
-    return {'id': '$id', 'name': '$name', 'order': '$order'};
+    return {'id': '$id', 'name': '$name', 'order': order};
   }
 }
