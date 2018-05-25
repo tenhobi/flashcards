@@ -1,5 +1,5 @@
 {
-  "@@last_modified": "2018-05-25T02:18:27.681700",
+  "@@last_modified": "2018-05-25T04:05:06.789129",
   "signInButton": "_signInButton",
   "@signInButton": {
     "description": "Sign in button.",
@@ -214,13 +214,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "newSectionOrder": "_order",
+  "newSectionOrder": "_onewSectionOrder",
   "@newSectionOrder": {
     "description": "Label of input for order.",
     "type": "text",
     "placeholders": {}
   },
-  "newSectionOrderEmpty": "_order cannot be empty.",
+  "newSectionOrderEmpty": "_newSectionOrderEmpty",
   "@newSectionOrderEmpty": {
     "description": "Error label of input for order about empty order.",
     "type": "text",
@@ -234,27 +234,45 @@
       "sectionName": {}
     }
   },
-  "addExercise": "_add new execrise",
+  "addExercise": "_addExecrise",
   "@addExercise": {
     "description": "Text shown within subsection list",
     "type": "text",
     "placeholders": {}
   },
-  "addExerciseLabel": "_new execrise",
+  "addExerciseLabel": "_newExercise",
   "@addExerciseLabel": {
     "description": "Screen name for exercise subsection making.",
     "type": "text",
     "placeholders": {}
   },
-  "addMaterial": "_add new material",
+  "addMaterial": "_addMaterial",
   "@addMaterial": {
     "description": "Text shown within subsection list",
     "type": "text",
     "placeholders": {}
   },
-  "addMaterialLabel": "_new material",
+  "addMaterialLabel": "_newMaterial",
   "@addMaterialLabel": {
     "description": "Screen name for material subsection making.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "removeExerciseDialog": "_removeExerciseDialog",
+  "@removeExerciseDialog": {
+    "description": "Description of dialog for removing a exercise.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "removeMaterialDialog": "_removeMaterialDialog",
+  "@removeMaterialDialog": {
+    "description": "Description of dialog for removing a material.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "removeSectionDialog": "_removeSectionDialog",
+  "@removeSectionDialog": {
+    "description": "Description of dialog for removing a section.",
     "type": "text",
     "placeholders": {}
   }

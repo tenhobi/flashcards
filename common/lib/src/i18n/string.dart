@@ -290,7 +290,7 @@ The project started as a part of a software team project at the [Faculty of Info
 
   static String newSectionOrder() {
 	  return Intl.message(
-		  '_order',
+		  '_onewSectionOrder',
 		  name: 'newSectionOrder',
 		  desc: 'Label of input for order.',
 	  );
@@ -298,7 +298,7 @@ The project started as a part of a software team project at the [Faculty of Info
 
   static String newSectionOrderEmpty() {
     return Intl.message(
-      '_order cannot be empty.',
+      '_newSectionOrderEmpty',
       name: 'newSectionOrderEmpty',
       desc: 'Error label of input for order about empty order.',
     );
@@ -315,7 +315,7 @@ The project started as a part of a software team project at the [Faculty of Info
 
   static String addExercise() {
     return Intl.message(
-      '_add new execrise',
+      '_addExecrise',
       name: 'addExercise',
       desc: 'Text shown within subsection list',
     );
@@ -323,7 +323,7 @@ The project started as a part of a software team project at the [Faculty of Info
 
   static String addExerciseLabel() {
 	  return Intl.message(
-		  '_new execrise',
+		  '_newExercise',
 		  name: 'addExerciseLabel',
 		  desc: 'Screen name for exercise subsection making.',
 	  );
@@ -331,7 +331,7 @@ The project started as a part of a software team project at the [Faculty of Info
 
   static String addMaterial() {
     return Intl.message(
-      '_add new material',
+      '_addMaterial',
       name: 'addMaterial',
       desc: 'Text shown within subsection list',
     );
@@ -339,10 +339,34 @@ The project started as a part of a software team project at the [Faculty of Info
 
   static String addMaterialLabel() {
 	  return Intl.message(
-		  '_new material',
+		  '_newMaterial',
 		  name: 'addMaterialLabel',
 		  desc: 'Screen name for material subsection making.',
 	  );
+  }
+
+  static String removeExerciseDialog() {
+    return Intl.message(
+      '_removeExerciseDialog',
+      name: 'removeExerciseDialog',
+      desc: 'Description of dialog for removing a exercise.',
+    );
+  }
+
+  static String removeMaterialDialog() {
+    return Intl.message(
+      '_removeMaterialDialog',
+      name: 'removeMaterialDialog',
+      desc: 'Description of dialog for removing a material.',
+    );
+  }
+
+  static String removeSectionDialog() {
+    return Intl.message(
+      '_removeSectionDialog',
+      name: 'removeSectionDialog',
+      desc: 'Description of dialog for removing a section.',
+    );
   }
 
 }

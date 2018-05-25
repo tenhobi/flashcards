@@ -7,12 +7,13 @@ enum SubsectionType{
 }
 
 abstract class SubsectionData extends Data implements Comparable<SubsectionData> {
-  final int order;
+  final String id;
   final SectionData parent;
   final String name;
+  final int order;
 
   // TODO: enhance constructors, do *.fromMap()
-  SubsectionData({@required this.name, @required this.order, @required this.parent});
+  SubsectionData({@required this.name, @required this.order, @required this.parent, this.id = ''});
 
   @override
   int compareTo(SubsectionData other) => order.compareTo(other.order);

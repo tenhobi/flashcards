@@ -14,18 +14,21 @@ class SectionListBloc extends Bloc {
 
   final StreamController<SectionData> _createController = StreamController<SectionData>();
   final StreamController<Tuple2<SubsectionType, SubsectionData>> _createSubsectionController = StreamController<Tuple2<SubsectionType, SubsectionData>>();
+  final StreamController<Tuple2<SubsectionType, SubsectionData>> _removeSubsectionController = StreamController<Tuple2<SubsectionType, SubsectionData>>();
   final StreamController<SectionData> _removeController = StreamController<SectionData>();
   final StreamController<SectionData> _editController = StreamController<SectionData>();
 
   SectionListBloc(this._api) {
     _createController.stream.listen(_handleCreate);
     _createSubsectionController.stream.listen(_handleCreateSubsection);
+    _removeSubsectionController.stream.listen(_handleRemoveSubsection);
     _removeController.stream.listen(_handleRemove);
     _editController.stream.listen(_handleEdit);
   }
 
   Sink<SectionData> get create => _createController.sink;
   Sink<Tuple2<SubsectionType, SubsectionData>> get createSubsection => _createSubsectionController.sink;
+  Sink<Tuple2<SubsectionType, SubsectionData>> get removeSubsection => _removeSubsectionController.sink;
   Sink<SectionData> get remove => _removeController.sink;
   Sink<SectionData> get edit => _editController.sink;
 
@@ -43,6 +46,7 @@ class SectionListBloc extends Bloc {
 
   void _handleCreate(SectionData section) => _api.addSection(section);
   void _handleCreateSubsection(Tuple2<SubsectionType, SubsectionData> data) => _api.addSubsection(type: data.item1, subsection: data.item2);
+  void _handleRemoveSubsection(Tuple2<SubsectionType, SubsectionData> data) => _api.removeSubsection(type: data.item1, subsection: data.item2);
   void _handleRemove(SectionData section) => _api.removeSection(section);
   void _handleEdit(SectionData section) => _api.editSection(section);
 

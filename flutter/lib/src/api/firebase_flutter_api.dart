@@ -230,6 +230,15 @@ class FirebaseFlutterApi extends FirebaseApi {
   }
 
   @override
+  void removeSubsection({@required SubsectionType type, @required SubsectionData subsection}) {
+    final String tp = type == SubsectionType.exercise ? 'exercises' : 'materials';
+    Firestore.instance
+        .collection('courses').document(subsection.parent.parent.id)
+        .collection('sections').document(subsection.parent.id)
+        .collection(tp).document(subsection.id).delete();
+  }
+
+  @override
   void removeSection(SectionData section) {
     Firestore.instance.collection('courses').document(section.parent.id).collection('sections').document(section.id).delete();
   }

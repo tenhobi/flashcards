@@ -8,6 +8,8 @@ import 'package:flashcards_flutter/src/screen/new_subsection.dart';
 import 'package:flashcards_flutter/src/state/container.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
+import 'package:tuple/tuple.dart';
+
 
 class _NullOrEmpty extends StatelessWidget {
   const _NullOrEmpty({this.isLast = false});
@@ -89,6 +91,9 @@ class _BuildStreamState extends State<_BuildStream> {
         onTap: () => redirectNewSubsection(context),
         text: _getTextForNew(),
         isLast: widget.isLast,
+        type: null,
+        subsection: null,
+        owner: false,
       );
     }
     return _NullOrEmpty(isLast: widget.isLast);
@@ -113,7 +118,25 @@ class _BuildStreamState extends State<_BuildStream> {
         final List<_SectionRow> rows = [];
         data.forEach((SubsectionData d) {
           final bool last = data.last.compareTo(d) == 0 && widget.isLast;
-          rows.add(_SectionRow.generate(d, onTap: () {}, isLast: last && !owner));
+          if(widget.type == SubsectionType.exercise) {
+            rows.add(_SectionRow.exercise(
+              text: d.name,
+              onTap: () {},
+              subsection: d,
+              type: widget.type,
+              owner: owner,
+              isLast: last,
+            ));
+          } else {
+            rows.add(_SectionRow.material(
+              text: d.name,
+              onTap: () {},
+              subsection: d,
+              type: widget.type,
+              owner: owner,
+              isLast: last,
+            ));
+          }
         });
         if (owner) {
           rows.add(_SectionRow(
@@ -121,6 +144,9 @@ class _BuildStreamState extends State<_BuildStream> {
             onTap: () => redirectNewSubsection(context),
             text: _getTextForNew(),
             isLast: widget.isLast,
+            subsection: null,
+            type: null,
+            owner: false,
           ));
         }
         return Column(
@@ -132,20 +158,106 @@ class _BuildStreamState extends State<_BuildStream> {
 }
 
 class _SectionRow extends StatelessWidget {
-  const _SectionRow({@required this.icon, @required this.text, @required this.onTap, this.isLast = false});
+  const _SectionRow({@required this.icon, @required this.text, @required this.onTap, @required SubsectionData this.subsection, @required SubsectionType this.type, this.owner = false, this.isLast = false});
+  const _SectionRow.material({@required this.text, @required this.onTap, @required SubsectionData this.subsection, @required SubsectionType this.type, this.owner = false, this.isLast = false}) : icon = Icons.description;
+  const _SectionRow.exercise({@required this.text, @required this.onTap, @required SubsectionData this.subsection, @required SubsectionType this.type, this.owner = false, this.isLast = false}) : icon = Icons.create;
 
+  final SubsectionData subsection;
+  final SubsectionType type;
   final IconData icon;
   final String text;
   final Function onTap;
   final bool isLast;
+  final bool owner;
 
-  static Widget generate(SubsectionData d, {@required Function onTap, bool isLast = false}) {
-    final IconData icon = d is MaterialData ? Icons.description : Icons.create;
-    return _SectionRow(
-      icon: icon,
-      text: d.name,
-      onTap: onTap,
-      isLast: isLast,
+  void _delete(BuildContext context) async {
+    final state = StateContainer.of(context);
+    String alertText;
+    if (type == SubsectionType.exercise) {
+      alertText = FlashcardsStrings.removeExerciseDialog();
+    } else {
+      alertText = FlashcardsStrings.removeMaterialDialog();
+    }
+
+    final bool permission = await showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: Text(alertText),
+          actions: <Widget>[
+            FlatButton(
+              onPressed: () => Navigator.of(context).pop(false),
+              child: Text(FlashcardsStrings.no()),
+            ),
+            FlatButton(
+              onPressed: () => Navigator.of(context).pop(true),
+              child: Text(FlashcardsStrings.yes()),
+            ),
+          ],
+        );
+      },
+    );
+
+    if (permission) {
+      state.sectionListBloc.removeSubsection.add(
+        Tuple2<SubsectionType, SubsectionData>(type, subsection)
+      );
+    }
+  }
+
+  void _edit(BuildContext context) {
+//    Navigator.of(context).push(
+//        MaterialPageRoute(
+//            builder: (BuildContext context) => EditSectionScreen(original: section)
+//        )
+//    );
+  }
+
+  Widget _generateLabel(BuildContext context) {
+    return Column(
+      children: <Widget>[
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+//          mainAxisSize: MainAxisSize.max,
+          children: <Widget>[
+            Icon(
+              icon,
+              color: Colors.black87,
+              size: 22.0,
+            ),
+            Text(
+              '.',
+              style: TextStyle(color: Colors.transparent),
+            ),
+            Text(text, style: TextStyle(color: Colors.black87, fontSize: 18.0))
+          ],
+        )
+      ],
+    );
+  }
+
+  Widget _generateControls(BuildContext context) {
+    if (!owner) {
+      return Container(width: 0.0, height: 0.0,);
+    }
+    return Column(
+      children: <Widget>[
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: <Widget>[
+            GestureDetector(
+              child: Icon(Icons.create),
+              onTap: () {},
+            ),
+            Padding(padding: EdgeInsets.only(left: 10.0),),
+            GestureDetector(
+              child: Icon(Icons.delete_forever),
+              onTap: () => _delete(context),
+            ),
+          ],
+        )
+      ],
     );
   }
 
@@ -160,31 +272,24 @@ class _SectionRow extends StatelessWidget {
     }
 
     return GestureDetector(
-        onTap: onTap,
-        child: Container(
-          padding: EdgeInsets.only(left: 16.0, bottom: 10.0, right: 10.0, top: 10.0),
-          alignment: Alignment.centerLeft,
-          decoration: BoxDecoration(
-            borderRadius: br,
-            color: Colors.white,
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            mainAxisSize: MainAxisSize.max,
-            children: <Widget>[
-              Icon(
-                icon,
-                color: Colors.black87,
-                size: 22.0,
-              ),
-              Text(
-                '.',
-                style: TextStyle(color: Colors.transparent),
-              ),
-              Expanded(child: Text(text, style: TextStyle(color: Colors.black87, fontSize: 18.0)))
-            ],
-          ),
-        ));
+      onTap: onTap,
+      child: Container(
+        padding: EdgeInsets.only(left: 16.0, bottom: 10.0, right: 10.0, top: 10.0),
+        alignment: Alignment.centerLeft,
+        decoration: BoxDecoration(
+          borderRadius: br,
+          color: Colors.white,
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            _generateLabel(context),
+            _generateControls(context),
+          ],
+        )
+      ),
+    );
   }
 }
 
@@ -211,7 +316,7 @@ class _SectionsWidgetState extends State<_SectionWidget> with SingleTickerProvid
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          content: Text(FlashcardsStrings.removeCourseDialog()),
+          content: Text(FlashcardsStrings.removeSectionDialog()),
           actions: <Widget>[
             FlatButton(
               onPressed: () => Navigator.of(context).pop(false),
