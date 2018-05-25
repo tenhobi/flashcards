@@ -24,7 +24,7 @@ class StateContainer extends StatefulWidget {
   static StateContainerState of(BuildContext context) {
     return (context.inheritFromWidgetOfExactType(_InheritedStateContainer) as _InheritedStateContainer).data;
   }
-
+  
   @override
   State<StatefulWidget> createState() => StateContainerState();
 }

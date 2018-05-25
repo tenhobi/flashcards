@@ -11,6 +11,6 @@ class MaterialData extends SubsectionData {
 
   @override
   Map<String, dynamic> toMap() {
-    return {'name': '$name', 'order': '$order'};
+    return {'name': '$name', 'order': order};
   }
 }

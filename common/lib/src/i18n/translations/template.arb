@@ -1,5 +1,5 @@
 {
-  "@@last_modified": "2018-05-25T01:13:07.422849",
+  "@@last_modified": "2018-05-25T02:18:27.681700",
   "signInButton": "_signInButton",
   "@signInButton": {
     "description": "Sign in button.",
@@ -233,5 +233,29 @@
     "placeholders": {
       "sectionName": {}
     }
+  },
+  "addExercise": "_add new execrise",
+  "@addExercise": {
+    "description": "Text shown within subsection list",
+    "type": "text",
+    "placeholders": {}
+  },
+  "addExerciseLabel": "_new execrise",
+  "@addExerciseLabel": {
+    "description": "Screen name for exercise subsection making.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "addMaterial": "_add new material",
+  "@addMaterial": {
+    "description": "Text shown within subsection list",
+    "type": "text",
+    "placeholders": {}
+  },
+  "addMaterialLabel": "_new material",
+  "@addMaterialLabel": {
+    "description": "Screen name for material subsection making.",
+    "type": "text",
+    "placeholders": {}
   }
 }

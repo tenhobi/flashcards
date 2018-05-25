@@ -312,4 +312,37 @@ The project started as a part of a software team project at the [Faculty of Info
 		  desc: 'Screen name for section editting.',
 	  );
   }
+
+  static String addExercise() {
+    return Intl.message(
+      '_add new execrise',
+      name: 'addExercise',
+      desc: 'Text shown within subsection list',
+    );
+  }
+
+  static String addExerciseLabel() {
+	  return Intl.message(
+		  '_new execrise',
+		  name: 'addExerciseLabel',
+		  desc: 'Screen name for exercise subsection making.',
+	  );
+  }
+
+  static String addMaterial() {
+    return Intl.message(
+      '_add new material',
+      name: 'addMaterial',
+      desc: 'Text shown within subsection list',
+    );
+  }
+
+  static String addMaterialLabel() {
+	  return Intl.message(
+		  '_new material',
+		  name: 'addMaterialLabel',
+		  desc: 'Screen name for material subsection making.',
+	  );
+  }
+
 }

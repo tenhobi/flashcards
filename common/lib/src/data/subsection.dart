@@ -2,6 +2,10 @@ import 'package:flashcards_common/src/data/data.dart';
 import 'package:flashcards_common/src/data/section.dart';
 import 'package:meta/meta.dart';
 
+enum SubsectionType{
+  exercise, material
+}
+
 abstract class SubsectionData extends Data implements Comparable<SubsectionData> {
   final int order;
   final SectionData parent;

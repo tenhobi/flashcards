@@ -39,6 +39,8 @@ abstract class FirebaseApi {
 
   void addSection(SectionData section);
 
+  void addSubsection({@required SubsectionType type, @required SubsectionData subsection});
+
   void removeSection(SectionData section);
 
   void editSection(SectionData section);

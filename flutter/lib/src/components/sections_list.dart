@@ -4,6 +4,7 @@ import 'package:flashcards_flutter/src/components/indicator_loading.dart';
 import 'package:flashcards_common/bloc.dart';
 import 'package:flashcards_common/data.dart';
 import 'package:flashcards_flutter/src/screen/edit_section.dart';
+import 'package:flashcards_flutter/src/screen/new_subsection.dart';
 import 'package:flashcards_flutter/src/state/container.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
@@ -37,11 +38,12 @@ class _NullOrEmpty extends StatelessWidget {
 }
 
 class _BuildStream extends StatefulWidget {
-  const _BuildStream(this.function, this.section, {this.isLast = false});
+  const _BuildStream(this.function, this.section, {this.isLast = false, @required this.type});
 
   final Function function;
   final SectionData section;
   final bool isLast;
+  final SubsectionType type;
 
   @override
   State<_BuildStream> createState() => _BuildStreamState();
@@ -50,39 +52,79 @@ class _BuildStream extends StatefulWidget {
 class _BuildStreamState extends State<_BuildStream> {
   List<SubsectionData> data = null;
 
+  void redirectNewSubsection(BuildContext context) {
+    Navigator.of(context).push(
+      MaterialPageRoute(builder: (BuildContext context) => NewSubsectionScreen(
+        parent: widget.section,
+        type: widget.type,
+      )),
+    );
+  }
+
+  //todo: rename this, so it actually describes what it does
+  String _getTextForNew() {
+    return widget.type == SubsectionType.exercise ? FlashcardsStrings.addExercise() : FlashcardsStrings.addMaterial();
+  }
+
+  Widget _generateLoading(BuildContext context, AsyncSnapshot<List<SubsectionData>> snapshot) {
+    return Container(
+      padding: EdgeInsets.only(left: 16.0, bottom: 10.0, right: 10.0, top: 10.0),
+      alignment: Alignment.center,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.only(
+          bottomLeft: Radius.circular(6.0),
+          bottomRight: Radius.circular(6.0),
+        ),
+        color: Colors.white,
+      ),
+      child: Loading(),
+    );
+  }
+
+  Widget _generateEmpty(BuildContext context, AsyncSnapshot<List<SubsectionData>> snapshot) {
+    final state = StateContainer.of(context);
+    if (widget.section.parent.authorUid == state.authenticationBloc.user.uid) {
+      return _SectionRow(
+        icon: Icons.add,
+        onTap: () => redirectNewSubsection(context),
+        text: _getTextForNew(),
+        isLast: widget.isLast,
+      );
+    }
+    return _NullOrEmpty(isLast: widget.isLast);
+  }
+
   @override
   Widget build(BuildContext context) {
+    final state = StateContainer.of(context);
+    final bool owner = widget.section.parent.authorUid == state.authenticationBloc.user.uid;
     return StreamBuilder<List<SubsectionData>>(
       stream: widget.function(section: widget.section),
       builder: (BuildContext context, AsyncSnapshot<List<SubsectionData>> snapshot) {
         if (!snapshot.hasData && widget.isLast) {
-          return Container(
-            padding: EdgeInsets.only(left: 16.0, bottom: 10.0, right: 10.0, top: 10.0),
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(6.0),
-                bottomRight: Radius.circular(6.0),
-              ),
-              color: Colors.white,
-            ),
-            child: Loading(),
-          );
+          return _generateLoading(context, snapshot);
         }
         if ((data == null || data.isEmpty) && (snapshot.data == null || snapshot.data.isEmpty)) {
-          return _NullOrEmpty(isLast: widget.isLast);
+          return _generateEmpty(context, snapshot);
         }
         if (snapshot.hasData) {
           data = snapshot.data..sort();
         }
+        final List<_SectionRow> rows = [];
+        data.forEach((SubsectionData d) {
+          final bool last = data.last.compareTo(d) == 0 && widget.isLast;
+          rows.add(_SectionRow.generate(d, onTap: () {}, isLast: last && !owner));
+        });
+        if (owner) {
+          rows.add(_SectionRow(
+            icon: Icons.add,
+            onTap: () => redirectNewSubsection(context),
+            text: _getTextForNew(),
+            isLast: widget.isLast,
+          ));
+        }
         return Column(
-          children: data.map((SubsectionData d) {
-            bool last = false;
-            if (data.last.compareTo(d) == 0 && widget.isLast) {
-              last = true;
-            }
-            return _SectionRow.generate(d, onTap: () {}, isLast: last);
-          }).toList(),
+          children: rows,
         );
       },
     );
@@ -262,14 +304,15 @@ class _SectionsWidgetState extends State<_SectionWidget> with SingleTickerProvid
       padding: EdgeInsets.all(8.0),
       child: Container(
         decoration: BoxDecoration(
-            color: Theme.of(context).primaryColor,
-            borderRadius: BorderRadius.circular(8.0),
-            border: Border(
-              bottom: border,
-              top: border,
-              left: border,
-              right: border,
-            )),
+          color: Theme.of(context).primaryColor,
+          borderRadius: BorderRadius.circular(8.0),
+          border: Border(
+            bottom: border,
+            top: border,
+            left: border,
+            right: border,
+          ),
+        ),
         child: ExpansionTile(
           trailing: _generateExpansionTileControls(context),
           onExpansionChanged: _handleTap,
@@ -279,12 +322,21 @@ class _SectionsWidgetState extends State<_SectionWidget> with SingleTickerProvid
           children: [
             Column(
               children: <Widget>[
-                _BuildStream(state.sectionListBloc.queryExercises, widget.section),
+                _BuildStream(
+                  state.sectionListBloc.queryExercises,
+                  widget.section,
+                  type: SubsectionType.exercise,
+                ),
                 Divider(
                   color: Colors.transparent,
                   height: 1.0,
                 ),
-                _BuildStream(state.sectionListBloc.queryMaterials, widget.section, isLast: true)
+                _BuildStream(
+                  state.sectionListBloc.queryMaterials,
+                  widget.section,
+                  isLast: true,
+                  type: SubsectionType.material,
+                ),
               ],
             )
           ],
