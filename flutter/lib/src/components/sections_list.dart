@@ -54,9 +54,10 @@ class _BuildStreamState extends State<_BuildStream> {
   void redirectNewSubsection(BuildContext context) {
     Navigator.of(context).push(
           MaterialPageRoute(
-              builder: (BuildContext context) => NewSubsectionScreen(
-                    parent: widget.section,
-                  )),
+            builder: (BuildContext context) => NewSubsectionScreen(
+                  parent: widget.section,
+                ),
+          ),
         );
   }
 
@@ -151,27 +152,28 @@ class _BuildStreamState extends State<_BuildStream> {
 }
 
 class _SectionRow extends StatelessWidget {
-  const _SectionRow(
-      {@required this.icon,
-      @required this.text,
-      @required this.onTap,
-      @required SubsectionData this.subsection,
-      this.owner = false,
-      this.isLast = false});
-  const _SectionRow.material(
-      {@required this.text,
-      @required this.onTap,
-      @required SubsectionData this.subsection,
-      this.owner = false,
-      this.isLast = false})
-      : icon = Icons.description;
-  const _SectionRow.exercise(
-      {@required this.text,
-      @required this.onTap,
-      @required SubsectionData this.subsection,
-      this.owner = false,
-      this.isLast = false})
-      : icon = Icons.play_circle_outline;
+  const _SectionRow({
+    @required this.icon,
+    @required this.text,
+    @required this.onTap,
+    @required SubsectionData this.subsection,
+    this.owner = false,
+    this.isLast = false,
+  });
+  const _SectionRow.material({
+    @required this.text,
+    @required this.onTap,
+    @required SubsectionData this.subsection,
+    this.owner = false,
+    this.isLast = false,
+  }) : icon = Icons.description;
+  const _SectionRow.exercise({
+    @required this.text,
+    @required this.onTap,
+    @required SubsectionData this.subsection,
+    this.owner = false,
+    this.isLast = false,
+  }) : icon = Icons.play_circle_outline;
 
   final SubsectionData subsection;
   final IconData icon;
@@ -284,20 +286,21 @@ class _SectionRow extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-          padding: EdgeInsets.only(left: 16.0, bottom: 10.0, right: 10.0, top: 10.0),
-          alignment: Alignment.centerLeft,
-          decoration: BoxDecoration(
-            borderRadius: br,
-            color: Colors.white,
-          ),
-          child: Row(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              _generateLabel(context),
-              _generateControls(context),
-            ],
-          )),
+        padding: EdgeInsets.only(left: 16.0, bottom: 10.0, right: 10.0, top: 10.0),
+        alignment: Alignment.centerLeft,
+        decoration: BoxDecoration(
+          borderRadius: br,
+          color: Colors.white,
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            _generateLabel(context),
+            _generateControls(context),
+          ],
+        ),
+      ),
     );
   }
 }
