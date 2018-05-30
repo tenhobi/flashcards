@@ -7,8 +7,6 @@ import 'package:flashcards_flutter/src/screen/edit_subsection.dart';
 import 'package:flashcards_flutter/src/state/container.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
-import 'package:tuple/tuple.dart';
-
 
 class _NullOrEmpty extends StatelessWidget {
   const _NullOrEmpty({this.isLast = false});
@@ -39,12 +37,12 @@ class _NullOrEmpty extends StatelessWidget {
 }
 
 class _BuildStream extends StatefulWidget {
-  const _BuildStream(this.function, this.section, {this.isLast = false, @required this.type});
+  const _BuildStream(this.function, this.section, {this.isLast = false, this.isExercise = false});
 
   final Function function;
   final SectionData section;
   final bool isLast;
-  final SubsectionType type;
+  final bool isExercise;
 
   @override
   State<_BuildStream> createState() => _BuildStreamState();
@@ -55,16 +53,16 @@ class _BuildStreamState extends State<_BuildStream> {
 
   void redirectNewSubsection(BuildContext context) {
     Navigator.of(context).push(
-      MaterialPageRoute(builder: (BuildContext context) => NewSubsectionScreen(
-        parent: widget.section,
-        type: widget.type,
-      )),
-    );
+          MaterialPageRoute(
+              builder: (BuildContext context) => NewSubsectionScreen(
+                    parent: widget.section,
+                  )),
+        );
   }
 
   //todo: rename this, so it actually describes what it does
   String _getTextForNew() {
-    return widget.type == SubsectionType.exercise ? FlashcardsStrings.addExercise() : FlashcardsStrings.addMaterial();
+    return widget.isExercise ? FlashcardsStrings.addExercise() : FlashcardsStrings.addMaterial();
   }
 
   Widget _generateLoading(BuildContext context, AsyncSnapshot<List<SubsectionData>> snapshot) {
@@ -90,7 +88,6 @@ class _BuildStreamState extends State<_BuildStream> {
         onTap: () => redirectNewSubsection(context),
         text: _getTextForNew(),
         isLast: widget.isLast,
-        type: null,
         subsection: null,
         owner: false,
       );
@@ -117,12 +114,11 @@ class _BuildStreamState extends State<_BuildStream> {
         final List<_SectionRow> rows = [];
         data.forEach((SubsectionData d) {
           final bool last = data.last.compareTo(d) == 0 && widget.isLast;
-          if(widget.type == SubsectionType.exercise) {
+          if (widget.isExercise) {
             rows.add(_SectionRow.exercise(
               text: d.name,
               onTap: () {},
               subsection: d,
-              type: widget.type,
               owner: owner,
               isLast: last,
             ));
@@ -131,7 +127,6 @@ class _BuildStreamState extends State<_BuildStream> {
               text: d.name,
               onTap: () {},
               subsection: d,
-              type: widget.type,
               owner: owner,
               isLast: last,
             ));
@@ -144,7 +139,6 @@ class _BuildStreamState extends State<_BuildStream> {
             text: _getTextForNew(),
             isLast: widget.isLast,
             subsection: null,
-            type: null,
             owner: false,
           ));
         }
@@ -157,12 +151,29 @@ class _BuildStreamState extends State<_BuildStream> {
 }
 
 class _SectionRow extends StatelessWidget {
-  const _SectionRow({@required this.icon, @required this.text, @required this.onTap, @required SubsectionData this.subsection, @required SubsectionType this.type, this.owner = false, this.isLast = false});
-  const _SectionRow.material({@required this.text, @required this.onTap, @required SubsectionData this.subsection, @required SubsectionType this.type, this.owner = false, this.isLast = false}) : icon = Icons.description;
-  const _SectionRow.exercise({@required this.text, @required this.onTap, @required SubsectionData this.subsection, @required SubsectionType this.type, this.owner = false, this.isLast = false}) : icon = Icons.play_circle_outline;
+  const _SectionRow(
+      {@required this.icon,
+      @required this.text,
+      @required this.onTap,
+      @required SubsectionData this.subsection,
+      this.owner = false,
+      this.isLast = false});
+  const _SectionRow.material(
+      {@required this.text,
+      @required this.onTap,
+      @required SubsectionData this.subsection,
+      this.owner = false,
+      this.isLast = false})
+      : icon = Icons.description;
+  const _SectionRow.exercise(
+      {@required this.text,
+      @required this.onTap,
+      @required SubsectionData this.subsection,
+      this.owner = false,
+      this.isLast = false})
+      : icon = Icons.play_circle_outline;
 
   final SubsectionData subsection;
-  final SubsectionType type;
   final IconData icon;
   final String text;
   final Function onTap;
@@ -172,7 +183,7 @@ class _SectionRow extends StatelessWidget {
   void _delete(BuildContext context) async {
     final state = StateContainer.of(context);
     String alertText;
-    if (type == SubsectionType.exercise) {
+    if (subsection is ExerciseData) {
       alertText = FlashcardsStrings.removeExerciseDialog();
     } else {
       alertText = FlashcardsStrings.removeMaterialDialog();
@@ -198,18 +209,14 @@ class _SectionRow extends StatelessWidget {
     );
 
     if (permission) {
-      state.sectionListBloc.removeSubsection.add(
-        Tuple2<SubsectionType, SubsectionData>(type, subsection)
-      );
+      state.sectionListBloc.removeSubsection.add(subsection);
     }
   }
 
   void _edit(BuildContext context) {
-    Navigator.of(context).push(
-        MaterialPageRoute(
-            builder: (BuildContext context) => EditSubsectionScreen(original: subsection)
-        )
-    );
+    Navigator
+        .of(context)
+        .push(MaterialPageRoute(builder: (BuildContext context) => EditSubsectionScreen(original: subsection)));
   }
 
   Widget _generateLabel(BuildContext context) {
@@ -236,7 +243,10 @@ class _SectionRow extends StatelessWidget {
 
   Widget _generateControls(BuildContext context) {
     if (!owner) {
-      return Container(width: 0.0, height: 0.0,);
+      return Container(
+        width: 0.0,
+        height: 0.0,
+      );
     }
     return Column(
       children: <Widget>[
@@ -248,7 +258,9 @@ class _SectionRow extends StatelessWidget {
               child: Icon(Icons.create),
               onTap: () => _edit(context),
             ),
-            Padding(padding: EdgeInsets.only(left: 10.0),),
+            Padding(
+              padding: EdgeInsets.only(left: 10.0),
+            ),
             GestureDetector(
               child: Icon(Icons.delete_forever),
               onTap: () => _delete(context),
@@ -272,21 +284,20 @@ class _SectionRow extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: EdgeInsets.only(left: 16.0, bottom: 10.0, right: 10.0, top: 10.0),
-        alignment: Alignment.centerLeft,
-        decoration: BoxDecoration(
-          borderRadius: br,
-          color: Colors.white,
-        ),
-        child: Row(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            _generateLabel(context),
-            _generateControls(context),
-          ],
-        )
-      ),
+          padding: EdgeInsets.only(left: 16.0, bottom: 10.0, right: 10.0, top: 10.0),
+          alignment: Alignment.centerLeft,
+          decoration: BoxDecoration(
+            borderRadius: br,
+            color: Colors.white,
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              _generateLabel(context),
+              _generateControls(context),
+            ],
+          )),
     );
   }
 }
@@ -301,7 +312,6 @@ class _SectionWidget extends StatefulWidget {
 }
 
 class _SectionsWidgetState extends State<_SectionWidget> with SingleTickerProviderStateMixin {
-
   AnimationController _controller;
   CurvedAnimation _easeInAnimation;
   Animation<double> _iconTurns;
@@ -334,11 +344,9 @@ class _SectionsWidgetState extends State<_SectionWidget> with SingleTickerProvid
   }
 
   void _edit(BuildContext context) {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (BuildContext context) => EditSectionScreen(original: widget.section)
-      )
-    );
+    Navigator
+        .of(context)
+        .push(MaterialPageRoute(builder: (BuildContext context) => EditSectionScreen(original: widget.section)));
   }
 
   Widget _generateExpansionTileControls(BuildContext context) {
@@ -427,7 +435,7 @@ class _SectionsWidgetState extends State<_SectionWidget> with SingleTickerProvid
                 _BuildStream(
                   state.sectionListBloc.queryExercises,
                   widget.section,
-                  type: SubsectionType.exercise,
+                  isExercise: true,
                 ),
                 Divider(
                   color: Colors.transparent,
@@ -437,7 +445,7 @@ class _SectionsWidgetState extends State<_SectionWidget> with SingleTickerProvid
                   state.sectionListBloc.queryMaterials,
                   widget.section,
                   isLast: true,
-                  type: SubsectionType.material,
+                  isExercise: false,
                 ),
               ],
             )

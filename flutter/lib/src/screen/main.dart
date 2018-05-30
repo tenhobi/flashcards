@@ -20,10 +20,10 @@ class MainScreen extends StatelessWidget {
           child: Icon(Icons.add),
           onPressed: () {
             Navigator.of(context).push(
-              new MaterialPageRoute(
-                builder: (BuildContext context) => NewCourseScreen(),
-              ),
-            );
+                  new MaterialPageRoute(
+                    builder: (BuildContext context) => NewCourseScreen(),
+                  ),
+                );
           },
         ),
         appBar: AppBar(

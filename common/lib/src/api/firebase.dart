@@ -25,11 +25,13 @@ abstract class FirebaseApi {
 
   Stream<List<SubsectionData>> queryExercises({@required SectionData section});
 
-  void addCourse(CourseData course);
-
   Stream<UserData> queryUser(String uid);
 
   Stream<List<UserData>> queryUsers();
+
+  void addCourse(CourseData course);
+
+  void removeCourse(CourseData course);
 
   void addUser(UserData user);
 
@@ -39,17 +41,15 @@ abstract class FirebaseApi {
 
   void addSection(SectionData section);
 
-  void addSubsection({@required SubsectionType type, @required SubsectionData subsection});
-
-  void removeSubsection({@required SubsectionType type, @required SubsectionData subsection});
-
-  void editSubsection({@required SubsectionType type, @required SubsectionData subsection});
-
   void removeSection(SectionData section);
 
   void editSection(SectionData section);
 
-  void removeCourse(CourseData course);
+  void addSubsection(SubsectionData subsection);
+
+  void removeSubsection(SubsectionData subsection);
+
+  void editSubsection(SubsectionData subsection);
 
   Stream<List<CommentData>> queryComments(CourseData course);
 

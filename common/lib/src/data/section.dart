@@ -12,11 +12,19 @@ class SectionData extends Data implements Comparable<SectionData> {
   SectionData({@required this.name, this.parent, this.id = '', this.order = 0});
 
   factory SectionData.fromMap(Map<String, dynamic> data, {@required CourseData parent}) => SectionData(
-    id: data['id'],
-    parent: parent,
-    name: data['name'],
-    order: data['order'],
-  );
+        id: data['id'],
+        parent: parent,
+        name: data['name'],
+        order: data['order'],
+      );
+
+  @override
+  SectionData copyWith({String id, CourseData parent, String name, int order}) => SectionData(
+        id: id ?? this.id,
+        parent: parent ?? this.parent,
+        name: name ?? this.name,
+        order: order ?? this.order,
+      );
 
   @override
   int compareTo(SectionData d) => order.compareTo(d.order);

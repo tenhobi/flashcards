@@ -3,14 +3,23 @@ import 'package:flashcards_common/src/data/subsection.dart';
 import 'package:meta/meta.dart';
 
 class MaterialData extends SubsectionData {
-  // TODO: enhance constructors
-  MaterialData(String name, int order, SectionData parent, [String id = '']) : super(name: name, order: order, parent: parent, id: id);
+  MaterialData({String id, SectionData parent, String name, int order})
+      : super(id: id, parent: parent, name: name, order: order);
 
-  MaterialData.fromMap(Map<String, dynamic> data, {@required SectionData parent})
-      : super(id: data['id'], name: data['name'], order: data['order'], parent: parent);
+//  @override
+  static MaterialData fromMap({@required Map<String, dynamic> data, @required SectionData parent}) =>
+      MaterialData(id: data['id'], parent: parent, name: data['name'], order: data['order']);
 
   @override
   Map<String, dynamic> toMap() {
     return {'id': '$id', 'name': '$name', 'order': order};
   }
+
+  @override
+  MaterialData copyWith({String id, SectionData parent, String name, int order}) => MaterialData(
+        id: id ?? this.id,
+        parent: parent ?? this.parent,
+        name: name ?? this.name,
+        order: order ?? this.order,
+      );
 }

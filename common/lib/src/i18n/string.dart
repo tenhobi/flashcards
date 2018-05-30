@@ -289,11 +289,11 @@ The project started as a part of a software team project at the [Faculty of Info
   }
 
   static String newSectionOrder() {
-	  return Intl.message(
-		  '_newSectionOrder',
-		  name: 'newSectionOrder',
-		  desc: 'Label of input for order.',
-	  );
+    return Intl.message(
+      '_newSectionOrder',
+      name: 'newSectionOrder',
+      desc: 'Label of input for order.',
+    );
   }
 
   static String newSectionOrderEmpty() {
@@ -305,12 +305,12 @@ The project started as a part of a software team project at the [Faculty of Info
   }
 
   static String editSectionLabel(String sectionName) {
-	  return Intl.message(
-		  '_editting $sectionName',
-		  args: [sectionName],
-		  name: 'editSectionLabel',
-		  desc: 'Screen name for section editting.',
-	  );
+    return Intl.message(
+      '_editting $sectionName',
+      args: [sectionName],
+      name: 'editSectionLabel',
+      desc: 'Screen name for section editting.',
+    );
   }
 
   static String addExercise() {
@@ -322,11 +322,11 @@ The project started as a part of a software team project at the [Faculty of Info
   }
 
   static String addExerciseLabel() {
-	  return Intl.message(
-		  '_newExercise',
-		  name: 'addExerciseLabel',
-		  desc: 'Screen name for exercise subsection making.',
-	  );
+    return Intl.message(
+      '_newExercise',
+      name: 'addExerciseLabel',
+      desc: 'Screen name for exercise subsection making.',
+    );
   }
 
   static String addMaterial() {
@@ -338,11 +338,11 @@ The project started as a part of a software team project at the [Faculty of Info
   }
 
   static String addMaterialLabel() {
-	  return Intl.message(
-		  '_newMaterial',
-		  name: 'addMaterialLabel',
-		  desc: 'Screen name for material subsection making.',
-	  );
+    return Intl.message(
+      '_newMaterial',
+      name: 'addMaterialLabel',
+      desc: 'Screen name for material subsection making.',
+    );
   }
 
   static String removeExerciseDialog() {

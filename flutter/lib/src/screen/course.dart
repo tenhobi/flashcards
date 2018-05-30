@@ -19,26 +19,26 @@ class CourseScreen extends StatefulWidget {
 }
 
 class _CourseScreenState extends State<CourseScreen> with SingleTickerProviderStateMixin {
-	TabController tabController;
-	var fabIndex;
+  TabController tabController;
+  var fabIndex;
 
   void redirectNewSection(BuildContext context) {
-    Navigator.of(context).push(
-      MaterialPageRoute(builder: (BuildContext context) => NewSectionScreen(parent: widget.course))
-    );
+    Navigator
+        .of(context)
+        .push(MaterialPageRoute(builder: (BuildContext context) => NewSectionScreen(parent: widget.course)));
   }
 
   FloatingActionButton _buildAddSection(BuildContext context) {
-	  final state = StateContainer.of(context);
+    final state = StateContainer.of(context);
 
-	  if (widget.course.authorUid != state.authenticationBloc.user.uid) {
-		  return null;
-	  }
+    if (widget.course.authorUid != state.authenticationBloc.user.uid) {
+      return null;
+    }
 
-	  return FloatingActionButton(
-		  onPressed: () => redirectNewSection(context),
-		  child: Icon(Icons.add),
-	  );
+    return FloatingActionButton(
+      onPressed: () => redirectNewSection(context),
+      child: Icon(Icons.add),
+    );
   }
 
   FloatingActionButton _buildEditSectionDescription(BuildContext context) {
@@ -49,39 +49,38 @@ class _CourseScreenState extends State<CourseScreen> with SingleTickerProviderSt
     }
 
     return FloatingActionButton(
-      onPressed: ()  => print('Not implemented yet'),
+      onPressed: () => print('Not implemented yet'),
       child: Icon(Icons.create),
     );
   }
 
   void _getFab() {
-  	setState(() {
-  	  fabIndex = tabController.index;
-  	});
+    setState(() {
+      fabIndex = tabController.index;
+    });
   }
 
   @override
   void initState() {
-  	super.initState();
-  	tabController = TabController(length: 3, vsync: this, initialIndex: 0);
-  	tabController.addListener(_getFab);
-  	fabIndex = 0;
+    super.initState();
+    tabController = TabController(length: 3, vsync: this, initialIndex: 0);
+    tabController.addListener(_getFab);
+    fabIndex = 0;
   }
 
   @override
   void dispose() {
-		tabController.dispose();
+    tabController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-
-	  final List<FloatingActionButton> fabs = [
-		  _buildAddSection(context),
+    final List<FloatingActionButton> fabs = [
+      _buildAddSection(context),
       _buildEditSectionDescription(context),
-		  null,
-	  ];
+      null,
+    ];
     return Scaffold(
       floatingActionButton: fabs[fabIndex],
       appBar: AppBar(

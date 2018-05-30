@@ -6,8 +6,6 @@ import 'package:flashcards_common/src/api/firebase.dart';
 import 'package:flashcards_common/src/data/section.dart';
 import 'package:flashcards_common/src/data/subsection.dart';
 import 'package:meta/meta.dart';
-import 'package:tuple/tuple.dart';
-
 
 class SectionListBloc extends Bloc {
   final FirebaseApi _api;
@@ -15,9 +13,9 @@ class SectionListBloc extends Bloc {
   final StreamController<SectionData> _createController = StreamController<SectionData>();
   final StreamController<SectionData> _removeController = StreamController<SectionData>();
   final StreamController<SectionData> _editController = StreamController<SectionData>();
-  final StreamController<Tuple2<SubsectionType, SubsectionData>> _createSubsectionController = StreamController<Tuple2<SubsectionType, SubsectionData>>();
-  final StreamController<Tuple2<SubsectionType, SubsectionData>> _removeSubsectionController = StreamController<Tuple2<SubsectionType, SubsectionData>>();
-  final StreamController<Tuple2<SubsectionType, SubsectionData>> _editSubsectionController = StreamController<Tuple2<SubsectionType, SubsectionData>>();
+  final StreamController<SubsectionData> _createSubsectionController = StreamController<SubsectionData>();
+  final StreamController<SubsectionData> _removeSubsectionController = StreamController<SubsectionData>();
+  final StreamController<SubsectionData> _editSubsectionController = StreamController<SubsectionData>();
 
   SectionListBloc(this._api) {
     _createController.stream.listen(_handleCreate);
@@ -31,16 +29,18 @@ class SectionListBloc extends Bloc {
   Sink<SectionData> get create => _createController.sink;
   Sink<SectionData> get remove => _removeController.sink;
   Sink<SectionData> get edit => _editController.sink;
-  Sink<Tuple2<SubsectionType, SubsectionData>> get createSubsection => _createSubsectionController.sink;
-  Sink<Tuple2<SubsectionType, SubsectionData>> get removeSubsection => _removeSubsectionController.sink;
-  Sink<Tuple2<SubsectionType, SubsectionData>> get editSubsection => _editSubsectionController.sink;
+  Sink<SubsectionData> get createSubsection => _createSubsectionController.sink;
+  Sink<SubsectionData> get removeSubsection => _removeSubsectionController.sink;
+  Sink<SubsectionData> get editSubsection => _editSubsectionController.sink;
 
   Stream<List<SectionData>> query({@required CourseData course}) {
     return _api.querySections(course: course);
   }
+
   Stream<List<SubsectionData>> queryMaterials({@required SectionData section}) {
     return _api.queryMaterials(section: section);
   }
+
   Stream<List<SubsectionData>> queryExercises({@required SectionData section}) {
     return _api.queryExercises(section: section);
   }
@@ -48,9 +48,9 @@ class SectionListBloc extends Bloc {
   void _handleCreate(SectionData section) => _api.addSection(section);
   void _handleRemove(SectionData section) => _api.removeSection(section);
   void _handleEdit(SectionData section) => _api.editSection(section);
-  void _handleCreateSubsection(Tuple2<SubsectionType, SubsectionData> data) => _api.addSubsection(type: data.item1, subsection: data.item2);
-  void _handleRemoveSubsection(Tuple2<SubsectionType, SubsectionData> data) => _api.removeSubsection(type: data.item1, subsection: data.item2);
-  void _handleEditSubsection(Tuple2<SubsectionType, SubsectionData> data) => _api.editSubsection(type: data.item1, subsection: data.item2);
+  void _handleCreateSubsection(SubsectionData subsection) => _api.addSubsection(subsection);
+  void _handleRemoveSubsection(SubsectionData subsection) => _api.removeSubsection(subsection);
+  void _handleEditSubsection(SubsectionData subsection) => _api.editSubsection(subsection);
 
   @override
   void dispose() {
