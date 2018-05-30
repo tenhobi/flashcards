@@ -218,11 +218,13 @@ class FirebaseFlutterApi extends FirebaseApi {
   @override
   void addSection(SectionData section) {
     Firestore.instance.collection('courses').document(section.parent.id).collection('sections').add(section.toMap());
+    print(section.toMap());
   }
 
   @override
   void addSubsection({@required SubsectionType type, @required SubsectionData subsection}) {
     final String tp = type == SubsectionType.exercise ? 'exercises' : 'materials';
+    print(subsection.toMap());
     Firestore.instance
       .collection('courses').document(subsection.parent.parent.id)
       .collection('sections').document(subsection.parent.id)
@@ -236,6 +238,15 @@ class FirebaseFlutterApi extends FirebaseApi {
         .collection('courses').document(subsection.parent.parent.id)
         .collection('sections').document(subsection.parent.id)
         .collection(tp).document(subsection.id).delete();
+  }
+
+  @override
+  void editSubsection({@required SubsectionType type, @required SubsectionData subsection}) {
+    final String tp = type == SubsectionType.exercise ? 'exercises' : 'materials';
+    Firestore.instance
+        .collection('courses').document(subsection.parent.parent.id)
+        .collection('sections').document(subsection.parent.id)
+        .collection(tp).document(subsection.id).setData(subsection.toMap());
   }
 
   @override

@@ -43,6 +43,8 @@ abstract class FirebaseApi {
 
   void removeSubsection({@required SubsectionType type, @required SubsectionData subsection});
 
+  void editSubsection({@required SubsectionType type, @required SubsectionData subsection});
+
   void removeSection(SectionData section);
 
   void editSection(SectionData section);

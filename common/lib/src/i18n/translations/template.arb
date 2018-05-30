@@ -1,5 +1,5 @@
 {
-  "@@last_modified": "2018-05-25T04:05:06.789129",
+  "@@last_modified": "2018-05-30T14:42:13.584558",
   "signInButton": "_signInButton",
   "@signInButton": {
     "description": "Sign in button.",
@@ -214,7 +214,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "newSectionOrder": "_onewSectionOrder",
+  "newSectionOrder": "_newSectionOrder",
   "@newSectionOrder": {
     "description": "Label of input for order.",
     "type": "text",
@@ -273,6 +273,38 @@
   "removeSectionDialog": "_removeSectionDialog",
   "@removeSectionDialog": {
     "description": "Description of dialog for removing a section.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "editSubsectionLabel": "_editting {subsectionName}",
+  "@editSubsectionLabel": {
+    "description": "Screen name for subsection editting.",
+    "type": "text",
+    "placeholders": {
+      "subsectionName": {}
+    }
+  },
+  "newSubsectionName": "_newSubsectionName",
+  "@newSubsectionName": {
+    "description": "Label of input for name.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "newSubsectionNameEmpty": "_newSubsectionNameEmpty",
+  "@newSubsectionNameEmpty": {
+    "description": "Error label of input for name about empty name.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "newSubsectionOrder": "_newSubsectionOrder",
+  "@newSubsectionOrder": {
+    "description": "Label of input for order.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "newSubsectionOrderEmpty": "_newSubsectionOrderEmpty",
+  "@newSubsectionOrderEmpty": {
+    "description": "Error label of input for order about empty order.",
     "type": "text",
     "placeholders": {}
   }

@@ -1,10 +1,9 @@
 import 'package:flashcards_common/i18n.dart';
-import 'package:flashcards_flutter/src/api/firebase_flutter_api.dart';
 import 'package:flashcards_flutter/src/components/indicator_loading.dart';
-import 'package:flashcards_common/bloc.dart';
 import 'package:flashcards_common/data.dart';
 import 'package:flashcards_flutter/src/screen/edit_section.dart';
 import 'package:flashcards_flutter/src/screen/new_subsection.dart';
+import 'package:flashcards_flutter/src/screen/edit_subsection.dart';
 import 'package:flashcards_flutter/src/state/container.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
@@ -206,11 +205,11 @@ class _SectionRow extends StatelessWidget {
   }
 
   void _edit(BuildContext context) {
-//    Navigator.of(context).push(
-//        MaterialPageRoute(
-//            builder: (BuildContext context) => EditSectionScreen(original: section)
-//        )
-//    );
+    Navigator.of(context).push(
+        MaterialPageRoute(
+            builder: (BuildContext context) => EditSubsectionScreen(original: subsection)
+        )
+    );
   }
 
   Widget _generateLabel(BuildContext context) {
@@ -248,7 +247,7 @@ class _SectionRow extends StatelessWidget {
           children: <Widget>[
             GestureDetector(
               child: Icon(Icons.create),
-              onTap: () {},
+              onTap: () => _edit(context),
             ),
             Padding(padding: EdgeInsets.only(left: 10.0),),
             GestureDetector(
@@ -303,7 +302,6 @@ class _SectionWidget extends StatefulWidget {
 }
 
 class _SectionsWidgetState extends State<_SectionWidget> with SingleTickerProviderStateMixin {
-//  final SectionListBloc _bloc = SectionListBloc(FirebaseFlutterApi());
 
   AnimationController _controller;
   CurvedAnimation _easeInAnimation;

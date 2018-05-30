@@ -4,7 +4,7 @@ import 'package:meta/meta.dart';
 
 class MaterialData extends SubsectionData {
   // TODO: enhance constructors
-  MaterialData(String name, int order, SectionData parent) : super(name: name, order: order, parent: parent);
+  MaterialData(String name, int order, SectionData parent, [String id = '']) : super(name: name, order: order, parent: parent, id: id);
 
   MaterialData.fromMap(Map<String, dynamic> data, {@required SectionData parent})
       : super(id: data['id'], name: data['name'], order: data['order'], parent: parent);

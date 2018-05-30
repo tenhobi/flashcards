@@ -290,7 +290,7 @@ The project started as a part of a software team project at the [Faculty of Info
 
   static String newSectionOrder() {
 	  return Intl.message(
-		  '_onewSectionOrder',
+		  '_newSectionOrder',
 		  name: 'newSectionOrder',
 		  desc: 'Label of input for order.',
 	  );
@@ -315,7 +315,7 @@ The project started as a part of a software team project at the [Faculty of Info
 
   static String addExercise() {
     return Intl.message(
-      '_addExecrise',
+      '_addExercise',
       name: 'addExercise',
       desc: 'Text shown within subsection list',
     );
@@ -369,4 +369,44 @@ The project started as a part of a software team project at the [Faculty of Info
     );
   }
 
+  static String editSubsectionLabel(String subsectionName) {
+    return Intl.message(
+      '_editting $subsectionName',
+      args: [subsectionName],
+      name: 'editSubsectionLabel',
+      desc: 'Screen name for subsection editting.',
+    );
+  }
+
+  static newSubsectionName() {
+    return Intl.message(
+      '_newSubsectionName',
+      name: 'newSubsectionName',
+      desc: 'Label of input for name.',
+    );
+  }
+
+  static String newSubsectionNameEmpty() {
+    return Intl.message(
+      '_newSubsectionNameEmpty',
+      name: 'newSubsectionNameEmpty',
+      desc: 'Error label of input for name about empty name.',
+    );
+  }
+
+  static String newSubsectionOrder() {
+    return Intl.message(
+      '_newSubsectionOrder',
+      name: 'newSubsectionOrder',
+      desc: 'Label of input for order.',
+    );
+  }
+
+  static String newSubsectionOrderEmpty() {
+    return Intl.message(
+      '_newSubsectionOrderEmpty',
+      name: 'newSubsectionOrderEmpty',
+      desc: 'Error label of input for order about empty order.',
+    );
+  }
 }

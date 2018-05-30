@@ -74,17 +74,9 @@ class _EditSectionScreenState extends State<EditSectionScreen> {
 								),
 								initialValue: _order.toString(),
 								keyboardType: TextInputType.numberWithOptions(signed: true, decimal: true),
-								validator: (val) => val.isEmpty ? FlashcardsStrings.newCourseNameEmpty() : null,
+								validator: (val) => val.isEmpty ? FlashcardsStrings.newSectionOrderEmpty() : null,
 								onSaved: (val) => _order = int.parse(val),
 							)
-//						  TextFormField(
-//							  maxLines: 5,
-//							  decoration: InputDecoration(
-//								  labelText: FlashcardsStrings.newCourseDescription(),
-//							  ),
-//							  validator: (val) => val.isEmpty ? FlashcardsStrings.newCourseDescriptionEmpty() : null,
-//							  onSaved: (val) => _description = val,
-//						  ),
 						],
 					),
 				),
