@@ -63,8 +63,7 @@ class _CourseScreenState extends State<CourseScreen> with SingleTickerProviderSt
   @override
   void initState() {
     super.initState();
-    tabController = TabController(length: 3, vsync: this, initialIndex: 0);
-    tabController.addListener(_getFab);
+    tabController = TabController(length: 3, vsync: this, initialIndex: 0)..addListener(_getFab);
     fabIndex = 0;
   }
 
