@@ -263,4 +263,150 @@ The project started as a part of a software team project at the [Faculty of Info
       desc: 'Cannot be empty warning.',
     );
   }
+
+  static newSection() {
+    return Intl.message(
+      '_new section',
+      name: 'newSection',
+      desc: 'New section',
+    );
+  }
+
+  static newSectionName() {
+    return Intl.message(
+      '_name',
+      name: 'newSectionName',
+      desc: 'Label of input for name.',
+    );
+  }
+
+  static String newSectionNameEmpty() {
+    return Intl.message(
+      '_name cannot be empty.',
+      name: 'newSectionNameEmpty',
+      desc: 'Error label of input for name about empty name.',
+    );
+  }
+
+  static String newSectionOrder() {
+    return Intl.message(
+      '_newSectionOrder',
+      name: 'newSectionOrder',
+      desc: 'Label of input for order.',
+    );
+  }
+
+  static String newSectionOrderEmpty() {
+    return Intl.message(
+      '_newSectionOrderEmpty',
+      name: 'newSectionOrderEmpty',
+      desc: 'Error label of input for order about empty order.',
+    );
+  }
+
+  static String editSectionLabel(String sectionName) {
+    return Intl.message(
+      '_editting $sectionName',
+      args: [sectionName],
+      name: 'editSectionLabel',
+      desc: 'Screen name for section editting.',
+    );
+  }
+
+  static String addExercise() {
+    return Intl.message(
+      '_addExercise',
+      name: 'addExercise',
+      desc: 'Text shown within subsection list',
+    );
+  }
+
+  static String addExerciseLabel() {
+    return Intl.message(
+      '_newExercise',
+      name: 'addExerciseLabel',
+      desc: 'Screen name for exercise subsection making.',
+    );
+  }
+
+  static String addMaterial() {
+    return Intl.message(
+      '_addMaterial',
+      name: 'addMaterial',
+      desc: 'Text shown within subsection list',
+    );
+  }
+
+  static String addMaterialLabel() {
+    return Intl.message(
+      '_newMaterial',
+      name: 'addMaterialLabel',
+      desc: 'Screen name for material subsection making.',
+    );
+  }
+
+  static String removeExerciseDialog() {
+    return Intl.message(
+      '_removeExerciseDialog',
+      name: 'removeExerciseDialog',
+      desc: 'Description of dialog for removing a exercise.',
+    );
+  }
+
+  static String removeMaterialDialog() {
+    return Intl.message(
+      '_removeMaterialDialog',
+      name: 'removeMaterialDialog',
+      desc: 'Description of dialog for removing a material.',
+    );
+  }
+
+  static String removeSectionDialog() {
+    return Intl.message(
+      '_removeSectionDialog',
+      name: 'removeSectionDialog',
+      desc: 'Description of dialog for removing a section.',
+    );
+  }
+
+  static String editSubsectionLabel(String subsectionName) {
+    return Intl.message(
+      '_editting $subsectionName',
+      args: [subsectionName],
+      name: 'editSubsectionLabel',
+      desc: 'Screen name for subsection editting.',
+    );
+  }
+
+  static newSubsectionName() {
+    return Intl.message(
+      '_newSubsectionName',
+      name: 'newSubsectionName',
+      desc: 'Label of input for name.',
+    );
+  }
+
+  static String newSubsectionNameEmpty() {
+    return Intl.message(
+      '_newSubsectionNameEmpty',
+      name: 'newSubsectionNameEmpty',
+      desc: 'Error label of input for name about empty name.',
+    );
+  }
+
+  static String newSubsectionOrder() {
+    return Intl.message(
+      '_newSubsectionOrder',
+      name: 'newSubsectionOrder',
+      desc: 'Label of input for order.',
+    );
+  }
+
+  static String newSubsectionOrderEmpty() {
+    return Intl.message(
+      '_newSubsectionOrderEmpty',
+      name: 'newSubsectionOrderEmpty',
+      desc: 'Error label of input for order about empty order.',
+    );
+  }
 }

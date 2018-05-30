@@ -26,6 +26,14 @@ class CourseData extends Data {
       );
 
   @override
+  CourseData copyWith({String id, String name, String authorUid, String description}) => CourseData(
+        id: id ?? this.id,
+        name: name ?? this.name,
+        authorUid: authorUid ?? this.authorUid,
+        description: description ?? this.description,
+      );
+
+  @override
   Map<String, dynamic> toMap() {
     return {
       'name': '$name',

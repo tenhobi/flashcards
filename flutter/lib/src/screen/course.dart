@@ -1,6 +1,7 @@
 import 'package:flashcards_common/data.dart';
 import 'package:flashcards_common/i18n.dart';
 import 'package:flashcards_flutter/src/components/comments.dart';
+import 'package:flashcards_flutter/src/screen/new_section.dart';
 import 'package:flashcards_flutter/src/components/sections_list.dart';
 import 'package:flashcards_flutter/src/state/container.dart';
 import 'package:flutter/material.dart';
@@ -17,40 +18,99 @@ class CourseScreen extends StatefulWidget {
   State<CourseScreen> createState() => _CourseScreenState();
 }
 
-class _CourseScreenState extends State<CourseScreen> {
+class _CourseScreenState extends State<CourseScreen> with SingleTickerProviderStateMixin {
+  TabController tabController;
+  var fabIndex;
+
+  void redirectNewSection(BuildContext context) {
+    Navigator
+        .of(context)
+        .push(MaterialPageRoute(builder: (BuildContext context) => NewSectionScreen(parent: widget.course)));
+  }
+
+  FloatingActionButton _buildAddSection(BuildContext context) {
+    final state = StateContainer.of(context);
+
+    if (widget.course.authorUid != state.authenticationBloc.user.uid) {
+      return null;
+    }
+
+    return FloatingActionButton(
+      onPressed: () => redirectNewSection(context),
+      child: Icon(Icons.add),
+    );
+  }
+
+  FloatingActionButton _buildEditSectionDescription(BuildContext context) {
+    final state = StateContainer.of(context);
+
+    if (widget.course.authorUid != state.authenticationBloc.user.uid) {
+      return null;
+    }
+
+    return FloatingActionButton(
+      onPressed: () => print('Not implemented yet'),
+      child: Icon(Icons.create),
+    );
+  }
+
+  void _getFab() {
+    setState(() {
+      fabIndex = tabController.index;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    tabController = TabController(length: 3, vsync: this, initialIndex: 0)..addListener(_getFab);
+    fabIndex = 0;
+  }
+
+  @override
+  void dispose() {
+    tabController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 3,
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text(widget.course.name),
-          actions: <Widget>[
-            _buildStarCourse(),
-            _buildRemoveCourse(),
+    final List<FloatingActionButton> fabs = [
+      _buildAddSection(context),
+      _buildEditSectionDescription(context),
+      null,
+    ];
+    return Scaffold(
+      floatingActionButton: fabs[fabIndex],
+      appBar: AppBar(
+        title: Text(widget.course.name),
+        actions: <Widget>[
+          _buildStarCourse(),
+          _buildRemoveCourse(),
+        ],
+        bottom: TabBar(
+          controller: tabController,
+          tabs: <Widget>[
+            Tab(text: FlashcardsStrings.sectionsTab()),
+            Tab(text: FlashcardsStrings.descriptionTab()),
+            Tab(text: FlashcardsStrings.commentsTab()),
           ],
-          bottom: TabBar(
-            tabs: <Widget>[
-              Tab(text: FlashcardsStrings.sectionsTab()),
-              Tab(text: FlashcardsStrings.descriptionTab()),
-              Tab(text: FlashcardsStrings.commentsTab()),
-            ],
+        ),
+      ),
+      body: TabBarView(
+        controller: tabController,
+        children: <Widget>[
+          SectionsList(course: widget.course),
+          Container(
+            padding: EdgeInsets.all(8.0),
+            child: MarkdownBody(data: widget.course.description),
           ),
-        ),
-        body: TabBarView(
-          children: <Widget>[
-            SectionsList(course: widget.course),
-            Container(
-              padding: EdgeInsets.all(8.0),
-              child: MarkdownBody(data: widget.course.description),
+          Container(
+            child: Comments(
+              course: widget.course,
             ),
-            Container(
-              child: Comments(
-                course: widget.course,
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

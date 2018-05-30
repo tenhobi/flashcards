@@ -17,6 +17,14 @@ class UserData extends Data {
       );
 
   @override
+  UserData copyWith({String uid, int score, String language, String name}) => UserData(
+        uid: uid ?? this.uid,
+        score: score ?? this.score,
+        language: language ?? this.language,
+        name: name ?? this.name,
+      );
+
+  @override
   Map<String, dynamic> toMap() {
     return {
       'uid': '$uid',

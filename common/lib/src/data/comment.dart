@@ -15,6 +15,13 @@ class CommentData extends Data {
       );
 
   @override
+  CommentData copyWith({String authorUid, String id, String content}) => CommentData(
+        authorUid: authorUid ?? this.authorUid,
+        content: content ?? this.content,
+        id: id ?? this.id,
+      );
+
+  @override
   Map<String, dynamic> toMap() {
     return {
       'authorUid': authorUid,

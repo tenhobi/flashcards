@@ -136,9 +136,9 @@ class _CommentsState extends State<Comments> {
                                 onPressed: () {
                                   snapshot.data.contains(state.authenticationBloc.user.uid)
                                       ? state.courseListBloc.unlikeComment
-                                      .add(Tuple3(widget.course, comment, state.authenticationBloc.user.uid))
+                                          .add(Tuple3(widget.course, comment, state.authenticationBloc.user.uid))
                                       : state.courseListBloc.likeComment
-                                      .add(Tuple3(widget.course, comment, state.authenticationBloc.user.uid));
+                                          .add(Tuple3(widget.course, comment, state.authenticationBloc.user.uid));
                                 },
                                 icon: Icon(
                                   snapshot.data.contains(state.authenticationBloc.user.uid)

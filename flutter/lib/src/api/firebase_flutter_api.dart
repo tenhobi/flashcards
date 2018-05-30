@@ -122,7 +122,7 @@ class FirebaseFlutterApi extends FirebaseApi {
       controller.add(snapshot.documents.map<SubsectionData>((DocumentSnapshot document) {
         final Map<String, dynamic> data = document.data;
         data['id'] = document.documentID;
-        final MaterialData res = MaterialData.fromMap(data, parent: section);
+        final MaterialData res = MaterialData.fromMap(data: data, parent: section);
         return res;
       }).toList());
     });
@@ -146,17 +146,12 @@ class FirebaseFlutterApi extends FirebaseApi {
       controller.add(snapshot.documents.map<SubsectionData>((DocumentSnapshot document) {
         final Map<String, dynamic> data = document.data;
         data['id'] = document.documentID;
-        final ExerciseData res = ExerciseData.fromMap(data, parent: section);
+        final ExerciseData res = ExerciseData.fromMap(data: data, parent: section);
         return res;
       }).toList());
     });
 
     return controller.stream;
-  }
-
-  @override
-  void addCourse(CourseData course) {
-    Firestore.instance.collection('courses').add(course.toMap());
   }
 
   @override
@@ -216,13 +211,78 @@ class FirebaseFlutterApi extends FirebaseApi {
   }
 
   @override
-  void addSection(SubsectionData section) {
-    // TODO: implement addSection
+  void addCourse(CourseData course) {
+    Firestore.instance.collection('courses').add(course.toMap());
   }
 
   @override
   Future removeCourse(CourseData course) async {
     await Firestore.instance.collection('courses').document(course.id).delete();
+  }
+
+  @override
+  void addSection(SectionData section) {
+    Firestore.instance.collection('courses').document(section.parent.id).collection('sections').add(section.toMap());
+    print(section.toMap());
+  }
+
+  @override
+  void removeSection(SectionData section) {
+    Firestore.instance
+        .collection('courses')
+        .document(section.parent.id)
+        .collection('sections')
+        .document(section.id)
+        .delete();
+  }
+
+  @override
+  void editSection(SectionData section) {
+    Firestore.instance
+        .collection('courses')
+        .document(section.parent.id)
+        .collection('sections')
+        .document(section.id)
+        .setData(section.toMap());
+  }
+
+  @override
+  void addSubsection(SubsectionData subsection) {
+    final String type = SubsectionData.getTypeToString(subsection);
+    print(subsection.toMap());
+    Firestore.instance
+        .collection('courses')
+        .document(subsection.parent.parent.id)
+        .collection('sections')
+        .document(subsection.parent.id)
+        .collection(type)
+        .add(subsection.toMap());
+  }
+
+  @override
+  void removeSubsection(SubsectionData subsection) {
+    final String type = SubsectionData.getTypeToString(subsection);
+    Firestore.instance
+        .collection('courses')
+        .document(subsection.parent.parent.id)
+        .collection('sections')
+        .document(subsection.parent.id)
+        .collection(type)
+        .document(subsection.id)
+        .delete();
+  }
+
+  @override
+  void editSubsection(SubsectionData subsection) {
+    final String type = SubsectionData.getTypeToString(subsection);
+    Firestore.instance
+        .collection('courses')
+        .document(subsection.parent.parent.id)
+        .collection('sections')
+        .document(subsection.parent.id)
+        .collection(type)
+        .document(subsection.id)
+        .setData(subsection.toMap());
   }
 
   @override
