@@ -159,7 +159,7 @@ class _BuildStreamState extends State<_BuildStream> {
 class _SectionRow extends StatelessWidget {
   const _SectionRow({@required this.icon, @required this.text, @required this.onTap, @required SubsectionData this.subsection, @required SubsectionType this.type, this.owner = false, this.isLast = false});
   const _SectionRow.material({@required this.text, @required this.onTap, @required SubsectionData this.subsection, @required SubsectionType this.type, this.owner = false, this.isLast = false}) : icon = Icons.description;
-  const _SectionRow.exercise({@required this.text, @required this.onTap, @required SubsectionData this.subsection, @required SubsectionType this.type, this.owner = false, this.isLast = false}) : icon = Icons.create;
+  const _SectionRow.exercise({@required this.text, @required this.onTap, @required SubsectionData this.subsection, @required SubsectionType this.type, this.owner = false, this.isLast = false}) : icon = Icons.play_circle_outline;
 
   final SubsectionData subsection;
   final SubsectionType type;
@@ -217,7 +217,6 @@ class _SectionRow extends StatelessWidget {
       children: <Widget>[
         Row(
           mainAxisAlignment: MainAxisAlignment.start,
-//          mainAxisSize: MainAxisSize.max,
           children: <Widget>[
             Icon(
               icon,
@@ -263,7 +262,7 @@ class _SectionRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     BorderRadius br;
-    if (isLast) {
+    if (isLast && !owner) {
       br = BorderRadius.only(
         bottomLeft: Radius.circular(6.0),
         bottomRight: Radius.circular(6.0),
