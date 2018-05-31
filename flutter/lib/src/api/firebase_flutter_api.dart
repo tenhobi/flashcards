@@ -360,9 +360,9 @@ class FirebaseFlutterApi extends FirebaseApi {
     Firestore.instance
         .collection('courses')
         .document(exercise.parent.parent.id)
-        .collection('section')
+        .collection('sections')
         .document(exercise.parent.id)
-        .collection('exercise')
+        .collection('exercises')
         .document(exercise.id)
         .collection('questions')
         .snapshots
@@ -374,7 +374,7 @@ class FirebaseFlutterApi extends FirebaseApi {
           case 'flipcards':
             return FlipcardQuestionData.fromMap(data: data, parent: exercise);
           default:
-            print("Register this type of exercise in firebase api");
+            print('Register this type of exercise in firebase api');
         }
       }).toList());
     });

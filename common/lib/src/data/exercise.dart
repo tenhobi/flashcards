@@ -5,8 +5,13 @@ import 'package:meta/meta.dart';
 class ExerciseData extends SubsectionData {
   final String type;
 
-  ExerciseData({@required String id, @required SectionData parent, @required String name, @required String this.type, int order = 0})
-      : super(id: id, parent: parent, name: name, order: order);
+  ExerciseData({
+    @required String id,
+    @required SectionData parent,
+    @required String name,
+    @required String this.type,
+    int order = 0,
+  }) : super(id: id, parent: parent, name: name, order: order);
 
 //  @override
   static ExerciseData fromMap({@required Map<String, dynamic> data, @required SectionData parent}) =>

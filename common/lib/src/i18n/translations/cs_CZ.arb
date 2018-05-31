@@ -2,211 +2,60 @@
   "@@locale": "cs_CZ",
   "@@last_modified": "2018-05-19T17:22:06.030556",
   "signInButton": "Přihlásit se pomocí Google",
-  "@signInButton": {
-    "description": "Sign in button.",
-    "type": "text",
-    "placeholders": {}
-  },
   "homeNavigationButton": "Domů",
-  "@homeNavigationButton": {
-    "description": "Home button in navigation.",
-    "type": "text",
-    "placeholders": {}
-  },
   "searchNavigationButton": "Hledat",
-  "@searchNavigationButton": {
-    "description": "Search button in navigation.",
-    "type": "text",
-    "placeholders": {}
-  },
   "aboutNavigationButton": "O aplikaci",
-  "@aboutNavigationButton": {
-    "description": "About button in navigation.",
-    "type": "text",
-    "placeholders": {}
-  },
   "settingsNavigationButton": "Nastavení",
-  "@settingsNavigationButton": {
-    "description": "Settings button in navigation.",
-    "type": "text",
-    "placeholders": {}
-  },
   "reportBugNavigationButton": "Nahlásit chybu",
-  "@reportBugNavigationButton": {
-    "description": "Report button in navigation.",
-    "type": "text",
-    "placeholders": {}
-  },
   "signOutNavigationButton": "Odhlásit se",
-  "@signOutNavigationButton": {
-    "description": "Sign out button in navigation.",
-    "type": "text",
-    "placeholders": {}
-  },
   "aboutText": "Verze\n__{version}__\n\nOpen source projekt s cílem vytvořit multiplatformní (tj. web, android, iOS) aplikaci s výukovými kartičkami. Na náš kód se můžete podívat na [GitHubu](https://github.com/tenhobi/flashcards).\n\nProjekt začal jako součást předmětu softwarový týmový projekt na [Fakultě informačních technologií ČVUT v Praze](https://fit.cvut.cz).",
-  "@aboutText": {
-    "description": "Text about this application in markdown.",
-    "type": "text",
-    "placeholders": {
-      "version": {}
-    }
-  },
   "sectionsTab": "Sekce",
-  "@sectionsTab": {
-    "description": "Sections tab in course screen",
-    "type": "text",
-    "placeholders": {}
-  },
   "descriptionTab": "Popis",
-  "@descriptionTab": {
-    "description": "Description tab in course screen",
-    "type": "text",
-    "placeholders": {}
-  },
   "aboutLicensesText": "Aplikace je vyvíjena jako open source software: [licence]()",
-  "@aboutLicensesText": {
-    "description": "Text about licences with an empty link as a button in markdown.",
-    "type": "text",
-    "placeholders": {}
-  },
   "score": "skóre: {score}",
-  "@score": {
-    "description": "Score caption.",
-    "type": "text",
-    "placeholders": {
-      "score": {}
-    }
-  },
   "appName": "Flashcards",
-  "@appName": {
-    "description": "Name of the application.",
-    "type": "text",
-    "placeholders": {}
-  },
   "noVersion": "Verze nebyla nalezena",
-  "@noVersion": {
-    "description": "Version of the application has not been found.",
-    "type": "text",
-    "placeholders": {}
-  },
   "allCourses": "vše",
-  "@allCourses": {
-    "description": "Tab description of all courses.",
-    "type": "text",
-    "placeholders": {}
-  },
   "createdCourses": "vytvořeno",
-  "@createdCourses": {
-    "description": "Tab description of created courses.",
-    "type": "text",
-    "placeholders": {}
-  },
   "popularCourses": "oblíbené",
-  "@popularCourses": {
-    "description": "Tab description of popular courses.",
-    "type": "text",
-    "placeholders": {}
-  },
   "newCourseName": "Název",
-  "@newCourseName": {
-    "description": "Label of input for name.",
-    "type": "text",
-    "placeholders": {}
-  },
   "newCourseNameEmpty": "Název nemůže být prázdný.",
-  "@newCourseNameEmpty": {
-    "description": "Error label of input for name about empty name.",
-    "type": "text",
-    "placeholders": {}
-  },
   "newCourseDescription": "Popis",
-  "@newCourseDescription": {
-    "description": "Label of input for description.",
-    "type": "text",
-    "placeholders": {}
-  },
   "newCourseDescriptionEmpty": "Popis nemůže být prázdný.",
-  "@newCourseDescriptionEmpty": {
-    "description": "Error label of input for description about empty content.",
-    "type": "text",
-    "placeholders": {}
-  },
   "reportUrl": "https://github.com/tenhobi/flashcards/issues/new",
-  "@reportUrl": {
-    "description": "Url of report bug page.",
-    "type": "text",
-    "placeholders": {}
-  },
   "newCourse": "Nový kurz",
-  "@newCourse": {
-    "description": "Name of new course screen.",
-    "type": "text",
-    "placeholders": {}
-  },
   "commentsTab": "Komentáře",
-  "@commentsTab": {
-    "description": "Comments tab in course screen.",
-    "type": "text",
-    "placeholders": {}
-  },
   "removeCourseDialog": "Chcete vymazat kurz?",
-  "@removeCourseDialog": {
-    "description": "Description of dialog for removing a course.",
-    "type": "text",
-    "placeholders": {}
-  },
   "no": "Ne",
-  "@no": {
-    "description": "No answer.",
-    "type": "text",
-    "placeholders": {}
-  },
   "yes": "Ano",
-  "@yes": {
-    "description": "Yes answer.",
-    "type": "text",
-    "placeholders": {}
-  },
   "remove": "Odstranit",
-  "@remove": {
-    "description": "Remove description.",
-    "type": "text",
-    "placeholders": {}
-  },
   "like": "Líbí se mi",
-  "@like": {
-    "description": "Like description.",
-    "type": "text",
-    "placeholders": {}
-  },
   "unlike": "Nelíbí se mi",
-  "@unlike": {
-    "description": "Unlike description.",
-    "type": "text",
-    "placeholders": {}
-  },
   "addComment": "Přidat komentář",
-  "@addComment": {
-    "description": "Add comment description.",
-    "type": "text",
-    "placeholders": {}
-  },
   "cannotBeEmpty": "Nemůže být prázdné",
-  "@cannotBeEmpty": {
-    "description": "Cannot be empty warning.",
-    "type": "text",
-    "placeholders": {}
-  },
   "newSection": "Nová sekce",
-  "@newSection": {
-    "description": "New section",
-    "type": "text",
-    "placeholders": {}
-  },
   "newSectionName": "Název",
-  "@newSectionName": {
-    "description": "Label of input for name.",
-    "type": "text",
-    "placeholders": {}
-  }
+  "newSectionNameEmpty": "Název nemůže být prázdný.",
+  "newSectionOrder": "Pořadí sekce",
+  "newSectionOrderEmpty": "Pořadí sekce nemůže být prázdné.",
+  "editSectionLabel": "Editace {sectionName}",
+  "addExercise": "Přidat cvičení",
+  "addExerciseLabel": "Add cvičení",
+  "addMaterial": "Přidat materiál",
+  "addMaterialLabel": "Přidat materiál",
+  "removeExerciseDialog": "Opravdu chcete odstranit toto cvičení?",
+  "removeMaterialDialog": "Opravdu chcete odstranit tento materiál?",
+  "removeSectionDialog": "Opravdu chcete odstranit tuto sekci?",
+  "editSubsectionLabel": "Editace {subsectionName}",
+  "newSubsectionName": "_newSubsectionName",
+  "newSubsectionNameEmpty": "_newSubsectionNameEmpty",
+  "newSubsectionOrder": "_newSubsectionOrder",
+  "newSubsectionOrderEmpty": "_newSubsectionOrderEmpty",
+  "typeOfExercise": "Typ cvičení",
+  "flipcards": "Flipcards",
+  "multipleChoice": "Více množností",
+  "numberOfQuestions": "Počet otázek",
+  "wrongInput": "Špatný vstup",
+  "cancel": "Zrušit",
+  "submit": "Potvrdit"
 }

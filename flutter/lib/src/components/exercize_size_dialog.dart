@@ -40,6 +40,12 @@ class _ExerciseSizeState extends State<ExerciseSize> {
       ),
       actions: <Widget>[
         FlatButton(
+          child: Text(FlashcardsStrings.cancel()),
+          onPressed: () {
+            Navigator.pop(context, null);
+          },
+        ),
+        FlatButton(
           child: Text(FlashcardsStrings.submit()),
           onPressed: () {
             final dialog = formKey.currentState;
@@ -48,12 +54,8 @@ class _ExerciseSizeState extends State<ExerciseSize> {
               dialog.save();
               Navigator.pop(context, _questionCount);
             }
-          }),
-        FlatButton(
-          child: Text(FlashcardsStrings.cancel()),
-          onPressed: () {
-            Navigator.pop(context, null);
-          }),
+          },
+        ),
       ],
     );
   }
