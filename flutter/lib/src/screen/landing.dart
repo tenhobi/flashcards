@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flashcards_common/data.dart';
 import 'package:flashcards_flutter/src/components/button_google.dart';
 import 'package:flashcards_flutter/src/state/container.dart';
+import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
 import 'package:flutter/material.dart';
 
@@ -103,6 +104,12 @@ class _LandingScreenState extends State<LandingScreen> with SingleTickerProvider
     if (user == null) return;
 
     state.userBloc.createIfAbsent.add(new UserData(uid: user.uid, name: user.displayName));
+
+    final UserData userData = await state.userBloc.query(state.authenticationBloc.user.uid).first;
+
+    if (userData.language != null) {
+      Intl.defaultLocale = userData.language;
+    }
 
     Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(
