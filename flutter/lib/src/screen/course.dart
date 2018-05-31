@@ -169,7 +169,7 @@ class _CourseScreenState extends State<CourseScreen> with SingleTickerProviderSt
           },
         );
 
-        if (permission) {
+        if (permission == true) {
           state.courseListBloc.remove.add(widget.course);
           Navigator.of(context).pop();
         }

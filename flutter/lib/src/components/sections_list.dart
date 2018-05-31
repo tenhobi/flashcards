@@ -53,12 +53,13 @@ class _BuildStreamState extends State<_BuildStream> {
 
   void redirectNewSubsection(BuildContext context) {
     Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (BuildContext context) => NewSubsectionScreen(
-                  parent: widget.section,
-                ),
+      MaterialPageRoute(
+        builder: (BuildContext context) =>
+          NewSubsectionScreen(
+            parent: widget.section,
           ),
-        );
+      ),
+    );
   }
 
   //todo: rename this, so it actually describes what it does
@@ -160,6 +161,7 @@ class _SectionRow extends StatelessWidget {
     this.owner = false,
     this.isLast = false,
   });
+
   const _SectionRow.material({
     @required this.text,
     @required this.onTap,
@@ -167,6 +169,7 @@ class _SectionRow extends StatelessWidget {
     this.owner = false,
     this.isLast = false,
   }) : icon = Icons.description;
+
   const _SectionRow.exercise({
     @required this.text,
     @required this.onTap,
@@ -210,15 +213,15 @@ class _SectionRow extends StatelessWidget {
       },
     );
 
-    if (permission) {
+    if (permission == true) {
       state.sectionListBloc.removeSubsection.add(subsection);
     }
   }
 
   void _edit(BuildContext context) {
     Navigator
-        .of(context)
-        .push(MaterialPageRoute(builder: (BuildContext context) => EditSubsectionScreen(original: subsection)));
+      .of(context)
+      .push(MaterialPageRoute(builder: (BuildContext context) => EditSubsectionScreen(original: subsection)));
   }
 
   Widget _generateLabel(BuildContext context) {
@@ -341,15 +344,15 @@ class _SectionsWidgetState extends State<_SectionWidget> with SingleTickerProvid
       },
     );
 
-    if (permission) {
+    if (permission == true) {
       state.sectionListBloc.remove.add(widget.section);
     }
   }
 
   void _edit(BuildContext context) {
     Navigator
-        .of(context)
-        .push(MaterialPageRoute(builder: (BuildContext context) => EditSectionScreen(original: widget.section)));
+      .of(context)
+      .push(MaterialPageRoute(builder: (BuildContext context) => EditSectionScreen(original: widget.section)));
   }
 
   Widget _generateExpansionTileControls(BuildContext context) {
@@ -411,13 +414,17 @@ class _SectionsWidgetState extends State<_SectionWidget> with SingleTickerProvid
   @override
   Widget build(BuildContext context) {
     final state = StateContainer.of(context);
-    final BorderSide border = BorderSide(color: Theme.of(context).primaryColor, width: 2.0);
+    final BorderSide border = BorderSide(color: Theme
+      .of(context)
+      .primaryColor, width: 2.0);
 
     return Container(
       padding: EdgeInsets.all(8.0),
       child: Container(
         decoration: BoxDecoration(
-          color: Theme.of(context).primaryColor,
+          color: Theme
+            .of(context)
+            .primaryColor,
           borderRadius: BorderRadius.circular(8.0),
           border: Border(
             bottom: border,
@@ -479,7 +486,7 @@ class _SectionsListState extends State<SectionsList> {
 
         return ListView(
           children: snapshot.data.map(
-            (SectionData section) {
+              (SectionData section) {
               return _SectionWidget(section: section);
             },
           ).toList(),
