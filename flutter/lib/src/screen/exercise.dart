@@ -1,11 +1,9 @@
 import 'package:flashcards_common/data.dart';
-import 'package:flashcards_common/i18n.dart';
 import 'package:flashcards_flutter/src/components/indicator_loading.dart';
 import 'package:flashcards_flutter/src/components/flipcard_item.dart';
 import 'package:flashcards_flutter/src/state/container.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
-import 'package:tuple/tuple.dart';
 
 class ExerciseScreen extends StatefulWidget {
   final ExerciseData exercise;

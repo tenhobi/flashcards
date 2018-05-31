@@ -1,5 +1,4 @@
 import 'package:flashcards_common/data.dart';
-import 'package:flashcards_flutter/src/state/container.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 
@@ -10,8 +9,6 @@ class FlipcardItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final state = StateContainer.of(context);
-
     return ClipRRect(
       borderRadius: BorderRadius.circular(8.0),
       child: Container(
