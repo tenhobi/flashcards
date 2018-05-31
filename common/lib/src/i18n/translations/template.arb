@@ -1,5 +1,5 @@
 {
-  "@@last_modified": "2018-05-30T14:42:13.584558",
+  "@@last_modified": "2018-05-31T00:24:03.669546",
   "signInButton": "_signInButton",
   "@signInButton": {
     "description": "Sign in button.",
@@ -234,7 +234,7 @@
       "sectionName": {}
     }
   },
-  "addExercise": "_addExecrise",
+  "addExercise": "_addExercise",
   "@addExercise": {
     "description": "Text shown within subsection list",
     "type": "text",
@@ -305,6 +305,48 @@
   "newSubsectionOrderEmpty": "_newSubsectionOrderEmpty",
   "@newSubsectionOrderEmpty": {
     "description": "Error label of input for order about empty order.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "typeOfExercise": "_type of exercise",
+  "@typeOfExercise": {
+    "description": "Type of exercise description",
+    "type": "text",
+    "placeholders": {}
+  },
+  "flipcards": "_flipcards",
+  "@flipcards": {
+    "description": "Flip cards exercise type",
+    "type": "text",
+    "placeholders": {}
+  },
+  "multipleChoice": "_multiple choice",
+  "@multipleChoice": {
+    "description": "Multiple choice exercise type",
+    "type": "text",
+    "placeholders": {}
+  },
+  "numberOfQuestions": "_number of questions",
+  "@numberOfQuestions": {
+    "description": "Number of questions description",
+    "type": "text",
+    "placeholders": {}
+  },
+  "wrongInput": "_wrong input",
+  "@wrongInput": {
+    "description": "Wrong input warning",
+    "type": "text",
+    "placeholders": {}
+  },
+  "cancel": "_cancel",
+  "@cancel": {
+    "description": "Cancel answer",
+    "type": "text",
+    "placeholders": {}
+  },
+  "submit": "_submit",
+  "@submit": {
+    "description": "Submit answer",
     "type": "text",
     "placeholders": {}
   }

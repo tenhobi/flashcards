@@ -353,4 +353,32 @@ class FirebaseFlutterApi extends FirebaseApi {
         .document(authorUid)
         .delete();
   }
+
+  @override
+  Stream<List<QuestionData>> queryQuestions({ExerciseData exercise, int size}) {
+    final StreamController<List<QuestionData>> controller = StreamController.broadcast();
+    Firestore.instance
+        .collection('courses')
+        .document(exercise.parent.parent.id)
+        .collection('section')
+        .document(exercise.parent.id)
+        .collection('exercise')
+        .document(exercise.id)
+        .collection('questions')
+        .snapshots
+        .listen((QuerySnapshot snapshot) {
+      controller.add(snapshot.documents.map<QuestionData>((DocumentSnapshot document) {
+        final Map<String, dynamic> data = document.data;
+        data['id'] = document.documentID;
+        switch (exercise.type) {
+          case 'flipcards':
+            return FlipcardQuestionData.fromMap(data: data, parent: exercise);
+          default:
+            print("Register this type of exercise in firebase api");
+        }
+      }).toList());
+    });
+
+    return controller.stream;
+  }
 }

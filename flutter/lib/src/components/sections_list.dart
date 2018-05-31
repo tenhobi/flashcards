@@ -4,7 +4,9 @@ import 'package:flashcards_common/data.dart';
 import 'package:flashcards_flutter/src/screen/edit_section.dart';
 import 'package:flashcards_flutter/src/screen/new_subsection.dart';
 import 'package:flashcards_flutter/src/screen/edit_subsection.dart';
+import 'package:flashcards_flutter/src/screen/exercise.dart';
 import 'package:flashcards_flutter/src/state/container.dart';
+import 'package:flashcards_flutter/src/components/exercize_size_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 
@@ -118,7 +120,22 @@ class _BuildStreamState extends State<_BuildStream> {
           if (widget.isExercise) {
             rows.add(_SectionRow.exercise(
               text: d.name,
-              onTap: () {},
+              onTap: () async {
+                final int exerciseSize = await showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return ExerciseSize();
+                  },
+                );
+
+                if (exerciseSize == null) {
+                  return;
+                }
+
+                Navigator.of(context).push<MaterialPageRoute>(MaterialPageRoute(
+                      builder: (BuildContext bc) => ExerciseScreen(exercise: d, size: exerciseSize),
+                    ));
+              },
               subsection: d,
               owner: owner,
               isLast: last,
@@ -160,6 +177,7 @@ class _SectionRow extends StatelessWidget {
     this.owner = false,
     this.isLast = false,
   });
+
   const _SectionRow.material({
     @required this.text,
     @required this.onTap,
@@ -167,6 +185,7 @@ class _SectionRow extends StatelessWidget {
     this.owner = false,
     this.isLast = false,
   }) : icon = Icons.description;
+
   const _SectionRow.exercise({
     @required this.text,
     @required this.onTap,

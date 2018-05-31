@@ -37,7 +37,7 @@ class _NewSubsectionScreenState extends State<NewSubsectionScreen> {
             query.first.then((List<SubsectionData> subsections) {
               SubsectionData data;
               if (widget.parent is ExerciseData) {
-                data = ExerciseData(id: '', parent: widget.parent, name: _name, order: subsections.length);
+                data = ExerciseData(id: '', parent: widget.parent, name: _name, type: 'flipcards', order: subsections.length); // TODO: different types of exercises
               } else {
                 data = MaterialData(id: '', parent: widget.parent, name: _name, order: subsections.length);
               }
