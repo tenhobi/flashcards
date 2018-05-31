@@ -27,7 +27,8 @@ class _NewMaterialScreenState extends State<NewMaterialScreen> {
           if (form.validate()) {
             form.save();
             state.sectionListBloc.queryMaterials(section: widget.parent).first.then((List<SubsectionData> materials) {
-              final MaterialData data = MaterialData(id: '', parent: widget.parent, name: _name, order: materials.length);
+              final MaterialData data =
+                  MaterialData(id: '', parent: widget.parent, name: _name, order: materials.length);
               state.sectionListBloc.createSubsection.add(data);
               Navigator.of(context).pop();
             });

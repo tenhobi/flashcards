@@ -27,7 +27,8 @@ class _NewExerciseScreenState extends State<NewExerciseScreen> {
           if (form.validate()) {
             form.save();
             state.sectionListBloc.queryExercises(section: widget.parent).first.then((List<SubsectionData> exercises) {
-              final ExerciseData data = ExerciseData(id: '', parent: widget.parent, name: _name, order: exercises.length);
+              final ExerciseData data =
+                  ExerciseData(id: '', parent: widget.parent, name: _name, order: exercises.length);
               state.sectionListBloc.createSubsection.add(data);
               Navigator.of(context).pop();
             });
