@@ -2,7 +2,8 @@ import 'package:flashcards_common/i18n.dart';
 import 'package:flashcards_flutter/src/components/indicator_loading.dart';
 import 'package:flashcards_common/data.dart';
 import 'package:flashcards_flutter/src/screen/edit_section.dart';
-import 'package:flashcards_flutter/src/screen/new_subsection.dart';
+import 'package:flashcards_flutter/src/screen/new_exercise.dart';
+import 'package:flashcards_flutter/src/screen/new_material.dart';
 import 'package:flashcards_flutter/src/screen/edit_subsection.dart';
 import 'package:flashcards_flutter/src/state/container.dart';
 import 'package:flutter/material.dart';
@@ -51,13 +52,11 @@ class _BuildStream extends StatefulWidget {
 class _BuildStreamState extends State<_BuildStream> {
   List<SubsectionData> data = null;
 
-  void redirectNewSubsection(BuildContext context) {
+  void redirectNewSubsection(BuildContext context, {@required bool isExercise}) {
+    final Widget nextPage = isExercise ? NewExerciseScreen(parent: widget.section,) : NewMaterialScreen(parent: widget.section,);
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (BuildContext context) =>
-          NewSubsectionScreen(
-            parent: widget.section,
-          ),
+        builder: (BuildContext context) => nextPage,
       ),
     );
   }
