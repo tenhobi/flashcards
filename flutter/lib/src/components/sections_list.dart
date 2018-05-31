@@ -86,7 +86,7 @@ class _BuildStreamState extends State<_BuildStream> {
     if (widget.section.parent.authorUid == state.authenticationBloc.user.uid) {
       return _SectionRow(
         icon: Icons.add,
-        onTap: () => redirectNewSubsection(context),
+        onTap: () => redirectNewSubsection(context, isExercise: widget.isExercise),
         text: _getTextForNew(),
         isLast: widget.isLast,
         subsection: null,
@@ -136,7 +136,7 @@ class _BuildStreamState extends State<_BuildStream> {
         if (owner) {
           rows.add(_SectionRow(
             icon: Icons.add,
-            onTap: () => redirectNewSubsection(context),
+            onTap: () => redirectNewSubsection(context, isExercise: widget.isExercise),
             text: _getTextForNew(),
             isLast: widget.isLast,
             subsection: null,
