@@ -1,18 +1,16 @@
-import 'dart:async';
 import 'package:flashcards_common/i18n.dart';
 import 'package:flashcards_flutter/src/state/container.dart';
 import 'package:flutter/material.dart';
-
 import 'package:flashcards_common/data.dart';
 
-class NewSubsectionScreen extends StatefulWidget {
-  const NewSubsectionScreen({@required SectionData this.parent});
+class NewMaterialScreen extends StatefulWidget {
+  const NewMaterialScreen({@required SectionData this.parent});
   final SectionData parent;
   @override
-  _NewSubsectionScreenState createState() => new _NewSubsectionScreenState();
+  _NewMaterialScreenState createState() => new _NewMaterialScreenState();
 }
 
-class _NewSubsectionScreenState extends State<NewSubsectionScreen> {
+class _NewMaterialScreenState extends State<NewMaterialScreen> {
   final formKey = new GlobalKey<FormState>();
 
   String _name;
@@ -28,19 +26,9 @@ class _NewSubsectionScreenState extends State<NewSubsectionScreen> {
 
           if (form.validate()) {
             form.save();
-            Stream<List<SubsectionData>> query;
-            if (widget.parent is ExerciseData) {
-              query = state.sectionListBloc.queryExercises(section: widget.parent);
-            } else {
-              query = state.sectionListBloc.queryMaterials(section: widget.parent);
-            }
-            query.first.then((List<SubsectionData> subsections) {
-              SubsectionData data;
-              if (widget.parent is ExerciseData) {
-                data = ExerciseData(id: '', parent: widget.parent, name: _name, order: subsections.length);
-              } else {
-                data = MaterialData(id: '', parent: widget.parent, name: _name, order: subsections.length);
-              }
+            state.sectionListBloc.queryMaterials(section: widget.parent).first.then((List<SubsectionData> materials) {
+              final MaterialData data =
+                  MaterialData(id: '', parent: widget.parent, name: _name, order: materials.length);
               state.sectionListBloc.createSubsection.add(data);
               Navigator.of(context).pop();
             });
@@ -49,9 +37,7 @@ class _NewSubsectionScreenState extends State<NewSubsectionScreen> {
         child: Icon(Icons.add),
       ),
       appBar: AppBar(
-        title: Text(widget.parent is ExerciseData
-            ? FlashcardsStrings.addExerciseLabel()
-            : FlashcardsStrings.addMaterialLabel()),
+        title: Text(FlashcardsStrings.addMaterialLabel()),
       ),
       body: Container(
         padding: EdgeInsets.all(20.0),
