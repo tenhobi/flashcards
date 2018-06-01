@@ -2,6 +2,7 @@ import 'package:flashcards_common/i18n.dart';
 import 'package:flashcards_flutter/src/components/indicator_loading.dart';
 import 'package:flashcards_common/data.dart';
 import 'package:flashcards_flutter/src/screen/edit_section.dart';
+import 'package:flashcards_flutter/src/screen/material.dart';
 import 'package:flashcards_flutter/src/screen/new_exercise.dart';
 import 'package:flashcards_flutter/src/screen/new_material.dart';
 import 'package:flashcards_flutter/src/screen/edit_subsection.dart';
@@ -146,10 +147,14 @@ class _BuildStreamState extends State<_BuildStream> {
               owner: owner,
               isLast: last,
             ));
-          } else {
+          } else if (d is MaterialData) {
             rows.add(_SectionRow.material(
               text: d.name,
-              onTap: () {},
+              onTap: () {
+                Navigator
+                  .of(context)
+                  .push(MaterialPageRoute(builder: (BuildContext context) => MaterialScreen(data: d)));
+              },
               subsection: d,
               owner: owner,
               isLast: last,

@@ -29,23 +29,26 @@ class _FlipcardPlayWidgetState extends State<FlipcardPlayWidget> {
     return Column(
       children: <Widget>[
         GridView.count(
-            shrinkWrap: true,
-            crossAxisCount: 2,
-            childAspectRatio: 0.75,
-            children: widget.widgets.sublist(shownMin, shownMax),
-            padding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 15.0)),
+          shrinkWrap: true,
+          crossAxisCount: 2,
+          childAspectRatio: 0.75,
+          children: widget.widgets.sublist(shownMin, shownMax),
+          padding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 15.0),
+        ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Expanded(
               child: RaisedButton(
                 child: Text(FlashcardsStrings.previous()),
-                onPressed: shownMin == 0 ? null : () {
-                  setState(() {
-                    shownMax -= shownMax - shownMin;
-                    shownMin -= 4;
-                  });
-                },
+                onPressed: shownMin == 0
+                    ? null
+                    : () {
+                        setState(() {
+                          shownMax -= shownMax - shownMin;
+                          shownMin -= 4;
+                        });
+                      },
                 color: Theme.of(context).primaryColor,
                 disabledColor: Colors.grey,
                 padding: EdgeInsets.symmetric(horizontal: 0.0, vertical: 10.0),
@@ -61,12 +64,14 @@ class _FlipcardPlayWidgetState extends State<FlipcardPlayWidget> {
             Expanded(
               child: RaisedButton(
                 child: Text(FlashcardsStrings.next()),
-                onPressed: shownMax == totalCount ? null : () {
-                  setState(() {
-                    shownMax += totalCount - shownMax > 4 ? 4 : totalCount - shownMax;
-                    shownMin += 4;
-                  });
-                },
+                onPressed: shownMax == totalCount
+                    ? null
+                    : () {
+                        setState(() {
+                          shownMax += totalCount - shownMax > 4 ? 4 : totalCount - shownMax;
+                          shownMin += 4;
+                        });
+                      },
                 color: Theme.of(context).primaryColor,
                 textColor: Colors.white,
               ),

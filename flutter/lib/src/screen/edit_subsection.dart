@@ -15,6 +15,7 @@ class _EditSubsectionScreenState extends State<EditSubsectionScreen> {
 
   String _name;
   int _order;
+  String _content;
 
   @override
   void initState() {
@@ -22,6 +23,10 @@ class _EditSubsectionScreenState extends State<EditSubsectionScreen> {
     setState(() {
       _name = widget.original.name;
       _order = widget.original.order;
+
+      if (widget.original is MaterialData) {
+        _content = (widget.original as MaterialData).content;
+      }
     });
   }
 
@@ -37,7 +42,13 @@ class _EditSubsectionScreenState extends State<EditSubsectionScreen> {
           if (form.validate()) {
             form.save();
             SubsectionData newData;
-            newData = widget.original.copyWith(name: _name, order: _order);
+
+            if (widget.original is MaterialData) {
+              newData = (widget.original as MaterialData).copyWith(name: _name, order: _order, content: _content);
+            } else {
+              newData = widget.original.copyWith(name: _name, order: _order);
+            }
+
             state.sectionListBloc.editSubsection.add(newData);
             Navigator.of(context).pop();
           }
@@ -70,11 +81,28 @@ class _EditSubsectionScreenState extends State<EditSubsectionScreen> {
                 keyboardType: TextInputType.numberWithOptions(signed: true, decimal: true),
                 validator: (val) => val.isEmpty ? FlashcardsStrings.newSubsectionOrderEmpty() : null,
                 onSaved: (val) => _order = int.parse(val),
-              )
+              ),
+              _buildMaterialRelated(context),
             ],
           ),
         ),
       ),
     );
+  }
+
+  Widget _buildMaterialRelated(BuildContext context) {
+    if (widget.original is MaterialData) {
+      return TextFormField(
+        maxLines: 7,
+        decoration: InputDecoration(
+          labelText: 'info',
+        ),
+        initialValue: _content.toString() ?? '',
+        validator: (val) => val.isEmpty ? FlashcardsStrings.cannotBeEmpty() : null,
+        onSaved: (val) => _content = val,
+      );
+    }
+
+    return Container();
   }
 }
