@@ -409,4 +409,84 @@ The project started as a part of a software team project at the [Faculty of Info
       desc: 'Error label of input for order about empty order.',
     );
   }
+
+  static typeOfExercise() {
+    return Intl.message(
+      '_type of exercise',
+      name: 'typeOfExercise',
+      desc: "Type of exercise description",
+    );
+  }
+
+  static flipcards() {
+    return Intl.message(
+      '_flipcards',
+      name: 'flipcards',
+      desc: 'Flip cards exercise type',
+    );
+  }
+
+  static multipleChoice() {
+    return Intl.message(
+      '_multiple choice',
+      name: 'multipleChoice',
+      desc: 'Multiple choice exercise type',
+    );
+  }
+
+  static numberOfQuestions() {
+    return Intl.message(
+      '_number of questions',
+      name: 'numberOfQuestions',
+      desc: 'Number of questions description',
+    );
+  }
+
+  static wrongInput() {
+    return Intl.message(
+      '_wrong input',
+      name: 'wrongInput',
+      desc: 'Wrong input warning',
+    );
+  }
+
+  static cancel() {
+    return Intl.message(
+      '_cancel',
+      name: 'cancel',
+      desc: 'Cancel answer',
+    );
+  }
+
+  static submit() {
+    return Intl.message(
+      '_submit',
+      name: 'submit',
+      desc: 'Submit answer',
+    );
+  }
+
+  static previous() {
+    return Intl.message(
+      '_previous',
+      name: 'previous',
+      desc: 'Previous button',
+    );
+  }
+
+  static next() {
+    return Intl.message(
+      '_next',
+      name: 'next',
+      desc: 'Next button',
+    );
+  }
+
+  static rememberThose() {
+    return Intl.message(
+      '_rememberthose.',
+      name: 'rememberThose',
+      desc: 'Remember those flipcards exercise',
+    );
+  }
 }

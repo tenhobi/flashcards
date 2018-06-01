@@ -32,5 +32,6 @@ void main() {
     courseListBloc: CourseListBloc(firebaseApi),
     userBloc: UserBloc(firebaseApi),
     sectionListBloc: SectionListBloc(firebaseApi),
+    exerciseBloc: ExerciseBloc(firebaseApi),
   ));
 }

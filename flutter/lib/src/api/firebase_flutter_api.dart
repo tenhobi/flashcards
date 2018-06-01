@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flashcards_common/bloc.dart';
@@ -352,5 +353,35 @@ class FirebaseFlutterApi extends FirebaseApi {
         .collection('stars')
         .document(authorUid)
         .delete();
+  }
+
+  @override
+  Stream<List<QuestionData>> queryQuestions({ExerciseData exercise, int size}) {
+    final StreamController<List<QuestionData>> controller = StreamController.broadcast();
+
+    Firestore.instance
+        .collection('courses')
+        .document(exercise.parent.parent.id)
+        .collection('sections')
+        .document(exercise.parent.id)
+        .collection('exercises')
+        .document(exercise.id)
+        .collection('questions')
+        .snapshots
+        .listen((QuerySnapshot snapshot) {
+      final List<QuestionData> questions = snapshot.documents.map<QuestionData>((DocumentSnapshot document) {
+        final Map<String, dynamic> data = document.data;
+        data['id'] = document.documentID;
+        switch (exercise.type) {
+          case 'flipcards':
+            return FlipcardQuestionData.fromMap(data: data, parent: exercise);
+          default:
+            print('Register this type of exercise in firebase api');
+        }
+      }).toList()..shuffle(Random.secure());
+      controller.add(questions.length > size ? questions.sublist(0, size) : questions);
+    });
+
+    return controller.stream;
   }
 }

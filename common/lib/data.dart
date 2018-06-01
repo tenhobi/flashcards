@@ -5,3 +5,6 @@ export 'package:flashcards_common/src/data/subsection.dart';
 export 'package:flashcards_common/src/data/material.dart';
 export 'package:flashcards_common/src/data/exercise.dart';
 export 'package:flashcards_common/src/data/user.dart';
+export 'package:flashcards_common/src/data/exercise.dart';
+export 'package:flashcards_common/src/data/question.dart';
+export 'package:flashcards_common/src/data/flipcard_question.dart';

@@ -5,6 +5,8 @@ import 'package:flashcards_common/src/data/comment.dart';
 import 'package:flashcards_common/src/data/section.dart';
 import 'package:flashcards_common/src/data/subsection.dart';
 import 'package:flashcards_common/src/data/user.dart';
+import 'package:flashcards_common/src/data/exercise.dart';
+import 'package:flashcards_common/src/data/question.dart';
 import 'package:meta/meta.dart';
 
 enum CoursesQueryType { all, created, popular }
@@ -60,4 +62,6 @@ abstract class FirebaseApi {
   void unlikeComment({@required CourseData course, @required CommentData comment, @required String authorUid});
 
   Stream<List<String>> queryCommentsStars({CourseData course, CommentData comment});
+
+  Stream<List<QuestionData>> queryQuestions({ExerciseData exercise, int size});
 }

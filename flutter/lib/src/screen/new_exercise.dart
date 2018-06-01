@@ -5,7 +5,9 @@ import 'package:flashcards_common/data.dart';
 
 class NewExerciseScreen extends StatefulWidget {
   const NewExerciseScreen({@required SectionData this.parent});
+
   final SectionData parent;
+
   @override
   _NewExerciseScreenState createState() => new _NewExerciseScreenState();
 }
@@ -28,7 +30,7 @@ class _NewExerciseScreenState extends State<NewExerciseScreen> {
             form.save();
             state.sectionListBloc.queryExercises(section: widget.parent).first.then((List<SubsectionData> exercises) {
               final ExerciseData data =
-                  ExerciseData(id: '', parent: widget.parent, name: _name, order: exercises.length);
+                  ExerciseData(id: '', parent: widget.parent, name: _name, type: 'flipcards', order: exercises.length);
               state.sectionListBloc.createSubsection.add(data);
               Navigator.of(context).pop();
             });

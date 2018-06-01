@@ -20,7 +20,11 @@ class MessageLookup extends MessageLookupByLibrary {
   static m0(version) =>
       "Verze\n__${version}__\n\nOpen source projekt s cílem vytvořit multiplatformní (tj. web, android, iOS) aplikaci s výukovými kartičkami. Na náš kód se můžete podívat na [GitHubu](https://github.com/tenhobi/flashcards).\n\nProjekt začal jako součást předmětu softwarový týmový projekt na [Fakultě informačních technologií ČVUT v Praze](https://fit.cvut.cz).";
 
-  static m1(score) => "skóre: ${score}";
+  static m1(sectionName) => "Editace ${sectionName}";
+
+  static m2(subsectionName) => "Editace ${subsectionName}";
+
+  static m3(score) => "skóre: ${score}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function>{
@@ -29,14 +33,23 @@ class MessageLookup extends MessageLookupByLibrary {
         "aboutNavigationButton": MessageLookupByLibrary.simpleMessage("O aplikaci"),
         "aboutText": m0,
         "addComment": MessageLookupByLibrary.simpleMessage("Přidat komentář"),
+        "addExercise": MessageLookupByLibrary.simpleMessage("Přidat cvičení"),
+        "addExerciseLabel": MessageLookupByLibrary.simpleMessage("Add cvičení"),
+        "addMaterial": MessageLookupByLibrary.simpleMessage("Přidat materiál"),
+        "addMaterialLabel": MessageLookupByLibrary.simpleMessage("Přidat materiál"),
         "allCourses": MessageLookupByLibrary.simpleMessage("vše"),
         "appName": MessageLookupByLibrary.simpleMessage("Flashcards"),
+        "cancel": MessageLookupByLibrary.simpleMessage("Zrušit"),
         "cannotBeEmpty": MessageLookupByLibrary.simpleMessage("Nemůže být prázdné"),
         "commentsTab": MessageLookupByLibrary.simpleMessage("Komentáře"),
         "createdCourses": MessageLookupByLibrary.simpleMessage("vytvořeno"),
         "descriptionTab": MessageLookupByLibrary.simpleMessage("Popis"),
+        "editSectionLabel": m1,
+        "editSubsectionLabel": m2,
+        "flipcards": MessageLookupByLibrary.simpleMessage("Flipcards"),
         "homeNavigationButton": MessageLookupByLibrary.simpleMessage("Domů"),
         "like": MessageLookupByLibrary.simpleMessage("Líbí se mi"),
+        "multipleChoice": MessageLookupByLibrary.simpleMessage("Více množností"),
         "newCourse": MessageLookupByLibrary.simpleMessage("Nový kurz"),
         "newCourseDescription": MessageLookupByLibrary.simpleMessage("Popis"),
         "newCourseDescriptionEmpty": MessageLookupByLibrary.simpleMessage("Popis nemůže být prázdný."),
@@ -44,20 +57,37 @@ class MessageLookup extends MessageLookupByLibrary {
         "newCourseNameEmpty": MessageLookupByLibrary.simpleMessage("Název nemůže být prázdný."),
         "newSection": MessageLookupByLibrary.simpleMessage("Nová sekce"),
         "newSectionName": MessageLookupByLibrary.simpleMessage("Název"),
+        "newSectionNameEmpty": MessageLookupByLibrary.simpleMessage("Název nemůže být prázdný."),
+        "newSectionOrder": MessageLookupByLibrary.simpleMessage("Pořadí sekce"),
+        "newSectionOrderEmpty": MessageLookupByLibrary.simpleMessage("Pořadí sekce nemůže být prázdné."),
+        "newSubsectionName": MessageLookupByLibrary.simpleMessage("_newSubsectionName"),
+        "newSubsectionNameEmpty": MessageLookupByLibrary.simpleMessage("_newSubsectionNameEmpty"),
+        "newSubsectionOrder": MessageLookupByLibrary.simpleMessage("_newSubsectionOrder"),
+        "newSubsectionOrderEmpty": MessageLookupByLibrary.simpleMessage("_newSubsectionOrderEmpty"),
+        "next": MessageLookupByLibrary.simpleMessage("Další"),
         "no": MessageLookupByLibrary.simpleMessage("Ne"),
         "noVersion": MessageLookupByLibrary.simpleMessage("Verze nebyla nalezena"),
+        "numberOfQuestions": MessageLookupByLibrary.simpleMessage("Počet otázek"),
         "popularCourses": MessageLookupByLibrary.simpleMessage("oblíbené"),
+        "previous": MessageLookupByLibrary.simpleMessage("Zpět"),
+        "rememberThose": MessageLookupByLibrary.simpleMessage("Zapamatuj si."),
         "remove": MessageLookupByLibrary.simpleMessage("Odstranit"),
         "removeCourseDialog": MessageLookupByLibrary.simpleMessage("Chcete vymazat kurz?"),
+        "removeExerciseDialog": MessageLookupByLibrary.simpleMessage("Opravdu chcete odstranit toto cvičení?"),
+        "removeMaterialDialog": MessageLookupByLibrary.simpleMessage("Opravdu chcete odstranit tento materiál?"),
+        "removeSectionDialog": MessageLookupByLibrary.simpleMessage("Opravdu chcete odstranit tuto sekci?"),
         "reportBugNavigationButton": MessageLookupByLibrary.simpleMessage("Nahlásit chybu"),
         "reportUrl": MessageLookupByLibrary.simpleMessage("https://github.com/tenhobi/flashcards/issues/new"),
-        "score": m1,
+        "score": m3,
         "searchNavigationButton": MessageLookupByLibrary.simpleMessage("Hledat"),
         "sectionsTab": MessageLookupByLibrary.simpleMessage("Sekce"),
         "settingsNavigationButton": MessageLookupByLibrary.simpleMessage("Nastavení"),
         "signInButton": MessageLookupByLibrary.simpleMessage("Přihlásit se pomocí Google"),
         "signOutNavigationButton": MessageLookupByLibrary.simpleMessage("Odhlásit se"),
+        "submit": MessageLookupByLibrary.simpleMessage("Potvrdit"),
+        "typeOfExercise": MessageLookupByLibrary.simpleMessage("Typ cvičení"),
         "unlike": MessageLookupByLibrary.simpleMessage("Nelíbí se mi"),
+        "wrongInput": MessageLookupByLibrary.simpleMessage("Špatný vstup"),
         "yes": MessageLookupByLibrary.simpleMessage("Ano")
       };
 }
