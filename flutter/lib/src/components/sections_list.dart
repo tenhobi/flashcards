@@ -2,7 +2,8 @@ import 'package:flashcards_common/i18n.dart';
 import 'package:flashcards_flutter/src/components/indicator_loading.dart';
 import 'package:flashcards_common/data.dart';
 import 'package:flashcards_flutter/src/screen/edit_section.dart';
-import 'package:flashcards_flutter/src/screen/new_subsection.dart';
+import 'package:flashcards_flutter/src/screen/new_exercise.dart';
+import 'package:flashcards_flutter/src/screen/new_material.dart';
 import 'package:flashcards_flutter/src/screen/edit_subsection.dart';
 import 'package:flashcards_flutter/src/screen/exercise.dart';
 import 'package:flashcards_flutter/src/state/container.dart';
@@ -53,12 +54,17 @@ class _BuildStream extends StatefulWidget {
 class _BuildStreamState extends State<_BuildStream> {
   List<SubsectionData> data = null;
 
-  void redirectNewSubsection(BuildContext context) {
+  void redirectNewSubsection(BuildContext context, {@required bool isExercise}) {
+    final Widget nextPage = isExercise
+        ? NewExerciseScreen(
+            parent: widget.section,
+          )
+        : NewMaterialScreen(
+            parent: widget.section,
+          );
     Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (BuildContext context) => NewSubsectionScreen(
-                  parent: widget.section,
-                ),
+            builder: (BuildContext context) => nextPage,
           ),
         );
   }
@@ -88,7 +94,7 @@ class _BuildStreamState extends State<_BuildStream> {
     if (widget.section.parent.authorUid == state.authenticationBloc.user.uid) {
       return _SectionRow(
         icon: Icons.add,
-        onTap: () => redirectNewSubsection(context),
+        onTap: () => redirectNewSubsection(context, isExercise: widget.isExercise),
         text: _getTextForNew(),
         isLast: widget.isLast,
         subsection: null,
@@ -153,7 +159,7 @@ class _BuildStreamState extends State<_BuildStream> {
         if (owner) {
           rows.add(_SectionRow(
             icon: Icons.add,
-            onTap: () => redirectNewSubsection(context),
+            onTap: () => redirectNewSubsection(context, isExercise: widget.isExercise),
             text: _getTextForNew(),
             isLast: widget.isLast,
             subsection: null,
@@ -229,7 +235,7 @@ class _SectionRow extends StatelessWidget {
       },
     );
 
-    if (permission) {
+    if (permission == true) {
       state.sectionListBloc.removeSubsection.add(subsection);
     }
   }
@@ -360,7 +366,7 @@ class _SectionsWidgetState extends State<_SectionWidget> with SingleTickerProvid
       },
     );
 
-    if (permission) {
+    if (permission == true) {
       state.sectionListBloc.remove.add(widget.section);
     }
   }
