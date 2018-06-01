@@ -1,5 +1,7 @@
+import 'dart:async';
+
 import 'package:flashcards_common/data.dart';
-import 'package:flashcards_flutter/src/components/indicator_loading.dart';
+import 'package:flashcards_flutter/src/components/flipcard_play.dart';
 import 'package:flashcards_flutter/src/components/flipcard_item.dart';
 import 'package:flashcards_flutter/src/state/container.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +21,8 @@ class ExerciseScreen extends StatefulWidget {
 }
 
 class _ExerciseScreenState extends State<ExerciseScreen> {
+  Widget _playWidget = Container();
+
   @override
   Widget build(BuildContext context) {
     switch (widget.exercise.type) {
@@ -33,53 +37,52 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
 
   Widget _buildFlipcards(BuildContext context) {
     final state = StateContainer.of(context);
+    final ScrollController _scrollController = ScrollController();
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.exercise.name),
+        title: Text(
+          widget.exercise.parent.name + ' - ' + widget.exercise.name,
+        ),
       ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           Text(
-            'Remember those',
+            'Remember those.',
             textAlign: TextAlign.center,
+            style: TextStyle(
+              height: 2.0,
+              fontSize: 20.0,
+            ),
           ),
-          StreamBuilder<List<QuestionData>>(
-            stream: state.exerciseBloc.queryQuestions(widget.exercise, widget.size),
-            builder: (BuildContext context, AsyncSnapshot<List<QuestionData>> snapshot) {
-              if (!snapshot.hasData) return Loading();
-
-              // TODO: rotating cards with question and answer on other side, only 4 per screen,
-              // button next to switch to next page and stuff, next code is just placeholder so it compiles
-              return Row(
-//                shrinkWrap: true,
-//                maxCrossAxisExtent: 200.0,
-              mainAxisAlignment: MainAxisAlignment.center,
-                children: snapshot.data.map((QuestionData question) {
-                  return GestureDetector(
-                    onTap: () {},
-                    child: Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: FlipcardItem(
-                        data: question,
-                      ),
-                    ),
-                  );
-                }).toList(),
-//                padding: EdgeInsets.all(8.0),
-              );
-            },
-          ),
-        ],
+        _buildFlipcardsPlayWidget(state.exerciseBloc.queryQuestions(widget.exercise, widget.size)),
+      ],
       ),
     );
+  }
+
+  Widget _buildFlipcardsPlayWidget(Stream<List<QuestionData>> stream) {
+    stream.take(1).listen(
+      (List<QuestionData> questions) {
+        List<Widget> widgets = List<Widget>();
+        questions.forEach((question) {
+          widgets.add(FlipcardItem(
+            data: question,
+            key: GlobalKey<FormState>(),
+          ));
+        });
+        _playWidget = FlipcardPlayWidget(widgets: widgets);
+      },
+    );
+
+    return _playWidget;
   }
 
   Widget _buildMultichoice() {
     return Scaffold(
       appBar: AppBar(
-        title: Text('multi'),
+        title: Text('TODO'),
       ),
     );
   }

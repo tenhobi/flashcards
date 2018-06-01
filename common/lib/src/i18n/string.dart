@@ -465,4 +465,20 @@ The project started as a part of a software team project at the [Faculty of Info
       desc: 'Submit answer',
     );
   }
+
+  static previous() {
+    return Intl.message(
+      '_previous',
+      name: 'previous',
+      desc: 'Previous button',
+    );
+  }
+
+  static next() {
+    return Intl.message(
+      '_next',
+      name: 'next',
+      desc: 'Next button',
+    );
+  }
 }

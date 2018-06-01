@@ -11,7 +11,6 @@ class ExerciseBloc extends Bloc {
   ExerciseBloc(this._api) {}
 
   Stream<List<QuestionData>> queryQuestions(ExerciseData exercise, int size) {
-    // TODO: randomize and trim to size
     return _api.queryQuestions(exercise: exercise, size: size);
   }
 

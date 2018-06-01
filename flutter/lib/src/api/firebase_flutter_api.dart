@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flashcards_common/bloc.dart';
@@ -367,7 +368,7 @@ class FirebaseFlutterApi extends FirebaseApi {
         .collection('questions')
         .snapshots
         .listen((QuerySnapshot snapshot) {
-      controller.add(snapshot.documents.map<QuestionData>((DocumentSnapshot document) {
+      List<QuestionData> questions = snapshot.documents.map<QuestionData>((DocumentSnapshot document) {
         final Map<String, dynamic> data = document.data;
         data['id'] = document.documentID;
         switch (exercise.type) {
@@ -376,7 +377,8 @@ class FirebaseFlutterApi extends FirebaseApi {
           default:
             print('Register this type of exercise in firebase api');
         }
-      }).toList());
+      }).toList()..shuffle(Random.secure());
+      controller.add(questions.length > size ? questions.sublist(0, size) : questions);
     });
 
     return controller.stream;
