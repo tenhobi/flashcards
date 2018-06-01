@@ -57,5 +57,8 @@
   "numberOfQuestions": "Number of questions",
   "wrongInput": "Wrong input",
   "cancel": "Cancel",
-  "submit": "Submit"
+  "submit": "Submit",
+  "previous": "Previous",
+  "next": "Next",
+  "rememberThose": "Remember those."
 }

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flashcards_common/data.dart';
+import 'package:flashcards_common/i18n.dart';
 import 'package:flashcards_flutter/src/components/flipcard_play.dart';
 import 'package:flashcards_flutter/src/components/flipcard_item.dart';
 import 'package:flashcards_flutter/src/state/container.dart';
@@ -47,8 +48,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
-          Text(
-            'Remember those.',
+          Text(FlashcardsStrings.rememberThose(),
             textAlign: TextAlign.center,
             style: TextStyle(
               height: 2.0,
@@ -68,9 +68,10 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
         questions.forEach((question) {
           widgets.add(FlipcardItem(
             data: question,
-            key: GlobalKey(),
+            key: UniqueKey(),
           ));
         });
+
         _playWidget = FlipcardPlayWidget(widgets: widgets);
       },
     );

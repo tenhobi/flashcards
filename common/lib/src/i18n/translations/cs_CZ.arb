@@ -57,5 +57,8 @@
   "numberOfQuestions": "Počet otázek",
   "wrongInput": "Špatný vstup",
   "cancel": "Zrušit",
-  "submit": "Potvrdit"
+  "submit": "Potvrdit",
+  "previous": "Zpět",
+  "next": "Další",
+  "rememberThose": "Zapamatuj si."
 }

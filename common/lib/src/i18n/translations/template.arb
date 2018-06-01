@@ -1,5 +1,5 @@
 {
-  "@@last_modified": "2018-05-31T19:07:33.259846",
+  "@@last_modified": "2018-06-01T04:25:37.515996",
   "signInButton": "_signInButton",
   "@signInButton": {
     "description": "Sign in button.",
@@ -347,6 +347,24 @@
   "submit": "_submit",
   "@submit": {
     "description": "Submit answer",
+    "type": "text",
+    "placeholders": {}
+  },
+  "previous": "_previous",
+  "@previous": {
+    "description": "Previous button",
+    "type": "text",
+    "placeholders": {}
+  },
+  "next": "_next",
+  "@next": {
+    "description": "Next button",
+    "type": "text",
+    "placeholders": {}
+  },
+  "rememberThose": "_rememberthose.",
+  "@rememberThose": {
+    "description": "Remember those flipcards exercise",
     "type": "text",
     "placeholders": {}
   }

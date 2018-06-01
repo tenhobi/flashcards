@@ -481,4 +481,12 @@ The project started as a part of a software team project at the [Faculty of Info
       desc: 'Next button',
     );
   }
+
+  static rememberThose() {
+    return Intl.message(
+      '_rememberthose.',
+      name: 'rememberThose',
+      desc: 'Remember those flipcards exercise',
+    );
+  }
 }
