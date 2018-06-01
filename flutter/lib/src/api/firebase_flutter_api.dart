@@ -358,6 +358,7 @@ class FirebaseFlutterApi extends FirebaseApi {
   @override
   Stream<List<QuestionData>> queryQuestions({ExerciseData exercise, int size}) {
     final StreamController<List<QuestionData>> controller = StreamController.broadcast();
+
     Firestore.instance
         .collection('courses')
         .document(exercise.parent.parent.id)
@@ -368,7 +369,7 @@ class FirebaseFlutterApi extends FirebaseApi {
         .collection('questions')
         .snapshots
         .listen((QuerySnapshot snapshot) {
-      List<QuestionData> questions = snapshot.documents.map<QuestionData>((DocumentSnapshot document) {
+      final List<QuestionData> questions = snapshot.documents.map<QuestionData>((DocumentSnapshot document) {
         final Map<String, dynamic> data = document.data;
         data['id'] = document.documentID;
         switch (exercise.type) {

@@ -4,22 +4,18 @@ import 'package:meta/meta.dart';
 
 class FlipcardItem extends StatefulWidget {
   final FlipcardQuestionData data;
-  final GlobalKey<FormState> key;
 
-  // this is not the cleanest solution, but nothing else came to my mind
-  // need to remember, what state it was in when state was disposed of
-  bool _turnFront = true;
-
-  FlipcardItem({@required this.data, this.key});
+  const FlipcardItem({
+    @required this.data,
+    Key key,
+  }) : super(key: key);
 
   @override
-  State<FlipcardItem> createState() => _FlipcardItemState(_turnFront);
+  State<FlipcardItem> createState() => _FlipcardItemState();
 }
 
 class _FlipcardItemState extends State<FlipcardItem> {
-  bool _turnFront;
-
-  _FlipcardItemState(this._turnFront);
+  bool _turnFront = true;
 
   @override
   Widget build(BuildContext context) {
@@ -59,11 +55,5 @@ class _FlipcardItemState extends State<FlipcardItem> {
         ),
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    widget._turnFront = _turnFront;
-    super.dispose();
   }
 }

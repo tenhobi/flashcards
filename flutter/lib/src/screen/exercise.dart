@@ -37,7 +37,6 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
 
   Widget _buildFlipcards(BuildContext context) {
     final state = StateContainer.of(context);
-    final ScrollController _scrollController = ScrollController();
 
     return Scaffold(
       appBar: AppBar(
@@ -65,11 +64,11 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
   Widget _buildFlipcardsPlayWidget(Stream<List<QuestionData>> stream) {
     stream.take(1).listen(
       (List<QuestionData> questions) {
-        List<Widget> widgets = List<Widget>();
+        final List<Widget> widgets = [];
         questions.forEach((question) {
           widgets.add(FlipcardItem(
             data: question,
-            key: GlobalKey<FormState>(),
+            key: GlobalKey(),
           ));
         });
         _playWidget = FlipcardPlayWidget(widgets: widgets);
