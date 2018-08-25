@@ -7,11 +7,11 @@ class NewMaterialScreen extends StatefulWidget {
   const NewMaterialScreen({@required SectionData this.parent});
   final SectionData parent;
   @override
-  _NewMaterialScreenState createState() => new _NewMaterialScreenState();
+  _NewMaterialScreenState createState() => _NewMaterialScreenState();
 }
 
 class _NewMaterialScreenState extends State<NewMaterialScreen> {
-  final formKey = new GlobalKey<FormState>();
+  final formKey = GlobalKey<FormState>();
 
   String _name;
 
@@ -20,7 +20,7 @@ class _NewMaterialScreenState extends State<NewMaterialScreen> {
     final state = StateContainer.of(context);
 
     return Scaffold(
-      floatingActionButton: new FloatingActionButton(
+      floatingActionButton: FloatingActionButton(
         onPressed: () {
           final form = formKey.currentState;
 

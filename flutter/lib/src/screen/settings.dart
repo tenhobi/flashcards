@@ -11,14 +11,14 @@ class SettingsScreen extends StatefulWidget {
   static const route = '/settings';
 
   @override
-  _SettingsScreenState createState() => new _SettingsScreenState();
+  _SettingsScreenState createState() => _SettingsScreenState();
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
     final state = StateContainer.of(context);
-    final GlobalKey formKey = new GlobalKey<FormState>();
+    final GlobalKey formKey = GlobalKey<FormState>();
 
     return Scaffold(
       drawer: CustomDrawer(),
@@ -46,7 +46,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           Intl.defaultLocale = a;
                         });
                       },
-                      items: new List<DropdownMenuItem<String>>.generate(
+                      items: List<DropdownMenuItem<String>>.generate(
                         supportedLocales.length,
                         (int index) {
                           return DropdownMenuItem(

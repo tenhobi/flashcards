@@ -5,11 +5,11 @@ import 'package:flashcards_angular/src/routes.dart';
 
 @Component(
   selector: 'flashcards-app',
-  styleUrls: const ['app_component.scss.css'],
+  styleUrls: ['app_component.scss.css'],
   templateUrl: 'app_component.html',
   directives: [routerDirectives, CoursesComponent],
-  providers: const [
-    const ClassProvider(Routes),
+  providers: [
+    ClassProvider(Routes),
   ],
 )
 class AppComponent {

@@ -378,7 +378,8 @@ class FirebaseFlutterApi extends FirebaseApi {
           default:
             print('Register this type of exercise in firebase api');
         }
-      }).toList()..shuffle(Random.secure());
+      }).toList()
+        ..shuffle(Random.secure());
       controller.add(questions.length > size ? questions.sublist(0, size) : questions);
     });
 

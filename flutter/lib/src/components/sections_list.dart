@@ -64,10 +64,10 @@ class _BuildStreamState extends State<_BuildStream> {
             parent: widget.section,
           );
     Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (BuildContext context) => nextPage,
-          ),
-        );
+      MaterialPageRoute(
+        builder: (BuildContext context) => nextPage,
+      ),
+    );
   }
 
   //todo: rename this, so it actually describes what it does
@@ -140,8 +140,8 @@ class _BuildStreamState extends State<_BuildStream> {
                 }
 
                 Navigator.of(context).push<MaterialPageRoute>(MaterialPageRoute(
-                      builder: (BuildContext bc) => ExerciseScreen(exercise: d, size: exerciseSize),
-                    ));
+                  builder: (BuildContext bc) => ExerciseScreen(exercise: d, size: exerciseSize),
+                ));
               },
               subsection: d,
               owner: owner,
@@ -151,9 +151,8 @@ class _BuildStreamState extends State<_BuildStream> {
             rows.add(_SectionRow.material(
               text: d.name,
               onTap: () {
-                Navigator
-                  .of(context)
-                  .push(MaterialPageRoute(builder: (BuildContext context) => MaterialScreen(data: d)));
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (BuildContext context) => MaterialScreen(data: d)));
               },
               subsection: d,
               owner: owner,
@@ -246,8 +245,7 @@ class _SectionRow extends StatelessWidget {
   }
 
   void _edit(BuildContext context) {
-    Navigator
-        .of(context)
+    Navigator.of(context)
         .push(MaterialPageRoute(builder: (BuildContext context) => EditSubsectionScreen(original: subsection)));
   }
 
@@ -377,8 +375,7 @@ class _SectionsWidgetState extends State<_SectionWidget> with SingleTickerProvid
   }
 
   void _edit(BuildContext context) {
-    Navigator
-        .of(context)
+    Navigator.of(context)
         .push(MaterialPageRoute(builder: (BuildContext context) => EditSectionScreen(original: widget.section)));
   }
 
@@ -427,9 +424,9 @@ class _SectionsWidgetState extends State<_SectionWidget> with SingleTickerProvid
   @override
   void initState() {
     super.initState();
-    _controller = new AnimationController(duration: Duration(milliseconds: 200), vsync: this);
-    _easeInAnimation = new CurvedAnimation(parent: _controller, curve: Curves.easeIn);
-    _iconTurns = new Tween<double>(begin: 0.0, end: 0.5).animate(_easeInAnimation);
+    _controller = AnimationController(duration: Duration(milliseconds: 200), vsync: this);
+    _easeInAnimation = CurvedAnimation(parent: _controller, curve: Curves.easeIn);
+    _iconTurns = Tween<double>(begin: 0.0, end: 0.5).animate(_easeInAnimation);
   }
 
   @override

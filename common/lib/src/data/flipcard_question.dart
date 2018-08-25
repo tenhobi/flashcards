@@ -5,9 +5,12 @@ import 'package:meta/meta.dart';
 class FlipcardQuestionData extends QuestionData {
   final String answer;
 
-  FlipcardQuestionData(
-      {@required String id, @required SubsectionData parent, @required String question, @required String this.answer})
-      : super(id: id, parent: parent, question: question);
+  FlipcardQuestionData({
+    @required String id,
+    @required SubsectionData parent,
+    @required String question,
+    @required String this.answer,
+  }) : super(id: id, parent: parent, question: question);
 
 //  @override
   static FlipcardQuestionData fromMap({@required Map<String, dynamic> data, @required SubsectionData parent}) =>

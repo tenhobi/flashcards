@@ -103,7 +103,7 @@ class _LandingScreenState extends State<LandingScreen> with SingleTickerProvider
 
     if (user == null) return;
 
-    state.userBloc.createIfAbsent.add(new UserData(uid: user.uid, name: user.displayName));
+    state.userBloc.createIfAbsent.add(UserData(uid: user.uid, name: user.displayName));
 
     final UserData userData = await state.userBloc.query(state.authenticationBloc.user.uid).first;
 
@@ -112,11 +112,11 @@ class _LandingScreenState extends State<LandingScreen> with SingleTickerProvider
     }
 
     Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(
-            builder: (BuildContext bc) => widget.nextScreen,
-          ),
-          (_) => false,
-        );
+      MaterialPageRoute(
+        builder: (BuildContext bc) => widget.nextScreen,
+      ),
+      (_) => false,
+    );
   }
 
   Widget _buildButtons(BuildContext context) {

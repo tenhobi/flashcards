@@ -3,11 +3,11 @@ import 'package:flashcards_common/i18n.dart';
 
 class ExerciseSize extends StatefulWidget {
   @override
-  _ExerciseSizeState createState() => new _ExerciseSizeState();
+  _ExerciseSizeState createState() => _ExerciseSizeState();
 }
 
 class _ExerciseSizeState extends State<ExerciseSize> {
-  final formKey = new GlobalKey<FormState>();
+  final formKey = GlobalKey<FormState>();
   int _questionCount;
 
   @override

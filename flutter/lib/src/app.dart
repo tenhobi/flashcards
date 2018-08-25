@@ -21,7 +21,7 @@ class FlashcardsApp extends StatelessWidget {
         nextNewUserScreen: MainScreen(),
       ),
       localizationsDelegates: [
-        new FlashcardsLocalizationDelegate(),
+        FlashcardsLocalizationDelegate(),
         GlobalWidgetsLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
       ],

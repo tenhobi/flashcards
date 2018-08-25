@@ -7,7 +7,11 @@ abstract class QuestionData extends Data {
   final SubsectionData parent;
   final String question;
 
-  QuestionData({@required this.id, @required this.parent, @required this.question});
+  QuestionData({
+    @required this.id,
+    @required this.parent,
+    @required this.question,
+  });
 
   //static String getTypeToString(SubsectionData data) => data is ExerciseData ? 'exercises' : 'materials';
 

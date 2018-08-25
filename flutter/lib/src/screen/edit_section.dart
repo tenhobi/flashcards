@@ -8,11 +8,11 @@ class EditSectionScreen extends StatefulWidget {
   const EditSectionScreen({@required SectionData this.original});
   final SectionData original;
   @override
-  _EditSectionScreenState createState() => new _EditSectionScreenState();
+  _EditSectionScreenState createState() => _EditSectionScreenState();
 }
 
 class _EditSectionScreenState extends State<EditSectionScreen> {
-  final formKey = new GlobalKey<FormState>();
+  final formKey = GlobalKey<FormState>();
 
   String _name;
   int _order;
@@ -31,7 +31,7 @@ class _EditSectionScreenState extends State<EditSectionScreen> {
     final state = StateContainer.of(context);
 
     return Scaffold(
-      floatingActionButton: new FloatingActionButton(
+      floatingActionButton: FloatingActionButton(
         onPressed: () {
           final form = formKey.currentState;
 

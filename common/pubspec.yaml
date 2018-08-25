@@ -3,7 +3,7 @@ version: 0.0.1
 description: Common things of flashcards.
 
 environment:
-  sdk: '>=1.24.0 <2.0.0'
+  sdk: '>=2.0.0 <3.0.0'
 
 dependencies:
   meta: '^1.1.2'

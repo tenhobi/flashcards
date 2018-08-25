@@ -8,11 +8,11 @@ class NewSectionScreen extends StatefulWidget {
   const NewSectionScreen({@required CourseData this.parent});
   final CourseData parent;
   @override
-  _NewSectionScreenState createState() => new _NewSectionScreenState();
+  _NewSectionScreenState createState() => _NewSectionScreenState();
 }
 
 class _NewSectionScreenState extends State<NewSectionScreen> {
-  final formKey = new GlobalKey<FormState>();
+  final formKey = GlobalKey<FormState>();
 
   String _name;
 
@@ -21,7 +21,7 @@ class _NewSectionScreenState extends State<NewSectionScreen> {
     final state = StateContainer.of(context);
 
     return Scaffold(
-      floatingActionButton: new FloatingActionButton(
+      floatingActionButton: FloatingActionButton(
         onPressed: () {
           final form = formKey.currentState;
 

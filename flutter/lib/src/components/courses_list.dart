@@ -21,10 +21,10 @@ class CoursesList extends StatefulWidget {
 class _CoursesListState extends State<CoursesList> with SingleTickerProviderStateMixin {
   void openCourse(CourseData course) {
     Navigator.of(context).push<MaterialPageRoute>(
-          MaterialPageRoute(
-            builder: (BuildContext bc) => CourseScreen(course: course),
-          ),
-        );
+      MaterialPageRoute(
+        builder: (BuildContext bc) => CourseScreen(course: course),
+      ),
+    );
   }
 
   @override

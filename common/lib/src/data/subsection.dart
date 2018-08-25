@@ -9,7 +9,12 @@ abstract class SubsectionData extends Data implements Comparable<SubsectionData>
   final String name;
   final int order;
 
-  SubsectionData({@required this.id, @required this.parent, @required this.name, @required this.order});
+  SubsectionData({
+    @required this.id,
+    @required this.parent,
+    @required this.name,
+    @required this.order,
+  });
 
   static String getTypeToString(SubsectionData data) => data is ExerciseData ? 'exercises' : 'materials';
 

@@ -6,7 +6,11 @@ class CommentData extends Data {
   final String content;
   final String id;
 
-  CommentData({@required this.authorUid, @required this.content, this.id});
+  CommentData({
+    @required this.authorUid,
+    @required this.content,
+    this.id,
+  });
 
   factory CommentData.fromMap(Map<String, dynamic> data) => CommentData(
         id: data['id'],

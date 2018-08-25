@@ -9,11 +9,11 @@ class NewExerciseScreen extends StatefulWidget {
   final SectionData parent;
 
   @override
-  _NewExerciseScreenState createState() => new _NewExerciseScreenState();
+  _NewExerciseScreenState createState() => _NewExerciseScreenState();
 }
 
 class _NewExerciseScreenState extends State<NewExerciseScreen> {
-  final formKey = new GlobalKey<FormState>();
+  final formKey = GlobalKey<FormState>();
 
   String _name;
 
@@ -22,7 +22,7 @@ class _NewExerciseScreenState extends State<NewExerciseScreen> {
     final state = StateContainer.of(context);
 
     return Scaffold(
-      floatingActionButton: new FloatingActionButton(
+      floatingActionButton: FloatingActionButton(
         onPressed: () {
           final form = formKey.currentState;
 

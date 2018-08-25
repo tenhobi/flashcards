@@ -77,7 +77,7 @@ class CoursesComponent implements AfterViewInit {
       querySnapshot.docs.forEach((DocumentSnapshot snapshot) {
         Map<String, dynamic> courseData = snapshot.data();
         courseData.addAll({'id': snapshot.id});
-        courses.add(new CourseData.fromMap(courseData));
+        courses.add(CourseData.fromMap(courseData));
       });
     });
   }

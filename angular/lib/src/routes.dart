@@ -8,14 +8,14 @@ import 'course_component.template.dart' as cc;
 
 @Injectable()
 class Routes {
-  static final _courses = new RouteDefinition(
+  static final _courses = RouteDefinition(
     routePath: paths.courses,
     component: ccs.CoursesComponentNgFactory,
   );
 
   RouteDefinition get courses => _courses;
 
-  static final _course = new RouteDefinition(
+  static final _course = RouteDefinition(
     routePath: paths.course,
     component: cc.CourseComponentNgFactory,
   );

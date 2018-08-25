@@ -11,11 +11,11 @@ class Comments extends StatefulWidget {
   const Comments({@required this.course, Key key}) : super(key: key);
 
   @override
-  _CommentsState createState() => new _CommentsState();
+  _CommentsState createState() => _CommentsState();
 }
 
 class _CommentsState extends State<Comments> {
-  final formKey = new GlobalKey<FormState>();
+  final formKey = GlobalKey<FormState>();
 
   final ScrollController _scrollController = ScrollController();
 
@@ -91,7 +91,7 @@ class _CommentsState extends State<Comments> {
           return Loading();
         }
 
-        return new ListView.builder(
+        return ListView.builder(
           itemCount: snapshot.data.length,
           itemBuilder: (BuildContext context, int index) {
             final CommentData comment = snapshot.data.reversed.elementAt(index);

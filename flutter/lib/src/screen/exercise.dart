@@ -48,15 +48,16 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
-          Text(FlashcardsStrings.rememberThose(),
+          Text(
+            FlashcardsStrings.rememberThose(),
             textAlign: TextAlign.center,
             style: TextStyle(
               height: 2.0,
               fontSize: 20.0,
             ),
           ),
-        _buildFlipcardsPlayWidget(state.exerciseBloc.queryQuestions(widget.exercise, widget.size)),
-      ],
+          _buildFlipcardsPlayWidget(state.exerciseBloc.queryQuestions(widget.exercise, widget.size)),
+        ],
       ),
     );
   }

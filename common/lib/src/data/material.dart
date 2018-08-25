@@ -5,8 +5,13 @@ import 'package:meta/meta.dart';
 class MaterialData extends SubsectionData {
   String content;
 
-  MaterialData({String id, SectionData parent, String name, int order, this.content})
-      : super(id: id, parent: parent, name: name, order: order);
+  MaterialData({
+    String id,
+    SectionData parent,
+    String name,
+    int order,
+    this.content,
+  }) : super(id: id, parent: parent, name: name, order: order);
 
 //  @override
   static MaterialData fromMap({@required Map<String, dynamic> data, @required SectionData parent}) =>

@@ -8,7 +8,7 @@ class AboutScreen extends StatefulWidget {
   static const route = '/about';
 
   @override
-  _AboutScreenState createState() => new _AboutScreenState();
+  _AboutScreenState createState() => _AboutScreenState();
 }
 
 class _AboutScreenState extends State<AboutScreen> {

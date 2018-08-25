@@ -23,8 +23,7 @@ class _CourseScreenState extends State<CourseScreen> with SingleTickerProviderSt
   var fabIndex;
 
   void redirectNewSection(BuildContext context) {
-    Navigator
-        .of(context)
+    Navigator.of(context)
         .push(MaterialPageRoute(builder: (BuildContext context) => NewSectionScreen(parent: widget.course)));
   }
 

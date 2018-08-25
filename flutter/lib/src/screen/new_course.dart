@@ -6,11 +6,11 @@ import 'package:flashcards_common/data.dart';
 
 class NewCourseScreen extends StatefulWidget {
   @override
-  _NewCourseScreenState createState() => new _NewCourseScreenState();
+  _NewCourseScreenState createState() => _NewCourseScreenState();
 }
 
 class _NewCourseScreenState extends State<NewCourseScreen> {
-  final formKey = new GlobalKey<FormState>();
+  final formKey = GlobalKey<FormState>();
 
   String _name;
   String _description;
@@ -20,7 +20,7 @@ class _NewCourseScreenState extends State<NewCourseScreen> {
     final state = StateContainer.of(context);
 
     return Scaffold(
-      floatingActionButton: new FloatingActionButton(
+      floatingActionButton: FloatingActionButton(
         onPressed: () {
           final form = formKey.currentState;
 

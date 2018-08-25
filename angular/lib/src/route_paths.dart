@@ -5,7 +5,7 @@ String getId(Map<String, String> parameters) {
   return id;
 }
 
-final courses = new RoutePath(path: 'courses');
+final courses = RoutePath(path: 'courses');
 
 const idCourse = 'id';
-final course = new RoutePath(path: 'course/:$idCourse');
+final course = RoutePath(path: 'course/:$idCourse');

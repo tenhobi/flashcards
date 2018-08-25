@@ -93,15 +93,15 @@ class CustomDrawer extends StatelessWidget {
                   onTap: () {
                     state.authenticationBloc.signOut();
                     Navigator.of(context).pushAndRemoveUntil(
-                          new MaterialPageRoute(
-                            builder: (BuildContext context) => LandingScreen(
-                                  nextScreen: MainScreen(),
-                                  nextNewUserScreen: MainScreen(),
-                                  withoutAnimations: true,
-                                ),
-                          ),
-                          (_) => false,
-                        );
+                      MaterialPageRoute(
+                        builder: (BuildContext context) => LandingScreen(
+                              nextScreen: MainScreen(),
+                              nextNewUserScreen: MainScreen(),
+                              withoutAnimations: true,
+                            ),
+                      ),
+                      (_) => false,
+                    );
                   },
                 ),
               ],
