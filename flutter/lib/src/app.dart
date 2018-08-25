@@ -1,4 +1,5 @@
 import 'package:flashcards_common/i18n.dart';
+import 'package:flashcards_flutter/src/i18n/fallback_localization_delegate.dart';
 import 'package:flashcards_flutter/src/screen/about.dart';
 import 'package:flashcards_flutter/src/screen/search.dart';
 import 'package:flashcards_flutter/src/screen/settings.dart';
@@ -24,6 +25,7 @@ class FlashcardsApp extends StatelessWidget {
         FlashcardsLocalizationDelegate(),
         GlobalWidgetsLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
+        FallbackLocalizationDelegate(),
       ],
       supportedLocales: supportedLocales,
       routes: <String, WidgetBuilder>{
