@@ -10,17 +10,16 @@ dependencies:
   angular_router: '^2.0.0-alpha'
 #  angular_components: ^0.9.0-alpha+8
 #  angular_forms: ^1.0.1-alpha+7
-  markdown: '^1.1.1'
-  meta: '^1.1.2'
-  firebase: '^4.3.0'
+  markdown: '^2.0.2'
+  meta: '^1.1.6'
+  firebase: '^5.0.1'
   flashcards_common:
     path: ../common
 
 dev_dependencies:
-  sass_builder: '^1.1.5'
+  sass_builder: '^2.1.1'
   angular_test: '^2.0.0-alpha'
-  build_runner: '^0.8.2'
+  build_runner: '^0.10.1'
   build_test: '^0.10.1+1'
-  build_web_compilers: '^0.3.6'
-  mockito: '^2.2.3'
-  test: '^0.12.32+1'
+  build_web_compilers: '^0.4.2'
+  test: '^1.3.0'

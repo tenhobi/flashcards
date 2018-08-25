@@ -27,6 +27,7 @@ class MessageLookup extends MessageLookupByLibrary {
   static m3(score) => "skóre: ${score}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
+
   static _notInlinedMessages(_) => <String, Function>{
         "aboutLicensesText":
             MessageLookupByLibrary.simpleMessage("Aplikace je vyvíjena jako open source software: [licence]()"),

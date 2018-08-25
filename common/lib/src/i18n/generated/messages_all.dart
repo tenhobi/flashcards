@@ -6,6 +6,7 @@ import 'dart:async';
 
 import 'package:intl/intl.dart';
 import 'package:intl/message_lookup_by_library.dart';
+
 // ignore: implementation_imports
 import 'package:intl/src/intl_helpers.dart';
 
@@ -13,6 +14,7 @@ import 'messages_cs_CZ.dart' deferred as messages_cs_CZ;
 import 'messages_en_US.dart' deferred as messages_en_US;
 
 typedef Future<dynamic> LibraryLoader();
+
 Map<String, LibraryLoader> _deferredLibraries = {
   'cs_CZ': () => messages_cs_CZ.loadLibrary(),
   'en_US': () => messages_en_US.loadLibrary(),
