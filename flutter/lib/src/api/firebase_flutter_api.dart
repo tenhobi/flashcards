@@ -33,7 +33,7 @@ class FirebaseFlutterApi extends FirebaseApi {
       default:
     }
 
-    courses.snapshots.listen((QuerySnapshot snapshot) {
+    courses.snapshots().listen((QuerySnapshot snapshot) {
       final List<CourseData> dataList = snapshot.documents.map<CourseData>((DocumentSnapshot document) {
         final Map<String, dynamic> documentData = document.data..addAll(<String, dynamic>{'id': document.documentID});
         final CourseData data = CourseData.fromMap(documentData);
@@ -64,7 +64,7 @@ class FirebaseFlutterApi extends FirebaseApi {
         .collection('courses')
         .document(course.id)
         .collection('stars')
-        .snapshots
+        .snapshots()
         .listen((QuerySnapshot snapshot) {
       controller.add(snapshot.documents.map<String>((DocumentSnapshot document) {
         return document.documentID;
@@ -93,7 +93,7 @@ class FirebaseFlutterApi extends FirebaseApi {
         .document(course.id)
         .collection('sections')
         .orderBy('order')
-        .snapshots
+        .snapshots()
         .listen((QuerySnapshot snapshot) {
       controller.add(snapshot.documents.map<SectionData>((DocumentSnapshot document) {
         final Map<String, dynamic> data = document.data;
@@ -118,7 +118,7 @@ class FirebaseFlutterApi extends FirebaseApi {
         .document(section.id)
         .collection('materials')
         .orderBy('order')
-        .snapshots
+        .snapshots()
         .listen((QuerySnapshot snapshot) {
       controller.add(snapshot.documents.map<SubsectionData>((DocumentSnapshot document) {
         final Map<String, dynamic> data = document.data;
@@ -142,7 +142,7 @@ class FirebaseFlutterApi extends FirebaseApi {
         .document(section.id)
         .collection('exercises')
         .orderBy('order')
-        .snapshots
+        .snapshots()
         .listen((QuerySnapshot snapshot) {
       controller.add(snapshot.documents.map<SubsectionData>((DocumentSnapshot document) {
         final Map<String, dynamic> data = document.data;
@@ -168,7 +168,7 @@ class FirebaseFlutterApi extends FirebaseApi {
         .collection('users')
         .where('uid', isEqualTo: uid)
         .limit(1)
-        .snapshots
+        .snapshots()
         .listen((QuerySnapshot snapshot) {
       controller.add(snapshot.documents
           .map<UserData>((DocumentSnapshot document) {
@@ -185,7 +185,7 @@ class FirebaseFlutterApi extends FirebaseApi {
   Stream<List<UserData>> queryUsers() {
     final StreamController<List<UserData>> controller = StreamController.broadcast();
 
-    Firestore.instance.collection('users').snapshots.listen((QuerySnapshot snapshot) {
+    Firestore.instance.collection('users').snapshots().listen((QuerySnapshot snapshot) {
       controller.add(snapshot.documents.map<UserData>((DocumentSnapshot document) {
         return UserData.fromMap(document.data);
       }).toList());
@@ -299,7 +299,7 @@ class FirebaseFlutterApi extends FirebaseApi {
         .collection('courses')
         .document(course.id)
         .collection('comments')
-        .snapshots
+        .snapshots()
         .listen((QuerySnapshot snapshot) {
       controller.add(snapshot.documents.map<CommentData>((DocumentSnapshot document) {
         final Map<String, dynamic> data = document.data;
@@ -333,7 +333,7 @@ class FirebaseFlutterApi extends FirebaseApi {
         .collection('comments')
         .document(comment.id)
         .collection('stars')
-        .snapshots
+        .snapshots()
         .listen((QuerySnapshot snapshot) {
       controller.add(snapshot.documents.map<String>((DocumentSnapshot document) {
         return document.documentID;
@@ -367,7 +367,7 @@ class FirebaseFlutterApi extends FirebaseApi {
         .collection('exercises')
         .document(exercise.id)
         .collection('questions')
-        .snapshots
+        .snapshots()
         .listen((QuerySnapshot snapshot) {
       final List<QuestionData> questions = snapshot.documents.map<QuestionData>((DocumentSnapshot document) {
         final Map<String, dynamic> data = document.data;

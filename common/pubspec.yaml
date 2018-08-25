@@ -3,11 +3,11 @@ version: 0.0.1
 description: Common things of flashcards.
 
 environment:
-  sdk: '>=2.0.0 <3.0.0'
+  sdk: '>=2.0.0-dev.58.0 <3.0.0'
 
 dependencies:
-  meta: '^1.1.6'
-  intl: '^0.15.7'
+  meta: '^1.1.5'
+  intl: '^0.15.6'
   tuple: '^1.0.1'
 
 dev_dependencies:
