@@ -3,7 +3,7 @@ version: 0.0.1
 description: Flutter view of flashcards.
 
 environment:
-  sdk: '>=2.0.0-dev.58.0 <3.0.0'
+  sdk: '>=2.0.0 <3.0.0'
   flutter: '>=0.1.4 <2.0.0'
 
 dependencies:
@@ -11,18 +11,18 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-  intl: '^0.15.5'
+  intl: '^0.15.7'
   cupertino_icons: '^0.1.0'
   flashcards_common:
     path: ../common
-  meta: '^1.1.5'
+  meta: '^1.1.6'
   flutter_markdown: '^0.2.0'
-  url_launcher: '^3.0.0'
-  package_info: '^0.3.0'
+  url_launcher: '^3.0.3'
+  package_info: '^0.3.2'
   cloud_firestore: '^0.7.4'
-  firebase_auth: '^0.5.5'
-  google_sign_in: '^3.0.2'
-  tuple: '^1.0.1'
+  firebase_auth: '^0.5.19'
+  google_sign_in: '^3.0.5'
+  tuple: '^1.0.2'
 
 dev_dependencies:
   flutter_test:

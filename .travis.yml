@@ -1,30 +1,35 @@
 language: dart
 
 dart:
-  - dev
+- dev
 
 script: skip
 
 jobs:
   include:
-    - &test
-      before_script:
-        - cd common
-        - pub get
-      script:
-        - dartanalyzer lib --fatal-warnings
-        - dartfmt --dry-run --set-exit-if-changed --line-length 120 -- .
-    - <<: *test
-      before_script:
-        - cd angular
-        - pub get
-    - before_script:
-        - git clone -b master https://github.com/flutter/flutter.git flutter-source
-        - cd flutter
-        - ../flutter-source/bin/flutter packages get
-        - ../flutter-source/bin/flutter analyze
-#        - dartfmt --dry-run --set-exit-if-changed --line-length 120 -- .
+  # common
+  - before_script:
+    - cd common
+    - pub get
+    script:
+    - dartanalyzer lib --fatal-warnings
+    - dartfmt --dry-run --set-exit-if-changed --line-length 120 -- .
+  # angular
+  - before_script:
+    - cd angular
+    - pub get
+    script:
+    - dartanalyzer lib --fatal-warnings
+    - dartfmt --dry-run --set-exit-if-changed --line-length 120 -- .
+  # flutter
+  - before_script:
+    - git clone -b beta https://github.com/flutter/flutter.git flutter-source
+    - cd flutter
+    script:
+    - ../flutter-source/bin/flutter packages get
+    - ../flutter-source/bin/flutter analyze
+    - dartfmt --dry-run --set-exit-if-changed --line-length 120 -- .
 
 cache:
   directories:
-    - $HOME/.pub-cache
+  - $HOME/.pub-cache
