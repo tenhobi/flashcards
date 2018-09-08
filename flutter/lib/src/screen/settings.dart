@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class SettingsScreen extends StatefulWidget {
-  static const route = '/settings';
+  static const String route = '/settings';
 
   @override
   _SettingsScreenState createState() => _SettingsScreenState();
@@ -33,13 +33,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
             children: <Widget>[
               StreamBuilder<UserData>(
                   stream: state.userBloc.query(state.authenticationBloc.user.uid),
-                  builder: (BuildContext context, AsyncSnapshot<UserData> snapshot) {
+                  builder: (context, snapshot) {
                     if (!snapshot.hasData) return Loading();
 
                     return DropdownButton(
                       value: snapshot.data?.language,
-                      onChanged: (String a) {
-                        final Map<String, dynamic> userMap = snapshot.data.toMap();
+                      onChanged: (a) {
+                        final userMap = snapshot.data.toMap();
                         userMap['language'] = a;
                         state.userBloc.update.add(UserData.fromMap(userMap));
                         setState(() {
@@ -48,7 +48,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       },
                       items: List<DropdownMenuItem<String>>.generate(
                         supportedLocales.length,
-                        (int index) {
+                        (index) {
                           return DropdownMenuItem(
                             value: supportedLocales[index].toString(),
                             child: Text(supportedLocales[index].toString()),

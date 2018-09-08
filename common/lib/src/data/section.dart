@@ -8,7 +8,6 @@ class SectionData extends Data implements Comparable<SectionData> {
   final String name;
   final int order;
 
-  // TODO: enhance constructors
   SectionData({
     @required this.name,
     this.parent,

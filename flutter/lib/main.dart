@@ -14,8 +14,8 @@ import 'package:flashcards_common/i18n.dart';
 import 'package:intl/intl.dart';
 
 void loadLocales() {
-  final List<String> locales = <String>[];
-  for (Locale locale in supportedLocales) {
+  final locales = <String>[];
+  for (var locale in supportedLocales) {
     locales.add(locale.toString());
   }
   initLocales(locales);

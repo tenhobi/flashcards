@@ -5,14 +5,16 @@ import 'package:flutter/material.dart';
 import 'package:flashcards_common/data.dart';
 
 class EditSectionScreen extends StatefulWidget {
-  const EditSectionScreen({@required SectionData this.original});
+  const EditSectionScreen({@required this.original});
+
   final SectionData original;
+
   @override
   _EditSectionScreenState createState() => _EditSectionScreenState();
 }
 
 class _EditSectionScreenState extends State<EditSectionScreen> {
-  final formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   String _name;
   int _order;
@@ -37,7 +39,7 @@ class _EditSectionScreenState extends State<EditSectionScreen> {
 
           if (form.validate()) {
             form.save();
-            final SectionData newData = SectionData(
+            final newData = SectionData(
               name: _name,
               order: _order,
               parent: widget.original.parent,

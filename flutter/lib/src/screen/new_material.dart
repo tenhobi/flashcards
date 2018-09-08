@@ -4,14 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:flashcards_common/data.dart';
 
 class NewMaterialScreen extends StatefulWidget {
-  const NewMaterialScreen({@required SectionData this.parent});
+  const NewMaterialScreen({@required this.parent});
+
   final SectionData parent;
+
   @override
   _NewMaterialScreenState createState() => _NewMaterialScreenState();
 }
 
 class _NewMaterialScreenState extends State<NewMaterialScreen> {
-  final formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   String _name;
 
@@ -26,9 +28,8 @@ class _NewMaterialScreenState extends State<NewMaterialScreen> {
 
           if (form.validate()) {
             form.save();
-            state.sectionListBloc.queryMaterials(section: widget.parent).first.then((List<SubsectionData> materials) {
-              final MaterialData data =
-                  MaterialData(id: '', parent: widget.parent, name: _name, order: materials.length);
+            state.sectionListBloc.queryMaterials(section: widget.parent).first.then((materials) {
+              final data = MaterialData(id: '', parent: widget.parent, name: _name, order: materials.length);
               state.sectionListBloc.createSubsection.add(data);
               Navigator.of(context).pop();
             });

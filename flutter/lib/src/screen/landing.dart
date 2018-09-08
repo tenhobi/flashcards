@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flashcards_common/data.dart';
 import 'package:flashcards_flutter/src/components/button_google.dart';
 import 'package:flashcards_flutter/src/state/container.dart';
@@ -98,14 +97,13 @@ class _LandingScreenState extends State<LandingScreen> with SingleTickerProvider
   Future<Null> signIn({bool silently = false}) async {
     final state = StateContainer.of(context);
 
-    final FirebaseUser user =
-        silently ? await state.authenticationBloc.signInSilently() : await state.authenticationBloc.signIn();
+    final user = silently ? await state.authenticationBloc.signInSilently() : await state.authenticationBloc.signIn();
 
     if (user == null) return;
 
     state.userBloc.createIfAbsent.add(UserData(uid: user.uid, name: user.displayName));
 
-    final UserData userData = await state.userBloc.query(state.authenticationBloc.user.uid).first;
+    final userData = await state.userBloc.query(state.authenticationBloc.user.uid).first;
 
     if (userData.language != null) {
       Intl.defaultLocale = userData.language;
@@ -113,7 +111,7 @@ class _LandingScreenState extends State<LandingScreen> with SingleTickerProvider
 
     Navigator.of(context).pushAndRemoveUntil(
       MaterialPageRoute(
-        builder: (BuildContext bc) => widget.nextScreen,
+        builder: (bc) => widget.nextScreen,
       ),
       (_) => false,
     );

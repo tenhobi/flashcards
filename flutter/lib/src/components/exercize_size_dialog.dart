@@ -7,7 +7,7 @@ class ExerciseSize extends StatefulWidget {
 }
 
 class _ExerciseSizeState extends State<ExerciseSize> {
-  final formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   int _questionCount;
 
   @override
@@ -28,7 +28,7 @@ class _ExerciseSizeState extends State<ExerciseSize> {
               return FlashcardsStrings.cannotBeEmpty();
             }
 
-            final int value = int.parse(val);
+            final value = int.parse(val);
             // magic number - choose how big can the exercise be, 50 seems fair
             if (value > 50 || value == 0) {
               return FlashcardsStrings.wrongInput();

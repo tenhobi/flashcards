@@ -5,7 +5,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:package_info/package_info.dart';
 
 class AboutScreen extends StatefulWidget {
-  static const route = '/about';
+  static const String route = '/about';
 
   @override
   _AboutScreenState createState() => _AboutScreenState();
@@ -36,7 +36,7 @@ class _AboutScreenState extends State<AboutScreen> {
   void initState() {
     super.initState();
 
-    PackageInfo.fromPlatform().then((PackageInfo p) {
+    PackageInfo.fromPlatform().then((p) {
       setState(() {
         _verNumber = (p.version == null) ? _verNumber : p.version;
       });
@@ -58,9 +58,7 @@ class _AboutScreenState extends State<AboutScreen> {
           MarkdownBody(
             data: FlashcardsStrings.aboutText(_verNumber),
             styleSheet: _buildMarkdownStyle(),
-            onTapLink: (link) {
-              launch(link);
-            },
+            onTapLink: launch,
           ),
           // Place holder to create indentation
           Text('', style: TextStyle(fontSize: 30.0)),

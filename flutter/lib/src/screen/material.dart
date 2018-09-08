@@ -40,9 +40,7 @@ class MaterialScreen extends StatelessWidget {
           MarkdownBody(
             data: data.content,
             styleSheet: _buildMarkdownStyle(),
-            onTapLink: (link) {
-              launch(link);
-            },
+            onTapLink: launch,
           ),
         ],
       ),

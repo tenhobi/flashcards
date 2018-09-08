@@ -39,7 +39,7 @@ class CourseListItem extends StatelessWidget {
               alignment: Alignment.center,
               child: StreamBuilder<List<String>>(
                 stream: state.courseListBloc.queryStars(course: data),
-                builder: (BuildContext context, AsyncSnapshot<List<String>> snapshot) {
+                builder: (context, snapshot) {
                   if (!snapshot.hasData) return Loading();
 
                   return Row(

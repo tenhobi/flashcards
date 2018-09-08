@@ -4,14 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:flashcards_common/data.dart';
 
 class EditSubsectionScreen extends StatefulWidget {
-  const EditSubsectionScreen({@required SubsectionData this.original});
+  const EditSubsectionScreen({@required this.original});
+
   final SubsectionData original;
+
   @override
   _EditSubsectionScreenState createState() => _EditSubsectionScreenState();
 }
 
 class _EditSubsectionScreenState extends State<EditSubsectionScreen> {
-  final formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   String _name;
   int _order;

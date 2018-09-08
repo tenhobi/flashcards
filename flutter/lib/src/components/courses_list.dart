@@ -22,7 +22,7 @@ class _CoursesListState extends State<CoursesList> with SingleTickerProviderStat
   void openCourse(CourseData course) {
     Navigator.of(context).push<MaterialPageRoute>(
       MaterialPageRoute(
-        builder: (BuildContext bc) => CourseScreen(course: course),
+        builder: (bc) => CourseScreen(course: course),
       ),
     );
   }
@@ -37,13 +37,13 @@ class _CoursesListState extends State<CoursesList> with SingleTickerProviderStat
         authorUid: state.authenticationBloc.user.uid,
         name: widget.name,
       ),
-      builder: (BuildContext context, AsyncSnapshot<List<CourseData>> snapshot) {
+      builder: (context, snapshot) {
         if (!snapshot.hasData) return Loading();
 
         return GridView.extent(
           shrinkWrap: true,
           maxCrossAxisExtent: 200.0,
-          children: snapshot.data.map((CourseData document) {
+          children: snapshot.data.map((document) {
             return GestureDetector(
               onTap: () => openCourse(document),
               child: Padding(

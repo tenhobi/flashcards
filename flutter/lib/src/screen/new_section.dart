@@ -5,14 +5,16 @@ import 'package:flutter/material.dart';
 import 'package:flashcards_common/data.dart';
 
 class NewSectionScreen extends StatefulWidget {
-  const NewSectionScreen({@required CourseData this.parent});
+  const NewSectionScreen({@required this.parent});
+
   final CourseData parent;
+
   @override
   _NewSectionScreenState createState() => _NewSectionScreenState();
 }
 
 class _NewSectionScreenState extends State<NewSectionScreen> {
-  final formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   String _name;
 
@@ -27,7 +29,7 @@ class _NewSectionScreenState extends State<NewSectionScreen> {
 
           if (form.validate()) {
             form.save();
-            state.sectionListBloc.query(course: widget.parent).first.then((List<SectionData> sections) {
+            state.sectionListBloc.query(course: widget.parent).first.then((sections) {
               state.sectionListBloc.create.add(SectionData(
                 name: _name,
                 parent: widget.parent,

@@ -1,67 +1,98 @@
 analyzer:
-  language:
-    enableSuperMixins: true
+  exclude: [build/**]
   errors:
-    # treat missing required parameters as a warning (not a hint)
-    missing_required_param: warning
-    # treat missing returns as a warning (not a hint)
-    missing_return: warning
-    # allow having TODOs in the code
-    todo: ignore
+    uri_has_not_been_generated: ignore
 
 # Lint rules and documentation, see http://dart-lang.github.io/linter/lints
 linter:
   rules:
-#  ERROR
-    - avoid_empty_else
-    - avoid_relative_lib_imports
-    - avoid_types_as_parameter_names
-    - cancel_subscriptions
-#    - close_sinks
-#    - comment_references
-    - empty_statements
-    - hash_and_equals
-    - invariant_booleans
-    - iterable_contains_unrelated_type
-    - list_remove_unrelated_type
-    - literal_only_boolean_expressions
-    - no_adjacent_strings_in_list
-    - no_duplicate_case_values
-    - test_types_in_equals
-    - unrelated_type_equality_checks
-    - valid_regexps
-# STYLE
-    - always_declare_return_types
-    - always_put_required_named_parameters_first
-#    - always_specify_types
-    - annotate_overrides
-    - avoid_positional_boolean_parameters
-    - avoid_returning_this
-    - avoid_unused_constructor_parameters
-    - await_only_futures
-    - camel_case_types
-    - cascade_invocations
-    - constant_identifier_names
-    - implementation_imports
-    - library_names
-    - library_prefixes
-    - non_constant_identifier_names
-#    - omit_local_variable_types
-    - prefer_collection_literals
-    - prefer_conditional_assignment
-#    - prefer_const_constructors
-    - prefer_const_constructors_in_immutables
-    - prefer_final_fields
-    - prefer_final_locals
-    - prefer_is_empty
-    - prefer_is_not_empty
-    - prefer_single_quotes
-    - slash_for_doc_comments
-    - sort_constructors_first
-    - sort_unnamed_constructors_first
-    - unnecessary_null_aware_assignments
-    - unnecessary_null_in_if_null_operators
-    - unnecessary_parenthesis
-    - unnecessary_this
-    - use_to_and_as_if_applicable
-#    - void_checks
+  - cancel_subscriptions
+  - iterable_contains_unrelated_type
+  - list_remove_unrelated_type
+  - test_types_in_equals
+  - unrelated_type_equality_checks
+  - valid_regexps
+
+  # --- STYLE
+  # identifiers
+  - camel_case_types
+  - library_names
+  - file_names
+  - library_prefixes
+  - non_constant_identifier_names
+  - constant_identifier_names # prefer
+  # ordering
+  - directives_ordering
+  # formating
+  #- lines_longer_than_80_chars # avoid
+  - curly_braces_in_flow_control_structures
+  # --- DOCUMENTATION
+  # comments
+  # doc comments
+  - slash_for_doc_comments
+  #- package_api_docs # prefer TODO
+  - comment_references
+  # markdown
+  # writing
+  # --- USAGE
+  # libraries
+  - implementation_imports
+  - avoid_relative_lib_imports
+  # strings
+  - prefer_adjacent_string_concatenation
+  - prefer_interpolation_to_compose_strings # prefer
+  - unnecessary_brace_in_string_interps # avoid
+  # collections
+  - prefer_collection_literals
+  - avoid_function_literals_in_foreach_calls # avoid
+  - prefer_iterable_whereType
+  # functions
+  - prefer_function_declarations_over_variables
+  - unnecessary_lambdas
+  # parameters
+  - prefer_equal_for_default_values
+  # variables
+  - avoid_init_to_null
+  # members
+  - unnecessary_getters_setters
+  - prefer_final_fields
+  #- prefer_expression_function_bodies # consider
+  - unnecessary_this
+  - prefer_typing_uninitialized_variables
+  # constructors
+  - prefer_initializing_formals
+  - type_init_formals
+  - empty_constructor_bodies
+  - unnecessary_new
+  - unnecessary_const
+  # error handling
+  - avoid_catches_without_on_clauses # avoid
+  - use_rethrow_when_possible
+  # asynchrony
+  # --- DESIGN
+  # names
+  - use_to_and_as_if_applicable
+  # libraries
+  # classes
+  - one_member_abstracts # avoid
+  - avoid_classes_with_only_static_members # avoid
+  #- public_member_api_docs TODO
+  # constructors
+  - prefer_constructors_over_static_methods
+  # members
+  - use_setters_to_change_properties
+  - avoid_setters_without_getters
+  - avoid_returning_null # avoid
+  - avoid_returning_this # avoid
+  # types
+  - type_annotate_public_apis # prefer
+  - omit_local_variable_types # avoid
+  - avoid_types_on_closure_parameters # avoid
+  - avoid_return_types_on_setters
+  - prefer_generic_function_type_aliases
+  - avoid_private_typedef_functions # prefer
+  # parameters
+  - avoid_positional_boolean_parameters # avoid
+  # equality
+  - hash_and_equals
+  - avoid_null_checks_in_equality_operators

@@ -10,7 +10,7 @@ class NewCourseScreen extends StatefulWidget {
 }
 
 class _NewCourseScreenState extends State<NewCourseScreen> {
-  final formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   String _name;
   String _description;

@@ -2,7 +2,6 @@ import 'package:angular/angular.dart';
 import 'package:angular_router/angular_router.dart';
 
 import 'package:firebase/firebase.dart' as fb;
-import 'package:firebase/firestore.dart';
 import 'package:flashcards_common/data.dart';
 
 import 'route_paths.dart' as paths;
@@ -14,7 +13,7 @@ import 'route_paths.dart' as paths;
   <div class="courses">
     <a class="course" *ngFor="let course of courses" >
       <div class="course__name" [routerLink]="courseUrl(course.id)">{{course?.name}}</div>
-      <div class="course__stars">{{course?.stars}}</div>
+      <!--<div class="course__stars">{{course?.stars}}</div>-->
     </a>
   </div>
   
@@ -74,11 +73,11 @@ class CoursesComponent implements AfterViewInit {
   @override
   void ngAfterViewInit() {
     fb.firestore().collection('courses').onSnapshot.listen((querySnapshot) {
-      querySnapshot.docs.forEach((DocumentSnapshot snapshot) {
-        Map<String, dynamic> courseData = snapshot.data();
+      for (var snapshot in querySnapshot.docs) {
+        var courseData = snapshot.data();
         courseData.addAll({'id': snapshot.id});
         courses.add(CourseData.fromMap(courseData));
-      });
+      }
     });
   }
 }

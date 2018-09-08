@@ -8,7 +8,7 @@ import 'package:flashcards_flutter/src/screen/new_course.dart';
 import 'package:flashcards_common/bloc.dart';
 
 class MainScreen extends StatelessWidget {
-  static const route = '/home';
+  static const String route = '/home';
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,7 @@ class MainScreen extends StatelessWidget {
           onPressed: () {
             Navigator.of(context).push(
               MaterialPageRoute(
-                builder: (BuildContext context) => NewCourseScreen(),
+                builder: (context) => NewCourseScreen(),
               ),
             );
           },

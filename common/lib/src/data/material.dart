@@ -13,9 +13,17 @@ class MaterialData extends SubsectionData {
     this.content,
   }) : super(id: id, parent: parent, name: name, order: order);
 
-//  @override
-  static MaterialData fromMap({@required Map<String, dynamic> data, @required SectionData parent}) =>
-      MaterialData(id: data['id'], parent: parent, name: data['name'], order: data['order'], content: data['content']);
+  factory MaterialData.fromMap({
+    @required Map<String, dynamic> data,
+    @required SectionData parent,
+  }) =>
+      MaterialData(
+        id: data['id'],
+        parent: parent,
+        name: data['name'],
+        order: data['order'],
+        content: data['content'],
+      );
 
   @override
   Map<String, dynamic> toMap() {

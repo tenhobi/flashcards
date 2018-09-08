@@ -42,7 +42,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          widget.exercise.parent.name + ' - ' + widget.exercise.name,
+          '${widget.exercise.parent.name} - ${widget.exercise.name}',
         ),
       ),
       body: Column(
@@ -64,14 +64,14 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
 
   Widget _buildFlipcardsPlayWidget(Stream<List<QuestionData>> stream) {
     stream.take(1).listen(
-      (List<QuestionData> questions) {
-        final List<Widget> widgets = [];
-        questions.forEach((question) {
+      (questions) {
+        final widgets = <Widget>[];
+        for (var question in questions) {
           widgets.add(FlipcardItem(
             data: question,
             key: UniqueKey(),
           ));
-        });
+        }
 
         _playWidget = FlipcardPlayWidget(widgets: widgets);
       },
