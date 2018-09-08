@@ -9,12 +9,19 @@ class FlipcardQuestionData extends QuestionData {
     @required String id,
     @required SubsectionData parent,
     @required String question,
-    @required String this.answer,
+    @required this.answer,
   }) : super(id: id, parent: parent, question: question);
 
-//  @override
-  static FlipcardQuestionData fromMap({@required Map<String, dynamic> data, @required SubsectionData parent}) =>
-      FlipcardQuestionData(id: data['id'], parent: parent, question: data['question'], answer: data['answer']);
+  factory FlipcardQuestionData.fromMap({
+    @required Map<String, dynamic> data,
+    @required SubsectionData parent,
+  }) =>
+      FlipcardQuestionData(
+        id: data['id'],
+        parent: parent,
+        question: data['question'],
+        answer: data['answer'],
+      );
 
   @override
   Map<String, dynamic> toMap() {

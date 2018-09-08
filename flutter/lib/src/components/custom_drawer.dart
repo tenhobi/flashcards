@@ -37,7 +37,7 @@ class CustomDrawer extends StatelessWidget {
             decoration: BoxDecoration(color: Theme.of(context).primaryColor),
             child: StreamBuilder<UserData>(
               stream: state.userBloc.query(state.authenticationBloc.user.uid),
-              builder: (BuildContext context, AsyncSnapshot<UserData> snapshot) {
+              builder: (context, snapshot) {
                 if (!snapshot.hasData) return Loading();
 
                 return Text(
@@ -94,7 +94,7 @@ class CustomDrawer extends StatelessWidget {
                     state.authenticationBloc.signOut();
                     Navigator.of(context).pushAndRemoveUntil(
                       MaterialPageRoute(
-                        builder: (BuildContext context) => LandingScreen(
+                        builder: (context) => LandingScreen(
                               nextScreen: MainScreen(),
                               nextNewUserScreen: MainScreen(),
                               withoutAnimations: true,

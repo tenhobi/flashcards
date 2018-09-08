@@ -19,10 +19,8 @@ import 'route_paths.dart' as paths;
       <p>----</p>
       <p [innerHtml]="markdown(course?.description)"></p>
       <p>----</p>
-      <h3>Stars: {{course?.stars}}</h3>
+      <!--<h3>Stars: {{course?.stars}}</h3>-->
     </div>
-    
-  
   ''',
   styles: [
     '''
@@ -46,7 +44,7 @@ import 'route_paths.dart' as paths;
     height: 200px;
     display: grid;
     grid-template-rows: 1fr 20px;
-    background: #006AFF;
+    background: #006aff;
     border-radius: 15px;
     overflow: hidden;
     color: #fff;
@@ -86,7 +84,7 @@ class CourseComponent implements OnActivate {
     final id = paths.getId(current.parameters);
 
     fb.firestore().collection('courses').doc(id).onSnapshot.listen((querySnapshot) {
-      Map<String, dynamic> courseData = querySnapshot.data();
+      var courseData = querySnapshot.data();
       courseData.addAll({'id': querySnapshot.id});
       course = CourseData.fromMap(courseData);
     });

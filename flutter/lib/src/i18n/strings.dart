@@ -18,7 +18,7 @@ class FlutterFlashcardsStrings {
   String getLocale() => _localeName;
 
   static Future<FlutterFlashcardsStrings> load(Locale locale) {
-    return initializeMessages(locale.toString()).then((Object _) {
+    return initializeMessages(locale.toString()).then((_) {
       return FlutterFlashcardsStrings(locale);
     });
   }

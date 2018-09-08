@@ -9,13 +9,21 @@ class ExerciseData extends SubsectionData {
     @required String id,
     @required SectionData parent,
     @required String name,
-    @required String this.type,
+    @required this.type,
     int order = 0,
   }) : super(id: id, parent: parent, name: name, order: order);
 
-//  @override
-  static ExerciseData fromMap({@required Map<String, dynamic> data, @required SectionData parent}) =>
-      ExerciseData(id: data['id'], parent: parent, name: data['name'], type: data['type'], order: data['order']);
+  factory ExerciseData.fromMap({
+    @required Map<String, dynamic> data,
+    @required SectionData parent,
+  }) =>
+      ExerciseData(
+        id: data['id'],
+        parent: parent,
+        name: data['name'],
+        type: data['type'],
+        order: data['order'],
+      );
 
   @override
   Map<String, dynamic> toMap() {

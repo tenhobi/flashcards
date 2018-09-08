@@ -4,7 +4,7 @@ import 'package:flashcards_flutter/src/components/custom_drawer.dart';
 import 'package:flutter/material.dart';
 
 class SearchScreen extends StatefulWidget {
-  static const route = '/search';
+  static const String route = '/search';
 
   @override
   _SearchScreenState createState() => _SearchScreenState();

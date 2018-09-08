@@ -2,9 +2,9 @@
 import 'package:angular/angular.dart';
 import 'package:angular_router/angular_router.dart';
 
-import 'route_paths.dart' as paths;
-import 'courses_component.template.dart' as ccs;
 import 'course_component.template.dart' as cc;
+import 'courses_component.template.dart' as ccs;
+import 'route_paths.dart' as paths;
 
 @Injectable()
 class Routes {

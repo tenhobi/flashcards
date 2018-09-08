@@ -57,7 +57,7 @@ class _FlipcardPlayWidgetState extends State<FlipcardPlayWidget> {
             ),
             Expanded(
               child: Text(
-                shownMax.toString() + '/' + totalCount.toString(),
+                '$shownMax/$totalCount',
                 textAlign: TextAlign.center,
               ),
             ),

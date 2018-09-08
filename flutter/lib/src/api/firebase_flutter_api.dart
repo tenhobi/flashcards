@@ -20,7 +20,7 @@ class FirebaseFlutterApi extends FirebaseApi {
     CoursesQueryType type = CoursesQueryType.all,
     String name,
   }) {
-    final StreamController<List<CourseData>> controller = StreamController.broadcast();
+    final controller = StreamController<List<CourseData>>.broadcast();
 
     Query courses = Firestore.instance.collection('courses');
 
@@ -33,10 +33,10 @@ class FirebaseFlutterApi extends FirebaseApi {
       default:
     }
 
-    courses.snapshots().listen((QuerySnapshot snapshot) {
-      final List<CourseData> dataList = snapshot.documents.map<CourseData>((DocumentSnapshot document) {
-        final Map<String, dynamic> documentData = document.data..addAll(<String, dynamic>{'id': document.documentID});
-        final CourseData data = CourseData.fromMap(documentData);
+    courses.snapshots().listen((snapshot) {
+      final dataList = snapshot.documents.map<CourseData>((document) {
+        final documentData = document.data..addAll(<String, dynamic>{'id': document.documentID});
+        final data = CourseData.fromMap(documentData);
 
         if (name == null) {
           return data;
@@ -48,7 +48,7 @@ class FirebaseFlutterApi extends FirebaseApi {
 
         return null;
       }).toList()
-        ..removeWhere((CourseData data) => data == null);
+        ..removeWhere((data) => data == null);
 
       controller.add(dataList);
     });
@@ -58,15 +58,10 @@ class FirebaseFlutterApi extends FirebaseApi {
 
   @override
   Stream<List<String>> queryStars({@required CourseData course}) {
-    final StreamController<List<String>> controller = StreamController.broadcast();
+    final controller = StreamController<List<String>>.broadcast();
 
-    Firestore.instance
-        .collection('courses')
-        .document(course.id)
-        .collection('stars')
-        .snapshots()
-        .listen((QuerySnapshot snapshot) {
-      controller.add(snapshot.documents.map<String>((DocumentSnapshot document) {
+    Firestore.instance.collection('courses').document(course.id).collection('stars').snapshots().listen((snapshot) {
+      controller.add(snapshot.documents.map<String>((document) {
         return document.documentID;
       }).toList());
     });
@@ -86,7 +81,7 @@ class FirebaseFlutterApi extends FirebaseApi {
 
   @override
   Stream<List<SectionData>> querySections({@required CourseData course}) {
-    final StreamController<List<SectionData>> controller = StreamController.broadcast();
+    final controller = StreamController<List<SectionData>>.broadcast();
 
     Firestore.instance
         .collection('courses')
@@ -94,11 +89,11 @@ class FirebaseFlutterApi extends FirebaseApi {
         .collection('sections')
         .orderBy('order')
         .snapshots()
-        .listen((QuerySnapshot snapshot) {
-      controller.add(snapshot.documents.map<SectionData>((DocumentSnapshot document) {
-        final Map<String, dynamic> data = document.data;
+        .listen((snapshot) {
+      controller.add(snapshot.documents.map<SectionData>((document) {
+        final data = document.data;
         data['id'] = document.documentID;
-        final SectionData res = SectionData.fromMap(data, parent: course);
+        final res = SectionData.fromMap(data, parent: course);
 
         return res;
       }).toList());
@@ -109,7 +104,7 @@ class FirebaseFlutterApi extends FirebaseApi {
 
   @override
   Stream<List<SubsectionData>> queryMaterials({@required SectionData section}) {
-    final StreamController<List<SubsectionData>> controller = StreamController.broadcast();
+    final controller = StreamController<List<SubsectionData>>.broadcast();
 
     Firestore.instance
         .collection('courses')
@@ -119,11 +114,11 @@ class FirebaseFlutterApi extends FirebaseApi {
         .collection('materials')
         .orderBy('order')
         .snapshots()
-        .listen((QuerySnapshot snapshot) {
-      controller.add(snapshot.documents.map<SubsectionData>((DocumentSnapshot document) {
-        final Map<String, dynamic> data = document.data;
+        .listen((snapshot) {
+      controller.add(snapshot.documents.map<SubsectionData>((document) {
+        final data = document.data;
         data['id'] = document.documentID;
-        final MaterialData res = MaterialData.fromMap(data: data, parent: section);
+        final res = MaterialData.fromMap(data: data, parent: section);
         return res;
       }).toList());
     });
@@ -133,7 +128,7 @@ class FirebaseFlutterApi extends FirebaseApi {
 
   @override
   Stream<List<SubsectionData>> queryExercises({@required SectionData section}) {
-    final StreamController<List<SubsectionData>> controller = StreamController.broadcast();
+    final controller = StreamController<List<SubsectionData>>.broadcast();
 
     Firestore.instance
         .collection('courses')
@@ -143,11 +138,11 @@ class FirebaseFlutterApi extends FirebaseApi {
         .collection('exercises')
         .orderBy('order')
         .snapshots()
-        .listen((QuerySnapshot snapshot) {
-      controller.add(snapshot.documents.map<SubsectionData>((DocumentSnapshot document) {
-        final Map<String, dynamic> data = document.data;
+        .listen((snapshot) {
+      controller.add(snapshot.documents.map<SubsectionData>((document) {
+        final data = document.data;
         data['id'] = document.documentID;
-        final ExerciseData res = ExerciseData.fromMap(data: data, parent: section);
+        final res = ExerciseData.fromMap(data: data, parent: section);
         return res;
       }).toList());
     });
@@ -162,16 +157,11 @@ class FirebaseFlutterApi extends FirebaseApi {
 
   @override
   Stream<UserData> queryUser(String uid) {
-    final StreamController<UserData> controller = StreamController.broadcast();
+    final controller = StreamController<UserData>.broadcast();
 
-    Firestore.instance
-        .collection('users')
-        .where('uid', isEqualTo: uid)
-        .limit(1)
-        .snapshots()
-        .listen((QuerySnapshot snapshot) {
+    Firestore.instance.collection('users').where('uid', isEqualTo: uid).limit(1).snapshots().listen((snapshot) {
       controller.add(snapshot.documents
-          .map<UserData>((DocumentSnapshot document) {
+          .map<UserData>((document) {
             return UserData.fromMap(document.data);
           })
           .toList()
@@ -183,10 +173,10 @@ class FirebaseFlutterApi extends FirebaseApi {
 
   @override
   Stream<List<UserData>> queryUsers() {
-    final StreamController<List<UserData>> controller = StreamController.broadcast();
+    final controller = StreamController<List<UserData>>.broadcast();
 
-    Firestore.instance.collection('users').snapshots().listen((QuerySnapshot snapshot) {
-      controller.add(snapshot.documents.map<UserData>((DocumentSnapshot document) {
+    Firestore.instance.collection('users').snapshots().listen((snapshot) {
+      controller.add(snapshot.documents.map<UserData>((document) {
         return UserData.fromMap(document.data);
       }).toList());
     });
@@ -196,15 +186,13 @@ class FirebaseFlutterApi extends FirebaseApi {
 
   @override
   Future<Null> updateUser(UserData user) async {
-    final QuerySnapshot a =
-        await Firestore.instance.collection('users').where('uid', isEqualTo: user.uid).limit(1).getDocuments();
+    final a = await Firestore.instance.collection('users').where('uid', isEqualTo: user.uid).limit(1).getDocuments();
     a.documents.first.reference.updateData(user.toMap());
   }
 
   @override
   Future<Null> createIfAbsent(UserData user) async {
-    final QuerySnapshot a =
-        await Firestore.instance.collection('users').where('uid', isEqualTo: user.uid).limit(1).getDocuments();
+    final a = await Firestore.instance.collection('users').where('uid', isEqualTo: user.uid).limit(1).getDocuments();
 
     if (a.documents.isEmpty) {
       Firestore.instance.collection('users').add(user.toMap());
@@ -249,7 +237,7 @@ class FirebaseFlutterApi extends FirebaseApi {
 
   @override
   void addSubsection(SubsectionData subsection) {
-    final String type = SubsectionData.getTypeToString(subsection);
+    final type = SubsectionData.getTypeToString(subsection);
     print(subsection.toMap());
     Firestore.instance
         .collection('courses')
@@ -262,7 +250,7 @@ class FirebaseFlutterApi extends FirebaseApi {
 
   @override
   void removeSubsection(SubsectionData subsection) {
-    final String type = SubsectionData.getTypeToString(subsection);
+    final type = SubsectionData.getTypeToString(subsection);
     Firestore.instance
         .collection('courses')
         .document(subsection.parent.parent.id)
@@ -275,7 +263,7 @@ class FirebaseFlutterApi extends FirebaseApi {
 
   @override
   void editSubsection(SubsectionData subsection) {
-    final String type = SubsectionData.getTypeToString(subsection);
+    final type = SubsectionData.getTypeToString(subsection);
     Firestore.instance
         .collection('courses')
         .document(subsection.parent.parent.id)
@@ -293,16 +281,11 @@ class FirebaseFlutterApi extends FirebaseApi {
 
   @override
   Stream<List<CommentData>> queryComments(CourseData course) {
-    final StreamController<List<CommentData>> controller = StreamController.broadcast();
+    final controller = StreamController<List<CommentData>>.broadcast();
 
-    Firestore.instance
-        .collection('courses')
-        .document(course.id)
-        .collection('comments')
-        .snapshots()
-        .listen((QuerySnapshot snapshot) {
-      controller.add(snapshot.documents.map<CommentData>((DocumentSnapshot document) {
-        final Map<String, dynamic> data = document.data;
+    Firestore.instance.collection('courses').document(course.id).collection('comments').snapshots().listen((snapshot) {
+      controller.add(snapshot.documents.map<CommentData>((document) {
+        final data = document.data;
         data['id'] = document.documentID;
         return CommentData.fromMap(data);
       }).toList());
@@ -325,7 +308,7 @@ class FirebaseFlutterApi extends FirebaseApi {
 
   @override
   Stream<List<String>> queryCommentsStars({CourseData course, CommentData comment}) {
-    final StreamController<List<String>> controller = StreamController.broadcast();
+    final controller = StreamController<List<String>>.broadcast();
 
     Firestore.instance
         .collection('courses')
@@ -334,8 +317,8 @@ class FirebaseFlutterApi extends FirebaseApi {
         .document(comment.id)
         .collection('stars')
         .snapshots()
-        .listen((QuerySnapshot snapshot) {
-      controller.add(snapshot.documents.map<String>((DocumentSnapshot document) {
+        .listen((snapshot) {
+      controller.add(snapshot.documents.map<String>((document) {
         return document.documentID;
       }).toList());
     });
@@ -357,7 +340,7 @@ class FirebaseFlutterApi extends FirebaseApi {
 
   @override
   Stream<List<QuestionData>> queryQuestions({ExerciseData exercise, int size}) {
-    final StreamController<List<QuestionData>> controller = StreamController.broadcast();
+    final controller = StreamController<List<QuestionData>>.broadcast();
 
     Firestore.instance
         .collection('courses')
@@ -368,9 +351,9 @@ class FirebaseFlutterApi extends FirebaseApi {
         .document(exercise.id)
         .collection('questions')
         .snapshots()
-        .listen((QuerySnapshot snapshot) {
-      final List<QuestionData> questions = snapshot.documents.map<QuestionData>((DocumentSnapshot document) {
-        final Map<String, dynamic> data = document.data;
+        .listen((snapshot) {
+      final questions = snapshot.documents.map<QuestionData>((document) {
+        final data = document.data;
         data['id'] = document.documentID;
         switch (exercise.type) {
           case 'flipcards':

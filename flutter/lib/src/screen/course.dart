@@ -20,11 +20,10 @@ class CourseScreen extends StatefulWidget {
 
 class _CourseScreenState extends State<CourseScreen> with SingleTickerProviderStateMixin {
   TabController tabController;
-  var fabIndex;
+  int fabIndex;
 
   void redirectNewSection(BuildContext context) {
-    Navigator.of(context)
-        .push(MaterialPageRoute(builder: (BuildContext context) => NewSectionScreen(parent: widget.course)));
+    Navigator.of(context).push(MaterialPageRoute(builder: (context) => NewSectionScreen(parent: widget.course)));
   }
 
   FloatingActionButton _buildAddSection(BuildContext context) {
@@ -74,7 +73,7 @@ class _CourseScreenState extends State<CourseScreen> with SingleTickerProviderSt
 
   @override
   Widget build(BuildContext context) {
-    final List<FloatingActionButton> fabs = [
+    final fabs = <FloatingActionButton>[
       _buildAddSection(context),
       _buildEditSectionDescription(context),
       null,
@@ -120,7 +119,7 @@ class _CourseScreenState extends State<CourseScreen> with SingleTickerProviderSt
     return StreamBuilder<List<String>>(
       initialData: [],
       stream: state.courseListBloc.queryStars(course: widget.course),
-      builder: (BuildContext context, AsyncSnapshot<List<String>> snapshot) {
+      builder: (context, snapshot) {
         return IconButton(
           onPressed: () {
             snapshot.data.contains(state.authenticationBloc.user.uid)
@@ -149,9 +148,9 @@ class _CourseScreenState extends State<CourseScreen> with SingleTickerProviderSt
 
     return IconButton(
       onPressed: () async {
-        final bool permission = await showDialog(
+        final permission = await showDialog(
           context: context,
-          builder: (BuildContext context) {
+          builder: (context) {
             return AlertDialog(
               content: Text(FlashcardsStrings.removeCourseDialog()),
               actions: <Widget>[

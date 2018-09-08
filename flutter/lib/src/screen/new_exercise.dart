@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flashcards_common/data.dart';
 
 class NewExerciseScreen extends StatefulWidget {
-  const NewExerciseScreen({@required SectionData this.parent});
+  const NewExerciseScreen({@required this.parent});
 
   final SectionData parent;
 
@@ -13,7 +13,7 @@ class NewExerciseScreen extends StatefulWidget {
 }
 
 class _NewExerciseScreenState extends State<NewExerciseScreen> {
-  final formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   String _name;
 
@@ -28,8 +28,8 @@ class _NewExerciseScreenState extends State<NewExerciseScreen> {
 
           if (form.validate()) {
             form.save();
-            state.sectionListBloc.queryExercises(section: widget.parent).first.then((List<SubsectionData> exercises) {
-              final ExerciseData data =
+            state.sectionListBloc.queryExercises(section: widget.parent).first.then((exercises) {
+              final data =
                   ExerciseData(id: '', parent: widget.parent, name: _name, type: 'flipcards', order: exercises.length);
               state.sectionListBloc.createSubsection.add(data);
               Navigator.of(context).pop();

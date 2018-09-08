@@ -15,7 +15,7 @@ class Comments extends StatefulWidget {
 }
 
 class _CommentsState extends State<Comments> {
-  final formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   final ScrollController _scrollController = ScrollController();
 
@@ -86,15 +86,15 @@ class _CommentsState extends State<Comments> {
 
     return StreamBuilder<List<CommentData>>(
       stream: state.courseListBloc.queryComments(course: widget.course),
-      builder: (BuildContext context, AsyncSnapshot<List<CommentData>> snapshot) {
+      builder: (context, snapshot) {
         if (!snapshot.hasData) {
           return Loading();
         }
 
         return ListView.builder(
           itemCount: snapshot.data.length,
-          itemBuilder: (BuildContext context, int index) {
-            final CommentData comment = snapshot.data.reversed.elementAt(index);
+          itemBuilder: (context, index) {
+            final comment = snapshot.data.reversed.elementAt(index);
 
             return Card(
               margin: EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
@@ -108,7 +108,7 @@ class _CommentsState extends State<Comments> {
                         children: <Widget>[
                           StreamBuilder<UserData>(
                             stream: state.userBloc.query(comment.authorUid),
-                            builder: (BuildContext context, AsyncSnapshot<UserData> snapshot) {
+                            builder: (context, snapshot) {
                               if (!snapshot.hasData) return Loading();
 
                               return Text(
@@ -126,7 +126,7 @@ class _CommentsState extends State<Comments> {
                     Container(
                       child: StreamBuilder<List<String>>(
                         stream: state.courseListBloc.queryCommentsStars(course: widget.course, comment: comment),
-                        builder: (BuildContext context, AsyncSnapshot<List<String>> snapshot) {
+                        builder: (context, snapshot) {
                           if (!snapshot.hasData) return Loading();
 
                           return Row(

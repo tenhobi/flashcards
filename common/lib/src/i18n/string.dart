@@ -256,7 +256,7 @@ The project started as a part of a software team project at the [Faculty of Info
     );
   }
 
-  static cannotBeEmpty() {
+  static String cannotBeEmpty() {
     return Intl.message(
       '_cannot be empty',
       name: 'cannotBeEmpty',
@@ -264,7 +264,7 @@ The project started as a part of a software team project at the [Faculty of Info
     );
   }
 
-  static newSection() {
+  static String newSection() {
     return Intl.message(
       '_new section',
       name: 'newSection',
@@ -272,7 +272,7 @@ The project started as a part of a software team project at the [Faculty of Info
     );
   }
 
-  static newSectionName() {
+  static String newSectionName() {
     return Intl.message(
       '_name',
       name: 'newSectionName',
@@ -378,7 +378,7 @@ The project started as a part of a software team project at the [Faculty of Info
     );
   }
 
-  static newSubsectionName() {
+  static String newSubsectionName() {
     return Intl.message(
       '_newSubsectionName',
       name: 'newSubsectionName',
@@ -410,7 +410,7 @@ The project started as a part of a software team project at the [Faculty of Info
     );
   }
 
-  static typeOfExercise() {
+  static String typeOfExercise() {
     return Intl.message(
       '_type of exercise',
       name: 'typeOfExercise',
@@ -418,7 +418,7 @@ The project started as a part of a software team project at the [Faculty of Info
     );
   }
 
-  static flipcards() {
+  static String flipcards() {
     return Intl.message(
       '_flipcards',
       name: 'flipcards',
@@ -426,7 +426,7 @@ The project started as a part of a software team project at the [Faculty of Info
     );
   }
 
-  static multipleChoice() {
+  static String multipleChoice() {
     return Intl.message(
       '_multiple choice',
       name: 'multipleChoice',
@@ -434,7 +434,7 @@ The project started as a part of a software team project at the [Faculty of Info
     );
   }
 
-  static numberOfQuestions() {
+  static String numberOfQuestions() {
     return Intl.message(
       '_number of questions',
       name: 'numberOfQuestions',
@@ -442,7 +442,7 @@ The project started as a part of a software team project at the [Faculty of Info
     );
   }
 
-  static wrongInput() {
+  static String wrongInput() {
     return Intl.message(
       '_wrong input',
       name: 'wrongInput',
@@ -450,7 +450,7 @@ The project started as a part of a software team project at the [Faculty of Info
     );
   }
 
-  static cancel() {
+  static String cancel() {
     return Intl.message(
       '_cancel',
       name: 'cancel',
@@ -458,7 +458,7 @@ The project started as a part of a software team project at the [Faculty of Info
     );
   }
 
-  static submit() {
+  static String submit() {
     return Intl.message(
       '_submit',
       name: 'submit',
@@ -466,7 +466,7 @@ The project started as a part of a software team project at the [Faculty of Info
     );
   }
 
-  static previous() {
+  static String previous() {
     return Intl.message(
       '_previous',
       name: 'previous',
@@ -474,7 +474,7 @@ The project started as a part of a software team project at the [Faculty of Info
     );
   }
 
-  static next() {
+  static String next() {
     return Intl.message(
       '_next',
       name: 'next',
@@ -482,7 +482,7 @@ The project started as a part of a software team project at the [Faculty of Info
     );
   }
 
-  static rememberThose() {
+  static String rememberThose() {
     return Intl.message(
       '_rememberthose.',
       name: 'rememberThose',

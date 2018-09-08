@@ -10,21 +10,21 @@ class AuthenticationFlutterApi extends AuthenticationApi<FirebaseUser> {
 
   @override
   Future<FirebaseUser> signIn() async {
-    final GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
+    final googleSignInAccount = await googleSignIn.signIn();
 
     if (googleSignInAccount == null) return null;
 
-    final GoogleSignInAuthentication gSA = await googleSignInAccount.authentication;
+    final gSA = await googleSignInAccount.authentication;
     return firebaseSignIn.signInWithGoogle(idToken: gSA.idToken, accessToken: gSA.accessToken);
   }
 
   @override
   Future<FirebaseUser> signInSilently() async {
-    final GoogleSignInAccount googleSignInAccount = await googleSignIn.signInSilently();
+    final googleSignInAccount = await googleSignIn.signInSilently();
 
     if (googleSignInAccount == null) return null;
 
-    final GoogleSignInAuthentication gSA = await googleSignInAccount.authentication;
+    final gSA = await googleSignInAccount.authentication;
     return firebaseSignIn.signInWithGoogle(idToken: gSA.idToken, accessToken: gSA.accessToken);
   }
 

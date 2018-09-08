@@ -27,10 +27,15 @@ class SectionListBloc extends Bloc {
   }
 
   Sink<SectionData> get create => _createController.sink;
+
   Sink<SectionData> get remove => _removeController.sink;
+
   Sink<SectionData> get edit => _editController.sink;
+
   Sink<SubsectionData> get createSubsection => _createSubsectionController.sink;
+
   Sink<SubsectionData> get removeSubsection => _removeSubsectionController.sink;
+
   Sink<SubsectionData> get editSubsection => _editSubsectionController.sink;
 
   Stream<List<SectionData>> query({@required CourseData course}) {
@@ -46,10 +51,15 @@ class SectionListBloc extends Bloc {
   }
 
   void _handleCreate(SectionData section) => _api.addSection(section);
+
   void _handleRemove(SectionData section) => _api.removeSection(section);
+
   void _handleEdit(SectionData section) => _api.editSection(section);
+
   void _handleCreateSubsection(SubsectionData subsection) => _api.addSubsection(subsection);
+
   void _handleRemoveSubsection(SubsectionData subsection) => _api.removeSubsection(subsection);
+
   void _handleEditSubsection(SubsectionData subsection) => _api.editSubsection(subsection);
 
   @override

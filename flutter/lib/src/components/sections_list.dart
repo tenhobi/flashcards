@@ -53,7 +53,7 @@ class _BuildStream extends StatefulWidget {
 }
 
 class _BuildStreamState extends State<_BuildStream> {
-  List<SubsectionData> data = null;
+  List<SubsectionData> data;
 
   void redirectNewSubsection(BuildContext context, {@required bool isExercise}) {
     final Widget nextPage = isExercise
@@ -65,7 +65,7 @@ class _BuildStreamState extends State<_BuildStream> {
           );
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (BuildContext context) => nextPage,
+        builder: (context) => nextPage,
       ),
     );
   }
@@ -108,10 +108,10 @@ class _BuildStreamState extends State<_BuildStream> {
   @override
   Widget build(BuildContext context) {
     final state = StateContainer.of(context);
-    final bool owner = widget.section.parent.authorUid == state.authenticationBloc.user.uid;
+    final owner = widget.section.parent.authorUid == state.authenticationBloc.user.uid;
     return StreamBuilder<List<SubsectionData>>(
       stream: widget.function(section: widget.section),
-      builder: (BuildContext context, AsyncSnapshot<List<SubsectionData>> snapshot) {
+      builder: (context, snapshot) {
         if (!snapshot.hasData && widget.isLast) {
           return _generateLoading(context, snapshot);
         }
@@ -121,16 +121,16 @@ class _BuildStreamState extends State<_BuildStream> {
         if (snapshot.hasData) {
           data = snapshot.data..sort();
         }
-        final List<_SectionRow> rows = [];
-        data.forEach((SubsectionData d) {
-          final bool last = data.last.compareTo(d) == 0 && widget.isLast;
+        final rows = <_SectionRow>[];
+        for (var d in data) {
+          final last = data.last.compareTo(d) == 0 && widget.isLast;
           if (widget.isExercise) {
             rows.add(_SectionRow.exercise(
               text: d.name,
               onTap: () async {
-                final int exerciseSize = await showDialog(
+                final exerciseSize = await showDialog(
                   context: context,
-                  builder: (BuildContext context) {
+                  builder: (context) {
                     return ExerciseSize();
                   },
                 );
@@ -140,7 +140,7 @@ class _BuildStreamState extends State<_BuildStream> {
                 }
 
                 Navigator.of(context).push<MaterialPageRoute>(MaterialPageRoute(
-                  builder: (BuildContext bc) => ExerciseScreen(exercise: d, size: exerciseSize),
+                  builder: (bc) => ExerciseScreen(exercise: d, size: exerciseSize),
                 ));
               },
               subsection: d,
@@ -151,15 +151,15 @@ class _BuildStreamState extends State<_BuildStream> {
             rows.add(_SectionRow.material(
               text: d.name,
               onTap: () {
-                Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (BuildContext context) => MaterialScreen(data: d)));
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => MaterialScreen(data: d)));
               },
               subsection: d,
               owner: owner,
               isLast: last,
             ));
           }
-        });
+        }
+
         if (owner) {
           rows.add(_SectionRow(
             icon: Icons.add,
@@ -183,7 +183,7 @@ class _SectionRow extends StatelessWidget {
     @required this.icon,
     @required this.text,
     @required this.onTap,
-    @required SubsectionData this.subsection,
+    @required this.subsection,
     this.owner = false,
     this.isLast = false,
   });
@@ -191,7 +191,7 @@ class _SectionRow extends StatelessWidget {
   const _SectionRow.material({
     @required this.text,
     @required this.onTap,
-    @required SubsectionData this.subsection,
+    @required this.subsection,
     this.owner = false,
     this.isLast = false,
   }) : icon = Icons.description;
@@ -199,7 +199,7 @@ class _SectionRow extends StatelessWidget {
   const _SectionRow.exercise({
     @required this.text,
     @required this.onTap,
-    @required SubsectionData this.subsection,
+    @required this.subsection,
     this.owner = false,
     this.isLast = false,
   }) : icon = Icons.play_circle_outline;
@@ -220,9 +220,9 @@ class _SectionRow extends StatelessWidget {
       alertText = FlashcardsStrings.removeMaterialDialog();
     }
 
-    final bool permission = await showDialog(
+    final permission = await showDialog(
       context: context,
-      builder: (BuildContext context) {
+      builder: (context) {
         return AlertDialog(
           content: Text(alertText),
           actions: <Widget>[
@@ -245,8 +245,7 @@ class _SectionRow extends StatelessWidget {
   }
 
   void _edit(BuildContext context) {
-    Navigator.of(context)
-        .push(MaterialPageRoute(builder: (BuildContext context) => EditSubsectionScreen(original: subsection)));
+    Navigator.of(context).push(MaterialPageRoute(builder: (context) => EditSubsectionScreen(original: subsection)));
   }
 
   Widget _generateLabel(BuildContext context) {
@@ -334,7 +333,7 @@ class _SectionRow extends StatelessWidget {
 }
 
 class _SectionWidget extends StatefulWidget {
-  const _SectionWidget({@required SectionData this.section});
+  const _SectionWidget({@required this.section});
 
   final SectionData section;
 
@@ -350,9 +349,9 @@ class _SectionsWidgetState extends State<_SectionWidget> with SingleTickerProvid
 
   void _delete() async {
     final state = StateContainer.of(context);
-    final bool permission = await showDialog(
+    final permission = await showDialog(
       context: context,
-      builder: (BuildContext context) {
+      builder: (context) {
         return AlertDialog(
           content: Text(FlashcardsStrings.removeSectionDialog()),
           actions: <Widget>[
@@ -375,13 +374,12 @@ class _SectionsWidgetState extends State<_SectionWidget> with SingleTickerProvid
   }
 
   void _edit(BuildContext context) {
-    Navigator.of(context)
-        .push(MaterialPageRoute(builder: (BuildContext context) => EditSectionScreen(original: widget.section)));
+    Navigator.of(context).push(MaterialPageRoute(builder: (context) => EditSectionScreen(original: widget.section)));
   }
 
   Widget _generateExpansionTileControls(BuildContext context) {
     final state = StateContainer.of(context);
-    List<Widget> controls = [];
+    var controls = <Widget>[];
 
     if (widget.section.parent.authorUid == state.authenticationBloc.user.uid) {
       controls = [
@@ -410,14 +408,15 @@ class _SectionsWidgetState extends State<_SectionWidget> with SingleTickerProvid
   void _handleTap(bool expanded) {
     setState(() {
       _isExpanded = expanded;
-      if (_isExpanded)
+      if (_isExpanded) {
         _controller.forward();
-      else
-        _controller.reverse().then<void>((Null value) {
+      } else {
+        _controller.reverse().then<void>((value) {
           setState(() {
             // Rebuild without widget.children.
           });
         });
+      }
     });
   }
 
@@ -438,7 +437,7 @@ class _SectionsWidgetState extends State<_SectionWidget> with SingleTickerProvid
   @override
   Widget build(BuildContext context) {
     final state = StateContainer.of(context);
-    final BorderSide border = BorderSide(color: Theme.of(context).primaryColor, width: 2.0);
+    final border = BorderSide(color: Theme.of(context).primaryColor, width: 2.0);
 
     return Container(
       padding: EdgeInsets.all(8.0),
@@ -489,7 +488,7 @@ class _SectionsWidgetState extends State<_SectionWidget> with SingleTickerProvid
 class SectionsList extends StatefulWidget {
   final CourseData course;
 
-  const SectionsList({@required CourseData this.course});
+  const SectionsList({@required this.course});
 
   @override
   State<SectionsList> createState() => _SectionsListState();
@@ -501,12 +500,12 @@ class _SectionsListState extends State<SectionsList> {
     final state = StateContainer.of(context);
     return StreamBuilder<List<SectionData>>(
       stream: state.sectionListBloc.query(course: widget.course),
-      builder: (BuildContext context, AsyncSnapshot<List<SectionData>> snapshot) {
+      builder: (context, snapshot) {
         if (!snapshot.hasData) return Loading();
 
         return ListView(
           children: snapshot.data.map(
-            (SectionData section) {
+            (section) {
               return _SectionWidget(section: section);
             },
           ).toList(),
