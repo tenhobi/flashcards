@@ -23,7 +23,7 @@
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale|layoutDirection|fontScale"
             android:hardwareAccelerated="true"
             android:windowSoftInputMode="adjustResize"
-            android:screenOrientation="fullUser">
+            android:screenOrientation="sensorPortrait">
             <!-- This keeps the window background of the activity showing
                  until Flutter renders its first frame. It can be removed if
                  there is no splash screen (such as the default splash screen
