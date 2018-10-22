@@ -33,6 +33,8 @@ class _LandingScreenState extends State<LandingScreen> with SingleTickerProvider
 
   bool loginButtonVisible = false;
 
+  bool _isLoading = false;
+
   Duration animationDuration = Duration(seconds: 4);
 
   @override
@@ -83,6 +85,7 @@ class _LandingScreenState extends State<LandingScreen> with SingleTickerProvider
                 ),
               ),
             ),
+            _isLoading ? CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Colors.white),) : Container(),
             Padding(
               padding: EdgeInsets.only(top: 300.0),
               child: _buildButtons(context),
@@ -99,6 +102,10 @@ class _LandingScreenState extends State<LandingScreen> with SingleTickerProvider
 
     final user = silently ? await state.authenticationBloc.signInSilently() : await state.authenticationBloc.signIn();
 
+    setState(() {
+      _isLoading = true;
+    });
+
     if (user == null) return;
 
     state.userBloc.createIfAbsent.add(UserData(uid: user.uid, name: user.displayName));
@@ -108,6 +115,9 @@ class _LandingScreenState extends State<LandingScreen> with SingleTickerProvider
     if (userData.language != null) {
       Intl.defaultLocale = userData.language;
     }
+    setState(() {
+	    _isLoading = false;
+    });
 
     Navigator.of(context).pushAndRemoveUntil(
       MaterialPageRoute(
@@ -123,7 +133,7 @@ class _LandingScreenState extends State<LandingScreen> with SingleTickerProvider
     if (true) {
       return RawGestureDetector(
         child: GoogleButton(
-          signIn: signIn,
+          signIn: _isLoading ? null : signIn,
           text: FlashcardsStrings.signInButton(),
         ),
       );
