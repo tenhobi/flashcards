@@ -33,6 +33,8 @@ class _LandingScreenState extends State<LandingScreen> with SingleTickerProvider
 
   bool loginButtonVisible = false;
 
+  bool _isLoading = false;
+
   Duration animationDuration = Duration(seconds: 4);
 
   @override
@@ -72,17 +74,9 @@ class _LandingScreenState extends State<LandingScreen> with SingleTickerProvider
           children: <Widget>[
             Padding(
               padding: EdgeInsets.only(bottom: 150.0),
-              child: Text(
-                FlashcardsStrings.appName().toLowerCase(),
-                style: TextStyle(
-                  fontFamily: 'Lobster',
-                  fontWeight: FontWeight.normal,
-                  fontSize:
-                      widget.withoutAnimations ? fontSize : Curves.elasticOut.transform(animation.value) * fontSize,
-                  color: Colors.white,
-                ),
-              ),
+              child: _buildLogo(context),
             ),
+            _isLoading ? _buildLoading(context) : Container(),
             Padding(
               padding: EdgeInsets.only(top: 300.0),
               child: _buildButtons(context),
@@ -98,6 +92,9 @@ class _LandingScreenState extends State<LandingScreen> with SingleTickerProvider
     final state = StateContainer.of(context);
 
     final user = silently ? await state.authenticationBloc.signInSilently() : await state.authenticationBloc.signIn();
+    setState(() {
+      _isLoading = true;
+    });
 
     if (user == null) return;
 
@@ -108,12 +105,33 @@ class _LandingScreenState extends State<LandingScreen> with SingleTickerProvider
     if (userData.language != null) {
       Intl.defaultLocale = userData.language;
     }
-
+    setState(() {
+      _isLoading = false;
+    });
     Navigator.of(context).pushAndRemoveUntil(
       MaterialPageRoute(
         builder: (bc) => widget.nextScreen,
       ),
       (_) => false,
+    );
+  }
+
+  Widget _buildLogo(BuildContext context) {
+    return Text(
+      FlashcardsStrings.appName().toLowerCase(),
+      style: TextStyle(
+        fontFamily: 'Lobster',
+        fontWeight: FontWeight.normal,
+        fontSize:
+        widget.withoutAnimations ? fontSize : Curves.elasticOut.transform(animation.value) * fontSize,
+        color: Colors.white,
+      ),
+    );
+  }
+
+  Widget _buildLoading(BuildContext context) {
+    return CircularProgressIndicator(
+      valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
     );
   }
 
@@ -123,7 +141,7 @@ class _LandingScreenState extends State<LandingScreen> with SingleTickerProvider
     if (true) {
       return RawGestureDetector(
         child: GoogleButton(
-          signIn: signIn,
+          signIn: _isLoading ? null : signIn,
           text: FlashcardsStrings.signInButton(),
         ),
       );
