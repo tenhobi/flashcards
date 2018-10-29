@@ -31,7 +31,7 @@ class _LandingScreenState extends State<LandingScreen> with SingleTickerProvider
   final double fontSize = 55.0;
   AnimationController animation;
 
-  bool loginButtonVisible = false;
+  bool _loginButtonVisible = false;
 
   bool _isLoading = false;
 
@@ -52,8 +52,16 @@ class _LandingScreenState extends State<LandingScreen> with SingleTickerProvider
       })
       ..forward();
 
-    signIn(silently: true);
-    showLoginButton();
+    // Run code after [initState], e.g. with mounted context.
+    scheduleMicrotask(() {
+      signIn(silently: true);
+
+      if (widget.withoutAnimations) {
+        _loginButtonVisible = true;
+      } else {
+        Timer(animationDuration, () => _loginButtonVisible = true);
+      }
+    });
   }
 
   @override
@@ -85,7 +93,11 @@ class _LandingScreenState extends State<LandingScreen> with SingleTickerProvider
                 ),
               ),
             ),
-            _isLoading ? CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Colors.white),) : Container(),
+            _isLoading
+                ? CircularProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                  )
+                : Container(),
             Padding(
               padding: EdgeInsets.only(top: 300.0),
               child: _buildButtons(context),
@@ -98,15 +110,20 @@ class _LandingScreenState extends State<LandingScreen> with SingleTickerProvider
 
   // TODO: detect new user and go to nextNewUserScreen
   Future<Null> signIn({bool silently = false}) async {
-    final state = StateContainer.of(context);
-
-    final user = silently ? await state.authenticationBloc.signInSilently() : await state.authenticationBloc.signIn();
-
     setState(() {
       _isLoading = true;
     });
 
-    if (user == null) return;
+    final state = StateContainer.of(context);
+
+    final user = silently ? await state.authenticationBloc.signInSilently() : await state.authenticationBloc.signIn();
+
+    if (user == null) {
+      setState(() {
+        _isLoading = false;
+      });
+      return;
+    }
 
     state.userBloc.createIfAbsent.add(UserData(uid: user.uid, name: user.displayName));
 
@@ -115,9 +132,6 @@ class _LandingScreenState extends State<LandingScreen> with SingleTickerProvider
     if (userData.language != null) {
       Intl.defaultLocale = userData.language;
     }
-    setState(() {
-	    _isLoading = false;
-    });
 
     Navigator.of(context).pushAndRemoveUntil(
       MaterialPageRoute(
@@ -128,9 +142,7 @@ class _LandingScreenState extends State<LandingScreen> with SingleTickerProvider
   }
 
   Widget _buildButtons(BuildContext context) {
-//    if (widget.withoutAnimations || loginButtonVisible) {
-    // ignore: literal_only_boolean_expressions
-    if (true) {
+    if (widget.withoutAnimations || _loginButtonVisible) {
       return RawGestureDetector(
         child: GoogleButton(
           signIn: _isLoading ? null : signIn,
@@ -139,11 +151,6 @@ class _LandingScreenState extends State<LandingScreen> with SingleTickerProvider
       );
     }
 
-//    return Container();
-  }
-
-  void showLoginButton() async {
-    await Future.delayed(animationDuration);
-    loginButtonVisible = true;
+    return Container();
   }
 }
