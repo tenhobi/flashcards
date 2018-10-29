@@ -79,9 +79,7 @@ class _LandingScreenState extends State<LandingScreen> with SingleTickerProvider
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme
-        .of(context)
-        .primaryColor,
+      backgroundColor: Theme.of(context).primaryColor,
       body: Container(
         color: Colors.transparent,
         alignment: Alignment.center,
@@ -96,16 +94,16 @@ class _LandingScreenState extends State<LandingScreen> with SingleTickerProvider
                   fontFamily: 'Lobster',
                   fontWeight: FontWeight.normal,
                   fontSize:
-                  widget.withoutAnimations ? fontSize : Curves.elasticOut.transform(animation.value) * fontSize,
+                      widget.withoutAnimations ? fontSize : Curves.elasticOut.transform(animation.value) * fontSize,
                   color: Colors.white,
                 ),
               ),
             ),
             _isLoading
-              ? CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-            )
-              : Container(),
+                ? CircularProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                  )
+                : Container(),
             Padding(
               padding: EdgeInsets.only(top: 300.0),
               child: _buildButtons(context),
@@ -135,9 +133,7 @@ class _LandingScreenState extends State<LandingScreen> with SingleTickerProvider
 
     state.userBloc.createIfAbsent.add(UserData(uid: user.uid, name: user.displayName));
 
-    final userData = await state.userBloc
-      .query(state.authenticationBloc.user.uid)
-      .first;
+    final userData = await state.userBloc.query(state.authenticationBloc.user.uid).first;
 
     if (userData.language != null) {
       Intl.defaultLocale = userData.language;
@@ -147,7 +143,7 @@ class _LandingScreenState extends State<LandingScreen> with SingleTickerProvider
       MaterialPageRoute(
         builder: (bc) => widget.nextScreen,
       ),
-        (_) => false,
+      (_) => false,
     );
   }
 
