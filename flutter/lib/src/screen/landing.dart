@@ -61,7 +61,6 @@ class _LandingScreenState extends State<LandingScreen> with SingleTickerProvider
           _loginButtonVisible = true;
         });
       } else {
-        ;
         Timer(animationDuration, () {
           setState(() {
             _loginButtonVisible = true;
