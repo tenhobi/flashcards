@@ -489,4 +489,55 @@ The project started as a part of a software team project at the [Faculty of Info
       desc: 'Remember those flipcards exercise',
     );
   }
+
+  static String bioName() {
+    return Intl.message(
+      '_bioName',
+      name: 'bioName',
+      desc: 'Biography form input label.',
+    );
+  }
+
+
+  static String bioPlaceholder() {
+    return Intl.message(
+      '_bioPlaceholder',
+      name: 'bioPlaceholder',
+      desc: 'Biography form input placeholder.',
+    );
+  }
+
+  static String bioEmpty() {
+    return Intl.message(
+      '_bioEmpty',
+      name: 'bioEmpty',
+      desc: 'Error shown when bio is empty.',
+    );
+  }
+
+  static String newUser() {
+    return Intl.message(
+      '_newUser',
+      name: 'newUser',
+      desc: 'Name of new user screen.',
+    );
+  }
+
+  static String submitDetails() {
+    return Intl.message(
+      '_submitDetails',
+      name: 'submitDetails',
+      desc: 'Submit details on new user screen',
+    );
+  }
+
+  static String linksName() {
+    return Intl.message(
+      '_linksName',
+      name: 'linksName',
+      desc: 'Links form input label.',
+    );
+  }
+
+
 }

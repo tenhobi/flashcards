@@ -96,7 +96,6 @@ class CustomDrawer extends StatelessWidget {
                       MaterialPageRoute(
                         builder: (context) => LandingScreen(
                               nextScreen: MainScreen(),
-                              nextNewUserScreen: MainScreen(),
                               withoutAnimations: true,
                             ),
                       ),

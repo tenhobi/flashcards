@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flashcards_common/data.dart';
 import 'package:flashcards_flutter/src/components/button_google.dart';
 import 'package:flashcards_flutter/src/state/container.dart';
+import 'package:flashcards_flutter/src/screen/new_user.dart';
 import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
 import 'package:flutter/material.dart';
@@ -11,14 +12,12 @@ import 'package:flashcards_common/i18n.dart';
 
 class LandingScreen extends StatefulWidget {
   final Widget nextScreen;
-  final Widget nextNewUserScreen;
 
   /// Show all content without animations.
   final bool withoutAnimations;
 
   const LandingScreen({
     @required this.nextScreen,
-    @required this.nextNewUserScreen,
     this.withoutAnimations = false,
   });
 
@@ -76,10 +75,9 @@ class _LandingScreenState extends State<LandingScreen> with SingleTickerProvider
               padding: EdgeInsets.only(bottom: 150.0),
               child: _buildLogo(context),
             ),
-            _isLoading ? _buildLoading(context) : Container(),
             Padding(
               padding: EdgeInsets.only(top: 300.0),
-              child: _buildButtons(context),
+              child: _isLoading ? _buildLoading(context) : _buildButtons(context),
             ),
           ],
         ),
@@ -92,28 +90,40 @@ class _LandingScreenState extends State<LandingScreen> with SingleTickerProvider
     final state = StateContainer.of(context);
 
     final user = silently ? await state.authenticationBloc.signInSilently() : await state.authenticationBloc.signIn();
+
+    if (user == null) return;
+
     setState(() {
       _isLoading = true;
     });
 
-    if (user == null) return;
-
-    state.userBloc.createIfAbsent.add(UserData(uid: user.uid, name: user.displayName));
-
     final userData = await state.userBloc.query(state.authenticationBloc.user.uid).first;
 
-    if (userData.language != null) {
-      Intl.defaultLocale = userData.language;
-    }
     setState(() {
       _isLoading = false;
     });
-    Navigator.of(context).pushAndRemoveUntil(
-      MaterialPageRoute(
-        builder: (bc) => widget.nextScreen,
-      ),
-      (_) => false,
-    );
+
+    if(userData == null) {
+      //new user
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (bc) {return NewUserScreen(nextScreen: widget.nextScreen,);},
+        )
+      );
+    } else {
+      if (userData.language != null) {
+        Intl.defaultLocale = userData.language;
+      }
+
+      Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(
+          builder: (bc) => widget.nextScreen,
+        ),
+            (_) => false,
+      );
+    }
+
+//    state.userBloc.createIfAbsent.add(UserData(uid: user.uid, name: user.displayName));
   }
 
   Widget _buildLogo(BuildContext context) {

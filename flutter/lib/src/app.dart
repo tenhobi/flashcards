@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flashcards_flutter/src/i18n/delegate.dart';
 import 'package:flashcards_flutter/src/screen/landing.dart';
 import 'package:flashcards_flutter/src/screen/main.dart';
+import 'package:flashcards_flutter/src/screen/new_user.dart';
 
 // These two imports are used just in main, to set things up
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -19,7 +20,6 @@ class FlashcardsApp extends StatelessWidget {
       title: FlashcardsStrings.appName(),
       home: LandingScreen(
         nextScreen: MainScreen(),
-        nextNewUserScreen: MainScreen(),
       ),
       localizationsDelegates: [
         FlashcardsLocalizationDelegate(),
