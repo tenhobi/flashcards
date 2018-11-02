@@ -31,7 +31,11 @@ class CustomDrawer extends StatelessWidget {
               state.userBloc.query(state.authenticationBloc.user.uid).listen((userData) {
                 Navigator.of(context).pop();
                 Navigator.of(context).push(
-                  MaterialPageRoute(builder: (bc) => ProfileScreen(userData: userData,))
+                  MaterialPageRoute(
+                    builder: (bc) => ProfileScreen(
+                          userData: userData,
+                        ),
+                  ),
                 );
               });
             },
@@ -66,7 +70,7 @@ class CustomDrawer extends StatelessWidget {
                   ),
                 ),
               ],
-            )
+            ),
           ),
           Expanded(
             child: ListView(

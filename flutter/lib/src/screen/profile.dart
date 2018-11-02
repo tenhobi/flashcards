@@ -145,8 +145,8 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
     print(link);
     var preparedRows = [
       Container(
-        width: 200,
-        height: 200,
+        width: 200.0,
+        height: 200.0,
         child: CircleAvatar(
           child: ClipRRect(
             // TODO: any auto value for rounded image?

@@ -115,7 +115,11 @@ class _CommentsState extends State<Comments> {
                               return GestureDetector(
                                 onTap: () {
                                   Navigator.of(context).push(
-                                    MaterialPageRoute(builder: (bc) => ProfileScreen(userData: snapshot.data,))
+                                    MaterialPageRoute(
+                                      builder: (bc) => ProfileScreen(
+                                            userData: snapshot.data,
+                                          ),
+                                    ),
                                   );
                                 },
                                 child: Text(

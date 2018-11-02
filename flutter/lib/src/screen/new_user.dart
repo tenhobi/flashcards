@@ -2,7 +2,6 @@ import 'package:flashcards_common/i18n.dart';
 import 'package:flashcards_flutter/src/state/container.dart';
 import 'package:flutter/material.dart';
 
-
 import 'package:flashcards_common/data.dart';
 
 class NewUserScreen extends StatefulWidget {
@@ -13,21 +12,21 @@ class NewUserScreen extends StatefulWidget {
   });
 
   @override
-	_NewUserScreenState createState() => _NewUserScreenState();
+  _NewUserScreenState createState() => _NewUserScreenState();
 }
 
 class _NewUserScreenState extends State<NewUserScreen> {
-	final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-	String _bio;
-	final List<FilledLinkType> _links = [];
+  String _bio;
+  final List<FilledLinkType> _links = [];
 
-	@override
+  @override
   void initState() {
-	  super.initState();
+    super.initState();
   }
 
-	Widget _generateLinkInput(linkType) {
+  Widget _generateLinkInput(linkType) {
     return Container(
       child: TextFormField(
         keyboardType: TextInputType.text,
@@ -36,14 +35,14 @@ class _NewUserScreenState extends State<NewUserScreen> {
           labelText: linkType.baseUrl,
         ),
         onSaved: (value) {
-          if(value == null || value.isEmpty) {
+          if (value == null || value.isEmpty) {
             return;
           }
           final tuple = FilledLinkType(linkType: linkType, value: value);
 
-          if(_links.length > 0) {
+          if (_links.length > 0) {
             final index = _links.indexOf(tuple);
-            if(index != -1) {
+            if (index != -1) {
               _links.removeAt(index);
             }
           }
@@ -52,14 +51,14 @@ class _NewUserScreenState extends State<NewUserScreen> {
         },
       ),
     );
-	}
+  }
 
-	List<Widget> _generateLinks() {
+  List<Widget> _generateLinks() {
     return LinkType.values.map(_generateLinkInput).toList();
   }
 
-	Widget _generateBiographyInput() {
-	  return TextFormField(
+  Widget _generateBiographyInput() {
+    return TextFormField(
       decoration: InputDecoration(
         labelText: FlashcardsStrings.bioPlaceholder(),
       ),
@@ -78,7 +77,7 @@ class _NewUserScreenState extends State<NewUserScreen> {
   }
 
   Widget _generateSubmitButton() {
-	  return Padding(
+    return Padding(
       padding: EdgeInsets.only(top: 16.0),
       child: RaisedButton(
         onPressed: _submitForm,
@@ -92,11 +91,11 @@ class _NewUserScreenState extends State<NewUserScreen> {
   }
 
   List<Widget> _prepareChildren() {
-	  var res = <Widget>[];
-	  res.add(_generateBiographyInput());
-	  res.addAll(_generateLinks());
-	  res.add(_generateSubmitButton());
-	  return res;
+    var res = <Widget>[];
+    res.add(_generateBiographyInput());
+    res.addAll(_generateLinks());
+    res.add(_generateSubmitButton());
+    return res;
   }
 
   void _submitForm() {
@@ -121,14 +120,13 @@ class _NewUserScreenState extends State<NewUserScreen> {
         MaterialPageRoute(
           builder: (bc) => widget.nextScreen,
         ),
-          (_) => false,
+        (_) => false,
       );
     }
   }
 
-	@override
+  @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         title: Text(FlashcardsStrings.newUser()),
@@ -137,9 +135,7 @@ class _NewUserScreenState extends State<NewUserScreen> {
         padding: EdgeInsets.all(20.0),
         child: Form(
           key: _formKey,
-          child: ListView(
-            children: _prepareChildren()
-          ),
+          child: ListView(children: _prepareChildren()),
         ),
       ),
     );

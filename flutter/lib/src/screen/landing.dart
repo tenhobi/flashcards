@@ -77,9 +77,7 @@ class _LandingScreenState extends State<LandingScreen> with SingleTickerProvider
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme
-        .of(context)
-        .primaryColor,
+      backgroundColor: Theme.of(context).primaryColor,
       body: Container(
         color: Colors.transparent,
         alignment: Alignment.center,
@@ -91,10 +89,10 @@ class _LandingScreenState extends State<LandingScreen> with SingleTickerProvider
               child: _buildLogo(context),
             ),
             _isLoading
-              ? CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-            )
-              : Container(),
+                ? CircularProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                  )
+                : Container(),
             Padding(
               padding: EdgeInsets.only(top: 300.0),
               child: _isLoading ? _buildLoading(context) : _buildButtons(context),
@@ -122,9 +120,7 @@ class _LandingScreenState extends State<LandingScreen> with SingleTickerProvider
       return;
     }
 
-    final userData = await state.userBloc
-      .query(state.authenticationBloc.user.uid)
-      .first;
+    final userData = await state.userBloc.query(state.authenticationBloc.user.uid).first;
 
     if (userData == null) {
       //new user
@@ -144,7 +140,7 @@ class _LandingScreenState extends State<LandingScreen> with SingleTickerProvider
         MaterialPageRoute(
           builder: (bc) => widget.nextScreen,
         ),
-          (_) => false,
+        (_) => false,
       );
     }
   }

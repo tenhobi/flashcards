@@ -161,16 +161,17 @@ class FirebaseFlutterApi extends FirebaseApi {
 
     Firestore.instance.collection('users').where('uid', isEqualTo: uid).limit(1).snapshots().listen((snapshot) {
       // no user found check
-      if(snapshot.documents.length == 0) {
+      if (snapshot.documents.length == 0) {
         controller.add(null);
       } else {
-      controller.add(snapshot.documents
-        .map<UserData>((document) {
-          return UserData.fromMap(document.data);
-        })
-        .toList()
-        .first);
-    }});
+        controller.add(snapshot.documents
+            .map<UserData>((document) {
+              return UserData.fromMap(document.data);
+            })
+            .toList()
+            .first);
+      }
+    });
 
     return controller.stream;
   }
