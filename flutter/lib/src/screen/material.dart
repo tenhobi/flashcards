@@ -35,7 +35,7 @@ class MaterialScreen extends StatelessWidget {
         backgroundColor: Colors.blue[800],
       ),
       body: ListView(
-        padding: EdgeInsets.all(75.0),
+        padding: EdgeInsets.all(32.0),
         children: <Widget>[
           MarkdownBody(
             data: data.content,

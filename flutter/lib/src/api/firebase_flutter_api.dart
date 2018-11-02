@@ -160,12 +160,17 @@ class FirebaseFlutterApi extends FirebaseApi {
     final controller = StreamController<UserData>.broadcast();
 
     Firestore.instance.collection('users').where('uid', isEqualTo: uid).limit(1).snapshots().listen((snapshot) {
-      controller.add(snapshot.documents
-          .map<UserData>((document) {
-            return UserData.fromMap(document.data);
-          })
-          .toList()
-          .first);
+      // no user found check
+      if (snapshot.documents.length == 0) {
+        controller.add(null);
+      } else {
+        controller.add(snapshot.documents
+            .map<UserData>((document) {
+              return UserData.fromMap(document.data);
+            })
+            .toList()
+            .first);
+      }
     });
 
     return controller.stream;

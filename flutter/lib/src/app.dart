@@ -19,7 +19,6 @@ class FlashcardsApp extends StatelessWidget {
       title: FlashcardsStrings.appName(),
       home: LandingScreen(
         nextScreen: MainScreen(),
-        nextNewUserScreen: MainScreen(),
       ),
       localizationsDelegates: [
         FlashcardsLocalizationDelegate(),
