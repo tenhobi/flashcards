@@ -30,7 +30,9 @@ class _LandingScreenState extends State<LandingScreen> with SingleTickerProvider
   final double fontSize = 55.0;
   AnimationController animation;
 
-  bool loginButtonVisible = false;
+  bool _loginButtonVisible = false;
+
+  bool _isLoading = false;
 
   bool _isLoading = false;
 
@@ -51,8 +53,22 @@ class _LandingScreenState extends State<LandingScreen> with SingleTickerProvider
       })
       ..forward();
 
-    signIn(silently: true);
-    showLoginButton();
+    // Run code after [initState], e.g. with mounted context.
+    scheduleMicrotask(() {
+      signIn(silently: true);
+
+      if (widget.withoutAnimations) {
+        setState(() {
+          _loginButtonVisible = true;
+        });
+      } else {
+        Timer(animationDuration, () {
+          setState(() {
+            _loginButtonVisible = true;
+          });
+        });
+      }
+    });
   }
 
   @override
@@ -75,6 +91,11 @@ class _LandingScreenState extends State<LandingScreen> with SingleTickerProvider
               padding: EdgeInsets.only(bottom: 150.0),
               child: _buildLogo(context),
             ),
+            _isLoading
+                ? CircularProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                  )
+                : Container(),
             Padding(
               padding: EdgeInsets.only(top: 300.0),
               child: _isLoading ? _buildLoading(context) : _buildButtons(context),
@@ -87,11 +108,20 @@ class _LandingScreenState extends State<LandingScreen> with SingleTickerProvider
 
   // TODO: detect new user and go to nextNewUserScreen
   Future<Null> signIn({bool silently = false}) async {
+    setState(() {
+      _isLoading = true;
+    });
+
     final state = StateContainer.of(context);
 
     final user = silently ? await state.authenticationBloc.signInSilently() : await state.authenticationBloc.signIn();
 
-    if (user == null) return;
+    if (user == null) {
+      setState(() {
+        _isLoading = false;
+      });
+      return;
+    }
 
     setState(() {
       _isLoading = true;
@@ -144,9 +174,7 @@ class _LandingScreenState extends State<LandingScreen> with SingleTickerProvider
   }
 
   Widget _buildButtons(BuildContext context) {
-//    if (widget.withoutAnimations || loginButtonVisible) {
-    // ignore: literal_only_boolean_expressions
-    if (true) {
+    if (widget.withoutAnimations || _loginButtonVisible) {
       return RawGestureDetector(
         child: GoogleButton(
           signIn: _isLoading ? null : signIn,
@@ -155,11 +183,6 @@ class _LandingScreenState extends State<LandingScreen> with SingleTickerProvider
       );
     }
 
-//    return Container();
-  }
-
-  void showLoginButton() async {
-    await Future.delayed(animationDuration);
-    loginButtonVisible = true;
+    return Container();
   }
 }
