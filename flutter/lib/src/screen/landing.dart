@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:flashcards_common/data.dart';
 import 'package:flashcards_flutter/src/components/button_google.dart';
 import 'package:flashcards_flutter/src/state/container.dart';
 import 'package:flashcards_flutter/src/screen/new_user.dart';
@@ -31,8 +30,6 @@ class _LandingScreenState extends State<LandingScreen> with SingleTickerProvider
   AnimationController animation;
 
   bool _loginButtonVisible = false;
-
-  bool _isLoading = false;
 
   bool _isLoading = false;
 
@@ -80,7 +77,9 @@ class _LandingScreenState extends State<LandingScreen> with SingleTickerProvider
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).primaryColor,
+      backgroundColor: Theme
+        .of(context)
+        .primaryColor,
       body: Container(
         color: Colors.transparent,
         alignment: Alignment.center,
@@ -92,10 +91,10 @@ class _LandingScreenState extends State<LandingScreen> with SingleTickerProvider
               child: _buildLogo(context),
             ),
             _isLoading
-                ? CircularProgressIndicator(
-                    valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-                  )
-                : Container(),
+              ? CircularProgressIndicator(
+              valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+            )
+              : Container(),
             Padding(
               padding: EdgeInsets.only(top: 300.0),
               child: _isLoading ? _buildLoading(context) : _buildButtons(context),
@@ -123,23 +122,19 @@ class _LandingScreenState extends State<LandingScreen> with SingleTickerProvider
       return;
     }
 
-    setState(() {
-      _isLoading = true;
-    });
+    final userData = await state.userBloc
+      .query(state.authenticationBloc.user.uid)
+      .first;
 
-    final userData = await state.userBloc.query(state.authenticationBloc.user.uid).first;
-
-    setState(() {
-      _isLoading = false;
-    });
-
-    if(userData == null) {
+    if (userData == null) {
       //new user
-      Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (bc) {return NewUserScreen(nextScreen: widget.nextScreen,);},
-        )
-      );
+      Navigator.of(context).push(MaterialPageRoute(
+        builder: (bc) {
+          return NewUserScreen(
+            nextScreen: widget.nextScreen,
+          );
+        },
+      ));
     } else {
       if (userData.language != null) {
         Intl.defaultLocale = userData.language;
@@ -149,7 +144,7 @@ class _LandingScreenState extends State<LandingScreen> with SingleTickerProvider
         MaterialPageRoute(
           builder: (bc) => widget.nextScreen,
         ),
-            (_) => false,
+          (_) => false,
       );
     }
   }
@@ -160,8 +155,7 @@ class _LandingScreenState extends State<LandingScreen> with SingleTickerProvider
       style: TextStyle(
         fontFamily: 'Lobster',
         fontWeight: FontWeight.normal,
-        fontSize:
-        widget.withoutAnimations ? fontSize : Curves.elasticOut.transform(animation.value) * fontSize,
+        fontSize: widget.withoutAnimations ? fontSize : Curves.elasticOut.transform(animation.value) * fontSize,
         color: Colors.white,
       ),
     );
