@@ -498,7 +498,6 @@ The project started as a part of a software team project at the [Faculty of Info
     );
   }
 
-
   static String bioPlaceholder() {
     return Intl.message(
       '_bioPlaceholder',
@@ -554,5 +553,4 @@ The project started as a part of a software team project at the [Faculty of Info
       desc: 'Shown in snackbar after profile update',
     );
   }
-
 }

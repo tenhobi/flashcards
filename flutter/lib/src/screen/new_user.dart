@@ -20,7 +20,7 @@ class _NewUserScreenState extends State<NewUserScreen> {
 	final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
 	String _bio;
-	List<FilledLinkType> _links = [];
+	final List<FilledLinkType> _links = [];
 
 	@override
   void initState() {
@@ -92,7 +92,7 @@ class _NewUserScreenState extends State<NewUserScreen> {
   }
 
   List<Widget> _prepareChildren() {
-	  List<Widget> res = [];
+	  var res = <Widget>[];
 	  res.add(_generateBiographyInput());
 	  res.addAll(_generateLinks());
 	  res.add(_generateSubmitButton());

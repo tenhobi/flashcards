@@ -1,13 +1,14 @@
-import 'package:flashcards_common/src/data/data.dart';
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
-class LinkType {
-  static const FACEBOOK = LinkType._(0, "facebook.com/");
-  static const TWITTER = LinkType._(1, "github.com/");
-  static const GITHUB = LinkType._(2, "twitter.com/");
+import 'package:flashcards_common/src/data/data.dart';
+import 'package:meta/meta.dart';
 
-  static List<LinkType> get values => [FACEBOOK, TWITTER, GITHUB];
+class LinkType {
+  static const LinkType facebook = LinkType._(0, "facebook.com/");
+  static const LinkType twitter = LinkType._(1, "github.com/");
+  static const LinkType github = LinkType._(2, "twitter.com/");
+
+  static List<LinkType> get values => [facebook, twitter, github];
 
   final int value;
   final String baseUrl;
@@ -18,6 +19,7 @@ class LinkType {
   Map<String, dynamic> toJson() => {'value': '$value'};
 
   factory LinkType.fromJson(String data) => LinkType.values[int.parse(data)];
+
   const LinkType._(this.value, this.baseUrl);
 }
 
@@ -26,15 +28,16 @@ class FilledLinkType {
   final String value;
 
   FilledLinkType({@required this.linkType, @required this.value});
+
   factory FilledLinkType.fromJson(Map<String, dynamic> data) => FilledLinkType(
-    linkType: LinkType.values[data['linkType']],
-    value: data['value'],
-  );
+        linkType: LinkType.values[data['linkType']],
+        value: data['value'],
+      );
 
   FilledLinkType copyWith({LinkType linkType, String value}) => FilledLinkType(
-    linkType: linkType ?? this.linkType,
-    value: value ?? this.value,
-  );
+        linkType: linkType ?? this.linkType,
+        value: value ?? this.value,
+      );
 
   Map<String, dynamic> toJson() {
     return {
@@ -42,7 +45,6 @@ class FilledLinkType {
       'value': '$value',
     };
   }
-
 }
 
 class UserData extends Data {
@@ -65,13 +67,14 @@ class UserData extends Data {
   });
 
   factory UserData.fromMap(Map<String, dynamic> data) {
-    List<FilledLinkType> list = [];
+    var list = <FilledLinkType>[];
 
-    if(data['links'] != null) {
+    if (data['links'] != null) {
       List<dynamic> d = json.decode(data['links']);
-      d.forEach((val) {
+
+      for (var val in d) {
         list.add(FilledLinkType.fromJson(val));
-      });
+      }
     }
 
     return UserData(
@@ -86,7 +89,16 @@ class UserData extends Data {
   }
 
   @override
-  UserData copyWith({String uid, int score, String language, String name, String photoUrl}) => UserData(
+  UserData copyWith({
+    String uid,
+    int score,
+    String language,
+    String name,
+    String photoUrl,
+    String bio,
+    List<FilledLinkType> links,
+  }) =>
+      UserData(
         uid: uid ?? this.uid,
         score: score ?? this.score,
         language: language ?? this.language,

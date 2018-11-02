@@ -15,7 +15,7 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProviderStateMixin {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   Map<String, dynamic> _editedUserMap;
 
   //todo move somewhere more useful than here
@@ -44,13 +44,12 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
   }
 
   FloatingActionButton _fab() {
-    final state = StateContainer.of(context);
-    return isOwner(widget.userData) ?
-      FloatingActionButton(
-        onPressed: _saveInfo,
-        child: Icon(Icons.save),
-      ) :
-      null;
+    return isOwner(widget.userData)
+        ? FloatingActionButton(
+            onPressed: _saveInfo,
+            child: Icon(Icons.save),
+          )
+        : null;
   }
 
   //todo should probably be moved somewhere else
@@ -58,15 +57,21 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
 
   Widget _generateDebugRow(fieldName) {
     return Container(
-      padding: EdgeInsets.only(top:8.0),
+      padding: EdgeInsets.only(top: 8.0),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: <Widget>[
-          Text("DEBUG $fieldName", style: TextStyle(color: Colors.amber, fontWeight: FontWeight.bold),),
+          Text(
+            'DEBUG $fieldName',
+            style: TextStyle(color: Colors.amber, fontWeight: FontWeight.bold),
+          ),
           Expanded(
             child: Padding(
               padding: EdgeInsets.only(left: 10.0),
-              child: Text(_editedUserMap[fieldName].toString(), style: TextStyle(fontSize: 20.0),),
+              child: Text(
+                _editedUserMap[fieldName].toString(),
+                style: TextStyle(fontSize: 20.0),
+              ),
             ),
           )
         ],
@@ -76,13 +81,18 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
 
   Widget _generateNonEditableRow(fieldName) {
     return Container(
-      padding: EdgeInsets.only(top:8.0),
+      padding: EdgeInsets.only(top: 8.0),
       child: Row(
         children: <Widget>[
-          Text("${capitalize(fieldName)}:", ),
+          Text(
+            '${capitalize(fieldName)}:',
+          ),
           Padding(
             padding: EdgeInsets.only(left: 10.0),
-            child: Text(_editedUserMap[fieldName].toString(), style: TextStyle(fontSize: 20.0),),
+            child: Text(
+              _editedUserMap[fieldName].toString(),
+              style: TextStyle(fontSize: 20.0),
+            ),
           )
         ],
       ),
@@ -100,20 +110,23 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
   }
 
   Widget _generateRow(fieldName) {
-    final state = StateContainer.of(context);
-    return isOwner(widget.userData) ?
-    _generateEditableRow(fieldName) :
-    _generateNonEditableRow(fieldName);
+    return isOwner(widget.userData) ? _generateEditableRow(fieldName) : _generateNonEditableRow(fieldName);
   }
 
   Widget _generateLinkRow(FilledLinkType filledLinkData) {
     return Container(
-      padding: EdgeInsets.only(top:8.0),
+      padding: EdgeInsets.only(top: 8.0),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: <Widget>[
-          Text(filledLinkData.linkType.baseUrl, style: TextStyle(color: Colors.black45),),
-          Text(filledLinkData.value, style: TextStyle(fontSize: 20.0),),
+          Text(
+            filledLinkData.linkType.baseUrl,
+            style: TextStyle(color: Colors.black45),
+          ),
+          Text(
+            filledLinkData.value,
+            style: TextStyle(fontSize: 20.0),
+          ),
         ],
       ),
     );
@@ -126,7 +139,9 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
   @override
   Widget build(BuildContext context) {
     String link = _editedUserMap['photoUrl'];
-    link = link == null || link.isEmpty ? "http://www.drunkmall.com/wp-content/uploads/2016/04/Temoporary-Dickbutt-Tattoo.jpg" : link;
+    link = link == null || link.isEmpty
+        ? 'http://www.drunkmall.com/wp-content/uploads/2016/04/Temoporary-Dickbutt-Tattoo.jpg'
+        : link;
     print(link);
     var preparedRows = [
       Container(
@@ -151,7 +166,6 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
       _generateDebugRow('links'),
     ]);
 
-
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor: Colors.lightBlue[200],
@@ -172,8 +186,8 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
               ),
             ],
           ),
-        )
-      )
+        ),
+      ),
     );
   }
 }
