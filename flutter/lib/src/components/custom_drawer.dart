@@ -4,6 +4,7 @@ import 'package:flashcards_flutter/src/components/indicator_loading.dart';
 import 'package:flashcards_flutter/src/screen/about.dart';
 import 'package:flashcards_flutter/src/screen/landing.dart';
 import 'package:flashcards_flutter/src/screen/main.dart';
+import 'package:flashcards_flutter/src/screen/profile.dart';
 import 'package:flashcards_flutter/src/screen/search.dart';
 import 'package:flashcards_flutter/src/screen/settings.dart';
 import 'package:flashcards_flutter/src/state/container.dart';
@@ -16,36 +17,56 @@ class CustomDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     final state = StateContainer.of(context);
 
+    void _redirect(name) {
+      Navigator.of(context).pop(); // close drawer
+      Navigator.of(context).pushNamed(name);
+    }
+
     return Drawer(
       child: Column(
         children: <Widget>[
-          UserAccountsDrawerHeader(
-            accountName: Text(state.authenticationBloc.user.displayName),
-            accountEmail: Text(state.authenticationBloc.user.email),
-            currentAccountPicture: CircleAvatar(
-              child: ClipRRect(
-                // TODO: any auto value for rounded image?
-                borderRadius: BorderRadius.circular(100.0),
-                child: Image.network(state.authenticationBloc.user.photoUrl),
-              ),
-            ),
-            margin: EdgeInsets.zero,
-          ),
-          Container(
-            padding: EdgeInsets.all(16.0),
-            alignment: Alignment.centerLeft,
-            decoration: BoxDecoration(color: Theme.of(context).primaryColor),
-            child: StreamBuilder<UserData>(
-              stream: state.userBloc.query(state.authenticationBloc.user.uid),
-              builder: (context, snapshot) {
-                if (!snapshot.hasData) return Loading();
-
-                return Text(
-                  FlashcardsStrings.score(snapshot.data.score),
-                  style: TextStyle(color: Colors.white),
+          GestureDetector(
+            onTap: () {
+              //todo solve this somehow, probably store userdata in state aswell as firebaseuser
+              state.userBloc.query(state.authenticationBloc.user.uid).listen((userData) {
+                Navigator.of(context).pop();
+                Navigator.of(context).push(
+                  MaterialPageRoute(builder: (bc) => ProfileScreen(userData: userData,))
                 );
-              },
-            ),
+              });
+            },
+            child: Column(
+              children: <Widget>[
+                UserAccountsDrawerHeader(
+                  accountName: Text(state.authenticationBloc.user.displayName),
+                  accountEmail: Text(state.authenticationBloc.user.email),
+                  currentAccountPicture: CircleAvatar(
+                    child: ClipRRect(
+                      // TODO: any auto value for rounded image?
+                      borderRadius: BorderRadius.circular(100.0),
+                      child: Image.network(state.authenticationBloc.user.photoUrl),
+                    ),
+                  ),
+                  margin: EdgeInsets.zero,
+                ),
+                Container(
+                  padding: EdgeInsets.all(16.0),
+                  alignment: Alignment.centerLeft,
+                  decoration: BoxDecoration(color: Theme.of(context).primaryColor),
+                  child: StreamBuilder<UserData>(
+                    stream: state.userBloc.query(state.authenticationBloc.user.uid),
+                    builder: (context, snapshot) {
+                      if (!snapshot.hasData) return Loading();
+
+                      return Text(
+                        FlashcardsStrings.score(snapshot.data.score),
+                        style: TextStyle(color: Colors.white),
+                      );
+                    },
+                  ),
+                ),
+              ],
+            )
           ),
           Expanded(
             child: ListView(
@@ -54,32 +75,28 @@ class CustomDrawer extends StatelessWidget {
                   leading: Icon(Icons.home),
                   title: Text(FlashcardsStrings.homeNavigationButton()),
                   onTap: () {
-                    Navigator.of(context).pop(); // close drawer
-                    Navigator.of(context).pushNamed(MainScreen.route);
+                    _redirect(MainScreen.route);
                   },
                 ),
                 ListTile(
                   leading: Icon(Icons.search),
                   title: Text(FlashcardsStrings.searchNavigationButton()),
                   onTap: () {
-                    Navigator.of(context).pop(); // close drawer
-                    Navigator.of(context).pushNamed(SearchScreen.route);
+                    _redirect(SearchScreen.route);
                   },
                 ),
                 ListTile(
                   leading: Icon(Icons.info),
                   title: Text(FlashcardsStrings.aboutNavigationButton()),
                   onTap: () {
-                    Navigator.of(context).pop(); // close drawer
-                    Navigator.of(context).pushNamed(AboutScreen.route);
+                    _redirect(AboutScreen.route);
                   },
                 ),
                 ListTile(
                   leading: Icon(Icons.settings),
                   title: Text(FlashcardsStrings.settingsNavigationButton()),
                   onTap: () {
-                    Navigator.of(context).pop(); // close drawer
-                    Navigator.of(context).pushNamed(SettingsScreen.route);
+                    _redirect(SettingsScreen.route);
                   },
                 ),
                 ListTile(

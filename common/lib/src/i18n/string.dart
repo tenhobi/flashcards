@@ -539,5 +539,20 @@ The project started as a part of a software team project at the [Faculty of Info
     );
   }
 
+  static String generalEmpty() {
+    return Intl.message(
+      '_generalEmpty',
+      name: 'generalEmpty',
+      desc: 'Empty error message for non specified input',
+    );
+  }
+
+  static String savedUserData() {
+    return Intl.message(
+      '_savedUserData',
+      name: 'savedUserData',
+      desc: 'Shown in snackbar after profile update',
+    );
+  }
 
 }

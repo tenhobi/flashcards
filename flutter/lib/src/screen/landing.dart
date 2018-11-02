@@ -122,8 +122,6 @@ class _LandingScreenState extends State<LandingScreen> with SingleTickerProvider
             (_) => false,
       );
     }
-
-//    state.userBloc.createIfAbsent.add(UserData(uid: user.uid, name: user.displayName));
   }
 
   Widget _buildLogo(BuildContext context) {

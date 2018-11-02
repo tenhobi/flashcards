@@ -27,7 +27,7 @@ class FilledLinkType {
 
   FilledLinkType({@required this.linkType, @required this.value});
   factory FilledLinkType.fromJson(Map<String, dynamic> data) => FilledLinkType(
-    linkType: data['linkType'],
+    linkType: LinkType.values[data['linkType']],
     value: data['value'],
   );
 
@@ -52,6 +52,7 @@ class UserData extends Data {
   final String name;
   final String bio;
   final List<FilledLinkType> links;
+  final String photoUrl;
 
   UserData({
     @required this.uid,
@@ -60,30 +61,39 @@ class UserData extends Data {
     this.score = 0,
     this.bio = "",
     this.links = const [],
+    this.photoUrl = "",
   });
 
   factory UserData.fromMap(Map<String, dynamic> data) {
     List<FilledLinkType> list = [];
-    final d = json.decode(data['links']);
-    print(d);
+
+    if(data['links'] != null) {
+      List<dynamic> d = json.decode(data['links']);
+      d.forEach((val) {
+        list.add(FilledLinkType.fromJson(val));
+      });
+    }
+
     return UserData(
       uid: data['uid'],
       name: data['name'],
       score: data['score'],
       language: data['language'],
-      bio: data['bio'],
-      links: list,
+      bio: data['bio'] ?? "",
+      links: list ?? [],
+      photoUrl: data["photoUrl"] ?? "",
     );
   }
 
   @override
-  UserData copyWith({String uid, int score, String language, String name}) => UserData(
+  UserData copyWith({String uid, int score, String language, String name, String photoUrl}) => UserData(
         uid: uid ?? this.uid,
         score: score ?? this.score,
         language: language ?? this.language,
         name: name ?? this.name,
         bio: bio ?? this.bio,
         links: links ?? this.links,
+        photoUrl: photoUrl ?? this.photoUrl,
       );
 
   @override
@@ -96,6 +106,7 @@ class UserData extends Data {
       'language': '$language',
       'bio': '$bio',
       'links': '$links',
+      'photoUrl': '$photoUrl',
     };
   }
 }

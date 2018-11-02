@@ -112,6 +112,7 @@ class _NewUserScreenState extends State<NewUserScreen> {
         name: user.displayName,
         bio: _bio,
         links: _links,
+        photoUrl: user.photoUrl,
       );
 
       state.userBloc.create.add(userData);
@@ -143,61 +144,4 @@ class _NewUserScreenState extends State<NewUserScreen> {
       ),
     );
   }
-
-//	@override
-//	Widget build(BuildContext context) {
-//		final state = StateContainer.of(context);
-//
-//		return Scaffold(
-//			floatingActionButton: FloatingActionButton(
-//				onPressed: () {
-//					final form = formKey.currentState;
-//
-//					if (form.validate()) {
-//						form.save();
-//
-//						state.courseListBloc.create.add(
-//							CourseData(
-//								authorUid: state.authenticationBloc.user.uid,
-//								name: _name,
-//								description: _description,
-//							),
-//						);
-//
-//						Navigator.of(context).pop();
-//					}
-//				},
-//				child: Icon(Icons.add),
-//			),
-//			appBar: AppBar(
-//				title: Text(FlashcardsStrings.newCourse()),
-//			),
-//			body: Container(
-//				padding: EdgeInsets.all(20.0),
-//				child: Form(
-//					key: formKey,
-//					child: Column(
-//						children: <Widget>[
-//							TextFormField(
-//								autofocus: true,
-//								decoration: InputDecoration(
-//									labelText: FlashcardsStrings.newCourseName(),
-//								),
-//								validator: (val) => val.isEmpty ? FlashcardsStrings.newCourseNameEmpty() : null,
-//								onSaved: (val) => _name = val,
-//							),
-//							TextFormField(
-//								maxLines: 5,
-//								decoration: InputDecoration(
-//									labelText: FlashcardsStrings.newCourseDescription(),
-//								),
-//								validator: (val) => val.isEmpty ? FlashcardsStrings.newCourseDescriptionEmpty() : null,
-//								onSaved: (val) => _description = val,
-//							),
-//						],
-//					),
-//				),
-//			),
-//		);
-//	}
 }
