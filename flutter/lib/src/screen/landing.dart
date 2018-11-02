@@ -88,11 +88,6 @@ class _LandingScreenState extends State<LandingScreen> with SingleTickerProvider
               padding: EdgeInsets.only(bottom: 150.0),
               child: _buildLogo(context),
             ),
-            _isLoading
-                ? CircularProgressIndicator(
-                    valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-                  )
-                : Container(),
             Padding(
               padding: EdgeInsets.only(top: 300.0),
               child: _isLoading ? _buildLoading(context) : _buildButtons(context),
@@ -121,6 +116,10 @@ class _LandingScreenState extends State<LandingScreen> with SingleTickerProvider
     }
 
     final userData = await state.userBloc.query(state.authenticationBloc.user.uid).first;
+
+    setState(() {
+      _isLoading = false;
+    });
 
     if (userData == null) {
       //new user
