@@ -1,6 +1,8 @@
 import 'package:flashcards_common/data.dart';
 import 'package:flashcards_common/i18n.dart';
 import 'package:flashcards_flutter/src/state/container.dart';
+import 'package:flashcards_flutter/src/components/badge.dart';
+import 'package:flashcards_flutter/src/components/link_type_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 
@@ -13,13 +15,19 @@ class ProfileScreen extends StatefulWidget {
   State<ProfileScreen> createState() => _ProfileScreenState();
 }
 
+const HEADER_COLOR = Colors.blue;
+
 class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProviderStateMixin {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   Map<String, dynamic> _editedUserMap;
+  bool _edditing = false;
 
   //todo move somewhere more useful than here
   bool isOwner(UserData u) => StateContainer.of(context).authenticationBloc.user.uid == u.uid;
+
+  //todo should probably be moved somewhere else
+  String capitalize(String s) => s[0].toUpperCase() + s.substring(1);
 
   @override
   void initState() {
@@ -40,152 +48,235 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
         content: Text(FlashcardsStrings.savedUserData()),
       );
       _scaffoldKey.currentState.showSnackBar(snackbar);
+      setState(() {
+        _edditing = false;
+      });
     }
   }
 
   FloatingActionButton _fab() {
-    return isOwner(widget.userData)
+    return isOwner(widget.userData) && _edditing
         ? FloatingActionButton(
+            backgroundColor: Colors.green,
             onPressed: _saveInfo,
-            child: Icon(Icons.save),
+            child: Icon(Icons.check),
           )
         : null;
   }
 
-  //todo should probably be moved somewhere else
-  String capitalize(String s) => s[0].toUpperCase() + s.substring(1);
+  Widget _buildEditableHeaderRow({@required double fontSize, @required String hintText, @required String value, @required onSaved, @required validator, int maxLines = 1, bool autocorrect = false}) {
+    final textStyle = TextStyle(color: Colors.white, fontSize: fontSize,);
+    final border = UnderlineInputBorder(borderSide: BorderSide(color: Colors.white, width: 1.0),);
+    return Theme(
+      data: ThemeData(
+        cursorColor: Colors.white,
+        textSelectionColor: Colors.white,
+      ),
+      child: Container(
+        child: _edditing ?
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 16.0),
+          child: TextFormField(
+            textAlign: TextAlign.center,
+            controller: TextEditingController(text: value),
+            style: textStyle,
+            maxLines: maxLines,
+            autocorrect: autocorrect,
+            onSaved: onSaved,
+            validator: validator,
 
-  Widget _generateDebugRow(fieldName) {
-    return Container(
-      padding: EdgeInsets.only(top: 8.0),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: <Widget>[
-          Text(
-            'DEBUG $fieldName',
-            style: TextStyle(color: Colors.amber, fontWeight: FontWeight.bold),
+            decoration: InputDecoration(
+              hintStyle: textStyle,
+              hintText: hintText,
+              contentPadding: EdgeInsets.all(0.0),
+              enabledBorder: border,
+              focusedBorder: border,
+            ),
           ),
-          Expanded(
+        ):
+        Text(value, style: textStyle,),
+      ),
+    );
+  }
+
+  Widget _buildImage() {
+    String link = _editedUserMap['photoUrl'];
+    link = link == null || link.isEmpty
+      ? 'http://www.drunkmall.com/wp-content/uploads/2016/04/Temoporary-Dickbutt-Tattoo.jpg'
+      : link;
+
+    return Padding(
+      padding: EdgeInsets.only(top: 8.0),
+      child: Container(
+        height: 100.0,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(100.0),
+          border: Border.all(color: Colors.blue.shade600, width: 5.0),
+        ),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(100.0),
+          child: Image.network(link),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildBio() {
+    return _buildEditableHeaderRow(
+      fontSize: 16.0,
+      hintText: FlashcardsStrings.bioName(),
+      value: _editedUserMap['bio'],
+      autocorrect: true,
+      maxLines: 3,
+      validator: (val) => null,
+      onSaved: (val) {
+        _editedUserMap = val;
+      }
+    );
+  }
+
+  Widget _buildName() {
+    return _buildEditableHeaderRow(
+      fontSize: 28.0,
+      hintText: FlashcardsStrings.nameName(),
+      value: _editedUserMap['name'],
+      autocorrect: false,
+      maxLines: 1,
+      validator: (val) => val.isEmpty() ? FlashcardsStrings.nameEmpty() : null,
+      onSaved: (val) {
+        _editedUserMap = val;
+      }
+    );
+  }
+
+  Widget _buildLanguage() {
+    return Expanded(
+      child: Stack(
+        overflow: Overflow.clip,
+        fit: StackFit.loose,
+        children: <Widget>[
+          Positioned(
             child: Padding(
-              padding: EdgeInsets.only(left: 10.0),
-              child: Text(
-                _editedUserMap[fieldName].toString(),
-                style: TextStyle(fontSize: 20.0),
-              ),
+              padding: EdgeInsets.all(8.0),
+              child: Text(_editedUserMap['language'], style: TextStyle(color: Colors.white, fontSize: 16.0),),
             ),
-          )
+            right: 0.0,
+            bottom: 0.0,
+          ),
         ],
       ),
     );
   }
 
-  Widget _generateNonEditableRow(fieldName) {
+  Widget _buildHeader() {
     return Container(
-      padding: EdgeInsets.only(top: 8.0),
-      child: Row(
-        children: <Widget>[
-          Text(
-            '${capitalize(fieldName)}:',
-          ),
-          Padding(
-            padding: EdgeInsets.only(left: 10.0),
-            child: Text(
-              _editedUserMap[fieldName].toString(),
-              style: TextStyle(fontSize: 20.0),
+      height: 240.0,
+      decoration: BoxDecoration(
+        color: HEADER_COLOR,
+        image: DecorationImage(
+          image: NetworkImage("https://images.vexels.com/media/users/3/145867/isolated/preview/015b2a1aac5e9d4d3c18376bbbae1819-sound-wave-line-by-vexels.png"),
+          fit: BoxFit.cover,
+          alignment: Alignment.bottomCenter,
+          colorFilter: ColorFilter.mode(HEADER_COLOR.withOpacity(0.9), BlendMode.srcOver)
+        ),
+      ),
+      child: Center(
+        child: Column(
+          children: <Widget>[
+            Expanded(
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: Stack(
+                  overflow: Overflow.visible,
+                  fit: StackFit.loose,
+                  children: <Widget>[
+                    Positioned(
+                      child: _buildImage(),
+                    ),
+                    Positioned(
+                      bottom: -10.0,
+                      right: 6.0,
+                      child: Badge(
+                        message: _editedUserMap['score'].toString(),
+                        backgroundColor: Colors.white,
+                        borderColor: Colors.blue.shade600,
+                        textColor: Colors.black,
+                      ),
+                    ),
+                  ],
+                ),
+              )
             ),
-          )
-        ],
+            Padding(padding: EdgeInsets.only(top:12.0),),
+            _buildName(),
+            _buildBio(),
+            _buildLanguage(),
+          ],
+        ),
       ),
     );
   }
 
-  Widget _generateEditableRow(fieldName) {
-    return TextFormField(
-      //todo add localization
-      decoration: InputDecoration(labelText: capitalize(fieldName)),
-      controller: TextEditingController(text: _editedUserMap[fieldName].toString()),
-      validator: (val) => val.isEmpty ? FlashcardsStrings.generalEmpty() : null,
-      onSaved: (val) => _editedUserMap[fieldName] = val,
-    );
+  void _clearEditedData() {
+    setState(() {
+      _edditing = false;
+      _editedUserMap = widget.userData.toMap();
+    });
   }
 
-  Widget _generateRow(fieldName) {
-    return isOwner(widget.userData) ? _generateEditableRow(fieldName) : _generateNonEditableRow(fieldName);
-  }
-
-  Widget _generateLinkRow(FilledLinkType filledLinkData) {
-    return Container(
-      padding: EdgeInsets.only(top: 8.0),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: <Widget>[
-          Text(
-            filledLinkData.linkType.baseUrl,
-            style: TextStyle(color: Colors.black45),
-          ),
-          Text(
-            filledLinkData.value,
-            style: TextStyle(fontSize: 20.0),
-          ),
-        ],
-      ),
-    );
-  }
-
-  List<Widget> _generateLinkRows() {
-    return widget.userData.links.map(_generateLinkRow).toList();
+  List<Widget> _buildActions() {
+    return [_edditing ?
+      IconButton(
+        icon: Icon(Icons.clear),
+        onPressed: _clearEditedData,
+      ):
+      IconButton(
+        icon: Icon(Icons.mode_edit),
+        onPressed: () {setState(() {_edditing = true;});},
+      )
+    ];
   }
 
   @override
   Widget build(BuildContext context) {
-    String link = _editedUserMap['photoUrl'];
-    link = link == null || link.isEmpty
-        ? 'http://www.drunkmall.com/wp-content/uploads/2016/04/Temoporary-Dickbutt-Tattoo.jpg'
-        : link;
-    print(link);
-    var preparedRows = [
-      Container(
-        width: 200.0,
-        height: 200.0,
-        child: CircleAvatar(
-          child: ClipRRect(
-            // TODO: any auto value for rounded image?
-            borderRadius: BorderRadius.circular(100.0),
-            child: Image.network(link),
-          ),
-        ),
-      ),
-      _generateRow('name'),
-      _generateRow('bio'),
-      _generateNonEditableRow('language'),
-      _generateNonEditableRow('score'),
-    ];
-    preparedRows.addAll(_generateLinkRows());
-    preparedRows.addAll([
-      _generateDebugRow('uid'),
-      _generateDebugRow('links'),
-    ]);
+
+    List<Widget> tiles = [];
+    tiles.addAll(widget.userData.links.map((filledLinkType) => LinkTypeTile(filledLinkType: filledLinkType,)).toList());
+    if(tiles.length < LinkType.values.length) {
+      tiles.add(NewLinkTypeTile(text: FlashcardsStrings.newLink()));
+    }
 
     return Scaffold(
       key: _scaffoldKey,
-      backgroundColor: Colors.lightBlue[200],
+      backgroundColor: Colors.white,
       floatingActionButton: _fab(),
       appBar: AppBar(
-        title: Text(widget.userData.name),
+        title: Text(FlashcardsStrings.profileScreenTitle()),
+        backgroundColor: HEADER_COLOR,
+        elevation: 0.0,
+        actions: _buildActions(),
       ),
       body: Container(
         child: Form(
           key: _formKey,
-          child: ListView(
-            children: [
-              Container(
-                padding: EdgeInsets.all(16.0),
-                child: Column(
-                  children: preparedRows,
-                ),
-              ),
+          child: Column(
+            children: <Widget>[
+              _buildHeader(),
+              Expanded(
+                child: Container(
+                  padding: EdgeInsets.all(16.0),
+                  //todo: redesign social media grid
+                  child: GridView.count(
+                    mainAxisSpacing: 10.0,
+                    crossAxisSpacing: 10.0,
+                    crossAxisCount: 3,
+                    children: tiles,
+                  ),
+                )
+              )
             ],
-          ),
+          )
         ),
       ),
     );
