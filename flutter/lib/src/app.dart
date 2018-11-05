@@ -20,7 +20,6 @@ class FlashcardsApp extends StatelessWidget {
       theme: ThemeData.light(),
       home: LandingScreen(
         nextScreen: MainScreen(),
-        nextNewUserScreen: MainScreen(),
       ),
       localizationsDelegates: [
         FlashcardsLocalizationDelegate(),

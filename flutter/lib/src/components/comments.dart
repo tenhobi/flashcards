@@ -2,6 +2,7 @@ import 'package:flashcards_common/data.dart';
 import 'package:flashcards_common/i18n.dart';
 import 'package:flashcards_flutter/src/components/indicator_loading.dart';
 import 'package:flashcards_flutter/src/state/container.dart';
+import 'package:flashcards_flutter/src/screen/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:tuple/tuple.dart';
 
@@ -111,10 +112,21 @@ class _CommentsState extends State<Comments> {
                             builder: (context, snapshot) {
                               if (!snapshot.hasData) return Loading();
 
-                              return Text(
-                                snapshot.data.name,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
+                              return GestureDetector(
+                                onTap: () {
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (bc) => ProfileScreen(
+                                            userData: snapshot.data,
+                                          ),
+                                    ),
+                                  );
+                                },
+                                child: Text(
+                                  snapshot.data.name,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                               );
                             },

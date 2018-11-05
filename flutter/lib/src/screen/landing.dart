@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import 'package:flashcards_common/data.dart';
 import 'package:flashcards_flutter/src/components/button_google.dart';
 import 'package:flashcards_flutter/src/state/container.dart';
+import 'package:flashcards_flutter/src/screen/new_user.dart';
 import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
 import 'package:flutter/material.dart';
@@ -11,14 +11,12 @@ import 'package:flashcards_common/i18n.dart';
 
 class LandingScreen extends StatefulWidget {
   final Widget nextScreen;
-  final Widget nextNewUserScreen;
 
   /// Show all content without animations.
   final bool withoutAnimations;
 
   const LandingScreen({
     @required this.nextScreen,
-    @required this.nextNewUserScreen,
     this.withoutAnimations = false,
   });
 
@@ -88,25 +86,11 @@ class _LandingScreenState extends State<LandingScreen> with SingleTickerProvider
           children: <Widget>[
             Padding(
               padding: EdgeInsets.only(bottom: 150.0),
-              child: Text(
-                FlashcardsStrings.appName().toLowerCase(),
-                style: TextStyle(
-                  fontFamily: 'Lobster',
-                  fontWeight: FontWeight.normal,
-                  fontSize:
-                      widget.withoutAnimations ? fontSize : Curves.elasticOut.transform(animation.value) * fontSize,
-                  color: Colors.white,
-                ),
-              ),
+              child: _buildLogo(context),
             ),
-            _isLoading
-                ? CircularProgressIndicator(
-                    valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-                  )
-                : Container(),
             Padding(
               padding: EdgeInsets.only(top: 300.0),
-              child: _buildButtons(context),
+              child: _isLoading ? _buildLoading(context) : _buildButtons(context),
             ),
           ],
         ),
@@ -131,19 +115,50 @@ class _LandingScreenState extends State<LandingScreen> with SingleTickerProvider
       return;
     }
 
-    state.userBloc.createIfAbsent.add(UserData(uid: user.uid, name: user.displayName));
-
     final userData = await state.userBloc.query(state.authenticationBloc.user.uid).first;
 
-    if (userData.language != null) {
-      Intl.defaultLocale = userData.language;
-    }
+    setState(() {
+      _isLoading = false;
+    });
 
-    Navigator.of(context).pushAndRemoveUntil(
-      MaterialPageRoute(
-        builder: (bc) => widget.nextScreen,
+    if (userData == null) {
+      //new user
+      Navigator.of(context).push(MaterialPageRoute(
+        builder: (bc) {
+          return NewUserScreen(
+            nextScreen: widget.nextScreen,
+          );
+        },
+      ));
+    } else {
+      if (userData.language != null) {
+        Intl.defaultLocale = userData.language;
+      }
+
+      Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(
+          builder: (bc) => widget.nextScreen,
+        ),
+        (_) => false,
+      );
+    }
+  }
+
+  Widget _buildLogo(BuildContext context) {
+    return Text(
+      FlashcardsStrings.appName().toLowerCase(),
+      style: TextStyle(
+        fontFamily: 'Lobster',
+        fontWeight: FontWeight.normal,
+        fontSize: widget.withoutAnimations ? fontSize : Curves.elasticOut.transform(animation.value) * fontSize,
+        color: Colors.white,
       ),
-      (_) => false,
+    );
+  }
+
+  Widget _buildLoading(BuildContext context) {
+    return CircularProgressIndicator(
+      valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
     );
   }
 
