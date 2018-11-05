@@ -58,7 +58,9 @@ class LinkTypeTile extends StatelessWidget {
       icon: _matchingIcons[filledLinkType.linkType],
       backgroundColor: Colors.blue,
       textColor: Colors.white,
-      onPressed: () {launch(filledLinkType.link());},
+      onPressed: () {
+        launch(filledLinkType.link());
+      },
     );
   }
 }
