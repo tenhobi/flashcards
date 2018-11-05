@@ -13,7 +13,7 @@ class _CustomTile extends StatelessWidget {
   final IconData icon;
   final Color backgroundColor;
   final Color textColor;
-  final onPressed;
+  final Function onPressed;
 
   _CustomTile({@required this.text, @required this.icon, @required this.backgroundColor, @required this.textColor, this.onPressed});
 
