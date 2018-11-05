@@ -6,26 +6,24 @@ import 'dart:async';
 
 import 'package:intl/intl.dart';
 import 'package:intl/message_lookup_by_library.dart';
-
 // ignore: implementation_imports
 import 'package:intl/src/intl_helpers.dart';
 
-import 'messages_cs_CZ.dart' deferred as messages_cs_cz;
-import 'messages_en_US.dart' deferred as messages_en_us;
+import 'messages_cs_CZ.dart' deferred as messages_cs_CZ;
+import 'messages_en_US.dart' deferred as messages_en_US;
 
-typedef LibraryLoader = Future<dynamic> Function();
-
+typedef Future<dynamic> LibraryLoader();
 Map<String, LibraryLoader> _deferredLibraries = {
-  'cs_CZ': messages_cs_cz.loadLibrary,
-  'en_US': messages_en_us.loadLibrary,
+  'cs_CZ': () => messages_cs_CZ.loadLibrary(),
+  'en_US': () => messages_en_US.loadLibrary(),
 };
 
 MessageLookupByLibrary _findExact(localeName) {
   switch (localeName) {
     case 'cs_CZ':
-      return messages_cs_cz.messages;
+      return messages_cs_CZ.messages;
     case 'en_US':
-      return messages_en_us.messages;
+      return messages_en_US.messages;
     default:
       return null;
   }
@@ -36,19 +34,19 @@ Future<bool> initializeMessages(String localeName) async {
   var availableLocale =
       Intl.verifiedLocale(localeName, (locale) => _deferredLibraries[locale] != null, onFailure: (_) => null);
   if (availableLocale == null) {
-    return Future.value(false);
+    return new Future.value(false);
   }
   var lib = _deferredLibraries[availableLocale];
-  await (lib == null ? Future.value(false) : lib());
-  initializeInternalMessageLookup(() => CompositeMessageLookup());
+  await (lib == null ? new Future.value(false) : lib());
+  initializeInternalMessageLookup(() => new CompositeMessageLookup());
   messageLookup.addLocale(availableLocale, _findGeneratedMessagesFor);
-  return Future.value(true);
+  return new Future.value(true);
 }
 
 bool _messagesExistFor(String locale) {
   try {
     return _findExact(locale) != null;
-  } on Exception catch (_) {
+  } catch (e) {
     return false;
   }
 }

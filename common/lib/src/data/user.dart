@@ -4,9 +4,9 @@ import 'package:flashcards_common/src/data/data.dart';
 import 'package:meta/meta.dart';
 
 class LinkType {
-  static const LinkType facebook = LinkType._(0, "facebook.com/");
-  static const LinkType twitter = LinkType._(1, "github.com/");
-  static const LinkType github = LinkType._(2, "twitter.com/");
+  static const LinkType facebook = LinkType._(0, "https://facebook.com/");
+  static const LinkType twitter = LinkType._(1, "https://twitter.com/");
+  static const LinkType github = LinkType._(2, "https://github.com/");
 
   static List<LinkType> get values => [facebook, twitter, github];
 
@@ -44,6 +44,10 @@ class FilledLinkType {
       'linkType': linkType.value,
       'value': '$value',
     };
+  }
+
+  String link() {
+    return "${linkType.baseUrl}$value";
   }
 }
 

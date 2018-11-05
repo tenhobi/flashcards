@@ -553,4 +553,44 @@ The project started as a part of a software team project at the [Faculty of Info
       desc: 'Shown in snackbar after profile update',
     );
   }
+
+  static String profileScreenTitle() {
+    return Intl.message(
+      '_profileScreenTitle',
+      name: 'profileScreenTitle',
+      desc: 'Profile screen title',
+    );
+  }
+
+  static String nameName() {
+    return Intl.message(
+      '_nameName',
+      name: 'nameName',
+      desc: 'Name of name input field.',
+    );
+  }
+
+  static String nameEmpty() {
+    return Intl.message(
+      '_nameEmpty',
+      name: 'nameEmpty',
+      desc: 'Name field cannot be empty error msg.',
+    );
+  }
+
+  static String newLink() {
+    return Intl.message(
+      '_newLink',
+      name: 'newLink',
+      desc: 'Add new link message',
+    );
+  }
+
+  static String loadingError() {
+    return Intl.message(
+      '_loadingError',
+      name: 'loadingError',
+      desc: 'Info about wrong error',
+    );
+  }
 }

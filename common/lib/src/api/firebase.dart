@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flashcards_common/src/data/course.dart';
 import 'package:flashcards_common/src/data/comment.dart';
 import 'package:flashcards_common/src/data/section.dart';
@@ -8,28 +6,15 @@ import 'package:flashcards_common/src/data/user.dart';
 import 'package:flashcards_common/src/data/exercise.dart';
 import 'package:flashcards_common/src/data/question.dart';
 import 'package:meta/meta.dart';
+import 'package:rxdart/rxdart.dart';
 
 enum CoursesQueryType { all, created, popular }
 
 @immutable
 abstract class FirebaseApi {
-  Stream<List<CourseData>> queryCourses({CoursesQueryType type, String name, String authorUid});
-
-  Stream<List<String>> queryStars({@required CourseData course});
-
   void like({@required CourseData course, @required String userUid});
 
   void unlike({@required CourseData course, @required String userUid});
-
-  Stream<List<SectionData>> querySections({@required CourseData course});
-
-  Stream<List<SubsectionData>> queryMaterials({@required SectionData section});
-
-  Stream<List<SubsectionData>> queryExercises({@required SectionData section});
-
-  Stream<UserData> queryUser(String uid);
-
-  Stream<List<UserData>> queryUsers();
 
   void addCourse(CourseData course);
 
@@ -53,15 +38,29 @@ abstract class FirebaseApi {
 
   void editSubsection(SubsectionData subsection);
 
-  Stream<List<CommentData>> queryComments(CourseData course);
-
   void addComment({@required CourseData course, @required CommentData comment});
 
   void likeComment({@required CourseData course, @required CommentData comment, @required String authorUid});
 
   void unlikeComment({@required CourseData course, @required CommentData comment, @required String authorUid});
 
-  Stream<List<String>> queryCommentsStars({CourseData course, CommentData comment});
+  BehaviorSubject<List<CourseData>> queryCourses({CoursesQueryType type, String name, String authorUid});
 
-  Stream<List<QuestionData>> queryQuestions({ExerciseData exercise, int size});
+  BehaviorSubject<List<String>> queryStars({@required CourseData course});
+
+  BehaviorSubject<List<CommentData>> queryComments(CourseData course);
+
+  BehaviorSubject<List<String>> queryCommentsStars({CourseData course, CommentData comment});
+
+  BehaviorSubject<List<QuestionData>> queryQuestions({ExerciseData exercise, int size});
+
+  BehaviorSubject<List<SectionData>> querySections({@required CourseData course});
+
+  BehaviorSubject<List<SubsectionData>> queryMaterials({@required SectionData section});
+
+  BehaviorSubject<List<SubsectionData>> queryExercises({@required SectionData section});
+
+  BehaviorSubject<UserData> queryUser(String uid);
+
+  BehaviorSubject<List<UserData>> queryUsers();
 }

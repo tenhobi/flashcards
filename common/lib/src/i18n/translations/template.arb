@@ -1,5 +1,5 @@
 {
-  "@@last_modified": "2018-06-01T04:25:37.515996",
+  "@@last_modified": "2018-11-05T19:58:55.095066",
   "signInButton": "_signInButton",
   "@signInButton": {
     "description": "Sign in button.",
@@ -54,7 +54,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "aboutText": "Version\n__{version}__\n\nOpen source project with a goal to develop a multiplatform (i.e. web, android, iOS) flashcards learning app. You can check our code on [GitHub](https://github.com/tenhobi/flashcards).\n\nThe project started as a part of a software team project at the [Faculty of Information Technology, CTU in Prague](https://fit.cvut.cz/en).",
+  "aboutText": "Version\r\n__{version}__\r\n\r\nOpen source project with a goal to develop a multiplatform (i.e. web, android, iOS) flashcards learning app. You can check our code on [GitHub](https://github.com/tenhobi/flashcards).\r\n\r\nThe project started as a part of a software team project at the [Faculty of Information Technology, CTU in Prague](https://fit.cvut.cz/en).",
   "@aboutText": {
     "description": "Text about this application in markdown.",
     "type": "text",
@@ -365,6 +365,78 @@
   "rememberThose": "_rememberthose.",
   "@rememberThose": {
     "description": "Remember those flipcards exercise",
+    "type": "text",
+    "placeholders": {}
+  },
+  "bioName": "_bioName",
+  "@bioName": {
+    "description": "Biography form input label.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "bioPlaceholder": "_bioPlaceholder",
+  "@bioPlaceholder": {
+    "description": "Biography form input placeholder.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "bioEmpty": "_bioEmpty",
+  "@bioEmpty": {
+    "description": "Error shown when bio is empty.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "newUser": "_newUser",
+  "@newUser": {
+    "description": "Name of new user screen.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "submitDetails": "_submitDetails",
+  "@submitDetails": {
+    "description": "Submit details on new user screen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "linksName": "_linksName",
+  "@linksName": {
+    "description": "Links form input label.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "generalEmpty": "_generalEmpty",
+  "@generalEmpty": {
+    "description": "Empty error message for non specified input",
+    "type": "text",
+    "placeholders": {}
+  },
+  "savedUserData": "_savedUserData",
+  "@savedUserData": {
+    "description": "Shown in snackbar after profile update",
+    "type": "text",
+    "placeholders": {}
+  },
+  "profileScreenTitle": "_profileScreenTitle",
+  "@profileScreenTitle": {
+    "description": "Profile screen title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "nameName": "_nameName",
+  "@nameName": {
+    "description": "Name of name input field.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "nameEmpty": "_nameEmpty",
+  "@nameEmpty": {
+    "description": "Name field cannot be empty error msg.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "newLink": "_newLink",
+  "@newLink": {
+    "description": "Add new link message",
     "type": "text",
     "placeholders": {}
   }

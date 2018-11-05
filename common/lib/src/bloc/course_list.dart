@@ -1,24 +1,23 @@
-import 'dart:async';
-
 import 'package:flashcards_common/src/bloc/bloc.dart';
 import 'package:flashcards_common/src/data/comment.dart';
 import 'package:flashcards_common/src/data/course.dart';
 import 'package:flashcards_common/src/api/firebase.dart';
 import 'package:meta/meta.dart';
 import 'package:tuple/tuple.dart';
+import 'package:rxdart/rxdart.dart';
 
 export 'package:flashcards_common/src/api/firebase.dart' show CoursesQueryType;
 
 class CourseListBloc extends Bloc {
   final FirebaseApi _api;
 
-  final StreamController<Tuple3<CourseData, CommentData, String>> _likeCommentController = StreamController();
-  final StreamController<Tuple3<CourseData, CommentData, String>> _unlikeCommentController = StreamController();
-  final StreamController<Tuple2<CourseData, CommentData>> _addCommentController = StreamController();
-  final StreamController<Tuple2<CourseData, String>> _likeController = StreamController();
-  final StreamController<Tuple2<CourseData, String>> _unlikeController = StreamController();
-  final StreamController<CourseData> _createController = StreamController();
-  final StreamController<CourseData> _removeController = StreamController();
+  final BehaviorSubject<Tuple3<CourseData, CommentData, String>> _likeCommentController = BehaviorSubject();
+  final BehaviorSubject<Tuple3<CourseData, CommentData, String>> _unlikeCommentController = BehaviorSubject();
+  final BehaviorSubject<Tuple2<CourseData, CommentData>> _addCommentController = BehaviorSubject();
+  final BehaviorSubject<Tuple2<CourseData, String>> _likeController = BehaviorSubject();
+  final BehaviorSubject<Tuple2<CourseData, String>> _unlikeController = BehaviorSubject();
+  final BehaviorSubject<CourseData> _createController = BehaviorSubject();
+  final BehaviorSubject<CourseData> _removeController = BehaviorSubject();
 
   CourseListBloc(this._api) {
     _likeCommentController.stream.listen(_handleLikeComment);
@@ -44,19 +43,19 @@ class CourseListBloc extends Bloc {
 
   Sink<CourseData> get remove => _removeController.sink;
 
-  Stream<List<CourseData>> queryAll(CoursesQueryType type, {String authorUid, String name}) {
+  BehaviorSubject<List<CourseData>> queryAll(CoursesQueryType type, {String authorUid, String name}) {
     return _api.queryCourses(type: type, authorUid: authorUid, name: name);
   }
 
-  Stream<List<String>> queryStars({@required CourseData course}) {
+  BehaviorSubject<List<String>> queryStars({@required CourseData course}) {
     return _api.queryStars(course: course);
   }
 
-  Stream<List<String>> queryCommentsStars({@required CourseData course, @required CommentData comment}) {
+  BehaviorSubject<List<String>> queryCommentsStars({@required CourseData course, @required CommentData comment}) {
     return _api.queryCommentsStars(course: course, comment: comment);
   }
 
-  Stream<List<CommentData>> queryComments({@required CourseData course}) {
+  BehaviorSubject<List<CommentData>> queryComments({@required CourseData course}) {
     return _api.queryComments(course);
   }
 
