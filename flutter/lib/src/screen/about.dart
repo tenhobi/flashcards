@@ -46,11 +46,10 @@ class _AboutScreenState extends State<AboutScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blue[800],
+      backgroundColor: Colors.blue[700],
       appBar: AppBar(
         title: Text(FlashcardsStrings.aboutNavigationButton()),
         elevation: 0.0,
-        backgroundColor: Colors.blue[800],
       ),
       body: ListView(
         padding: EdgeInsets.all(75.0),

@@ -17,6 +17,7 @@ class FlashcardsApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: FlashcardsStrings.appName(),
+      theme: ThemeData.light(),
       home: LandingScreen(
         nextScreen: MainScreen(),
         nextNewUserScreen: MainScreen(),
