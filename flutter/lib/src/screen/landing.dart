@@ -28,6 +28,7 @@ class LandingScreen extends StatefulWidget {
 class _LandingScreenState extends State<LandingScreen> with SingleTickerProviderStateMixin {
   final double fontSize = 55.0;
   AnimationController animation;
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   bool _loginButtonVisible = false;
 
@@ -99,19 +100,33 @@ class _LandingScreenState extends State<LandingScreen> with SingleTickerProvider
   }
 
   // TODO: detect new user and go to nextNewUserScreen
-  Future<Null> signIn({bool silently = false}) async {
+  Future<void> signIn({bool silently = false}) async {
     setState(() {
       _isLoading = true;
     });
 
     final state = StateContainer.of(context);
 
-    final user = silently ? await state.authenticationBloc.signInSilently() : await state.authenticationBloc.signIn();
+    try {
+      final user = silently ? await state.authenticationBloc.signInSilently() : await state.authenticationBloc.signIn();
 
-    if (user == null) {
+      if (user == null) {
+        setState(() {
+          _isLoading = false;
+        });
+        return;
+      }
+    } on Exception catch (_) {
       setState(() {
         _isLoading = false;
       });
+
+      final snackbar = SnackBar(
+        content: Text(FlashcardsStrings.loadingError()),
+      );
+
+      _scaffoldKey.currentState.showSnackBar(snackbar);
+
       return;
     }
 
