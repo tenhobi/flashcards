@@ -248,6 +248,20 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
     });
   }
 
+  List<Widget> _buildTiles() {
+    var res = <Widget>[];
+    res.addAll(widget.userData.links
+      .map((filledLinkType) => LinkTypeTile(
+      filledLinkType: filledLinkType,
+    ))
+      .toList());
+
+    if (res.length < LinkType.values.length) {
+      res.add(NewLinkTypeTile(text: FlashcardsStrings.newLink()));
+    }
+    return res;
+  }
+
   List<Widget> _buildActions() {
     return [
       _edditing
@@ -268,17 +282,6 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
 
   @override
   Widget build(BuildContext context) {
-    var tiles = <Widget>[];
-
-    tiles.addAll(widget.userData.links
-        .map((filledLinkType) => LinkTypeTile(
-              filledLinkType: filledLinkType,
-            ))
-        .toList());
-
-    if (tiles.length < LinkType.values.length) {
-      tiles.add(NewLinkTypeTile(text: FlashcardsStrings.newLink()));
-    }
 
     return Scaffold(
       key: _scaffoldKey,
@@ -304,7 +307,7 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
                   mainAxisSpacing: 10.0,
                   crossAxisSpacing: 10.0,
                   crossAxisCount: 3,
-                  children: tiles,
+                  children: _buildTiles(),
                 ),
               ))
             ],

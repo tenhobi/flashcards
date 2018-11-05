@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flashcards_common/data.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 const _matchingIcons = {
   LinkType.facebook: FontAwesomeIcons.facebook,
@@ -49,6 +50,7 @@ class LinkTypeTile extends StatelessWidget {
       icon: _matchingIcons[filledLinkType.linkType],
       backgroundColor: Colors.blue,
       textColor: Colors.white,
+      onPressed: () {launch(filledLinkType.link());},
     );
   }
 }
