@@ -251,10 +251,10 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
   List<Widget> _buildTiles() {
     var res = <Widget>[];
     res.addAll(widget.userData.links
-      .map((filledLinkType) => LinkTypeTile(
-      filledLinkType: filledLinkType,
-    ))
-      .toList());
+        .map((filledLinkType) => LinkTypeTile(
+              filledLinkType: filledLinkType,
+            ))
+        .toList());
 
     if (res.length < LinkType.values.length) {
       res.add(NewLinkTypeTile(text: FlashcardsStrings.newLink()));
@@ -282,7 +282,6 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor: Colors.white,

@@ -49,7 +49,6 @@ class FilledLinkType {
   String link() {
     return "${linkType.baseUrl}$value";
   }
-
 }
 
 class UserData extends Data {

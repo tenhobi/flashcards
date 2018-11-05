@@ -6,6 +6,7 @@ import 'package:flashcards_common/bloc.dart';
 import 'package:flashcards_common/api.dart';
 import 'package:flashcards_common/data.dart';
 import 'package:meta/meta.dart';
+import 'package:rxdart/rxdart.dart';
 
 class FirebaseFlutterApi extends FirebaseApi {
   static final FirebaseFlutterApi _instance = FirebaseFlutterApi._();
@@ -15,12 +16,12 @@ class FirebaseFlutterApi extends FirebaseApi {
   FirebaseFlutterApi._();
 
   @override
-  Stream<List<CourseData>> queryCourses({
+  BehaviorSubject<List<CourseData>> queryCourses({
     String authorUid,
     CoursesQueryType type = CoursesQueryType.all,
     String name,
   }) {
-    final controller = StreamController<List<CourseData>>.broadcast();
+    final controller = BehaviorSubject<List<CourseData>>();
 
     Query courses = Firestore.instance.collection('courses');
 
@@ -57,8 +58,8 @@ class FirebaseFlutterApi extends FirebaseApi {
   }
 
   @override
-  Stream<List<String>> queryStars({@required CourseData course}) {
-    final controller = StreamController<List<String>>.broadcast();
+  BehaviorSubject<List<String>> queryStars({@required CourseData course}) {
+    final controller = BehaviorSubject<List<String>>();
 
     Firestore.instance.collection('courses').document(course.id).collection('stars').snapshots().listen((snapshot) {
       controller.add(snapshot.documents.map<String>((document) {
@@ -80,8 +81,8 @@ class FirebaseFlutterApi extends FirebaseApi {
   }
 
   @override
-  Stream<List<SectionData>> querySections({@required CourseData course}) {
-    final controller = StreamController<List<SectionData>>.broadcast();
+  BehaviorSubject<List<SectionData>> querySections({@required CourseData course}) {
+    final controller = BehaviorSubject<List<SectionData>>();
 
     Firestore.instance
         .collection('courses')
@@ -103,8 +104,8 @@ class FirebaseFlutterApi extends FirebaseApi {
   }
 
   @override
-  Stream<List<SubsectionData>> queryMaterials({@required SectionData section}) {
-    final controller = StreamController<List<SubsectionData>>.broadcast();
+  BehaviorSubject<List<SubsectionData>> queryMaterials({@required SectionData section}) {
+    final controller = BehaviorSubject<List<SubsectionData>>();
 
     Firestore.instance
         .collection('courses')
@@ -127,8 +128,8 @@ class FirebaseFlutterApi extends FirebaseApi {
   }
 
   @override
-  Stream<List<SubsectionData>> queryExercises({@required SectionData section}) {
-    final controller = StreamController<List<SubsectionData>>.broadcast();
+  BehaviorSubject<List<SubsectionData>> queryExercises({@required SectionData section}) {
+    final controller = BehaviorSubject<List<SubsectionData>>();
 
     Firestore.instance
         .collection('courses')
@@ -156,8 +157,8 @@ class FirebaseFlutterApi extends FirebaseApi {
   }
 
   @override
-  Stream<UserData> queryUser(String uid) {
-    final controller = StreamController<UserData>.broadcast();
+  BehaviorSubject<UserData> queryUser(String uid) {
+    final controller = BehaviorSubject<UserData>();
 
     Firestore.instance.collection('users').where('uid', isEqualTo: uid).limit(1).snapshots().listen((snapshot) {
       // no user found check
@@ -177,8 +178,8 @@ class FirebaseFlutterApi extends FirebaseApi {
   }
 
   @override
-  Stream<List<UserData>> queryUsers() {
-    final controller = StreamController<List<UserData>>.broadcast();
+  BehaviorSubject<List<UserData>> queryUsers() {
+    final controller = BehaviorSubject<List<UserData>>();
 
     Firestore.instance.collection('users').snapshots().listen((snapshot) {
       controller.add(snapshot.documents.map<UserData>((document) {
@@ -285,8 +286,8 @@ class FirebaseFlutterApi extends FirebaseApi {
   }
 
   @override
-  Stream<List<CommentData>> queryComments(CourseData course) {
-    final controller = StreamController<List<CommentData>>.broadcast();
+  BehaviorSubject<List<CommentData>> queryComments(CourseData course) {
+    final controller = BehaviorSubject<List<CommentData>>();
 
     Firestore.instance.collection('courses').document(course.id).collection('comments').snapshots().listen((snapshot) {
       controller.add(snapshot.documents.map<CommentData>((document) {
@@ -312,8 +313,8 @@ class FirebaseFlutterApi extends FirebaseApi {
   }
 
   @override
-  Stream<List<String>> queryCommentsStars({CourseData course, CommentData comment}) {
-    final controller = StreamController<List<String>>.broadcast();
+  BehaviorSubject<List<String>> queryCommentsStars({CourseData course, CommentData comment}) {
+    final controller = BehaviorSubject<List<String>>();
 
     Firestore.instance
         .collection('courses')
@@ -344,8 +345,8 @@ class FirebaseFlutterApi extends FirebaseApi {
   }
 
   @override
-  Stream<List<QuestionData>> queryQuestions({ExerciseData exercise, int size}) {
-    final controller = StreamController<List<QuestionData>>.broadcast();
+  BehaviorSubject<List<QuestionData>> queryQuestions({ExerciseData exercise, int size}) {
+    final controller = BehaviorSubject<List<QuestionData>>();
 
     Firestore.instance
         .collection('courses')

@@ -585,4 +585,12 @@ The project started as a part of a software team project at the [Faculty of Info
       desc: 'Add new link message',
     );
   }
+
+  static String loadingError() {
+    return Intl.message(
+      '_loadingError',
+      name: 'loadingError',
+      desc: 'Info about wrong error',
+    );
+  }
 }

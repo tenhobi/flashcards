@@ -28,6 +28,7 @@ class LandingScreen extends StatefulWidget {
 class _LandingScreenState extends State<LandingScreen> with SingleTickerProviderStateMixin {
   final double fontSize = 55.0;
   AnimationController animation;
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   bool _loginButtonVisible = false;
 
@@ -77,6 +78,7 @@ class _LandingScreenState extends State<LandingScreen> with SingleTickerProvider
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       backgroundColor: Theme.of(context).primaryColor,
       body: Container(
         color: Colors.transparent,
@@ -98,20 +100,37 @@ class _LandingScreenState extends State<LandingScreen> with SingleTickerProvider
     );
   }
 
+  void _wrongSignIn(BuildContext context) {
+    setState(() {
+      _isLoading = false;
+    });
+
+    final snackbar = SnackBar(
+      content: Text(FlashcardsStrings.loadingError()),
+    );
+
+    _scaffoldKey.currentState.showSnackBar(snackbar);
+  }
+
   // TODO: detect new user and go to nextNewUserScreen
-  Future<Null> signIn({bool silently = false}) async {
+  Future<void> signIn({bool silently = false}) async {
     setState(() {
       _isLoading = true;
     });
 
     final state = StateContainer.of(context);
 
-    final user = silently ? await state.authenticationBloc.signInSilently() : await state.authenticationBloc.signIn();
+    try {
+      final user = silently ? await state.authenticationBloc.signInSilently() : await state.authenticationBloc.signIn();
 
-    if (user == null) {
-      setState(() {
-        _isLoading = false;
-      });
+      if (user == null) {
+        _wrongSignIn(context);
+
+        return;
+      }
+    } on Exception catch (_) {
+      _wrongSignIn(context);
+
       return;
     }
 
