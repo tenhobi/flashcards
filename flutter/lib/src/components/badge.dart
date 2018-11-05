@@ -13,11 +13,14 @@ class Badge extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(vertical: 2.0, horizontal: 4.0),
       decoration: BoxDecoration(
-        border: Border.all(color: borderColor,width: 3.0),
+        border: Border.all(color: borderColor, width: 3.0),
         borderRadius: BorderRadius.circular(100.0),
-        color: backgroundColor
+        color: backgroundColor,
       ),
-      child: Text(message, style: TextStyle(color: textColor),),
+      child: Text(
+        message,
+        style: TextStyle(color: textColor),
+      ),
       alignment: Alignment.bottomCenter,
     );
   }

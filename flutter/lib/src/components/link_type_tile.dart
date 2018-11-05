@@ -15,7 +15,13 @@ class _CustomTile extends StatelessWidget {
   final Color textColor;
   final Function onPressed;
 
-  _CustomTile({@required this.text, @required this.icon, @required this.backgroundColor, @required this.textColor, this.onPressed});
+  _CustomTile({
+    @required this.text,
+    @required this.icon,
+    @required this.backgroundColor,
+    @required this.textColor,
+    this.onPressed,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +35,9 @@ class _CustomTile extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Icon(icon),
-          Padding(padding: EdgeInsets.only(top: 16.0),),
+          Padding(
+            padding: EdgeInsets.only(top: 16.0),
+          ),
           Text(text),
         ],
       ),
