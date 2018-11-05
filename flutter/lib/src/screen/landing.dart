@@ -78,6 +78,7 @@ class _LandingScreenState extends State<LandingScreen> with SingleTickerProvider
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       backgroundColor: Theme.of(context).primaryColor,
       body: Container(
         color: Colors.transparent,
@@ -99,6 +100,18 @@ class _LandingScreenState extends State<LandingScreen> with SingleTickerProvider
     );
   }
 
+  void _wrongSignIn(BuildContext context) {
+    setState(() {
+      _isLoading = false;
+    });
+
+    final snackbar = SnackBar(
+      content: Text(FlashcardsStrings.loadingError()),
+    );
+
+    _scaffoldKey.currentState.showSnackBar(snackbar);
+  }
+
   // TODO: detect new user and go to nextNewUserScreen
   Future<void> signIn({bool silently = false}) async {
     setState(() {
@@ -111,21 +124,12 @@ class _LandingScreenState extends State<LandingScreen> with SingleTickerProvider
       final user = silently ? await state.authenticationBloc.signInSilently() : await state.authenticationBloc.signIn();
 
       if (user == null) {
-        setState(() {
-          _isLoading = false;
-        });
+        _wrongSignIn(context);
+
         return;
       }
     } on Exception catch (_) {
-      setState(() {
-        _isLoading = false;
-      });
-
-      final snackbar = SnackBar(
-        content: Text(FlashcardsStrings.loadingError()),
-      );
-
-      _scaffoldKey.currentState.showSnackBar(snackbar);
+      _wrongSignIn(context);
 
       return;
     }
