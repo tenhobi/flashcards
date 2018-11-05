@@ -128,7 +128,6 @@ class _CourseScreenState extends State<CourseScreen> with SingleTickerProviderSt
           },
           icon: Icon(
             snapshot.data.contains(state.authenticationBloc.user.uid) ? Icons.star : Icons.star_border,
-            color: Colors.white,
           ),
           tooltip: snapshot.data.contains(state.authenticationBloc.user.uid)
               ? FlashcardsStrings.unlike()
@@ -174,7 +173,6 @@ class _CourseScreenState extends State<CourseScreen> with SingleTickerProviderSt
       },
       icon: Icon(
         Icons.close,
-        color: Colors.white,
       ),
       tooltip: FlashcardsStrings.remove(),
     );

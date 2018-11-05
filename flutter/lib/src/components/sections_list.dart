@@ -21,7 +21,8 @@ class _NullOrEmpty extends StatelessWidget {
   Widget build(BuildContext context) {
     if (isLast) {
       return Container(
-        padding: EdgeInsets.only(left: 16.0, bottom: 10.0, right: 10.0, top: 10.0),
+        padding:
+            EdgeInsets.only(left: 16.0, bottom: 10.0, right: 10.0, top: 10.0),
         alignment: Alignment.center,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.only(
@@ -41,7 +42,8 @@ class _NullOrEmpty extends StatelessWidget {
 }
 
 class _BuildStream extends StatefulWidget {
-  const _BuildStream(this.function, this.section, {this.isLast = false, this.isExercise = false});
+  const _BuildStream(this.function, this.section,
+      {this.isLast = false, this.isExercise = false});
 
   final Function function;
   final SectionData section;
@@ -55,7 +57,8 @@ class _BuildStream extends StatefulWidget {
 class _BuildStreamState extends State<_BuildStream> {
   List<SubsectionData> data;
 
-  void redirectNewSubsection(BuildContext context, {@required bool isExercise}) {
+  void redirectNewSubsection(BuildContext context,
+      {@required bool isExercise}) {
     final Widget nextPage = isExercise
         ? NewExerciseScreen(
             parent: widget.section,
@@ -72,12 +75,16 @@ class _BuildStreamState extends State<_BuildStream> {
 
   //todo: rename this, so it actually describes what it does
   String _getTextForNew() {
-    return widget.isExercise ? FlashcardsStrings.addExercise() : FlashcardsStrings.addMaterial();
+    return widget.isExercise
+        ? FlashcardsStrings.addExercise()
+        : FlashcardsStrings.addMaterial();
   }
 
-  Widget _generateLoading(BuildContext context, AsyncSnapshot<List<SubsectionData>> snapshot) {
+  Widget _generateLoading(
+      BuildContext context, AsyncSnapshot<List<SubsectionData>> snapshot) {
     return Container(
-      padding: EdgeInsets.only(left: 16.0, bottom: 10.0, right: 10.0, top: 10.0),
+      padding:
+          EdgeInsets.only(left: 16.0, bottom: 10.0, right: 10.0, top: 10.0),
       alignment: Alignment.center,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.only(
@@ -90,12 +97,14 @@ class _BuildStreamState extends State<_BuildStream> {
     );
   }
 
-  Widget _generateEmpty(BuildContext context, AsyncSnapshot<List<SubsectionData>> snapshot) {
+  Widget _generateEmpty(
+      BuildContext context, AsyncSnapshot<List<SubsectionData>> snapshot) {
     final state = StateContainer.of(context);
     if (widget.section.parent.authorUid == state.authenticationBloc.user.uid) {
       return _SectionRow(
         icon: Icons.add,
-        onTap: () => redirectNewSubsection(context, isExercise: widget.isExercise),
+        onTap: () =>
+            redirectNewSubsection(context, isExercise: widget.isExercise),
         text: _getTextForNew(),
         isLast: widget.isLast,
         subsection: null,
@@ -108,14 +117,16 @@ class _BuildStreamState extends State<_BuildStream> {
   @override
   Widget build(BuildContext context) {
     final state = StateContainer.of(context);
-    final owner = widget.section.parent.authorUid == state.authenticationBloc.user.uid;
+    final owner =
+        widget.section.parent.authorUid == state.authenticationBloc.user.uid;
     return StreamBuilder<List<SubsectionData>>(
       stream: widget.function(section: widget.section),
       builder: (context, snapshot) {
         if (!snapshot.hasData && widget.isLast) {
           return _generateLoading(context, snapshot);
         }
-        if ((data == null || data.isEmpty) && (snapshot.data == null || snapshot.data.isEmpty)) {
+        if ((data == null || data.isEmpty) &&
+            (snapshot.data == null || snapshot.data.isEmpty)) {
           return _generateEmpty(context, snapshot);
         }
         if (snapshot.hasData) {
@@ -140,7 +151,8 @@ class _BuildStreamState extends State<_BuildStream> {
                 }
 
                 Navigator.of(context).push<MaterialPageRoute>(MaterialPageRoute(
-                  builder: (bc) => ExerciseScreen(exercise: d, size: exerciseSize),
+                  builder: (bc) =>
+                      ExerciseScreen(exercise: d, size: exerciseSize),
                 ));
               },
               subsection: d,
@@ -151,7 +163,8 @@ class _BuildStreamState extends State<_BuildStream> {
             rows.add(_SectionRow.material(
               text: d.name,
               onTap: () {
-                Navigator.of(context).push(MaterialPageRoute(builder: (context) => MaterialScreen(data: d)));
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => MaterialScreen(data: d)));
               },
               subsection: d,
               owner: owner,
@@ -163,7 +176,8 @@ class _BuildStreamState extends State<_BuildStream> {
         if (owner) {
           rows.add(_SectionRow(
             icon: Icons.add,
-            onTap: () => redirectNewSubsection(context, isExercise: widget.isExercise),
+            onTap: () =>
+                redirectNewSubsection(context, isExercise: widget.isExercise),
             text: _getTextForNew(),
             isLast: widget.isLast,
             subsection: null,
@@ -245,7 +259,8 @@ class _SectionRow extends StatelessWidget {
   }
 
   void _edit(BuildContext context) {
-    Navigator.of(context).push(MaterialPageRoute(builder: (context) => EditSubsectionScreen(original: subsection)));
+    Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => EditSubsectionScreen(original: subsection)));
   }
 
   Widget _generateLabel(BuildContext context) {
@@ -256,7 +271,7 @@ class _SectionRow extends StatelessWidget {
           children: <Widget>[
             Icon(
               icon,
-              color: Colors.black87,
+              color: IconTheme.of(context).copyWith(color: Colors.black38).color,
               size: 22.0,
             ),
             Text(
@@ -313,7 +328,8 @@ class _SectionRow extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: EdgeInsets.only(left: 16.0, bottom: 10.0, right: 10.0, top: 10.0),
+        padding:
+            EdgeInsets.only(left: 16.0, bottom: 10.0, right: 10.0, top: 10.0),
         alignment: Alignment.centerLeft,
         decoration: BoxDecoration(
           borderRadius: br,
@@ -341,7 +357,8 @@ class _SectionWidget extends StatefulWidget {
   State<_SectionWidget> createState() => _SectionsWidgetState();
 }
 
-class _SectionsWidgetState extends State<_SectionWidget> with SingleTickerProviderStateMixin {
+class _SectionsWidgetState extends State<_SectionWidget>
+    with SingleTickerProviderStateMixin {
   AnimationController _controller;
   CurvedAnimation _easeInAnimation;
   Animation<double> _iconTurns;
@@ -374,7 +391,8 @@ class _SectionsWidgetState extends State<_SectionWidget> with SingleTickerProvid
   }
 
   void _edit(BuildContext context) {
-    Navigator.of(context).push(MaterialPageRoute(builder: (context) => EditSectionScreen(original: widget.section)));
+    Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => EditSectionScreen(original: widget.section)));
   }
 
   Widget _generateExpansionTileControls(BuildContext context) {
@@ -399,9 +417,14 @@ class _SectionsWidgetState extends State<_SectionWidget> with SingleTickerProvid
         child: Icon(Icons.expand_more),
       ),
     );
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: controls,
+    return Theme(
+      data: Theme.of(context).copyWith(
+        iconTheme: IconTheme.of(context).copyWith(color: Colors.black38),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: controls,
+      ),
     );
   }
 
@@ -423,8 +446,10 @@ class _SectionsWidgetState extends State<_SectionWidget> with SingleTickerProvid
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(duration: Duration(milliseconds: 200), vsync: this);
-    _easeInAnimation = CurvedAnimation(parent: _controller, curve: Curves.easeIn);
+    _controller =
+        AnimationController(duration: Duration(milliseconds: 200), vsync: this);
+    _easeInAnimation =
+        CurvedAnimation(parent: _controller, curve: Curves.easeIn);
     _iconTurns = Tween<double>(begin: 0.0, end: 0.5).animate(_easeInAnimation);
   }
 
@@ -437,7 +462,8 @@ class _SectionsWidgetState extends State<_SectionWidget> with SingleTickerProvid
   @override
   Widget build(BuildContext context) {
     final state = StateContainer.of(context);
-    final border = BorderSide(color: Theme.of(context).primaryColor, width: 2.0);
+    final border =
+        BorderSide(color: Theme.of(context).primaryColor, width: 2.0);
 
     return Container(
       padding: EdgeInsets.all(8.0),
@@ -456,7 +482,8 @@ class _SectionsWidgetState extends State<_SectionWidget> with SingleTickerProvid
           trailing: _generateExpansionTileControls(context),
           onExpansionChanged: _handleTap,
           title: Container(
-            child: Text(widget.section.name, style: TextStyle(color: Colors.white)),
+            child: Text(widget.section.name,
+                style: TextStyle(color: Colors.white)),
           ),
           children: [
             Column(
