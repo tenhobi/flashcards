@@ -60,5 +60,17 @@
   "submit": "Submit",
   "previous": "Previous",
   "next": "Next",
-  "rememberThose": "Remember those."
+  "rememberThose": "Remember those.",
+  "bioName": "Bio name",
+  "bioPlaceholder": "Bio placeholder",
+  "bioEmpty": "Please insert your bio.",
+  "newUser": "New user",
+  "submitDetails": "Submit details",
+  "linksName": "Links name",
+  "generalEmpty": "This field cannot be empty",
+  "savedUserData": "Your data",
+  "profileScreenTitle": "Profile screen title",
+  "nameName": "Name",
+  "nameEmpty": "Please insert your name.",
+  "newLink": "Add social network connection."
 }

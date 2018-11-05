@@ -6,7 +6,7 @@
 import 'package:intl/intl.dart';
 import 'package:intl/message_lookup_by_library.dart';
 
-final messages = MessageLookup();
+final messages = new MessageLookup();
 
 // ignore: unused_element
 final _keepAnalysisHappy = Intl.defaultLocale;
@@ -27,7 +27,6 @@ class MessageLookup extends MessageLookupByLibrary {
   static m3(score) => "skóre: ${score}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
-
   static _notInlinedMessages(_) => <String, Function>{
         "aboutLicensesText":
             MessageLookupByLibrary.simpleMessage("Aplikace je vyvíjena jako open source software: [licence]()"),
@@ -40,6 +39,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "addMaterialLabel": MessageLookupByLibrary.simpleMessage("Přidat materiál"),
         "allCourses": MessageLookupByLibrary.simpleMessage("vše"),
         "appName": MessageLookupByLibrary.simpleMessage("Flashcards"),
+        "bioEmpty": MessageLookupByLibrary.simpleMessage("Zadej něco o sobě"),
+        "bioName": MessageLookupByLibrary.simpleMessage("O mně"),
+        "bioPlaceholder": MessageLookupByLibrary.simpleMessage("Placeholder"),
         "cancel": MessageLookupByLibrary.simpleMessage("Zrušit"),
         "cannotBeEmpty": MessageLookupByLibrary.simpleMessage("Nemůže být prázdné"),
         "commentsTab": MessageLookupByLibrary.simpleMessage("Komentáře"),
@@ -48,14 +50,19 @@ class MessageLookup extends MessageLookupByLibrary {
         "editSectionLabel": m1,
         "editSubsectionLabel": m2,
         "flipcards": MessageLookupByLibrary.simpleMessage("Flipcards"),
+        "generalEmpty": MessageLookupByLibrary.simpleMessage("Toto pole nesmí být prázdné, prosím vyplňte ho."),
         "homeNavigationButton": MessageLookupByLibrary.simpleMessage("Domů"),
         "like": MessageLookupByLibrary.simpleMessage("Líbí se mi"),
+        "linksName": MessageLookupByLibrary.simpleMessage("Název linku"),
         "multipleChoice": MessageLookupByLibrary.simpleMessage("Více množností"),
+        "nameEmpty": MessageLookupByLibrary.simpleMessage("Zadej platné jméno"),
+        "nameName": MessageLookupByLibrary.simpleMessage("Jméno"),
         "newCourse": MessageLookupByLibrary.simpleMessage("Nový kurz"),
         "newCourseDescription": MessageLookupByLibrary.simpleMessage("Popis"),
         "newCourseDescriptionEmpty": MessageLookupByLibrary.simpleMessage("Popis nemůže být prázdný."),
         "newCourseName": MessageLookupByLibrary.simpleMessage("Název"),
         "newCourseNameEmpty": MessageLookupByLibrary.simpleMessage("Název nemůže být prázdný."),
+        "newLink": MessageLookupByLibrary.simpleMessage("Přidej sociální síť"),
         "newSection": MessageLookupByLibrary.simpleMessage("Nová sekce"),
         "newSectionName": MessageLookupByLibrary.simpleMessage("Název"),
         "newSectionNameEmpty": MessageLookupByLibrary.simpleMessage("Název nemůže být prázdný."),
@@ -65,12 +72,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "newSubsectionNameEmpty": MessageLookupByLibrary.simpleMessage("_newSubsectionNameEmpty"),
         "newSubsectionOrder": MessageLookupByLibrary.simpleMessage("_newSubsectionOrder"),
         "newSubsectionOrderEmpty": MessageLookupByLibrary.simpleMessage("_newSubsectionOrderEmpty"),
+        "newUser": MessageLookupByLibrary.simpleMessage("Nový uživatel"),
         "next": MessageLookupByLibrary.simpleMessage("Další"),
         "no": MessageLookupByLibrary.simpleMessage("Ne"),
         "noVersion": MessageLookupByLibrary.simpleMessage("Verze nebyla nalezena"),
         "numberOfQuestions": MessageLookupByLibrary.simpleMessage("Počet otázek"),
         "popularCourses": MessageLookupByLibrary.simpleMessage("oblíbené"),
         "previous": MessageLookupByLibrary.simpleMessage("Zpět"),
+        "profileScreenTitle": MessageLookupByLibrary.simpleMessage("_profileScreenTitle"),
         "rememberThose": MessageLookupByLibrary.simpleMessage("Zapamatuj si."),
         "remove": MessageLookupByLibrary.simpleMessage("Odstranit"),
         "removeCourseDialog": MessageLookupByLibrary.simpleMessage("Chcete vymazat kurz?"),
@@ -79,6 +88,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "removeSectionDialog": MessageLookupByLibrary.simpleMessage("Opravdu chcete odstranit tuto sekci?"),
         "reportBugNavigationButton": MessageLookupByLibrary.simpleMessage("Nahlásit chybu"),
         "reportUrl": MessageLookupByLibrary.simpleMessage("https://github.com/tenhobi/flashcards/issues/new"),
+        "savedUserData": MessageLookupByLibrary.simpleMessage("Vaše údaje"),
         "score": m3,
         "searchNavigationButton": MessageLookupByLibrary.simpleMessage("Hledat"),
         "sectionsTab": MessageLookupByLibrary.simpleMessage("Sekce"),
@@ -86,6 +96,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "signInButton": MessageLookupByLibrary.simpleMessage("Přihlásit se pomocí Google"),
         "signOutNavigationButton": MessageLookupByLibrary.simpleMessage("Odhlásit se"),
         "submit": MessageLookupByLibrary.simpleMessage("Potvrdit"),
+        "submitDetails": MessageLookupByLibrary.simpleMessage("Odeslat podrobnosti"),
         "typeOfExercise": MessageLookupByLibrary.simpleMessage("Typ cvičení"),
         "unlike": MessageLookupByLibrary.simpleMessage("Nelíbí se mi"),
         "wrongInput": MessageLookupByLibrary.simpleMessage("Špatný vstup"),

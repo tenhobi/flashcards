@@ -60,5 +60,17 @@
   "submit": "Potvrdit",
   "previous": "Zpět",
   "next": "Další",
-  "rememberThose": "Zapamatuj si."
+  "rememberThose": "Zapamatuj si.",
+  "bioName": "O mně",
+  "bioPlaceholder": "Placeholder",
+  "bioEmpty": "Zadej něco o sobě",
+  "newUser": "Nový uživatel",
+  "submitDetails": "Odeslat podrobnosti",
+  "linksName": "Název linku",
+  "generalEmpty": "Toto pole nesmí být prázdné, prosím vyplňte ho.",
+  "savedUserData": "Vaše údaje",
+  "profileScreenTitle": "_profileScreenTitle",
+  "nameName": "Jméno",
+  "nameEmpty": "Zadej platné jméno",
+  "newLink": "Přidej sociální síť"
 }
