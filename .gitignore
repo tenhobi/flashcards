@@ -158,3 +158,4 @@ modules.xml
 *.ipr
 
 # End of https://www.gitignore.io/api/dart,jetbrains,jetbrains+all
+.DS_Store
