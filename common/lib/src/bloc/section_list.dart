@@ -6,16 +6,17 @@ import 'package:flashcards_common/src/api/firebase.dart';
 import 'package:flashcards_common/src/data/section.dart';
 import 'package:flashcards_common/src/data/subsection.dart';
 import 'package:meta/meta.dart';
+import 'package:rxdart/rxdart.dart';
 
 class SectionListBloc extends Bloc {
   final FirebaseApi _api;
 
-  final StreamController<SectionData> _createController = StreamController<SectionData>();
-  final StreamController<SectionData> _removeController = StreamController<SectionData>();
-  final StreamController<SectionData> _editController = StreamController<SectionData>();
-  final StreamController<SubsectionData> _createSubsectionController = StreamController<SubsectionData>();
-  final StreamController<SubsectionData> _removeSubsectionController = StreamController<SubsectionData>();
-  final StreamController<SubsectionData> _editSubsectionController = StreamController<SubsectionData>();
+  final _createController = StreamController<SectionData>();
+  final _removeController = StreamController<SectionData>();
+  final _editController = StreamController<SectionData>();
+  final _createSubsectionController = StreamController<SubsectionData>();
+  final _removeSubsectionController = StreamController<SubsectionData>();
+  final _editSubsectionController = StreamController<SubsectionData>();
 
   SectionListBloc(this._api) {
     _createController.stream.listen(_handleCreate);
@@ -38,15 +39,15 @@ class SectionListBloc extends Bloc {
 
   Sink<SubsectionData> get editSubsection => _editSubsectionController.sink;
 
-  Stream<List<SectionData>> query({@required CourseData course}) {
+  Observable<List<SectionData>> query({@required CourseData course}) {
     return _api.querySections(course: course);
   }
 
-  Stream<List<SubsectionData>> queryMaterials({@required SectionData section}) {
+  Observable<List<SubsectionData>> queryMaterials({@required SectionData section}) {
     return _api.queryMaterials(section: section);
   }
 
-  Stream<List<SubsectionData>> queryExercises({@required SectionData section}) {
+  Observable<List<SubsectionData>> queryExercises({@required SectionData section}) {
     return _api.queryExercises(section: section);
   }
 

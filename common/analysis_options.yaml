@@ -1,6 +1,4 @@
 analyzer:
-  language:
-    enableSuperMixins: true
   exclude:
   - build/**
   - lib/src/i18n/generated/**
