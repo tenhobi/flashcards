@@ -12,55 +12,55 @@ enum CoursesQueryType { all, created, popular }
 
 @immutable
 abstract class FirebaseApi {
-  void like({@required CourseData course, @required String userUid});
-
-  void unlike({@required CourseData course, @required String userUid});
+  void addComment({@required CourseData course, @required CommentData comment});
 
   void addCourse(CourseData course);
 
-  void removeCourse(CourseData course);
-
   void addUser(UserData user);
-
-  void updateUser(UserData user);
-
-  void createIfAbsent(UserData user);
 
   void addSection(SectionData section);
 
-  void removeSection(SectionData section);
+  void addSubsection(SubsectionData subsection);
+
+  void createIfAbsent(UserData user);
 
   void editSection(SectionData section);
 
-  void addSubsection(SubsectionData subsection);
-
-  void removeSubsection(SubsectionData subsection);
-
   void editSubsection(SubsectionData subsection);
 
-  void addComment({@required CourseData course, @required CommentData comment});
+  void like({@required CourseData course, @required String userUid});
 
   void likeComment({@required CourseData course, @required CommentData comment, @required String authorUid});
 
+  void unlike({@required CourseData course, @required String userUid});
+
   void unlikeComment({@required CourseData course, @required CommentData comment, @required String authorUid});
 
-  BehaviorSubject<List<CourseData>> queryCourses({CoursesQueryType type, String name, String authorUid});
+  void updateUser(UserData user);
 
-  BehaviorSubject<List<String>> queryStars({@required CourseData course});
+  void removeCourse(CourseData course);
 
-  BehaviorSubject<List<CommentData>> queryComments(CourseData course);
+  void removeSection(SectionData section);
 
-  BehaviorSubject<List<String>> queryCommentsStars({CourseData course, CommentData comment});
+  void removeSubsection(SubsectionData subsection);
 
-  BehaviorSubject<List<QuestionData>> queryQuestions({ExerciseData exercise, int size});
+  Observable<List<CourseData>> queryCourses({CoursesQueryType type, String name, String authorUid});
 
-  BehaviorSubject<List<SectionData>> querySections({@required CourseData course});
+  Observable<List<CommentData>> queryComments(CourseData course);
 
-  BehaviorSubject<List<SubsectionData>> queryMaterials({@required SectionData section});
+  Observable<List<String>> queryCommentsStars({CourseData course, CommentData comment});
 
-  BehaviorSubject<List<SubsectionData>> queryExercises({@required SectionData section});
+  Observable<List<SubsectionData>> queryExercises({@required SectionData section});
 
-  BehaviorSubject<UserData> queryUser(String uid);
+  Observable<List<QuestionData>> queryQuestions({ExerciseData exercise, int size});
 
-  BehaviorSubject<List<UserData>> queryUsers();
+  Observable<List<SubsectionData>> queryMaterials({@required SectionData section});
+
+  Observable<List<String>> queryStars({@required CourseData course});
+
+  Observable<List<SectionData>> querySections({@required CourseData course});
+
+  Observable<UserData> queryUser(String uid);
+
+  Observable<List<UserData>> queryUsers();
 }

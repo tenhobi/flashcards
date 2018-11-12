@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flashcards_common/src/bloc/bloc.dart';
 import 'package:flashcards_common/src/data/comment.dart';
 import 'package:flashcards_common/src/data/course.dart';
@@ -11,13 +13,13 @@ export 'package:flashcards_common/src/api/firebase.dart' show CoursesQueryType;
 class CourseListBloc extends Bloc {
   final FirebaseApi _api;
 
-  final BehaviorSubject<Tuple3<CourseData, CommentData, String>> _likeCommentController = BehaviorSubject();
-  final BehaviorSubject<Tuple3<CourseData, CommentData, String>> _unlikeCommentController = BehaviorSubject();
-  final BehaviorSubject<Tuple2<CourseData, CommentData>> _addCommentController = BehaviorSubject();
-  final BehaviorSubject<Tuple2<CourseData, String>> _likeController = BehaviorSubject();
-  final BehaviorSubject<Tuple2<CourseData, String>> _unlikeController = BehaviorSubject();
-  final BehaviorSubject<CourseData> _createController = BehaviorSubject();
-  final BehaviorSubject<CourseData> _removeController = BehaviorSubject();
+  final _likeCommentController = StreamController<Tuple3<CourseData, CommentData, String>>();
+  final _unlikeCommentController = StreamController<Tuple3<CourseData, CommentData, String>>();
+  final _addCommentController = StreamController<Tuple2<CourseData, CommentData>>();
+  final _likeController = StreamController<Tuple2<CourseData, String>>();
+  final _unlikeController = StreamController<Tuple2<CourseData, String>>();
+  final _createController = StreamController<CourseData>();
+  final _removeController = StreamController<CourseData>();
 
   CourseListBloc(this._api) {
     _likeCommentController.stream.listen(_handleLikeComment);
@@ -43,19 +45,19 @@ class CourseListBloc extends Bloc {
 
   Sink<CourseData> get remove => _removeController.sink;
 
-  BehaviorSubject<List<CourseData>> queryAll(CoursesQueryType type, {String authorUid, String name}) {
+  Observable<List<CourseData>> queryAll(CoursesQueryType type, {String authorUid, String name}) {
     return _api.queryCourses(type: type, authorUid: authorUid, name: name);
   }
 
-  BehaviorSubject<List<String>> queryStars({@required CourseData course}) {
+  Observable<List<String>> queryStars({@required CourseData course}) {
     return _api.queryStars(course: course);
   }
 
-  BehaviorSubject<List<String>> queryCommentsStars({@required CourseData course, @required CommentData comment}) {
+  Observable<List<String>> queryCommentsStars({@required CourseData course, @required CommentData comment}) {
     return _api.queryCommentsStars(course: course, comment: comment);
   }
 
-  BehaviorSubject<List<CommentData>> queryComments({@required CourseData course}) {
+  Observable<List<CommentData>> queryComments({@required CourseData course}) {
     return _api.queryComments(course);
   }
 
