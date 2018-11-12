@@ -1,11 +1,10 @@
-import 'dart:async';
 import 'package:meta/meta.dart';
 
 @immutable
-abstract class AuthenticationApi<FirebaseUser> {
-  Future<FirebaseUser> signIn();
+abstract class AuthenticationApi {
+  Future<String> signIn();
 
-  Future<FirebaseUser> signInSilently();
+  Future<String> signInSilently();
 
   void signOut();
 }

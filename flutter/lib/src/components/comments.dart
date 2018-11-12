@@ -46,33 +46,38 @@ class _CommentsState extends State<Comments> {
                   validator: (val) => val.isEmpty ? FlashcardsStrings.cannotBeEmpty() : null,
                   onSaved: (val) => _newComment = val,
                 ),
-                IconButton(
-                  onPressed: () {
-                    final form = formKey.currentState;
+                StreamBuilder<UserData>(
+                  stream: state.authenticationBloc.signedUser(),
+                  builder: (context, snapshot) {
+                    return IconButton(
+                      onPressed: () {
+                        final form = formKey.currentState;
 
-                    if (form.validate()) {
-                      form
-                        ..save()
-                        ..reset();
+                        if (form.validate()) {
+                          form
+                            ..save()
+                            ..reset();
 
-                      _scrollController.animateTo(
-                        0.0,
-                        duration: Duration(milliseconds: 300),
-                        curve: Curves.easeOut,
-                      );
+                          _scrollController.animateTo(
+                            0.0,
+                            duration: Duration(milliseconds: 300),
+                            curve: Curves.easeOut,
+                          );
 
-                      state.courseListBloc.addComment.add(
-                        Tuple2(
-                          widget.course,
-                          CommentData(
-                            authorUid: state.authenticationBloc.user.uid,
-                            content: _newComment,
-                          ),
-                        ),
-                      );
-                    }
+                          state.courseListBloc.addComment.add(
+                            Tuple2(
+                              widget.course,
+                              CommentData(
+                                authorUid: snapshot.data.uid,
+                                content: _newComment,
+                              ),
+                            ),
+                          );
+                        }
+                      },
+                      icon: Icon(Icons.add),
+                    );
                   },
-                  icon: Icon(Icons.add),
                 ),
               ],
             ),
@@ -141,30 +146,35 @@ class _CommentsState extends State<Comments> {
                         builder: (context, snapshot) {
                           if (!snapshot.hasData) return Loading();
 
-                          return Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              IconButton(
-                                onPressed: () {
-                                  snapshot.data.contains(state.authenticationBloc.user.uid)
-                                      ? state.courseListBloc.unlikeComment
-                                          .add(Tuple3(widget.course, comment, state.authenticationBloc.user.uid))
-                                      : state.courseListBloc.likeComment
-                                          .add(Tuple3(widget.course, comment, state.authenticationBloc.user.uid));
-                                },
-                                icon: Icon(
-                                  snapshot.data.contains(state.authenticationBloc.user.uid)
-                                      ? Icons.star
-                                      : Icons.star_border,
-                                ),
-                                tooltip: snapshot.data.contains(state.authenticationBloc.user.uid)
-                                    ? FlashcardsStrings.unlike()
-                                    : FlashcardsStrings.like(),
-                              ),
-                              Text(
-                                '${snapshot.data.length}',
-                              ),
-                            ],
+                          return StreamBuilder<UserData>(
+                            stream: state.authenticationBloc.signedUser(),
+                            builder: (context, userSnapshot) {
+                              return Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  IconButton(
+                                    onPressed: () {
+                                      snapshot.data.contains(userSnapshot.data.uid)
+                                          ? state.courseListBloc.unlikeComment
+                                              .add(Tuple3(widget.course, comment, userSnapshot.data.uid))
+                                          : state.courseListBloc.likeComment
+                                              .add(Tuple3(widget.course, comment, userSnapshot.data.uid));
+                                    },
+                                    icon: Icon(
+                                      snapshot.data.contains(state.authenticationBloc.signedUser().first.toString())
+                                          ? Icons.star
+                                          : Icons.star_border,
+                                    ),
+                                    tooltip: snapshot.data.contains(userSnapshot.data.uid)
+                                        ? FlashcardsStrings.unlike()
+                                        : FlashcardsStrings.like(),
+                                  ),
+                                  Text(
+                                    '${snapshot.data.length}',
+                                  ),
+                                ],
+                              );
+                            },
                           );
                         },
                       ),

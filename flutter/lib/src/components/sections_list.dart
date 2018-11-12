@@ -90,9 +90,9 @@ class _BuildStreamState extends State<_BuildStream> {
     );
   }
 
-  Widget _generateEmpty(BuildContext context, AsyncSnapshot<List<SubsectionData>> snapshot) {
+  Widget _generateEmpty(BuildContext context, AsyncSnapshot<List<SubsectionData>> snapshot, {String authorUid}) {
     final state = StateContainer.of(context);
-    if (widget.section.parent.authorUid == state.authenticationBloc.user.uid) {
+    if (widget.section.parent.authorUid == authorUid) {
       return _SectionRow(
         icon: Icons.add,
         onTap: () => redirectNewSubsection(context, isExercise: widget.isExercise),
@@ -108,70 +108,77 @@ class _BuildStreamState extends State<_BuildStream> {
   @override
   Widget build(BuildContext context) {
     final state = StateContainer.of(context);
-    final owner = widget.section.parent.authorUid == state.authenticationBloc.user.uid;
+
     return StreamBuilder<List<SubsectionData>>(
       stream: widget.function(section: widget.section),
       builder: (context, snapshot) {
         if (!snapshot.hasData && widget.isLast) {
           return _generateLoading(context, snapshot);
         }
-        if ((data == null || data.isEmpty) && (snapshot.data == null || snapshot.data.isEmpty)) {
-          return _generateEmpty(context, snapshot);
-        }
-        if (snapshot.hasData) {
-          data = snapshot.data..sort();
-        }
-        final rows = <_SectionRow>[];
-        for (var d in data) {
-          final last = data.last.compareTo(d) == 0 && widget.isLast;
-          if (widget.isExercise) {
-            rows.add(_SectionRow.exercise(
-              text: d.name,
-              onTap: () async {
-                final exerciseSize = await showDialog(
-                  context: context,
-                  builder: (context) {
-                    return ExerciseSize();
+
+        return StreamBuilder<UserData>(
+          stream: state.authenticationBloc.signedUser(),
+          builder: (context, userSnapshot) {
+            final owner = widget.section.parent.authorUid == userSnapshot.data.uid;
+            if ((data == null || data.isEmpty) && (snapshot.data == null || snapshot.data.isEmpty)) {
+              return _generateEmpty(context, snapshot, authorUid: userSnapshot.data.uid);
+            }
+            if (snapshot.hasData) {
+              data = snapshot.data..sort();
+            }
+            final rows = <_SectionRow>[];
+            for (var d in data) {
+              final last = data.last.compareTo(d) == 0 && widget.isLast;
+              if (widget.isExercise) {
+                rows.add(_SectionRow.exercise(
+                  text: d.name,
+                  onTap: () async {
+                    final exerciseSize = await showDialog(
+                      context: context,
+                      builder: (context) {
+                        return ExerciseSize();
+                      },
+                    );
+
+                    if (exerciseSize == null) {
+                      return;
+                    }
+
+                    Navigator.of(context).push<MaterialPageRoute>(MaterialPageRoute(
+                      builder: (bc) => ExerciseScreen(exercise: d, size: exerciseSize),
+                    ));
                   },
-                );
-
-                if (exerciseSize == null) {
-                  return;
-                }
-
-                Navigator.of(context).push<MaterialPageRoute>(MaterialPageRoute(
-                  builder: (bc) => ExerciseScreen(exercise: d, size: exerciseSize),
+                  subsection: d,
+                  owner: owner,
+                  isLast: last,
                 ));
-              },
-              subsection: d,
-              owner: owner,
-              isLast: last,
-            ));
-          } else if (d is MaterialData) {
-            rows.add(_SectionRow.material(
-              text: d.name,
-              onTap: () {
-                Navigator.of(context).push(MaterialPageRoute(builder: (context) => MaterialScreen(data: d)));
-              },
-              subsection: d,
-              owner: owner,
-              isLast: last,
-            ));
-          }
-        }
+              } else if (d is MaterialData) {
+                rows.add(_SectionRow.material(
+                  text: d.name,
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => MaterialScreen(data: d)));
+                  },
+                  subsection: d,
+                  owner: owner,
+                  isLast: last,
+                ));
+              }
+            }
 
-        if (owner) {
-          rows.add(_SectionRow(
-            icon: Icons.add,
-            onTap: () => redirectNewSubsection(context, isExercise: widget.isExercise),
-            text: _getTextForNew(),
-            isLast: widget.isLast,
-            subsection: null,
-            owner: false,
-          ));
-        }
-        return Column(
-          children: rows,
+            if (owner) {
+              rows.add(_SectionRow(
+                icon: Icons.add,
+                onTap: () => redirectNewSubsection(context, isExercise: widget.isExercise),
+                text: _getTextForNew(),
+                isLast: widget.isLast,
+                subsection: null,
+                owner: false,
+              ));
+            }
+            return Column(
+              children: rows,
+            );
+          },
         );
       },
     );
@@ -377,11 +384,11 @@ class _SectionsWidgetState extends State<_SectionWidget> with SingleTickerProvid
     Navigator.of(context).push(MaterialPageRoute(builder: (context) => EditSectionScreen(original: widget.section)));
   }
 
-  Widget _generateExpansionTileControls(BuildContext context) {
+  Widget _generateExpansionTileControls(BuildContext context, {String authorUid}) {
     final state = StateContainer.of(context);
     var controls = <Widget>[];
 
-    if (widget.section.parent.authorUid == state.authenticationBloc.user.uid) {
+    if (widget.section.parent.authorUid == authorUid) {
       controls = [
         IconButton(
           onPressed: () => _edit(context),
@@ -453,7 +460,12 @@ class _SectionsWidgetState extends State<_SectionWidget> with SingleTickerProvid
           ),
         ),
         child: ExpansionTile(
-          trailing: _generateExpansionTileControls(context),
+          trailing: StreamBuilder<UserData>(
+            stream: state.authenticationBloc.signedUser(),
+            builder: (context, userSnapshot) {
+              return _generateExpansionTileControls(context, authorUid: userSnapshot.data.uid);
+            },
+          ),
           onExpansionChanged: _handleTap,
           title: Container(
             child: Text(widget.section.name, style: TextStyle(color: Colors.white)),

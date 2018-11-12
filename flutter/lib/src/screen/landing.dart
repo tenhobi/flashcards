@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flashcards_common/data.dart';
 import 'package:flashcards_flutter/src/components/button_google.dart';
 import 'package:flashcards_flutter/src/state/container.dart';
 import 'package:flashcards_flutter/src/screen/new_user.dart';
@@ -119,11 +120,15 @@ class _LandingScreenState extends State<LandingScreen> with SingleTickerProvider
     });
 
     final state = StateContainer.of(context);
+    UserData userData;
 
     try {
-      final user = silently ? await state.authenticationBloc.signInSilently() : await state.authenticationBloc.signIn();
+      silently ? state.authenticationBloc.signInSilently.add(null) : state.authenticationBloc.signIn.add(null);
+      userData = await state.authenticationBloc.signedUser().first;
 
-      if (user == null) {
+      print(userData.toMap());
+
+      if (userData == null) {
         _wrongSignIn(context);
 
         return;
@@ -133,8 +138,6 @@ class _LandingScreenState extends State<LandingScreen> with SingleTickerProvider
 
       return;
     }
-
-    final userData = await state.userBloc.query(state.authenticationBloc.user.uid).first;
 
     setState(() {
       _isLoading = false;

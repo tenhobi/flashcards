@@ -7,7 +7,7 @@ import 'package:meta/meta.dart';
 class StateContainer extends StatefulWidget {
   final Widget child;
 
-  final AuthenticationBloc<FirebaseUser> authenticationBloc;
+  final AuthenticationBloc authenticationBloc;
   final CourseListBloc courseListBloc;
   final SectionListBloc sectionListBloc;
   final UserBloc userBloc;
@@ -31,7 +31,7 @@ class StateContainer extends StatefulWidget {
 }
 
 class StateContainerState extends State<StateContainer> {
-  AuthenticationBloc<FirebaseUser> authenticationBloc;
+  AuthenticationBloc authenticationBloc;
   CourseListBloc courseListBloc;
   SectionListBloc sectionListBloc;
   UserBloc userBloc;

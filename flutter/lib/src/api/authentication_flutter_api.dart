@@ -1,36 +1,41 @@
 import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flashcards_common/api.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-class AuthenticationFlutterApi extends AuthenticationApi<FirebaseUser> {
-  final FirebaseAuth firebaseSignIn = FirebaseAuth.instance;
-  final GoogleSignIn googleSignIn = GoogleSignIn();
+import 'package:flashcards_common/api.dart';
+
+class AuthenticationFlutterApi extends AuthenticationApi {
+  final FirebaseAuth _firebaseSignIn = FirebaseAuth.instance;
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
 
   @override
-  Future<FirebaseUser> signIn() async {
-    final googleSignInAccount = await googleSignIn.signIn();
+  Future<String> signIn() async {
+    final googleSignInAccount = await _googleSignIn.signIn();
 
     if (googleSignInAccount == null) return null;
 
     final gSA = await googleSignInAccount.authentication;
-    return firebaseSignIn.signInWithGoogle(idToken: gSA.idToken, accessToken: gSA.accessToken);
+    final user = await _firebaseSignIn.signInWithGoogle(idToken: gSA.idToken, accessToken: gSA.accessToken);
+
+    return user.uid;
   }
 
   @override
-  Future<FirebaseUser> signInSilently() async {
-    final googleSignInAccount = await googleSignIn.signInSilently();
+  Future<String> signInSilently() async {
+    final googleSignInAccount = await _googleSignIn.signInSilently();
 
     if (googleSignInAccount == null) return null;
 
     final gSA = await googleSignInAccount.authentication;
-    return firebaseSignIn.signInWithGoogle(idToken: gSA.idToken, accessToken: gSA.accessToken);
+    final user = await _firebaseSignIn.signInWithGoogle(idToken: gSA.idToken, accessToken: gSA.accessToken);
+
+    return user.uid;
   }
 
   @override
   void signOut() {
-    googleSignIn.signOut();
-    firebaseSignIn.signOut();
+    _googleSignIn.signOut();
+    _firebaseSignIn.signOut();
   }
 }

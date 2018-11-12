@@ -27,7 +27,7 @@ void main() {
   final FirebaseApi firebaseApi = FirebaseFlutterApi();
 
   runApp(StateContainer(
-    authenticationBloc: AuthenticationBloc<FirebaseUser>(AuthenticationFlutterApi()),
+    authenticationBloc: AuthenticationBloc(AuthenticationFlutterApi(), firebaseApi),
     child: FlashcardsApp(),
     courseListBloc: CourseListBloc(firebaseApi),
     userBloc: UserBloc(firebaseApi),
