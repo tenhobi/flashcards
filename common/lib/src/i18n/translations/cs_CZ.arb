@@ -68,8 +68,8 @@
   "submitDetails": "Odeslat podrobnosti",
   "linksName": "Název linku",
   "generalEmpty": "Toto pole nesmí být prázdné, prosím vyplňte ho.",
-  "savedUserData": "Vaše údaje",
-  "profileScreenTitle": "_profileScreenTitle",
+  "savedUserData": "Vaše údaje byly uloženy",
+  "profileScreenTitle": "Název obrazovky",
   "nameName": "Jméno",
   "nameEmpty": "Zadej platné jméno",
   "newLink": "Přidej sociální síť"
