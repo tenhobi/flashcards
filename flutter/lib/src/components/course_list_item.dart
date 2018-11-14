@@ -17,9 +17,7 @@ class CourseListItem extends StatelessWidget {
     return ClipRRect(
       borderRadius: BorderRadius.circular(8.0),
       child: Container(
-        color: Theme
-          .of(context)
-          .primaryColor,
+        color: Theme.of(context).primaryColor,
         child: Column(
           children: <Widget>[
             Expanded(
@@ -55,17 +53,16 @@ class CourseListItem extends StatelessWidget {
                           IconButton(
                             onPressed: () {
                               snapshot.data.contains(userSnapshot.data.uid)
-                                ? state.courseListBloc.unlike.add(Tuple2(data, userSnapshot.data.uid))
-                                : state.courseListBloc.like.add(Tuple2(data, userSnapshot.data.uid));
+                                  ? state.courseListBloc.unlike.add(Tuple2(data, userSnapshot.data.uid))
+                                  : state.courseListBloc.like.add(Tuple2(data, userSnapshot.data.uid));
                             },
                             icon: Icon(
-                              snapshot.data.contains(userSnapshot.data.uid) ? Icons.star : Icons
-                                .star_border,
+                              snapshot.data.contains(userSnapshot.data.uid) ? Icons.star : Icons.star_border,
                               color: Colors.white,
                             ),
                             tooltip: snapshot.data.contains(userSnapshot.data.uid)
-                              ? FlashcardsStrings.unlike()
-                              : FlashcardsStrings.like(),
+                                ? FlashcardsStrings.unlike()
+                                : FlashcardsStrings.like(),
                           ),
                           Text(
                             '${snapshot.data.length}',
