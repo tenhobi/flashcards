@@ -9,7 +9,6 @@ import 'package:flashcards_flutter/src/screen/search.dart';
 import 'package:flashcards_flutter/src/screen/settings.dart';
 import 'package:flashcards_flutter/src/state/container.dart';
 import 'package:flutter/material.dart';
-
 import 'package:url_launcher/url_launcher.dart';
 
 class CustomDrawer extends StatelessWidget {
@@ -26,52 +25,58 @@ class CustomDrawer extends StatelessWidget {
       child: Column(
         children: <Widget>[
           GestureDetector(
-            onTap: () {
-              //todo solve this somehow, probably store userdata in state aswell as firebaseuser
-              state.userBloc.query(state.authenticationBloc.user.uid).listen((userData) {
-                Navigator.of(context).pop();
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (bc) => ProfileScreen(
-                          userData: userData,
-                        ),
-                  ),
-                );
-              });
-            },
-            child: Column(
-              children: <Widget>[
-                UserAccountsDrawerHeader(
-                  accountName: Text(state.authenticationBloc.user.displayName),
-                  accountEmail: Text(state.authenticationBloc.user.email),
-                  currentAccountPicture: CircleAvatar(
-                    child: ClipRRect(
-                      // TODO: any auto value for rounded image?
-                      borderRadius: BorderRadius.circular(100.0),
-                      child: Image.network(state.authenticationBloc.user.photoUrl),
+              onTap: () async {
+                final user = await state.authenticationBloc.signedUser().first; // TODO move to ProfileScreen
+                state.userBloc.query(user.uid).listen((userData) {
+                  Navigator.of(context).pop();
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (bc) => ProfileScreen(
+                            userData: userData,
+                          ),
                     ),
-                  ),
-                  margin: EdgeInsets.zero,
-                ),
-                Container(
-                  padding: EdgeInsets.all(16.0),
-                  alignment: Alignment.centerLeft,
-                  decoration: BoxDecoration(color: Theme.of(context).primaryColor),
-                  child: StreamBuilder<UserData>(
-                    stream: state.userBloc.query(state.authenticationBloc.user.uid),
-                    builder: (context, snapshot) {
-                      if (!snapshot.hasData) return Loading();
+                  );
+                });
+              },
+              child: StreamBuilder<UserData>(
+                stream: state.authenticationBloc.signedUser(),
+                builder: (context, userSnapshot) {
+                  if (!userSnapshot.hasData) return Loading();
 
-                      return Text(
-                        FlashcardsStrings.score(snapshot.data.score),
-                        style: TextStyle(color: Colors.white),
-                      );
-                    },
-                  ),
-                ),
-              ],
-            ),
-          ),
+                  return Column(
+                    children: <Widget>[
+                      UserAccountsDrawerHeader(
+                        accountName: Text(userSnapshot.data.name),
+                        accountEmail: Text(''),
+                        currentAccountPicture: CircleAvatar(
+                          child: ClipRRect(
+                            // TODO: any auto value for rounded image?
+                            borderRadius: BorderRadius.circular(100.0),
+                            child: Image.network(userSnapshot.data.photoUrl),
+                          ),
+                        ),
+                        margin: EdgeInsets.zero,
+                      ),
+                      Container(
+                        padding: EdgeInsets.all(16.0),
+                        alignment: Alignment.centerLeft,
+                        decoration: BoxDecoration(color: Theme.of(context).primaryColor),
+                        child: StreamBuilder<UserData>(
+                          stream: state.userBloc.query(userSnapshot.data.uid),
+                          builder: (context, snapshot) {
+                            if (!snapshot.hasData) return Loading();
+
+                            return Text(
+                              FlashcardsStrings.score(snapshot.data.score),
+                              style: TextStyle(color: Colors.white),
+                            );
+                          },
+                        ),
+                      ),
+                    ],
+                  );
+                },
+              )),
           Expanded(
             child: ListView(
               children: <Widget>[
@@ -112,7 +117,7 @@ class CustomDrawer extends StatelessWidget {
                   leading: Icon(Icons.close),
                   title: Text(FlashcardsStrings.signOutNavigationButton()),
                   onTap: () {
-                    state.authenticationBloc.signOut();
+                    state.authenticationBloc.signOut.add(null);
                     Navigator.of(context).pushAndRemoveUntil(
                       MaterialPageRoute(
                         builder: (context) => LandingScreen(

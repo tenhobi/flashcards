@@ -32,31 +32,39 @@ class _SettingsScreenState extends State<SettingsScreen> {
           child: Column(
             children: <Widget>[
               StreamBuilder<UserData>(
-                  stream: state.userBloc.query(state.authenticationBloc.user.uid),
-                  builder: (context, snapshot) {
-                    if (!snapshot.hasData) return Loading();
+                stream: state.authenticationBloc.signedUser(),
+                builder: (context, userSnapshot) {
+                  if (!userSnapshot.hasData) return Loading();
 
-                    return DropdownButton(
-                      value: snapshot.data?.language,
-                      onChanged: (a) {
-                        final userMap = snapshot.data.toMap();
-                        userMap['language'] = a;
-                        state.userBloc.update.add(UserData.fromMap(userMap));
-                        setState(() {
-                          Intl.defaultLocale = a;
-                        });
-                      },
-                      items: List<DropdownMenuItem<String>>.generate(
-                        supportedLocales.length,
-                        (index) {
-                          return DropdownMenuItem(
-                            value: supportedLocales[index].toString(),
-                            child: Text(supportedLocales[index].toString()),
-                          );
+                  return StreamBuilder<UserData>(
+                    stream: state.userBloc.query(userSnapshot.data.uid),
+                    builder: (context, snapshot) {
+                      if (!snapshot.hasData) return Loading();
+
+                      return DropdownButton(
+                        value: snapshot.data?.language,
+                        onChanged: (a) {
+                          final userMap = snapshot.data.toMap();
+                          userMap['language'] = a;
+                          state.userBloc.update.add(UserData.fromMap(userMap));
+                          setState(() {
+                            Intl.defaultLocale = a;
+                          });
                         },
-                      ),
-                    );
-                  }),
+                        items: List<DropdownMenuItem<String>>.generate(
+                          supportedLocales.length,
+                          (index) {
+                            return DropdownMenuItem(
+                              value: supportedLocales[index].toString(),
+                              child: Text(supportedLocales[index].toString()),
+                            );
+                          },
+                        ),
+                      );
+                    },
+                  );
+                },
+              ),
             ],
           ),
         ),

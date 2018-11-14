@@ -1,9 +1,10 @@
 import 'dart:async';
 
+import 'package:after_layout/after_layout.dart';
 import 'package:flashcards_common/data.dart';
 import 'package:flashcards_common/i18n.dart';
-import 'package:flashcards_flutter/src/components/flipcard_play.dart';
 import 'package:flashcards_flutter/src/components/flipcard_item.dart';
+import 'package:flashcards_flutter/src/components/flipcard_play.dart';
 import 'package:flashcards_flutter/src/state/container.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
@@ -21,8 +22,19 @@ class ExerciseScreen extends StatefulWidget {
   State<ExerciseScreen> createState() => _ExerciseScreenState();
 }
 
-class _ExerciseScreenState extends State<ExerciseScreen> {
+class _ExerciseScreenState extends State<ExerciseScreen> with AfterLayoutMixin<ExerciseScreen> {
   Widget _playWidget = Container();
+
+  @override
+  Future afterFirstLayout(BuildContext context) async {
+    final state = StateContainer.of(context);
+    final data = await state.exerciseBloc.queryQuestions(widget.exercise, widget.size).first;
+    final widgets = List<Widget>.from(data.map((question) => FlipcardItem(data: question, key: UniqueKey())));
+
+    setState(() {
+      _playWidget = FlipcardPlayWidget(widgets: widgets);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,8 +49,6 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
   }
 
   Widget _buildFlipcards(BuildContext context) {
-    final state = StateContainer.of(context);
-
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -56,28 +66,10 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
               fontSize: 20.0,
             ),
           ),
-          _buildFlipcardsPlayWidget(state.exerciseBloc.queryQuestions(widget.exercise, widget.size)),
+          _playWidget,
         ],
       ),
     );
-  }
-
-  Widget _buildFlipcardsPlayWidget(Stream<List<QuestionData>> stream) {
-    stream.take(1).listen(
-      (questions) {
-        final widgets = <Widget>[];
-        for (var question in questions) {
-          widgets.add(FlipcardItem(
-            data: question,
-            key: UniqueKey(),
-          ));
-        }
-
-        _playWidget = FlipcardPlayWidget(widgets: widgets);
-      },
-    );
-
-    return _playWidget;
   }
 
   Widget _buildMultichoice() {

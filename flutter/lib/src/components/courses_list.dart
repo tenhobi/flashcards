@@ -31,30 +31,37 @@ class _CoursesListState extends State<CoursesList> with SingleTickerProviderStat
   Widget build(BuildContext context) {
     final state = StateContainer.of(context);
 
-    return StreamBuilder<List<CourseData>>(
-      stream: state.courseListBloc.queryAll(
-        widget.type,
-        authorUid: state.authenticationBloc.user.uid,
-        name: widget.name,
-      ),
-      builder: (context, snapshot) {
-        if (!snapshot.hasData) return Loading();
+    return StreamBuilder<UserData>(
+      stream: state.authenticationBloc.signedUser(),
+      builder: (context, userSnapshot) {
+        if (!userSnapshot.hasData) return Loading();
 
-        return GridView.extent(
-          shrinkWrap: true,
-          maxCrossAxisExtent: 200.0,
-          children: snapshot.data.map((document) {
-            return GestureDetector(
-              onTap: () => openCourse(document),
-              child: Padding(
-                padding: EdgeInsets.all(8.0),
-                child: CourseListItem(
-                  data: document,
-                ),
-              ),
+        return StreamBuilder<List<CourseData>>(
+          stream: state.courseListBloc.queryAll(
+            widget.type,
+            authorUid: userSnapshot.data.uid,
+            name: widget.name,
+          ),
+          builder: (context, snapshot) {
+            if (!snapshot.hasData) return Loading();
+
+            return GridView.extent(
+              shrinkWrap: true,
+              maxCrossAxisExtent: 200.0,
+              children: snapshot.data.map((document) {
+                return GestureDetector(
+                  onTap: () => openCourse(document),
+                  child: Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: CourseListItem(
+                      data: document,
+                    ),
+                  ),
+                );
+              }).toList(),
+              padding: EdgeInsets.all(8.0),
             );
-          }).toList(),
-          padding: EdgeInsets.all(8.0),
+          },
         );
       },
     );

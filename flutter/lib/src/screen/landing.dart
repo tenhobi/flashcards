@@ -1,13 +1,14 @@
 import 'dart:async';
 
+import 'package:after_layout/after_layout.dart';
+import 'package:flashcards_common/data.dart';
+import 'package:flashcards_common/i18n.dart';
 import 'package:flashcards_flutter/src/components/button_google.dart';
-import 'package:flashcards_flutter/src/state/container.dart';
 import 'package:flashcards_flutter/src/screen/new_user.dart';
+import 'package:flashcards_flutter/src/state/container.dart';
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
-import 'package:flutter/material.dart';
-
-import 'package:flashcards_common/i18n.dart';
 
 class LandingScreen extends StatefulWidget {
   final Widget nextScreen;
@@ -25,7 +26,8 @@ class LandingScreen extends StatefulWidget {
 }
 
 // ignore: mixin_inherits_from_not_object
-class _LandingScreenState extends State<LandingScreen> with SingleTickerProviderStateMixin {
+class _LandingScreenState extends State<LandingScreen>
+    with SingleTickerProviderStateMixin, AfterLayoutMixin<LandingScreen> {
   final double fontSize = 55.0;
   AnimationController animation;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -50,23 +52,23 @@ class _LandingScreenState extends State<LandingScreen> with SingleTickerProvider
         setState(() {});
       })
       ..forward();
+  }
 
-    // Run code after [initState], e.g. with mounted context.
-    scheduleMicrotask(() {
-      signIn(silently: true);
+  @override
+  void afterFirstLayout(BuildContext context) {
+    signIn(silently: true);
 
-      if (widget.withoutAnimations) {
+    if (widget.withoutAnimations) {
+      setState(() {
+        _loginButtonVisible = true;
+      });
+    } else {
+      Timer(animationDuration, () {
         setState(() {
           _loginButtonVisible = true;
         });
-      } else {
-        Timer(animationDuration, () {
-          setState(() {
-            _loginButtonVisible = true;
-          });
-        });
-      }
-    });
+      });
+    }
   }
 
   @override
@@ -112,6 +114,11 @@ class _LandingScreenState extends State<LandingScreen> with SingleTickerProvider
     _scaffoldKey.currentState.showSnackBar(snackbar);
   }
 
+  void doX(StateContainerState state) async {
+    await Future.delayed(Duration(seconds: 5));
+    state.authenticationBloc.signIn.add(null);
+  }
+
   // TODO: detect new user and go to nextNewUserScreen
   Future<void> signIn({bool silently = false}) async {
     setState(() {
@@ -119,26 +126,46 @@ class _LandingScreenState extends State<LandingScreen> with SingleTickerProvider
     });
 
     final state = StateContainer.of(context);
+    UserData userData;
 
     try {
-      final user = silently ? await state.authenticationBloc.signInSilently() : await state.authenticationBloc.signIn();
+      silently ? state.authenticationBloc.signInSilently.add(null) : state.authenticationBloc.signIn.add(null);
 
-      if (user == null) {
-        _wrongSignIn(context);
+      print('before');
+      await for (var value in state.authenticationBloc.signChanges()) {
+        print('in for: $value');
+        if (value) {
+          print('in if');
+          userData = await state.authenticationBloc.signedUser().first;
+          print('--- ${userData.toMap()}');
 
-        return;
+          // error
+          if (userData == null) {
+            _wrongSignIn(context);
+            setState(() {
+              _isLoading = false;
+            });
+            return;
+          }
+          // valid user data
+          else {
+            break;
+          }
+        }
+        // sign out
+        else {
+          setState(() {
+            _isLoading = false;
+          });
+          return;
+        }
       }
+      print('after');
     } on Exception catch (_) {
       _wrongSignIn(context);
 
       return;
     }
-
-    final userData = await state.userBloc.query(state.authenticationBloc.user.uid).first;
-
-    setState(() {
-      _isLoading = false;
-    });
 
     if (userData == null) {
       //new user

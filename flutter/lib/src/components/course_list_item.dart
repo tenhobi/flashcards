@@ -42,28 +42,35 @@ class CourseListItem extends StatelessWidget {
                 builder: (context, snapshot) {
                   if (!snapshot.hasData) return Loading();
 
-                  return Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      IconButton(
-                        onPressed: () {
-                          snapshot.data.contains(state.authenticationBloc.user.uid)
-                              ? state.courseListBloc.unlike.add(Tuple2(data, state.authenticationBloc.user.uid))
-                              : state.courseListBloc.like.add(Tuple2(data, state.authenticationBloc.user.uid));
-                        },
-                        icon: Icon(
-                          snapshot.data.contains(state.authenticationBloc.user.uid) ? Icons.star : Icons.star_border,
-                          color: Colors.white,
-                        ),
-                        tooltip: snapshot.data.contains(state.authenticationBloc.user.uid)
-                            ? FlashcardsStrings.unlike()
-                            : FlashcardsStrings.like(),
-                      ),
-                      Text(
-                        '${snapshot.data.length}',
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    ],
+                  return StreamBuilder<UserData>(
+                    stream: state.authenticationBloc.signedUser(),
+                    builder: (context, userSnapshot) {
+                      if (!userSnapshot.hasData) return Loading();
+
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          IconButton(
+                            onPressed: () {
+                              snapshot.data.contains(userSnapshot.data.uid)
+                                  ? state.courseListBloc.unlike.add(Tuple2(data, userSnapshot.data.uid))
+                                  : state.courseListBloc.like.add(Tuple2(data, userSnapshot.data.uid));
+                            },
+                            icon: Icon(
+                              snapshot.data.contains(userSnapshot.data.uid) ? Icons.star : Icons.star_border,
+                              color: Colors.white,
+                            ),
+                            tooltip: snapshot.data.contains(userSnapshot.data.uid)
+                                ? FlashcardsStrings.unlike()
+                                : FlashcardsStrings.like(),
+                          ),
+                          Text(
+                            '${snapshot.data.length}',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ],
+                      );
+                    },
                   );
                 },
               ),

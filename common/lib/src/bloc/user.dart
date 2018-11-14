@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flashcards_common/src/api/firebase.dart';
 import 'package:flashcards_common/src/bloc/bloc.dart';
 import 'package:flashcards_common/src/data/user.dart';
@@ -6,9 +8,9 @@ import 'package:rxdart/rxdart.dart';
 class UserBloc extends Bloc {
   final FirebaseApi _api;
 
-  final _createController = BehaviorSubject<UserData>();
-  final _updateController = BehaviorSubject<UserData>();
-  final _createIfAbsentController = BehaviorSubject<UserData>();
+  final _createController = StreamController<UserData>();
+  final _updateController = StreamController<UserData>();
+  final _createIfAbsentController = StreamController<UserData>();
 
   UserBloc(this._api) {
     _createController.stream.listen(_handleCreate);

@@ -98,17 +98,17 @@ class _NewUserScreenState extends State<NewUserScreen> {
     return res;
   }
 
-  void _submitForm() {
+  Future _submitForm() async {
     final state = StateContainer.of(context);
     final form = _formKey.currentState;
     if (form.validate()) {
       form.save();
 
-      final user = state.authenticationBloc.user;
+      final user = await state.authenticationBloc.signedUser().first;
 
       final userData = UserData(
         uid: user.uid,
-        name: user.displayName,
+        name: user.name,
         bio: _bio,
         links: _links,
         photoUrl: user.photoUrl,
