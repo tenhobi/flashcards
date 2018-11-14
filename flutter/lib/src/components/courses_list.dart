@@ -34,6 +34,8 @@ class _CoursesListState extends State<CoursesList> with SingleTickerProviderStat
     return StreamBuilder<UserData>(
       stream: state.authenticationBloc.signedUser(),
       builder: (context, userSnapshot) {
+        if (!userSnapshot.hasData) return Loading();
+
         return StreamBuilder<List<CourseData>>(
           stream: state.courseListBloc.queryAll(
             widget.type,

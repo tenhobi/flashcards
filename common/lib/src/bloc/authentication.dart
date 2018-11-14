@@ -11,45 +11,54 @@ class AuthenticationBloc extends Bloc {
 
   String _userUid;
 
-  final _signInController = StreamController();
-  final _signInSilentlyController = StreamController();
-  final _signOutController = StreamController();
+  final _signChangesSubject = BehaviorSubject<bool>();
+  final _signInSubject = BehaviorSubject<void>();
+  final _signInSilentlySubject = BehaviorSubject<void>();
+  final _signOutSubject = BehaviorSubject<void>();
 
   AuthenticationBloc(this._authApi, this._firebaseApi) {
-    _signInController.stream.listen(_handleSignIn);
-    _signInSilentlyController.stream.listen(_handleSignInSilently);
-    _signOutController.stream.listen(_handleSignOut);
+    _signInSubject.stream.listen(_handleSignIn);
+    _signInSilentlySubject.stream.listen(_handleSignInSilently);
+    _signOutSubject.stream.listen(_handleSignOut);
   }
 
-  Sink get signIn => _signInController.sink;
+  Sink<void> get _signChanges => _signChangesSubject.sink;
 
-  Sink get signInSilently => _signInSilentlyController.sink;
+  Sink<void> get signIn => _signInSubject.sink;
 
-  Sink<void> get signOut => _signOutController.sink;
+  Sink<void> get signInSilently => _signInSilentlySubject.sink;
+
+  Sink<void> get signOut => _signOutSubject.sink;
+
+  Observable<bool> signChanges() => _signChangesSubject.stream;
 
   Future<void> _handleSignIn(_) async {
     _userUid = await _authApi.signIn();
-    print('signin $_userUid');
+    _signChanges.add(_userUid != null);
+    print('auth bloc: signin $_userUid');
   }
 
   Future<void> _handleSignInSilently(_) async {
     _userUid = await _authApi.signInSilently();
-    print('signinsilently $_userUid');
+    _signChanges.add(_userUid != null);
+    print('auth bloc: signin silently $_userUid');
   }
 
-  void _handleSignOut(_) {
-    _authApi.signOut();
+  void _handleSignOut(_) async {
+    await _authApi.signOut();
     _userUid = null;
+    _signChanges.add(false);
+    print('auth bloc: signout');
   }
 
-  Observable<UserData> signedUser() {
-    return _firebaseApi.queryUser(_userUid);
-  }
+  // TODO: somehow fix this so it changes the stream based on the [_userId] parameter.
+  Observable<UserData> signedUser() => _firebaseApi.queryUser(_userUid);
 
   @override
   void dispose() {
-    _signInController.close();
-    _signInSilentlyController.close();
-    _signOutController.close();
+    _signChangesSubject.close();
+    _signInSubject.close();
+    _signInSilentlySubject.close();
+    _signOutSubject.close();
   }
 }

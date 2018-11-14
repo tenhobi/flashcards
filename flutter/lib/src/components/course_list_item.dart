@@ -47,6 +47,8 @@ class CourseListItem extends StatelessWidget {
                   return StreamBuilder<UserData>(
                     stream: state.authenticationBloc.signedUser(),
                     builder: (context, userSnapshot) {
+                      if (!userSnapshot.hasData) return Loading();
+
                       return Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[

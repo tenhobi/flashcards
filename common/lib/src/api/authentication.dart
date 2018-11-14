@@ -6,5 +6,5 @@ abstract class AuthenticationApi {
 
   Future<String> signInSilently();
 
-  void signOut();
+  Future<void> signOut();
 }

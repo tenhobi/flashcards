@@ -1,8 +1,8 @@
 import 'package:flashcards_common/data.dart';
 import 'package:flashcards_common/i18n.dart';
 import 'package:flashcards_flutter/src/components/indicator_loading.dart';
-import 'package:flashcards_flutter/src/state/container.dart';
 import 'package:flashcards_flutter/src/screen/profile.dart';
+import 'package:flashcards_flutter/src/state/container.dart';
 import 'package:flutter/material.dart';
 import 'package:tuple/tuple.dart';
 
@@ -149,6 +149,8 @@ class _CommentsState extends State<Comments> {
                           return StreamBuilder<UserData>(
                             stream: state.authenticationBloc.signedUser(),
                             builder: (context, userSnapshot) {
+                              if (!userSnapshot.hasData) return Loading();
+
                               return Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: <Widget>[
@@ -161,9 +163,7 @@ class _CommentsState extends State<Comments> {
                                               .add(Tuple3(widget.course, comment, userSnapshot.data.uid));
                                     },
                                     icon: Icon(
-                                      snapshot.data.contains(state.authenticationBloc.signedUser().first.toString())
-                                          ? Icons.star
-                                          : Icons.star_border,
+                                      snapshot.data.contains(userSnapshot.data.uid) ? Icons.star : Icons.star_border,
                                     ),
                                     tooltip: snapshot.data.contains(userSnapshot.data.uid)
                                         ? FlashcardsStrings.unlike()

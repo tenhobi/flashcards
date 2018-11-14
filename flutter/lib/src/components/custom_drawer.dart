@@ -9,7 +9,6 @@ import 'package:flashcards_flutter/src/screen/search.dart';
 import 'package:flashcards_flutter/src/screen/settings.dart';
 import 'package:flashcards_flutter/src/state/container.dart';
 import 'package:flutter/material.dart';
-
 import 'package:url_launcher/url_launcher.dart';
 
 class CustomDrawer extends StatelessWidget {
@@ -42,11 +41,13 @@ class CustomDrawer extends StatelessWidget {
               child: StreamBuilder<UserData>(
                 stream: state.authenticationBloc.signedUser(),
                 builder: (context, userSnapshot) {
+                  if (!userSnapshot.hasData) return Loading();
+
                   return Column(
                     children: <Widget>[
                       UserAccountsDrawerHeader(
                         accountName: Text(userSnapshot.data.name),
-                        accountEmail: Text('no data'), // TODO
+                        accountEmail: Text(''),
                         currentAccountPicture: CircleAvatar(
                           child: ClipRRect(
                             // TODO: any auto value for rounded image?

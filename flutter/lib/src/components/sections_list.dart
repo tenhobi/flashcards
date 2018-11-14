@@ -119,6 +119,8 @@ class _BuildStreamState extends State<_BuildStream> {
         return StreamBuilder<UserData>(
           stream: state.authenticationBloc.signedUser(),
           builder: (context, userSnapshot) {
+            if (!userSnapshot.hasData) return Loading();
+
             final owner = widget.section.parent.authorUid == userSnapshot.data.uid;
             if ((data == null || data.isEmpty) && (snapshot.data == null || snapshot.data.isEmpty)) {
               return _generateEmpty(context, snapshot, authorUid: userSnapshot.data.uid);
@@ -463,6 +465,8 @@ class _SectionsWidgetState extends State<_SectionWidget> with SingleTickerProvid
           trailing: StreamBuilder<UserData>(
             stream: state.authenticationBloc.signedUser(),
             builder: (context, userSnapshot) {
+              if (!userSnapshot.hasData) return Loading();
+
               return _generateExpansionTileControls(context, authorUid: userSnapshot.data.uid);
             },
           ),
