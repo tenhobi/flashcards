@@ -2,12 +2,12 @@ import 'package:flashcards_common/data.dart';
 import 'package:flashcards_common/i18n.dart';
 import 'package:flashcards_flutter/src/components/comments.dart';
 import 'package:flashcards_flutter/src/components/indicator_loading.dart';
-import 'package:flashcards_flutter/src/screen/new_section.dart';
 import 'package:flashcards_flutter/src/components/sections_list.dart';
+import 'package:flashcards_flutter/src/screen/new_section.dart';
 import 'package:flashcards_flutter/src/state/container.dart';
 import 'package:flutter/material.dart';
-import 'package:meta/meta.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:meta/meta.dart';
 import 'package:tuple/tuple.dart';
 
 class CourseScreen extends StatefulWidget {
@@ -92,8 +92,6 @@ class _CourseScreenState extends State<CourseScreen> with SingleTickerProviderSt
   }
 
   FloatingActionButton _buildAddSection(BuildContext context, UserData signedUser) {
-    final state = StateContainer.of(context);
-
     if (widget.course.authorUid != signedUser.uid) {
       return null;
     }
@@ -105,8 +103,6 @@ class _CourseScreenState extends State<CourseScreen> with SingleTickerProviderSt
   }
 
   FloatingActionButton _buildEditSectionDescription(BuildContext context, UserData signedUser) {
-    final state = StateContainer.of(context);
-
     if (widget.course.authorUid != signedUser.uid) {
       return null;
     }

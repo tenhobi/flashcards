@@ -91,7 +91,6 @@ class _BuildStreamState extends State<_BuildStream> {
   }
 
   Widget _generateEmpty(BuildContext context, AsyncSnapshot<List<SubsectionData>> snapshot, {String authorUid}) {
-    final state = StateContainer.of(context);
     if (widget.section.parent.authorUid == authorUid) {
       return _SectionRow(
         icon: Icons.add,
@@ -387,7 +386,6 @@ class _SectionsWidgetState extends State<_SectionWidget> with SingleTickerProvid
   }
 
   Widget _generateExpansionTileControls(BuildContext context, {String authorUid}) {
-    final state = StateContainer.of(context);
     var controls = <Widget>[];
 
     if (widget.section.parent.authorUid == authorUid) {

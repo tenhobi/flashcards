@@ -1,6 +1,4 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flashcards_common/bloc.dart';
-
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 
