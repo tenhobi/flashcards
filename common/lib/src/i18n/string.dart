@@ -601,4 +601,36 @@ The project started as a part of a software team project at the [Faculty of Info
       desc: 'Message shown when material contains no data',
     );
   }
+
+  static String newMaterialName() {
+    return Intl.message(
+      '_name',
+      name: 'newMaterialName',
+      desc: 'Label of input for material name.',
+    );
+  }
+
+  static String newMaterialContent() {
+    return Intl.message(
+      '_text',
+      name: 'newSectionContent',
+      desc: 'Label of input for material content.',
+    );
+  }
+
+  static String newMaterialNameEmpty() {
+    return Intl.message(
+      '_nameCannotBeEmpty.',
+      name: 'newMaterialNameEmpty',
+      desc: 'Error label of input for name about empty material name.',
+    );
+  }
+
+  static String newMaterialContentEmpty() {
+    return Intl.message(
+      '_textCannotBeEmpty.',
+      name: 'newMaterialContentEmpty',
+      desc: 'Error label of input for name about empty material content.',
+    );
+  }
 }
