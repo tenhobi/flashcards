@@ -23,6 +23,7 @@ class Routes {
   RouteDefinition get course => _course;
 
   final List<RouteDefinition> all = [
+    RouteDefinition.redirect(path: '/', redirectTo: '/courses'),
     _courses,
     _course,
   ];
