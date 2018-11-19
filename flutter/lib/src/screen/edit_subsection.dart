@@ -61,30 +61,36 @@ class _EditSubsectionScreenState extends State<EditSubsectionScreen> {
         title: Text(FlashcardsStrings.editSubsectionLabel(_name)),
       ),
       body: Container(
-        padding: EdgeInsets.all(20.0),
         child: Form(
           key: formKey,
-          child: Column(
+          child: ListView(
             children: <Widget>[
-              TextFormField(
-                autofocus: true,
-                decoration: InputDecoration(
-                  labelText: FlashcardsStrings.newSubsectionName(),
+              Container(
+                padding: EdgeInsets.all(20.0),
+                child: Column(
+                  children: <Widget>[
+                    TextFormField(
+                      autofocus: true,
+                      decoration: InputDecoration(
+                        labelText: FlashcardsStrings.newSubsectionName(),
+                      ),
+                      initialValue: _name,
+                      validator: (val) => val.isEmpty ? FlashcardsStrings.newSubsectionNameEmpty() : null,
+                      onSaved: (val) => _name = val,
+                    ),
+                    TextFormField(
+                      decoration: InputDecoration(
+                        labelText: FlashcardsStrings.newSubsectionOrder(),
+                      ),
+                      initialValue: _order.toString(),
+                      keyboardType: TextInputType.numberWithOptions(signed: true, decimal: true),
+                      validator: (val) => val.isEmpty ? FlashcardsStrings.newSubsectionOrderEmpty() : null,
+                      onSaved: (val) => _order = int.parse(val),
+                    ),
+                    _buildMaterialRelated(context),
+                  ],
                 ),
-                initialValue: _name,
-                validator: (val) => val.isEmpty ? FlashcardsStrings.newSubsectionNameEmpty() : null,
-                onSaved: (val) => _name = val,
               ),
-              TextFormField(
-                decoration: InputDecoration(
-                  labelText: FlashcardsStrings.newSubsectionOrder(),
-                ),
-                initialValue: _order.toString(),
-                keyboardType: TextInputType.numberWithOptions(signed: true, decimal: true),
-                validator: (val) => val.isEmpty ? FlashcardsStrings.newSubsectionOrderEmpty() : null,
-                onSaved: (val) => _order = int.parse(val),
-              ),
-              _buildMaterialRelated(context),
             ],
           ),
         ),
@@ -97,10 +103,10 @@ class _EditSubsectionScreenState extends State<EditSubsectionScreen> {
       return TextFormField(
         maxLines: 7,
         decoration: InputDecoration(
-          labelText: 'info',
+          labelText: FlashcardsStrings.newMaterialContent(),
         ),
         initialValue: _content.toString() ?? '',
-        validator: (val) => val.isEmpty ? FlashcardsStrings.cannotBeEmpty() : null,
+        validator: (val) => val.isEmpty ? FlashcardsStrings.newMaterialContentEmpty() : null,
         onSaved: (val) => _content = val,
       );
     }
