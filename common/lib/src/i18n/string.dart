@@ -593,4 +593,12 @@ The project started as a part of a software team project at the [Faculty of Info
       desc: 'Info about wrong error',
     );
   }
+
+  static String noMaterialData() {
+    return Intl.message(
+      '_noMaterialData',
+      name: 'noMaterialData',
+      desc: 'Message shown when material contains no data',
+    );
+  }
 }
