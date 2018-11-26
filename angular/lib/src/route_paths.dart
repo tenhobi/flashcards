@@ -9,3 +9,5 @@ final RoutePath courses = RoutePath(path: 'courses');
 
 const String idCourse = 'id';
 final RoutePath course = RoutePath(path: 'course/:$idCourse');
+
+final RoutePath about = RoutePath(path: 'about');
