@@ -1,25 +1,32 @@
 import 'dart:async';
 
+import 'package:firebase/firebase.dart' as fb;
 import 'package:flashcards_common/api.dart';
-//import 'package:firebase_auth/firebase_auth.dart';
-//import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthenticationAngularApi extends AuthenticationApi {
   @override
-  Future<String> signIn() {
-    // TODO: implement signIn
+  Future<String> signIn() async {
+    var _fbGoogleAuthProvider = fb.GoogleAuthProvider();
+    var _fbAuth = fb.auth();
+
+    try {
+      var user = await _fbAuth.signInWithRedirect(_fbGoogleAuthProvider);
+      return user.user.uid;
+    } on Error catch (error) {
+      print("$runtimeType::signIn() -- $error");
+    }
+
     return null;
   }
 
   @override
   Future<String> signInSilently() {
-    // TODO: implement signInSilently
-    return null;
+    return signIn();
   }
 
   @override
   Future<void> signOut() {
-    // TODO: implement signOut
-    return null;
+    var _fbAuth = fb.auth();
+    return _fbAuth.signOut();
   }
 }
