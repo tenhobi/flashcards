@@ -1,10 +1,16 @@
+import 'package:firebase/firebase.dart' as fb;
 import 'package:flashcards_common/api.dart';
 import 'package:flashcards_common/bloc.dart';
 import 'package:flashcards_common/data.dart';
 import 'package:rxdart/rxdart.dart';
-//import 'package:cloud_firestore/cloud_firestore.dart';
 
 class FirebaseFlutterApi extends FirebaseApi {
+  static final FirebaseFlutterApi _instance = FirebaseFlutterApi._();
+
+  factory FirebaseFlutterApi() => _instance;
+
+  FirebaseFlutterApi._();
+
   @override
   void addComment({CourseData course, CommentData comment}) {
     // TODO: implement addComment
@@ -69,8 +75,40 @@ class FirebaseFlutterApi extends FirebaseApi {
 
   @override
   Observable<List<CourseData>> queryCourses({CoursesQueryType type, String name, String authorUid}) {
-    // TODO: implement queryCourses
-    return null;
+    final controller = BehaviorSubject<List<CourseData>>();
+
+    var courses = fb.firestore().collection('courses');
+
+    switch (type) {
+      case CoursesQueryType.created:
+        courses = courses.where('authorUid', '==', authorUid).orderBy('name');
+        break;
+      case CoursesQueryType.popular:
+      case CoursesQueryType.all:
+      default:
+    }
+
+    courses.onSnapshot.listen((snapshot) {
+      final dataList = snapshot.docs.map<CourseData>((document) {
+        final documentData = document.data()..addAll(<String, dynamic>{'id': document.id});
+        final data = CourseData.fromMap(documentData);
+
+        if (name == null) {
+          return data;
+        }
+
+        if (data.name.toLowerCase().contains(name.toLowerCase())) {
+          return data;
+        }
+
+        return null;
+      }).toList()
+        ..removeWhere((data) => data == null);
+
+      controller.add(dataList);
+    });
+
+    return controller.stream;
   }
 
   @override

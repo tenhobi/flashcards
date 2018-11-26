@@ -7,7 +7,6 @@ import 'package:flashcards_flutter/src/app.dart';
 import 'package:flashcards_flutter/src/i18n/delegate.dart';
 import 'package:flashcards_flutter/src/state/container.dart';
 import 'package:flutter/material.dart';
-// ignore: unused_import
 
 void loadLocales() {
   final locales = <String>[];
