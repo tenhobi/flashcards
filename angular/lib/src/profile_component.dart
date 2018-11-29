@@ -8,9 +8,9 @@ import 'route_paths.dart' as paths;
 @Component(
   selector: 'profile-component',
   template: '''
-    <div (click)="goBack()">Zpět!</div>
+    <div class="link" (click)="goBack()">Zpět!</div>
     <div align='center' *ngIf="user != null">
-      <img src="{{user?.photoUrl}}" alt='profile picture'>
+      <img [attr.src]="user?.photoUrl" alt='profile picture'>
       <h1>{{user?.name}}</h1>
       <div class='info'>
       <h5>Score: {{user?.score}}</h5><h5>Language: {{user?.language}}</h5>
@@ -28,6 +28,14 @@ import 'route_paths.dart' as paths;
     margin: 0 auto;
     max-width: 900px;
     width: 90%;
+  }
+
+  img {
+    width: 300px;
+  }
+
+  .link {
+    cursor: pointer;
   }
 
   .LinkedProfiles {
@@ -64,7 +72,7 @@ class ProfileComponent implements OnActivate {
   void onActivate(_, RouterState current) {
     final id = paths.getId(current.parameters);
 
-    FirebaseFlutterApi().queryUser(id).listen((userData) {
+    FirebaseAngularApi().queryUser(id).listen((userData) {
       user = userData;
     });
   }

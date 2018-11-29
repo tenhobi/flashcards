@@ -2,14 +2,15 @@ import 'package:firebase/firebase.dart' as fb;
 import 'package:flashcards_common/api.dart';
 import 'package:flashcards_common/bloc.dart';
 import 'package:flashcards_common/data.dart';
+import 'package:meta/meta.dart';
 import 'package:rxdart/rxdart.dart';
 
-class FirebaseFlutterApi extends FirebaseApi {
-  static final FirebaseFlutterApi _instance = FirebaseFlutterApi._();
+class FirebaseAngularApi extends FirebaseApi {
+  static final FirebaseAngularApi _instance = FirebaseAngularApi._();
 
-  factory FirebaseFlutterApi() => _instance;
+  factory FirebaseAngularApi() => _instance;
 
-  FirebaseFlutterApi._();
+  FirebaseAngularApi._();
 
   @override
   void addComment({CourseData course, CommentData comment}) {
@@ -136,9 +137,14 @@ class FirebaseFlutterApi extends FirebaseApi {
   }
 
   @override
-  Observable<List<String>> queryStars({CourseData course}) {
-    // TODO: implement queryStars
-    return null;
+  BehaviorSubject<List<String>> queryStars({@required CourseData course}) {
+    final controller = BehaviorSubject<List<String>>();
+
+    fb.firestore().collection('courses').doc(course.id).collection('stars').onSnapshot.listen((snapshot) {
+      controller.add(snapshot.docs.map<String>((document) => document.id).toList());
+    });
+
+    return controller.stream;
   }
 
   @override

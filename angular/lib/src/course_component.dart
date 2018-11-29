@@ -11,8 +11,8 @@ import 'route_paths.dart' as paths;
 @Component(
   selector: 'course-component',
   template: '''
-    <div (click)="goBack()">Zpět!</div>
-    
+    <div class="link" (click)="goBack()">Zpět!</div>
+
     <div *ngIf="course != null">
       <h1>{{course?.name}}</h1>
       <h2>Description</h2>
@@ -31,14 +31,18 @@ import 'route_paths.dart' as paths;
     max-width: 900px;
     width: 90%;
   }
-  
+
+  .link {
+    cursor: pointer;
+  }
+
   .courses {
     display: grid;
     grid-template-rows: repeat(auto-fill, 200px);
     grid-template-columns: repeat(auto-fill, 200px);
     grid-gap: 20px;
   }
-  
+
   .course {
     width: 200px;
     height: 200px;
@@ -49,14 +53,14 @@ import 'route_paths.dart' as paths;
     overflow: hidden;
     color: #fff;
   }
-  
-  .course__name,  
+
+  .course__name,
   .course__stars {
     display: flex;
     justify-content: center;
     align-items: center;
   }
-  
+
   .course__name {
     font-size: 42px;
     font-weight: bold;
