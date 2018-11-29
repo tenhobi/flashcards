@@ -23,6 +23,11 @@ class FirebaseAngularApi extends FirebaseApi {
   }
 
   @override
+  void addQuestion(QuestionData question) {
+    // TODO: implement addQuestion
+  }
+
+  @override
   void addSection(SectionData section) {
     // TODO: implement addSection
   }
@@ -40,6 +45,11 @@ class FirebaseAngularApi extends FirebaseApi {
   @override
   void createIfAbsent(UserData user) {
     // TODO: implement createIfAbsent
+  }
+
+  @override
+  void editQuestion(QuestionData question) {
+    // TODO: implement editQuestion
   }
 
   @override
@@ -179,6 +189,11 @@ class FirebaseAngularApi extends FirebaseApi {
   @override
   void removeCourse(CourseData course) {
     // TODO: implement removeCourse
+  }
+
+  @override
+  void removeQuestion(QuestionData question) {
+    // TODO: implement removeQuestion
   }
 
   @override
