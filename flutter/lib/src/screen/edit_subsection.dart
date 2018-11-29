@@ -114,7 +114,9 @@ class _EditSubsectionScreenState extends State<EditSubsectionScreen> {
                       validator: (val) => val.isEmpty ? FlashcardsStrings.newSubsectionOrderEmpty() : null,
                       onSaved: (val) => _order = int.parse(val),
                     ),
-                    Container(padding: EdgeInsets.only(top:16),),
+                    Container(
+                      padding: EdgeInsets.only(top: 16),
+                    ),
                     _buildExerciseRelated(context),
                     _buildMaterialRelated(context),
                   ],
@@ -128,32 +130,43 @@ class _EditSubsectionScreenState extends State<EditSubsectionScreen> {
   }
 
   Widget _buildQuestionChild(BuildContext context, QuestionData q) {
-    if(q is FlipcardQuestionData) {
+    if (q is FlipcardQuestionData) {
       return Container(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            Text((q as FlipcardQuestionData).answer, textAlign: TextAlign.start,)
+            Text(
+              q.answer,
+              textAlign: TextAlign.start,
+            )
           ],
         ),
-        padding: EdgeInsets.all(8),);
+        padding: EdgeInsets.all(8),
+      );
     } else {
-      return Container(color: Colors.red,);
+      return Container(
+        color: Colors.red,
+      );
     }
   }
 
   Widget _buildQuestion(BuildContext context, QuestionData q) {
     return ExpansionTile(
       title: Text(q.question),
-      children: <Widget>[
-        _buildQuestionChild(context, q)
-      ],
+      children: <Widget>[_buildQuestionChild(context, q)],
     );
   }
-  
+
   Widget _buildNewQuestionButton(BuildContext context) {
     return MaterialButton(
-      onPressed: () {Navigator.of(context).push(MaterialPageRoute(builder: (context) => EditQuestionScreen(data: null, isNew: true, parent: widget.original,)));},
+      onPressed: () {
+        Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => EditQuestionScreen(
+                  data: null,
+                  isNew: true,
+                  parent: widget.original,
+                )));
+      },
       color: Theme.of(context).primaryColor,
       textColor: Theme.of(context).primaryTextTheme.button.color,
       child: Row(
@@ -165,20 +178,21 @@ class _EditSubsectionScreenState extends State<EditSubsectionScreen> {
       ),
     );
   }
-  
+
   List<Widget> _buildQuestionList(BuildContext context, List<QuestionData> questions) {
     return questions.map((q) {
       return _buildQuestion(context, q);
     }).toList();
   }
-  
+
   Widget _buildExerciseRelated(BuildContext context) {
     final state = StateContainer.of(context);
-    if(widget.original is ExerciseData) {
+    if (widget.original is ExerciseData) {
       return StreamBuilder(
         builder: (context, snapshot) {
           return Column(
-            children: _buildQuestionList(context, snapshot.data).followedBy([_buildNewQuestionButton(context)]).toList(),
+            children:
+                _buildQuestionList(context, snapshot.data).followedBy([_buildNewQuestionButton(context)]).toList(),
           );
         },
         initialData: null,

@@ -23,7 +23,7 @@ class ExerciseBloc extends Bloc {
   Sink<QuestionData> get remove => _removeController.sink;
 
   Sink<QuestionData> get edit => _editController.sink;
-  
+
   Observable<List<QuestionData>> queryQuestions(ExerciseData exercise, int size) {
     return _api.queryQuestions(exercise: exercise, size: size);
   }

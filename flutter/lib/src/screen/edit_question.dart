@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flashcards_common/data.dart';
 
 class EditQuestionScreen extends StatefulWidget {
-  const EditQuestionScreen({@required this.data, this.isNew = false, this.parent = null});
+  const EditQuestionScreen({@required this.data, this.isNew = false, this.parent});
 
   final QuestionData data;
   final SubsectionData parent;
@@ -24,15 +24,15 @@ class _EditQuestionScreenState extends State<EditQuestionScreen> {
   @override
   void initState() {
     super.initState();
-    if(widget.isNew && widget.parent == null) {
+    if (widget.isNew && widget.parent == null) {
       throw "You must provide parent when isNew is set to true";
     }
-    if(widget.isNew) {
+    if (widget.isNew) {
       return;
     }
     setState(() {
       _question = widget.data.question;
-      if(widget.data is FlipcardQuestionData) {
+      if (widget.data is FlipcardQuestionData) {
         _answer = (widget.data as FlipcardQuestionData).answer;
       }
     });
@@ -45,11 +45,7 @@ class _EditQuestionScreenState extends State<EditQuestionScreen> {
     if (form.validate()) {
       form.save();
       QuestionData res = FlipcardQuestionData(
-        id: widget.isNew ? '' : widget.data.id,
-        parent: widget.parent,
-        question: _question,
-        answer: _answer
-      );
+          id: widget.isNew ? '' : widget.data.id, parent: widget.parent, question: _question, answer: _answer);
 
       if (widget.isNew) {
         state.exerciseBloc.create.add(res);
@@ -72,7 +68,9 @@ class _EditQuestionScreenState extends State<EditQuestionScreen> {
         onSaved: (val) => _question = val,
         validator: (val) => val.isEmpty ? FlashcardsStrings.questionQuestionEmpty() : null,
       ),
-      Divider(color: Theme.of(context).primaryColor,),
+      Divider(
+        color: Theme.of(context).primaryColor,
+      ),
       TextFormField(
         decoration: InputDecoration(
           labelText: FlashcardsStrings.questionAnswer(),
@@ -88,26 +86,26 @@ class _EditQuestionScreenState extends State<EditQuestionScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        floatingActionButton: FloatingActionButton(
-          onPressed: sendForm,
-          child: Icon(Icons.check),
+      floatingActionButton: FloatingActionButton(
+        onPressed: sendForm,
+        child: Icon(Icons.check),
+      ),
+      appBar: AppBar(
+        title: Text(widget.isNew ? FlashcardsStrings.addQuestionLabel() : FlashcardsStrings.editQuestionLabel()),
+      ),
+      body: Form(
+        key: formKey,
+        child: ListView(
+          children: <Widget>[
+            Container(
+              padding: EdgeInsets.all(20),
+              child: Column(
+                children: buildFields(context),
+              ),
+            )
+          ],
         ),
-        appBar: AppBar(
-          title: Text(widget.isNew ? FlashcardsStrings.addQuestionLabel() : FlashcardsStrings.editQuestionLabel()),
-        ),
-        body: Form(
-          key: formKey,
-          child: ListView(
-            children: <Widget>[
-              Container(
-                padding: EdgeInsets.all(20),
-                child: Column(
-                  children: buildFields(context),
-                ),
-              )
-            ],
-          ),
-        ),
+      ),
     );
   }
 }

@@ -51,29 +51,29 @@ class FirebaseFlutterApi extends FirebaseApi {
   void addQuestion(QuestionData question) {
     final type = SubsectionData.getTypeToString(question.parent);
     Firestore.instance
-      .collection('courses')
-      .document(question.parent.parent.parent.id)
-      .collection('sections')
-      .document(question.parent.parent.id)
-      .collection(type)
-      .document(question.parent.id)
-      .collection('questions')
-      .add(question.toMap());
+        .collection('courses')
+        .document(question.parent.parent.parent.id)
+        .collection('sections')
+        .document(question.parent.parent.id)
+        .collection(type)
+        .document(question.parent.id)
+        .collection('questions')
+        .add(question.toMap());
   }
 
   @override
   void editQuestion(QuestionData question) {
     final type = SubsectionData.getTypeToString(question.parent);
     Firestore.instance
-      .collection('courses')
-      .document(question.parent.parent.parent.id)
-      .collection('sections')
-      .document(question.parent.parent.id)
-      .collection(type)
-      .document(question.parent.id)
-      .collection('questions')
-      .document(question.id)
-      .setData(question.toMap());
+        .collection('courses')
+        .document(question.parent.parent.parent.id)
+        .collection('sections')
+        .document(question.parent.parent.id)
+        .collection(type)
+        .document(question.parent.id)
+        .collection('questions')
+        .document(question.id)
+        .setData(question.toMap());
   }
 
   @override
@@ -176,20 +176,20 @@ class FirebaseFlutterApi extends FirebaseApi {
         .delete();
   }
 
-@override
-void removeQuestion(QuestionData question) {
+  @override
+  void removeQuestion(QuestionData question) {
     final type = SubsectionData.getTypeToString(question.parent);
     Firestore.instance
-      .collection('courses')
-      .document(question.parent.parent.parent.id)
-      .collection('sections')
-      .document(question.parent.parent.id)
-      .collection(type)
-      .document(question.parent.id)
-      .collection('questions')
-      .document(question.id)
-      .delete();
-}
+        .collection('courses')
+        .document(question.parent.parent.parent.id)
+        .collection('sections')
+        .document(question.parent.parent.id)
+        .collection(type)
+        .document(question.parent.id)
+        .collection('questions')
+        .document(question.id)
+        .delete();
+  }
 
   @override
   BehaviorSubject<List<CourseData>> queryCourses({
