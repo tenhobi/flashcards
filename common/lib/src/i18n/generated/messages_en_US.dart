@@ -88,7 +88,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "removeSectionDialog": MessageLookupByLibrary.simpleMessage("Do you want to remove this section?"),
         "reportBugNavigationButton": MessageLookupByLibrary.simpleMessage("Report bug"),
         "reportUrl": MessageLookupByLibrary.simpleMessage("https://github.com/tenhobi/flashcards/issues/new"),
-        "savedUserData": MessageLookupByLibrary.simpleMessage("Your data"),
+        "savedUserData": MessageLookupByLibrary.simpleMessage("Your data has been saved"),
         "score": m3,
         "searchNavigationButton": MessageLookupByLibrary.simpleMessage("Search"),
         "sectionsTab": MessageLookupByLibrary.simpleMessage("Sections"),
