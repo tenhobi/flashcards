@@ -1,6 +1,5 @@
 import 'package:angular/angular.dart';
 import 'package:angular_router/angular_router.dart';
-
 import 'package:firebase/firebase.dart' as fb;
 import 'package:flashcards_common/data.dart';
 
@@ -9,14 +8,14 @@ import 'route_paths.dart' as paths;
 @Component(
   selector: 'courses-component',
   template: '''
-  
+
   <div class="courses">
     <a class="course" *ngFor="let course of courses" >
       <div class="course__name" [routerLink]="courseUrl(course.id)">{{course?.name}}</div>
       <!--<div class="course__stars">{{course?.stars}}</div>-->
     </a>
   </div>
-  
+
   ''',
   styles: [
     '''
@@ -27,14 +26,14 @@ import 'route_paths.dart' as paths;
     width: 90%;
     padding: 50px;
   }
-  
+
   .courses {
     display: grid;
     grid-template-rows: repeat(auto-fill, 200px);
     grid-template-columns: repeat(auto-fill, 200px);
     grid-gap: 20px;
   }
-  
+
   .course {
     width: 200px;
     height: 200px;
@@ -45,14 +44,14 @@ import 'route_paths.dart' as paths;
     overflow: hidden;
     color: #fff;
   }
-  
-  .course__name,  
+
+  .course__name,
   .course__stars {
     display: flex;
     justify-content: center;
     align-items: center;
   }
-  
+
   .course__name {
     font-size: 42px;
     font-weight: bold;
