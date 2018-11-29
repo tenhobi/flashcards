@@ -10,7 +10,7 @@ import 'route_paths.dart' as paths;
   selector: 'courses-component',
   pipes: [commonPipes],
   template: '''
-  
+
   <div class="courses">
     <a class="course" *ngFor="let course of courses | async" >
       <div class="course__name" [routerLink]="courseUrl(course.id)">{{course?.name}}</div>
@@ -19,7 +19,7 @@ import 'route_paths.dart' as paths;
     <div [routerLink]="profileUrl('CsLhYmf4IQetdi2LDOA8Rjuo2U63')">User1</div>
     <div [routerLink]="profileUrl('HIx9rZUjKuQ8thgbZvO1TvvCwpI2')">User2</div>
   </div>
-  
+
   ''',
   styles: [
     '''
@@ -30,14 +30,14 @@ import 'route_paths.dart' as paths;
     width: 90%;
     padding: 50px;
   }
-  
+
   .courses {
     display: grid;
     grid-template-rows: repeat(auto-fill, 200px);
     grid-template-columns: repeat(auto-fill, 200px);
     grid-gap: 20px;
   }
-  
+
   .course {
     width: 200px;
     height: 200px;
@@ -48,14 +48,14 @@ import 'route_paths.dart' as paths;
     overflow: hidden;
     color: #fff;
   }
-  
-  .course__name,  
+
+  .course__name,
   .course__stars {
     display: flex;
     justify-content: center;
     align-items: center;
   }
-  
+
   .course__name {
     font-size: 42px;
     font-weight: bold;
@@ -71,8 +71,8 @@ import 'route_paths.dart' as paths;
 class CoursesComponent implements AfterViewInit {
   Observable<List<CourseData>> courses = FirebaseFlutterApi().queryCourses();
 
-  String courseUrl(String id) => paths.course.toUrl(parameters: {paths.dataID: id});
-  String profileUrl(String id) => paths.profile.toUrl(parameters: {paths.dataID: id});
+  String courseUrl(String id) => paths.course.toUrl(parameters: {paths.dataId: id});
+  String profileUrl(String id) => paths.profile.toUrl(parameters: {paths.dataId: id});
 
   @override
   void ngAfterViewInit() {}
