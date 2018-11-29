@@ -21,15 +21,17 @@ class _NewCourseScreenState extends State<NewCourseScreen> {
 
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
+        onPressed: () async {
           final form = formKey.currentState;
 
           if (form.validate()) {
             form.save();
 
+            final user = await state.authenticationBloc.signedUser().first;
+
             state.courseListBloc.create.add(
               CourseData(
-                authorUid: state.authenticationBloc.user.uid,
+                authorUid: user.uid,
                 name: _name,
                 description: _description,
               ),

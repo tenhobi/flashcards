@@ -1,19 +1,24 @@
 import 'package:angular/angular.dart';
 import 'package:angular_router/angular_router.dart';
 import 'package:firebase/firebase.dart' as fb;
+import 'package:flashcards_angular/src/api/firebase_angular_api.dart';
 import 'package:flashcards_common/data.dart';
+import 'package:rxdart/rxdart.dart';
 
 import 'route_paths.dart' as paths;
 
 @Component(
   selector: 'courses-component',
+  pipes: [commonPipes],
   template: '''
 
   <div class="courses">
-    <a class="course" *ngFor="let course of courses" >
+    <a class="course" *ngFor="let course of courses | async" >
       <div class="course__name" [routerLink]="courseUrl(course.id)">{{course?.name}}</div>
       <!--<div class="course__stars">{{course?.stars}}</div>-->
     </a>
+    <div [routerLink]="profileUrl('CsLhYmf4IQetdi2LDOA8Rjuo2U63')">User1</div>
+    <div [routerLink]="profileUrl('HIx9rZUjKuQ8thgbZvO1TvvCwpI2')">User2</div>
   </div>
 
   ''',
@@ -65,18 +70,11 @@ import 'route_paths.dart' as paths;
   ],
 )
 class CoursesComponent implements AfterViewInit {
-  List<CourseData> courses = [];
+  Observable<List<CourseData>> courses = FirebaseFlutterApi().queryCourses();
 
-  String courseUrl(String id) => paths.course.toUrl(parameters: {paths.idCourse: id});
+  String courseUrl(String id) => paths.course.toUrl(parameters: {paths.dataID: id});
+  String profileUrl(String id) => paths.profile.toUrl(parameters: {paths.dataID: id});
 
   @override
-  void ngAfterViewInit() {
-    fb.firestore().collection('courses').onSnapshot.listen((querySnapshot) {
-      for (var snapshot in querySnapshot.docs) {
-        var courseData = snapshot.data();
-        courseData.addAll({'id': snapshot.id});
-        courses.add(CourseData.fromMap(courseData));
-      }
-    });
-  }
+  void ngAfterViewInit() {}
 }

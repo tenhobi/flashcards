@@ -2,8 +2,8 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flashcards_common/bloc.dart';
 import 'package:flashcards_common/api.dart';
+import 'package:flashcards_common/bloc.dart';
 import 'package:flashcards_common/data.dart';
 import 'package:meta/meta.dart';
 import 'package:rxdart/rxdart.dart';
@@ -343,6 +343,8 @@ class FirebaseFlutterApi extends FirebaseApi {
     final controller = BehaviorSubject<UserData>();
 
     Firestore.instance.collection('users').where('uid', isEqualTo: uid).limit(1).snapshots().listen((snapshot) {
+      if (uid == null) return;
+
       // no user found check
       if (snapshot.documents.length == 0) {
         controller.add(null);

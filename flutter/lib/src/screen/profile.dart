@@ -1,5 +1,6 @@
 import 'package:flashcards_common/data.dart';
 import 'package:flashcards_common/i18n.dart';
+import 'package:flashcards_flutter/src/components/indicator_loading.dart';
 import 'package:flashcards_flutter/src/state/container.dart';
 import 'package:flashcards_flutter/src/components/badge.dart';
 import 'package:flashcards_flutter/src/components/link_type_tile.dart';
@@ -22,9 +23,6 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   Map<String, dynamic> _editedUserMap;
   bool _edditing = false;
-
-  //todo move somewhere more useful than here
-  bool isOwner(UserData u) => StateContainer.of(context).authenticationBloc.user.uid == u.uid;
 
   //todo should probably be moved somewhere else
   String capitalize(String s) => s[0].toUpperCase() + s.substring(1);
@@ -58,8 +56,8 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
     }
   }
 
-  FloatingActionButton _fab() {
-    return isOwner(widget.userData) && _edditing
+  FloatingActionButton _fab(UserData signedUser) {
+    return (signedUser.uid == widget.userData.uid) && _edditing
         ? FloatingActionButton(
             backgroundColor: Colors.green,
             onPressed: _saveInfo,
@@ -282,37 +280,46 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: _scaffoldKey,
-      backgroundColor: Colors.white,
-      floatingActionButton: _fab(),
-      appBar: AppBar(
-        title: Text(FlashcardsStrings.profileScreenTitle()),
-        backgroundColor: headerColor,
-        elevation: 0.0,
-        actions: _buildActions(),
-      ),
-      body: Container(
-        child: Form(
-          key: _formKey,
-          child: Column(
-            children: <Widget>[
-              _buildHeader(),
-              Expanded(
-                  child: Container(
-                padding: EdgeInsets.all(16.0),
-                //todo: redesign social media grid
-                child: GridView.count(
-                  mainAxisSpacing: 10.0,
-                  crossAxisSpacing: 10.0,
-                  crossAxisCount: 3,
-                  children: _buildTiles(),
-                ),
-              ))
-            ],
+    final state = StateContainer.of(context);
+    return StreamBuilder<UserData>(
+      stream: state.authenticationBloc.signedUser(),
+      builder: (context, userSnapshot) {
+        if (!userSnapshot.hasData) return Loading();
+
+        return Scaffold(
+          key: _scaffoldKey,
+          backgroundColor: Colors.white,
+          floatingActionButton: _fab(userSnapshot.data),
+          appBar: AppBar(
+            title: Text(FlashcardsStrings.profileScreenTitle()),
+            backgroundColor: headerColor,
+            elevation: 0.0,
+            actions: _buildActions(),
           ),
-        ),
-      ),
+          body: Container(
+            child: Form(
+              key: _formKey,
+              child: Column(
+                children: <Widget>[
+                  _buildHeader(),
+                  Expanded(
+                    child: Container(
+                      padding: EdgeInsets.all(16.0),
+                      //todo: redesign social media grid
+                      child: GridView.count(
+                        mainAxisSpacing: 10.0,
+                        crossAxisSpacing: 10.0,
+                        crossAxisCount: 3,
+                        children: _buildTiles(),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 }
