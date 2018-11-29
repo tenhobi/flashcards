@@ -1,6 +1,5 @@
 import 'package:angular/angular.dart';
 import 'package:angular_router/angular_router.dart';
-import 'package:firebase/firebase.dart' as fb;
 import 'package:flashcards_angular/src/api/firebase_angular_api.dart';
 import 'package:flashcards_common/data.dart';
 import 'package:rxdart/rxdart.dart';
@@ -72,8 +71,8 @@ import 'route_paths.dart' as paths;
 class CoursesComponent implements AfterViewInit {
   Observable<List<CourseData>> courses = FirebaseFlutterApi().queryCourses();
 
-  String courseUrl(String id) => paths.course.toUrl(parameters: {paths.dataID: id});
-  String profileUrl(String id) => paths.profile.toUrl(parameters: {paths.dataID: id});
+  String courseUrl(String id) => paths.course.toUrl(parameters: {paths.dataId: id});
+  String profileUrl(String id) => paths.profile.toUrl(parameters: {paths.dataId: id});
 
   @override
   void ngAfterViewInit() {}
