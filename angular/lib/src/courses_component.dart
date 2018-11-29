@@ -10,6 +10,7 @@ import 'route_paths.dart' as paths;
   selector: 'courses-component',
   pipes: [commonPipes],
   template: '''
+
   <div class="courses">
     <a class="course" *ngFor="let course of courses | async" >
       <div class="course__name" [routerLink]="courseUrl(course.id)">{{course?.name}}</div>
@@ -88,6 +89,6 @@ class CoursesComponent {
 
   Stream<List<String>> starsForCourse(CourseData course) => FirebaseAngularApi().queryStars(course: course);
 
-  String courseUrl(String id) => paths.course.toUrl(parameters: {paths.dataID: id});
-  String profileUrl(String id) => paths.profile.toUrl(parameters: {paths.dataID: id});
+  String courseUrl(String id) => paths.course.toUrl(parameters: {paths.dataId: id});
+  String profileUrl(String id) => paths.profile.toUrl(parameters: {paths.dataId: id});
 }
