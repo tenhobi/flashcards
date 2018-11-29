@@ -68,15 +68,13 @@ class FirebaseFlutterApi extends FirebaseApi {
   }
 
   @override
-  Observable<List<String>> queryCommentsStars(
-      {CourseData course, CommentData comment}) {
+  Observable<List<String>> queryCommentsStars({CourseData course, CommentData comment}) {
     // TODO: implement queryCommentsStars
     return null;
   }
 
   @override
-  Observable<List<CourseData>> queryCourses(
-      {CoursesQueryType type, String name, String authorUid}) {
+  Observable<List<CourseData>> queryCourses({CoursesQueryType type, String name, String authorUid}) {
     final controller = BehaviorSubject<List<CourseData>>();
 
     var courses = fb.firestore().collection('courses');
@@ -92,8 +90,7 @@ class FirebaseFlutterApi extends FirebaseApi {
 
     courses.onSnapshot.listen((snapshot) {
       final dataList = snapshot.docs.map<CourseData>((document) {
-        final documentData = document.data()
-          ..addAll(<String, dynamic>{'id': document.id});
+        final documentData = document.data()..addAll(<String, dynamic>{'id': document.id});
         final data = CourseData.fromMap(documentData);
 
         if (name == null) {
@@ -127,8 +124,7 @@ class FirebaseFlutterApi extends FirebaseApi {
   }
 
   @override
-  Observable<List<QuestionData>> queryQuestions(
-      {ExerciseData exercise, int size}) {
+  Observable<List<QuestionData>> queryQuestions({ExerciseData exercise, int size}) {
     // TODO: implement queryQuestions
     return null;
   }
@@ -149,13 +145,7 @@ class FirebaseFlutterApi extends FirebaseApi {
   Observable<UserData> queryUser(String uid) {
     final controller = BehaviorSubject<UserData>();
 
-    fb
-        .firestore()
-        .collection('users')
-        .where('uid', '==', uid)
-        .limit(1)
-        .onSnapshot
-        .listen((snapshot) {
+    fb.firestore().collection('users').where('uid', '==', uid).limit(1).onSnapshot.listen((snapshot) {
       if (uid == null) return;
 
       // no user found check
@@ -201,8 +191,7 @@ class FirebaseFlutterApi extends FirebaseApi {
   }
 
   @override
-  void unlikeComment(
-      {CourseData course, CommentData comment, String authorUid}) {
+  void unlikeComment({CourseData course, CommentData comment, String authorUid}) {
     // TODO: implement unlikeComment
   }
 

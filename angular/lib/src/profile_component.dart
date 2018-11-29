@@ -29,20 +29,20 @@ import 'route_paths.dart' as paths;
     max-width: 900px;
     width: 90%;
   }
-  
+
   .LinkedProfiles {
     margin: 20px;
   }
-  
+
   .info {
     margin-bottom: 5px;
     margin-top: 5px;
   }
-  
+
   h1 {
     margin-bottom: 0px;
   }
-  
+
   h5 {
     display:inline;
     margin: 5px;
