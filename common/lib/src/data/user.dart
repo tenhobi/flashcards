@@ -9,12 +9,15 @@ class LinkType {
   static const LinkType github = LinkType._(2, "https://github.com/");
 
   static List<LinkType> get values => [facebook, twitter, github];
+  static List<String> get names => ['facebook', 'twitter', 'github'];
 
   final int value;
   final String baseUrl;
 
   @override
   String toString() => '$value';
+
+  String linkName() => LinkType.names[value];
 
   Map<String, dynamic> toJson() => {'value': '$value'};
 

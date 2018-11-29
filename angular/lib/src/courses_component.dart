@@ -16,6 +16,8 @@ import 'route_paths.dart' as paths;
       <div class="course__name" [routerLink]="courseUrl(course.id)">{{course?.name}}</div>
       <!--<div class="course__stars">{{course?.stars}}</div>-->
     </a>
+    <div [routerLink]="profileUrl('CsLhYmf4IQetdi2LDOA8Rjuo2U63')">User1</div>
+    <div [routerLink]="profileUrl('HIx9rZUjKuQ8thgbZvO1TvvCwpI2')">User2</div>
   </div>
   
   ''',
@@ -69,7 +71,8 @@ import 'route_paths.dart' as paths;
 class CoursesComponent implements AfterViewInit {
   Observable<List<CourseData>> courses = FirebaseFlutterApi().queryCourses();
 
-  String courseUrl(String id) => paths.course.toUrl(parameters: {paths.idCourse: id});
+  String courseUrl(String id) => paths.course.toUrl(parameters: {paths.dataID: id});
+  String profileUrl(String id) => paths.profile.toUrl(parameters: {paths.dataID: id});
 
   @override
   void ngAfterViewInit() {}
