@@ -1,11 +1,13 @@
 import 'package:angular_router/angular_router.dart';
 
 String getId(Map<String, String> parameters) {
-  final id = parameters[idCourse];
+  final id = parameters[dataID];
   return id;
 }
 
 final RoutePath courses = RoutePath(path: 'courses');
 
-const String idCourse = 'id';
-final RoutePath course = RoutePath(path: 'course/:$idCourse');
+const String dataID = 'id';
+final RoutePath course = RoutePath(path: 'course/:$dataID');
+
+final RoutePath profile = RoutePath(path: 'profile/:$dataID');

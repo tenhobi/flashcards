@@ -143,8 +143,25 @@ class FirebaseFlutterApi extends FirebaseApi {
 
   @override
   Observable<UserData> queryUser(String uid) {
-    // TODO: implement queryUser
-    return null;
+    final controller = BehaviorSubject<UserData>();
+
+    fb.firestore().collection('users').where('uid', '==', uid).limit(1).onSnapshot.listen((snapshot) {
+      if (uid == null) return;
+
+      // no user found check
+      if (snapshot.docs.length == 0) {
+        controller.add(null);
+      } else {
+        controller.add(snapshot.docs
+            .map<UserData>((document) {
+              return UserData.fromMap(document.data());
+            })
+            .toList()
+            .first);
+      }
+    });
+
+    return controller.stream;
   }
 
   @override
