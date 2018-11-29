@@ -22,11 +22,15 @@ abstract class FirebaseApi {
 
   void addSubsection(SubsectionData subsection);
 
+  void addQuestion(QuestionData question);
+
   void createIfAbsent(UserData user);
 
   void editSection(SectionData section);
 
   void editSubsection(SubsectionData subsection);
+
+  void editQuestion(QuestionData question);
 
   void like({@required CourseData course, @required String userUid});
 
@@ -43,6 +47,8 @@ abstract class FirebaseApi {
   void removeSection(SectionData section);
 
   void removeSubsection(SubsectionData subsection);
+
+  void removeQuestion(QuestionData question);
 
   Observable<List<CourseData>> queryCourses({CoursesQueryType type, String name, String authorUid});
 
