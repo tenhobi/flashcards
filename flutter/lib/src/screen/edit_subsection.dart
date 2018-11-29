@@ -1,4 +1,5 @@
 import 'package:flashcards_common/i18n.dart';
+import 'package:flashcards_flutter/src/screen/edit_question.dart';
 import 'package:flashcards_flutter/src/state/container.dart';
 import 'package:flutter/material.dart';
 import 'package:flashcards_common/data.dart';
@@ -32,6 +33,32 @@ class _EditSubsectionScreenState extends State<EditSubsectionScreen> {
     });
   }
 
+//  void _deleteQuestion() async {
+//    final state = StateContainer.of(context);
+//    final permission = await showDialog(
+//      context: context,
+//      builder: (context) {
+//        return AlertDialog(
+//          content: Text(FlashcardsStrings.removeQuestionDialog()),
+//          actions: <Widget>[
+//            FlatButton(
+//              onPressed: () => Navigator.of(context).pop(false),
+//              child: Text(FlashcardsStrings.no()),
+//            ),
+//            FlatButton(
+//              onPressed: () => Navigator.of(context).pop(true),
+//              child: Text(FlashcardsStrings.yes()),
+//            ),
+//          ],
+//        );
+//      },
+//    );
+//
+//    if (permission == true) {
+//      state.exerciseBloc.remove.add(widget.section);
+//    }
+//  }
+
   @override
   Widget build(BuildContext context) {
     final state = StateContainer.of(context);
@@ -61,30 +88,40 @@ class _EditSubsectionScreenState extends State<EditSubsectionScreen> {
         title: Text(FlashcardsStrings.editSubsectionLabel(_name)),
       ),
       body: Container(
-        padding: EdgeInsets.all(20.0),
         child: Form(
           key: formKey,
-          child: Column(
+          child: ListView(
             children: <Widget>[
-              TextFormField(
-                autofocus: true,
-                decoration: InputDecoration(
-                  labelText: FlashcardsStrings.newSubsectionName(),
+              Container(
+                padding: EdgeInsets.all(20.0),
+                child: Column(
+                  children: <Widget>[
+                    TextFormField(
+                      autofocus: true,
+                      decoration: InputDecoration(
+                        labelText: FlashcardsStrings.newSubsectionName(),
+                      ),
+                      initialValue: _name,
+                      validator: (val) => val.isEmpty ? FlashcardsStrings.newSubsectionNameEmpty() : null,
+                      onSaved: (val) => _name = val,
+                    ),
+                    TextFormField(
+                      decoration: InputDecoration(
+                        labelText: FlashcardsStrings.newSubsectionOrder(),
+                      ),
+                      initialValue: _order.toString(),
+                      keyboardType: TextInputType.numberWithOptions(signed: true, decimal: true),
+                      validator: (val) => val.isEmpty ? FlashcardsStrings.newSubsectionOrderEmpty() : null,
+                      onSaved: (val) => _order = int.parse(val),
+                    ),
+                    Container(
+                      padding: EdgeInsets.only(top: 16),
+                    ),
+                    _buildExerciseRelated(context),
+                    _buildMaterialRelated(context),
+                  ],
                 ),
-                initialValue: _name,
-                validator: (val) => val.isEmpty ? FlashcardsStrings.newSubsectionNameEmpty() : null,
-                onSaved: (val) => _name = val,
               ),
-              TextFormField(
-                decoration: InputDecoration(
-                  labelText: FlashcardsStrings.newSubsectionOrder(),
-                ),
-                initialValue: _order.toString(),
-                keyboardType: TextInputType.numberWithOptions(signed: true, decimal: true),
-                validator: (val) => val.isEmpty ? FlashcardsStrings.newSubsectionOrderEmpty() : null,
-                onSaved: (val) => _order = int.parse(val),
-              ),
-              _buildMaterialRelated(context),
             ],
           ),
         ),
@@ -92,15 +129,88 @@ class _EditSubsectionScreenState extends State<EditSubsectionScreen> {
     );
   }
 
+  Widget _buildQuestionChild(BuildContext context, QuestionData q) {
+    if (q is FlipcardQuestionData) {
+      return Container(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            Text(
+              q.answer,
+              textAlign: TextAlign.start,
+            )
+          ],
+        ),
+        padding: EdgeInsets.all(8),
+      );
+    } else {
+      return Container(
+        color: Colors.red,
+      );
+    }
+  }
+
+  Widget _buildQuestion(BuildContext context, QuestionData q) {
+    return ExpansionTile(
+      title: Text(q.question),
+      children: <Widget>[_buildQuestionChild(context, q)],
+    );
+  }
+
+  Widget _buildNewQuestionButton(BuildContext context) {
+    return MaterialButton(
+      onPressed: () {
+        Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => EditQuestionScreen(
+                  data: null,
+                  isNew: true,
+                  parent: widget.original,
+                )));
+      },
+      color: Theme.of(context).primaryColor,
+      textColor: Theme.of(context).primaryTextTheme.button.color,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Icon(Icons.add),
+          Text(FlashcardsStrings.addQuestionLabel()),
+        ],
+      ),
+    );
+  }
+
+  List<Widget> _buildQuestionList(BuildContext context, List<QuestionData> questions) {
+    return questions.map((q) {
+      return _buildQuestion(context, q);
+    }).toList();
+  }
+
+  Widget _buildExerciseRelated(BuildContext context) {
+    final state = StateContainer.of(context);
+    if (widget.original is ExerciseData) {
+      return StreamBuilder(
+        builder: (context, snapshot) {
+          return Column(
+            children:
+                _buildQuestionList(context, snapshot.data).followedBy([_buildNewQuestionButton(context)]).toList(),
+          );
+        },
+        initialData: null,
+        stream: state.exerciseBloc.queryQuestions(widget.original, 10000),
+      );
+    }
+    return Container();
+  }
+
   Widget _buildMaterialRelated(BuildContext context) {
     if (widget.original is MaterialData) {
       return TextFormField(
         maxLines: 7,
         decoration: InputDecoration(
-          labelText: 'info',
+          labelText: FlashcardsStrings.newMaterialContent(),
         ),
         initialValue: _content.toString() ?? '',
-        validator: (val) => val.isEmpty ? FlashcardsStrings.cannotBeEmpty() : null,
+        validator: (val) => val.isEmpty ? FlashcardsStrings.newMaterialContentEmpty() : null,
         onSaved: (val) => _content = val,
       );
     }

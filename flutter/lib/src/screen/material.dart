@@ -2,6 +2,7 @@ import 'package:flashcards_common/data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:flashcards_common/i18n.dart';
 
 class MaterialScreen extends StatelessWidget {
   final MaterialData data;
@@ -38,7 +39,7 @@ class MaterialScreen extends StatelessWidget {
         padding: EdgeInsets.all(32.0),
         children: <Widget>[
           MarkdownBody(
-            data: data.content,
+            data: data.content != null ? data.content : FlashcardsStrings.noMaterialData(),
             styleSheet: _buildMarkdownStyle(),
             onTapLink: launch,
           ),

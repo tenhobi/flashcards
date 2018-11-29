@@ -593,4 +593,100 @@ The project started as a part of a software team project at the [Faculty of Info
       desc: 'Info about wrong error',
     );
   }
+
+  static String noMaterialData() {
+    return Intl.message(
+      '_noMaterialData',
+      name: 'noMaterialData',
+      desc: 'Message shown when material contains no data',
+    );
+  }
+
+  static String newMaterialName() {
+    return Intl.message(
+      '_name',
+      name: 'newMaterialName',
+      desc: 'Label of input for material name.',
+    );
+  }
+
+  static String newMaterialContent() {
+    return Intl.message(
+      '_text',
+      name: 'newSectionContent',
+      desc: 'Label of input for material content.',
+    );
+  }
+
+  static String newMaterialNameEmpty() {
+    return Intl.message(
+      '_nameCannotBeEmpty.',
+      name: 'newMaterialNameEmpty',
+      desc: 'Error label of input for name about empty material name.',
+    );
+  }
+
+  static String newMaterialContentEmpty() {
+    return Intl.message(
+      '_textCannotBeEmpty.',
+      name: 'newMaterialContentEmpty',
+      desc: 'Error label of input for name about empty material content.',
+    );
+  }
+
+  static String editQuestionLabel() {
+    return Intl.message(
+      '_editting question',
+      name: 'editQuestionLabel',
+      desc: 'Screen name for question editting.',
+    );
+  }
+
+  static String addQuestionLabel() {
+    return Intl.message(
+      '_adding question',
+      name: 'addQuestionLabel',
+      desc: 'Screen name for question adding.',
+    );
+  }
+
+  static String questionQuestion() {
+    return Intl.message(
+      '_question',
+      name: 'questionQuestion',
+      desc: 'Label of input for question.',
+    );
+  }
+
+  static String questionAnswer() {
+    return Intl.message(
+      '_answer',
+      name: 'questionAnswer',
+      desc: 'Label of input for answer.',
+    );
+  }
+
+  static String questionQuestionEmpty() {
+    return Intl.message(
+      '_questionEmpty',
+      name: 'questionQuestionEmpty',
+      desc: 'Error message when question is empty.',
+    );
+  }
+
+  static String questionAnswerEmpty() {
+    return Intl.message(
+      '_answerEmpty',
+      name: 'questionAnswerEmpty',
+      desc: 'Error message when answer is empty.',
+    );
+  }
+
+  static String removeQuestionDialog() {
+    return Intl.message(
+      '_removeQuestionDialog',
+      name: 'removeQuestionDialog',
+      desc: 'Description of dialog for removing a question.',
+    );
+  }
 }

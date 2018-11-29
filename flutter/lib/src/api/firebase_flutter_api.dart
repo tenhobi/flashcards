@@ -48,6 +48,35 @@ class FirebaseFlutterApi extends FirebaseApi {
   }
 
   @override
+  void addQuestion(QuestionData question) {
+    final type = SubsectionData.getTypeToString(question.parent);
+    Firestore.instance
+        .collection('courses')
+        .document(question.parent.parent.parent.id)
+        .collection('sections')
+        .document(question.parent.parent.id)
+        .collection(type)
+        .document(question.parent.id)
+        .collection('questions')
+        .add(question.toMap());
+  }
+
+  @override
+  void editQuestion(QuestionData question) {
+    final type = SubsectionData.getTypeToString(question.parent);
+    Firestore.instance
+        .collection('courses')
+        .document(question.parent.parent.parent.id)
+        .collection('sections')
+        .document(question.parent.parent.id)
+        .collection(type)
+        .document(question.parent.id)
+        .collection('questions')
+        .document(question.id)
+        .setData(question.toMap());
+  }
+
+  @override
   Future<void> createIfAbsent(UserData user) async {
     final a = await Firestore.instance.collection('users').where('uid', isEqualTo: user.uid).limit(1).getDocuments();
 
@@ -144,6 +173,21 @@ class FirebaseFlutterApi extends FirebaseApi {
         .document(subsection.parent.id)
         .collection(type)
         .document(subsection.id)
+        .delete();
+  }
+
+  @override
+  void removeQuestion(QuestionData question) {
+    final type = SubsectionData.getTypeToString(question.parent);
+    Firestore.instance
+        .collection('courses')
+        .document(question.parent.parent.parent.id)
+        .collection('sections')
+        .document(question.parent.parent.id)
+        .collection(type)
+        .document(question.parent.id)
+        .collection('questions')
+        .document(question.id)
         .delete();
   }
 
