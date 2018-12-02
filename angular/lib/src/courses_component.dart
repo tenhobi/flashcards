@@ -19,6 +19,9 @@ import 'route_paths.dart' as paths;
   </div>
 
   <div class="users">
+    <div>
+      <span class="link" [routerLink]="aboutUrl()">About app</span>
+    </div>
     Example users:
     <div>
       <span class="link" [routerLink]="profileUrl('CsLhYmf4IQetdi2LDOA8Rjuo2U63')">User1</span>
@@ -91,4 +94,5 @@ class CoursesComponent {
 
   String courseUrl(String id) => paths.course.toUrl(parameters: {paths.dataId: id});
   String profileUrl(String id) => paths.profile.toUrl(parameters: {paths.dataId: id});
+  String aboutUrl() => paths.about.toUrl();
 }
