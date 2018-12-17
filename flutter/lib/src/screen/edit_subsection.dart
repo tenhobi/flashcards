@@ -155,7 +155,12 @@ class _EditSubsectionScreenState extends State<EditSubsectionScreen> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           Text(q.question),
-          IconButton(icon: Icon(Icons.delete), onPressed: () {_deleteQuestion(q);},),
+          IconButton(
+            icon: Icon(Icons.delete),
+            onPressed: () {
+              _deleteQuestion(q);
+            },
+          ),
         ],
       ),
       children: <Widget>[_buildQuestionChild(context, q)],
@@ -185,7 +190,7 @@ class _EditSubsectionScreenState extends State<EditSubsectionScreen> {
   }
 
   List<Widget> _buildQuestionList(BuildContext context, List<QuestionData> questions) {
-    if(questions == null) {
+    if (questions == null) {
       return [Container()];
     }
     return questions.map((q) {
