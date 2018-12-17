@@ -33,36 +33,35 @@ class _EditSubsectionScreenState extends State<EditSubsectionScreen> {
     });
   }
 
-//  void _deleteQuestion() async {
-//    final state = StateContainer.of(context);
-//    final permission = await showDialog(
-//      context: context,
-//      builder: (context) {
-//        return AlertDialog(
-//          content: Text(FlashcardsStrings.removeQuestionDialog()),
-//          actions: <Widget>[
-//            FlatButton(
-//              onPressed: () => Navigator.of(context).pop(false),
-//              child: Text(FlashcardsStrings.no()),
-//            ),
-//            FlatButton(
-//              onPressed: () => Navigator.of(context).pop(true),
-//              child: Text(FlashcardsStrings.yes()),
-//            ),
-//          ],
-//        );
-//      },
-//    );
-//
-//    if (permission == true) {
-//      state.exerciseBloc.remove.add(widget.section);
-//    }
-//  }
+  void _deleteQuestion(QuestionData q) async {
+    final state = StateContainer.of(context);
+    final permission = await showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          content: Text(FlashcardsStrings.removeQuestionDialog()),
+          actions: <Widget>[
+            FlatButton(
+              onPressed: () => Navigator.of(context).pop(false),
+              child: Text(FlashcardsStrings.no()),
+            ),
+            FlatButton(
+              onPressed: () => Navigator.of(context).pop(true),
+              child: Text(FlashcardsStrings.yes()),
+            ),
+          ],
+        );
+      },
+    );
+
+    if (permission == true) {
+      state.exerciseBloc.remove.add(q);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     final state = StateContainer.of(context);
-    print(widget.original.toMap());
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -152,7 +151,13 @@ class _EditSubsectionScreenState extends State<EditSubsectionScreen> {
 
   Widget _buildQuestion(BuildContext context, QuestionData q) {
     return ExpansionTile(
-      title: Text(q.question),
+      title: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          Text(q.question),
+          IconButton(icon: Icon(Icons.delete), onPressed: () {_deleteQuestion(q);},),
+        ],
+      ),
       children: <Widget>[_buildQuestionChild(context, q)],
     );
   }
@@ -180,6 +185,9 @@ class _EditSubsectionScreenState extends State<EditSubsectionScreen> {
   }
 
   List<Widget> _buildQuestionList(BuildContext context, List<QuestionData> questions) {
+    if(questions == null) {
+      return [Container()];
+    }
     return questions.map((q) {
       return _buildQuestion(context, q);
     }).toList();
