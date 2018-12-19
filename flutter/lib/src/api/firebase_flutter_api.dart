@@ -307,8 +307,8 @@ class FirebaseFlutterApi extends FirebaseApi {
         .snapshots()
         .listen((snapshot) {
       final questions = snapshot.documents.map<QuestionData>((document) {
-        final data = document.data;
-        data['id'] = document.documentID;
+        final data = document.data..addAll(<String, dynamic>{'id': document.documentID});
+
         switch (exercise.type) {
           case 'flipcards':
             return FlipcardQuestionData.fromMap(data: data, parent: exercise);
