@@ -2,14 +2,17 @@ import 'package:angular/angular.dart';
 import 'package:angular_router/angular_router.dart';
 
 import 'package:firebase/firebase.dart' as fb;
+import 'package:flashcards_angular/src/api/firebase_angular_api.dart';
 import 'package:flashcards_common/data.dart';
 
 import 'package:markdown/markdown.dart';
+import 'package:rxdart/rxdart.dart';
 
 import 'route_paths.dart' as paths;
 
 @Component(
   selector: 'course-component',
+  pipes: [commonPipes],
   template: '''
     <div class="link" (click)="goBack()">Zpět!</div>
 
@@ -19,6 +22,9 @@ import 'route_paths.dart' as paths;
       <p>----</p>
       <p [innerHtml]="markdown(course?.description)"></p>
       <p>----</p>
+      <div class="section" *ngFor="let section of sections | async" >
+        <h3>{{section?.name}}</h3>
+      </div>
       <!--<h3>Stars: {{course?.stars}}</h3>-->
     </div>
   ''',
@@ -73,6 +79,8 @@ import 'route_paths.dart' as paths;
 class CourseComponent implements OnActivate {
   CourseData course;
 
+  Observable<List<SectionData>> sections;
+
   final Location _location;
 
   CourseComponent(this._location);
@@ -91,6 +99,8 @@ class CourseComponent implements OnActivate {
       var courseData = querySnapshot.data();
       courseData.addAll({'id': querySnapshot.id});
       course = CourseData.fromMap(courseData);
+
+      sections = FirebaseAngularApi().querySections(course: course);
     });
   }
 }
