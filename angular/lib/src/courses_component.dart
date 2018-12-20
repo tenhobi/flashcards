@@ -4,6 +4,7 @@ import 'package:flashcards_angular/src/api/firebase_angular_api.dart';
 import 'package:flashcards_common/data.dart';
 import 'package:rxdart/rxdart.dart';
 
+import 'course_stars_component.dart';
 import 'route_paths.dart' as paths;
 
 @Component(
@@ -14,7 +15,7 @@ import 'route_paths.dart' as paths;
   <div class="courses">
     <a class="course" *ngFor="let course of courses | async" >
       <div class="course__name" [routerLink]="courseUrl(course.id)">{{course?.name}}</div>
-      <!-- <div class="course__stars" *ngFor="let stars of starsForCourse(course) | async">{{ stars?.length ?? 0 }}</div> -->
+      <course-stars-component class="course__stars" [course]="course"></course-stars-component>
     </a>
   </div>
 
@@ -85,14 +86,14 @@ import 'route_paths.dart' as paths;
   directives: [
     coreDirectives,
     routerDirectives,
+    CourseStarsComponent,
   ],
 )
 class CoursesComponent {
   final Observable<List<CourseData>> courses = FirebaseAngularApi().queryCourses();
 
-  Stream<List<String>> starsForCourse(CourseData course) => FirebaseAngularApi().queryStars(course: course);
+  String aboutUrl() => paths.about.toUrl();
 
   String courseUrl(String id) => paths.course.toUrl(parameters: {paths.dataId: id});
   String profileUrl(String id) => paths.profile.toUrl(parameters: {paths.dataId: id});
-  String aboutUrl() => paths.about.toUrl();
 }
