@@ -73,9 +73,18 @@ class FirebaseAngularApi extends FirebaseApi {
   }
 
   @override
-  Observable<List<CommentData>> queryComments(CourseData course) {
-    // TODO: implement queryComments
-    return null;
+  BehaviorSubject<List<CommentData>> queryComments(CourseData course) {
+    final controller = BehaviorSubject<List<CommentData>>();
+
+    fb.firestore().collection('courses').doc(course.id).collection('comments').onSnapshot.listen((snapshot) {
+      controller.add(snapshot.docs.map<CommentData>((document) {
+        final data = document.data();
+        data['id'] = document.id;
+        return CommentData.fromMap(data);
+      }).toList());
+    });
+
+    return controller.stream;
   }
 
   @override
@@ -124,14 +133,52 @@ class FirebaseAngularApi extends FirebaseApi {
 
   @override
   Observable<List<SubsectionData>> queryExercises({SectionData section}) {
-    // TODO: implement queryExercises
-    return null;
+    final controller = BehaviorSubject<List<SubsectionData>>();
+
+    fb
+        .firestore()
+        .collection('courses')
+        .doc(section.parent.id)
+        .collection('sections')
+        .doc(section.id)
+        .collection('exercises')
+        .orderBy('order')
+        .onSnapshot
+        .listen((snapshot) {
+      controller.add(snapshot.docs.map<SubsectionData>((document) {
+        final data = document.data();
+        data['id'] = document.id;
+        final res = ExerciseData.fromMap(data: data, parent: section);
+        return res;
+      }).toList());
+    });
+
+    return controller.stream;
   }
 
   @override
   Observable<List<SubsectionData>> queryMaterials({SectionData section}) {
-    // TODO: implement queryMaterials
-    return null;
+    final controller = BehaviorSubject<List<SubsectionData>>();
+
+    fb
+        .firestore()
+        .collection('courses')
+        .doc(section.parent.id)
+        .collection('sections')
+        .doc(section.id)
+        .collection('materials')
+        .orderBy('order')
+        .onSnapshot
+        .listen((snapshot) {
+      controller.add(snapshot.docs.map<SubsectionData>((document) {
+        final data = document.data();
+        data['id'] = document.id;
+        final res = MaterialData.fromMap(data: data, parent: section);
+        return res;
+      }).toList());
+    });
+
+    return controller.stream;
   }
 
   @override
@@ -142,8 +189,26 @@ class FirebaseAngularApi extends FirebaseApi {
 
   @override
   Observable<List<SectionData>> querySections({CourseData course}) {
-    // TODO: implement querySections
-    return null;
+    final controller = BehaviorSubject<List<SectionData>>();
+
+    fb
+        .firestore()
+        .collection('courses')
+        .doc(course.id)
+        .collection('sections')
+        .orderBy('order')
+        .onSnapshot
+        .listen((snapshot) {
+      controller.add(snapshot.docs.map<SectionData>((document) {
+        final data = document.data();
+        data['id'] = document.id;
+        final res = SectionData.fromMap(data, parent: course);
+
+        return res;
+      }).toList());
+    });
+
+    return controller.stream;
   }
 
   @override
