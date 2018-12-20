@@ -3,6 +3,7 @@ import 'package:angular_router/angular_router.dart';
 
 import 'package:firebase/firebase.dart' as fb;
 import 'package:flashcards_angular/src/api/firebase_angular_api.dart';
+import 'package:flashcards_angular/src/user_name_component.dart';
 import 'package:flashcards_common/data.dart';
 
 import 'package:markdown/markdown.dart';
@@ -18,18 +19,24 @@ import 'route_paths.dart' as paths;
 
     <div *ngIf="course != null">
       <h1>{{course?.name}}</h1>
-      <h2>Description</h2>
-      <p>----</p>
+      <h2 class="margin-top">Popis</h2>
       <p [innerHtml]="markdown(course?.description)"></p>
-      <p>----</p>
+      <h2 class="margin-top">Sekce</h2>
       <div class="section" *ngFor="let section of sections | async" >
         <h3>{{section?.name}}</h3>
       </div>
-      <!--<h3>Stars: {{course?.stars}}</h3>-->
+      <h2 class="margin-top">Komentáře</h2>
+      <div class="section" *ngFor="let comment of (comments | async)?.reversed" >
+        <h3>Uživatel&nbsp;<a [routerLink]="profileUrl(comment?.authorUid)"><user-name-component [userId]="comment?.authorUid"></user-name-component></a></h3>
+        <p>{{comment?.content}}</p>
+      </div>
     </div>
   ''',
   styles: [
     '''
+    .margin-top: {
+      margin-top: 50px;
+    }
   :host {
     padding: 30px;
     display: block;
@@ -74,12 +81,18 @@ import 'route_paths.dart' as paths;
   }
 ''',
   ],
-  directives: [coreDirectives],
+  directives: [
+    coreDirectives,
+    routerDirectives,
+    UserNameComponent,
+  ],
+  exports: [FirebaseAngularApi],
 )
 class CourseComponent implements OnActivate {
   CourseData course;
 
   Observable<List<SectionData>> sections;
+  Observable<List<CommentData>> comments;
 
   final Location _location;
 
@@ -91,6 +104,8 @@ class CourseComponent implements OnActivate {
     return markdownToHtml(data);
   }
 
+  String profileUrl(String id) => paths.profile.toUrl(parameters: {paths.dataId: id});
+
   @override
   void onActivate(_, RouterState current) {
     final id = paths.getId(current.parameters);
@@ -101,6 +116,7 @@ class CourseComponent implements OnActivate {
       course = CourseData.fromMap(courseData);
 
       sections = FirebaseAngularApi().querySections(course: course);
+      comments = FirebaseAngularApi().queryComments(course);
     });
   }
 }
